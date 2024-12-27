@@ -1,0 +1,57 @@
+# Button
+
+This is an example of a button component.
+
+```html
+<my-button>My Button</my-button>
+```
+
+```tsx
+import { MyButton } from 'lit-starter-kit/react';
+
+export default () => {
+  return <MyButton>My Button</MyButton>;
+};
+```
+
+
+## Variations
+
+Here are some examples of button variations.
+
+```html
+<my-button>My Button</my-button>
+<my-button variation="primary">My Button</my-button>
+<my-button variation="hollow">My Button</my-button>
+<my-button variation="transparent">My Button</my-button>
+```
+
+```tsx
+import { MyButton } from 'lit-starter-kit/react';
+
+export default () => {
+  return <>
+    <MyButton>My Button</MyButton>
+    <MyButton variation="primary">My Button</MyButton>
+    <MyButton variation="hollow">My Button</MyButton>
+    <MyButton variation="transparent">My Button</MyButton>
+  </>;
+};
+```
+
+## Disabled
+
+Here is an example of how to disable a button.
+
+
+```html
+<my-button disabled>My Button</my-button>
+```
+
+```tsx
+import { MyButton } from 'lit-starter-kit/react';
+
+export default () => {
+  return <MyButton disabled>My Button</MyButton>;
+};
+```
