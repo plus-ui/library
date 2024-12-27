@@ -7,6 +7,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import multi from '@rollup/plugin-multi-entry';
 import terser from '@rollup/plugin-terser';
 import summary from 'rollup-plugin-summary';
+import postcss from 'rollup-plugin-postcss';
+import tailwindcss from '@tailwindcss/postcss';
 
 export default [
   /** bundle components for the CDN */
@@ -43,6 +45,12 @@ export default [
         declaration: false,
         declarationMap: false,
       }),
+      postcss({
+        extensions: ['.css'],
+        plugins: [
+          tailwindcss(),
+        ],
+      }),
       resolve(),
       terser({
         ecma: 2021,
@@ -85,6 +93,12 @@ export default [
         declaration: false,
         declarationMap: false,
       }),
+      postcss({
+        extensions: ['.css'],
+        plugins: [
+          tailwindcss(),
+        ],
+      }),
       resolve(),
     ],
   },
@@ -104,6 +118,12 @@ export default [
         sourceMap: false,
         declaration: false,
         declarationMap: false,
+      }),
+      postcss({
+        extensions: ['.css'],
+        plugins: [
+          tailwindcss(),
+        ],
       }),
       resolve(),
       multi({
@@ -131,6 +151,12 @@ export default [
         sourceMap: false,
         declaration: false,
         declarationMap: false,
+      }),
+      postcss({
+        extensions: ['.css'],
+        plugins: [
+          tailwindcss(),
+        ],
       }),
       resolve(),
       multi({
