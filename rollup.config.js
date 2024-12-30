@@ -11,16 +11,97 @@ import postcss from 'rollup-plugin-postcss';
 import tailwindcss from '@tailwindcss/postcss';
 
 export default [
+  /** bundle components for the Dist */
+  {
+    watch: false,
+    input: Object.fromEntries(
+      globSync(['src/**/*.ts', 'src/**/*.css'], {
+        ignore: ['src/**/*.test.ts', 'src/**/*.styles.ts', 'src/**/*.d.ts'],
+      }).map(file => [
+        // This remove `src/` as well as the file extension from each
+        // file, so e.g. src/nested/foo.js becomes nested/foo
+        path.relative(
+          'src',
+          file.slice(0, file.length - path.extname(file).length),
+        ),
+        // This expands the relative paths to absolute paths, so e.g.
+        // src/nested/foo becomes /project/src/nested/foo.js
+        fileURLToPath(new URL(file, import.meta.url)),
+      ]),
+    ),
+    output: {
+      dir: 'dist',
+      format: 'esm',
+    },
+    plugins: [
+      typescript({
+        tsconfig: 'tsconfig.json',
+        outDir: 'dist',
+        sourceMap: true,
+        declaration: false,
+        declarationMap: false,
+      }),
+      postcss({
+        extensions: ['.css'],
+        plugins: [tailwindcss()],
+        extract: true, // CSS'i ayrı dosyaya çıkart
+        modules: false, // CSS modüllerini devre dışı bırak
+        inject: false, // CSS'i JS'e inject etme
+        minimize: true,
+      }),
+      resolve(),
+      terser({
+        ecma: 2021,
+        module: true,
+        warnings: true,
+      }),
+      summary(),
+    ],
+  },
+
+  // watch version
+  {
+    input: Object.fromEntries(
+      globSync(['src/**/*.ts', 'src/**/*.css'], {
+        ignore: ['src/**/*.test.ts', 'src/**/*.styles.ts', 'src/**/*.d.ts'],
+      }).map(file => [
+        // This remove `src/` as well as the file extension from each
+        // file, so e.g. src/nested/foo.js becomes nested/foo
+        path.relative(
+          'src',
+          file.slice(0, file.length - path.extname(file).length),
+        ),
+        // This expands the relative paths to absolute paths, so e.g.
+        // src/nested/foo becomes /project/src/nested/foo.js
+        fileURLToPath(new URL(file, import.meta.url)),
+      ]),
+    ),
+    output: {
+      dir: 'dist',
+      format: 'esm',
+    },
+    plugins: [
+      typescript({
+        tsconfig: 'tsconfig.json',
+        outDir: 'dist',
+        sourceMap: false,
+        declaration: false,
+        declarationMap: false,
+      }),
+      postcss({
+        extensions: ['.css'],
+        plugins: [tailwindcss()],
+      }),
+      resolve(),
+    ],
+  },
+
   /** bundle components for the CDN */
   {
     watch: false,
     input: Object.fromEntries(
-      globSync('src/**/*.ts', {
-        ignore: [
-          'src/**/*.test.ts',
-          'src/**/*.stories.ts',
-          'src/**/*.styles.ts',
-        ],
+      globSync(['src/**/*.ts'], {
+        ignore: ['src/**/*.test.ts', 'src/**/*.styles.ts', 'src/**/*.d.ts'],
       }).map(file => [
         // This remove `src/` as well as the file extension from each
         // file, so e.g. src/nested/foo.js becomes nested/foo
@@ -47,9 +128,7 @@ export default [
       }),
       postcss({
         extensions: ['.css'],
-        plugins: [
-          tailwindcss(),
-        ],
+        plugins: [tailwindcss()],
       }),
       resolve(),
       terser({
@@ -64,11 +143,7 @@ export default [
   {
     input: Object.fromEntries(
       globSync('src/**/*.ts', {
-        ignore: [
-          'src/**/*.test.ts',
-          'src/**/*.stories.ts',
-          'src/**/*.styles.ts',
-        ],
+        ignore: ['src/**/*.test.ts', 'src/**/*.styles.ts', 'src/**/*.d.ts'],
       }).map(file => [
         // This remove `src/` as well as the file extension from each
         // file, so e.g. src/nested/foo.js becomes nested/foo
@@ -95,9 +170,7 @@ export default [
       }),
       postcss({
         extensions: ['.css'],
-        plugins: [
-          tailwindcss(),
-        ],
+        plugins: [tailwindcss()],
       }),
       resolve(),
     ],
@@ -121,9 +194,7 @@ export default [
       }),
       postcss({
         extensions: ['.css'],
-        plugins: [
-          tailwindcss(),
-        ],
+        plugins: [tailwindcss()],
       }),
       resolve(),
       multi({
@@ -154,9 +225,7 @@ export default [
       }),
       postcss({
         extensions: ['.css'],
-        plugins: [
-          tailwindcss(),
-        ],
+        plugins: [tailwindcss()],
       }),
       resolve(),
       multi({
@@ -204,9 +273,7 @@ export default [
       sourcemap: false,
     },
     external: ['react'],
-    plugins: [
-      resolve(),
-    ],
+    plugins: [resolve()],
     onwarn(warning) {
       if (
         /Could not resolve import/.test(warning.message) ||
