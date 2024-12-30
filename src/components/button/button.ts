@@ -1,6 +1,7 @@
 import { html, LitElement, css, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-import baseStyle from './button.css';
+import styles from './button.css';
+
 /**
  * An example button component
  *
@@ -16,7 +17,7 @@ import baseStyle from './button.css';
  *
  */
 export default class MyButton extends LitElement {
-  static override styles = css`${unsafeCSS(baseStyle)}`;
+  static override styles = css`${unsafeCSS(styles)}`;
 
   /** Changes the display of the button */
   @property()
