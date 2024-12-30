@@ -21,7 +21,8 @@
     "lint:eslint": "npx eslint",
     "lint:prettier": "npx prettier . --check",
     "prepare": "husky && npx playwright install-deps",
-    "preview": "node dev/server.js"
+    "preview": "node dev/server.js",
+    "clean": "rimraf cdn dist eslint public react types custom-elements.json web-types.json vscode.css-custom-data.json vscode.html-custom-data.json"
   },
   "author": "",
   "license": "MIT",
@@ -71,6 +72,7 @@
     "lint-staged": "^15.2.7",
     "plop": "^4.0.1",
     "prettier": "^3.3.2",
+    "rimraf": "^5.0.10",
     "rollup": "^4.28.0",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-postcss": "^4.0.2",
