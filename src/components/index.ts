@@ -1,2 +1,2 @@
 export * from './button';
-export * from './base/tailwind-base';
+export * from './base';
