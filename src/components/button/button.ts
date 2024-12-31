@@ -1,6 +1,6 @@
-import { html, LitElement, css, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './button.css';
+import Tailwind from '../base/tailwind-base';
+import { html } from 'lit';
 
 /**
  * An example button component
@@ -16,8 +16,11 @@ import styles from './button.css';
  * @slot - The main content for the button
  *
  */
-export default class MyButton extends LitElement {
-  static override styles = css`${unsafeCSS(styles)}`;
+export default class MyButton extends Tailwind {
+
+  constructor() {
+    super();
+  }
 
   /** Changes the display of the button */
   @property()
@@ -29,7 +32,7 @@ export default class MyButton extends LitElement {
 
   override render() {
     return html`
-      <button part="control" ?disabled=${this.disabled} class="button bg-red-500 py-2 px-4  border" aria-disabled=${this.disabled} aria-pressed="false">
+      <button part="control" ?disabled=${this.disabled} class="py-2 px-4 border bg-color-primary cursor-pointer" aria-disabled=${this.disabled} aria-pressed="false">
         <slot></slot>
       </button>
     `;

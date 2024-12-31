@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: var(--color-indigo-600);
+}
+
+@layer utilities {
+    .bg-color-primary {
+        background-color: var(--color-primary);
+    }
+}

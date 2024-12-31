@@ -29,9 +29,9 @@ export default {
     customElementJetBrainsPlugin(),
     customElementReactWrapperPlugin({
       outdir: 'react',
-      modulePath: (_, tagName) =>
+      modulePath: (_, tagName = '') => // varsayılan değer eklendi
         `../dist/components/${tagName.replace('my-', '')}/index.js`,
-    }),
+  }),
     customElementSolidJsPlugin({
       outdir: 'types',
       fileName: 'custom-element-solidjs.d.ts',
