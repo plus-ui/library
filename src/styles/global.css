@@ -1,11 +1,7 @@
-@import "tailwindcss";
-
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/utilities" layer(utilities);
 @theme {
     --color-primary: var(--color-indigo-600);
-}
-
-@layer utilities {
-    .bg-color-primary {
-        background-color: var(--color-primary);
-    }
+    --color-primary-hover: var(--color-indigo-700);
 }
