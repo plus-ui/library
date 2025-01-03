@@ -1,7 +1,8 @@
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
-import { css, html,unsafeCSS } from 'lit';
-import buttonCss from './button.css';
+import { html } from 'lit';
+//import buttonCss from './button.css';
+import buttonStyle from './button.style';
 //import { createTailwind } from '../../factory/tailwind-factory';
 
 /**
@@ -25,7 +26,8 @@ export default class MyButton extends Tailwind {
 
   static override styles = [
     ...Tailwind.styles,
-    css`${unsafeCSS(buttonCss)}`
+    // css`${unsafeCSS(buttonCss)}`, // unsafeCSS when using automaticly generated root styles so important
+    buttonStyle // and if you use like this , is created self contained styles so no need to use unsafeCSS
   ];
 
   constructor() {
