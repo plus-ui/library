@@ -1,4 +1,5 @@
 declare module '*.css' {
-  const content: string;
-  export default content;
+  import { CSSResult } from 'lit';
+  const cssResult: CSSResult; 
+  export default cssResult;
 }

@@ -1,6 +1,9 @@
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { html } from 'lit';
+//import buttonCss from './button.css';
+import buttonStyle from './button.style';
+//import { createTailwind } from '../../factory/tailwind-factory';
 
 /**
  * An example button component
@@ -16,13 +19,21 @@ import { html } from 'lit';
  * @slot - The main content for the button
  *
  */
+
+//const TailwindButton = createTailwind(buttonCss);
+
 export default class MyButton extends Tailwind {
+
+  static override styles = [
+    ...Tailwind.styles,
+    // css`${unsafeCSS(buttonCss)}`, // unsafeCSS when using automaticly generated root styles so important
+    buttonStyle // and if you use like this , is created self contained styles so no need to use unsafeCSS
+  ];
 
   constructor() {
     super();
   }
-
-  /** Changes the display of the button */
+  
   @property()
   variation?: 'default' | 'primary' | 'hollow' | 'transparent';
 
@@ -32,7 +43,7 @@ export default class MyButton extends Tailwind {
 
   override render() {
     return html`
-      <button part="control" ?disabled=${this.disabled} class="py-2 px-4 border bg-color-primary cursor-pointer" aria-disabled=${this.disabled} aria-pressed="false">
+      <button part="control" ?disabled=${this.disabled} class="py-2 px-4 border bg-[var(--button-bg-color)] cursor-pointer hover:bg-[var(--button-bg-color-hover)]" aria-disabled=${this.disabled} aria-pressed="false">
         <slot></slot>
       </button>
     `;
