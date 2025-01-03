@@ -1,6 +1,7 @@
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme" layer(theme);
 @import "tailwindcss/utilities" layer(utilities);
+@config "../../tailwind.config.js";
 
 @import "@fontsource/inter/latin-400.css";
 @import "./base/brand.css";
@@ -8,8 +9,8 @@
 @import "./theme/dark.css";
 
 @theme {
-    --font-sans: 'Inter', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 
-    --color-primary: var(--color-indigo-600);
-    --color-primary-hover: var(--color-indigo-700);
+  --color-primary: var(--color-indigo-600);
+  --color-primary-hover: var(--color-indigo-700);
 }
