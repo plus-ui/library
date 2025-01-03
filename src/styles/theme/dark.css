@@ -1,0 +1,7 @@
+[theme-dark] {
+    --color-primary: var(--color-primary-300);
+    --color-primary-hovered: var(--color-primary-200);
+    --color-primary-pressed: var(--color-primary-100);
+    --color-primary-focused: var(--color-primary-300);
+    --color-primary-loading: var(--color-primary-100);
+}
