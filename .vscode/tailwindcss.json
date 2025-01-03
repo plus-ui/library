@@ -60,6 +60,16 @@
           "url": "https://tailwindcss.com/docs/functions-and-directives#theme"
         }
       ]
+    },
+    {
+      "name": "@variant",
+      "description": "The `@variant` directive allows you to create custom variants for your utilities:\n```css\n@variant responsive, dark {\n  .btn {\n    background-color: #3182CE;\n  }\n}\n```\n",
+      "references": [
+        {
+          "name": "Tailwind Documentation",
+          "url": "https://tailwindcss.com/docs/functions-and-directives#variant"
+        }
+      ]
     }
   ]
 }
