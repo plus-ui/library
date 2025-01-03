@@ -10,10 +10,10 @@ const port = 3000;
 app.use(express.static(join(__dirname, '..')));
 
 app.get('/', (req, res) => {
-    res.sendFile(join(__dirname, 'index.html'));
+  res.sendFile(join(__dirname, 'index.html'));
 });
 
 app.listen(port, () => {
-    console.log(`Dev server running at http://localhost:${port}`);
-    console.log(`Press Ctrl+C to stop`);
+  console.log(`Dev server running at http://localhost:${port}`);
+  console.log(`Press Ctrl+C to stop`);
 });

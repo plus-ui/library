@@ -12,15 +12,13 @@ export default function (plop) {
       {
         type: 'input',
         name: 'name',
-        message:
-          'Please enter your component name in kebab-case (e.g. button-group)',
+        message: 'Please enter your component name in kebab-case (e.g. button-group)',
         default: 'component',
       },
       {
         type: 'input',
         name: 'prefix',
-        message:
-          'What is the prefix for your component? (e.g. my)',
+        message: 'What is the prefix for your component? (e.g. my)',
         default: '',
       },
     ],
@@ -34,9 +32,7 @@ export default function (plop) {
         // Must not end in a dash
         basename.endsWith('-')
       ) {
-        console.log(
-          'The name must only contain alphanumeric characters and dashes, start with a letter, and not end in a dash. Please try again.',
-        );
+        console.log('The name must only contain alphanumeric characters and dashes, start with a letter, and not end in a dash. Please try again.');
         return [];
       }
 

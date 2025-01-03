@@ -10,7 +10,7 @@ import { cemInheritancePlugin } from 'custom-elements-manifest-inheritance';
 import { customElementLazyLoaderPlugin } from 'custom-element-lazy-loader';
 import { customJSDocTagsPlugin } from 'cem-plugin-custom-jsdoc-tags';
 import { customEsLintRuleGeneratorPlugin } from 'custom-element-eslint-rule-generator';
-import { cemDeprecatorPlugin } from "custom-elements-manifest-deprecator";
+import { cemDeprecatorPlugin } from 'custom-elements-manifest-deprecator';
 
 export default {
   /** Globs to analyze */
@@ -29,36 +29,33 @@ export default {
     customElementJetBrainsPlugin(),
     customElementReactWrapperPlugin({
       outdir: 'react',
-      modulePath: (_, tagName = '') => // varsayılan değer eklendi
-        `../dist/components/${tagName.replace('my-', '')}/index.js`,
-  }),
+      modulePath: (
+        _,
+        tagName = '', // varsayılan değer eklendi
+      ) => `../dist/components/${tagName.replace('my-', '')}/index.js`,
+    }),
     customElementSolidJsPlugin({
       outdir: 'types',
       fileName: 'custom-element-solidjs.d.ts',
-      modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
     customElementJsxPlugin({
       outdir: 'types',
-      modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
     customElementVuejsPlugin({
       outdir: 'types',
       fileName: 'custom-element-vuejs.d.ts',
-      modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
     customElementSveltePlugin({
       outdir: 'types',
       fileName: 'custom-element-svelte.d.ts',
-      modulePath: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
     customElementLazyLoaderPlugin({
       outdir: 'cdn',
-      importPathTemplate: (_, tagName) =>
-        `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      importPathTemplate: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
     }),
 
     customJSDocTagsPlugin({
@@ -79,8 +76,6 @@ export default {
 
   overrideModuleCreation: ({ ts, globs }) => {
     const program = getTsProgram(ts, globs, 'tsconfig.json');
-    return program
-      .getSourceFiles()
-      .filter(sf => globs.find(glob => sf.fileName.includes(glob)));
+    return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob)));
   },
 };

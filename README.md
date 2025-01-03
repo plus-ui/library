@@ -5,6 +5,7 @@ Plus UI is a powerful, framework-agnostic UI component library built on Web Comp
 Our library bridges the gap between design and development, providing a unified solution for creating consistent, scalable, and beautiful user interfaces across platforms.
 
 ## Quick Links
+
 <div align="center">
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github)](https://github.com/plus-ui/library)
@@ -18,18 +19,21 @@ Our library bridges the gap between design and development, providing a unified 
 ## Features
 
 ### 🎨 Design & Development
+
 - ✨ Powered by Plus UI Design System with modern aesthetics
 - 🎯 Component-first architecture for consistent development
 - 🛠 Developer-friendly API with extensive customization options
 - 📱 Responsive design with mobile-first approach
 
 ### 🔧 Technical Excellence
+
 - 🚀 High-performance optimized components
 - 🔍 TypeScript support with full type definitions
 - ♿ WCAG 2.1 AA compliant accessibility
 - 🏗 Tree-shakeable architecture for optimal bundle size
 
 ### 💪 Framework Support
+
 - ⚛️ React ecosystem integration
 - 💚 Vue.js (2.x & 3.x) support
 - 🅰️ Angular compatibility
@@ -43,12 +47,14 @@ Our library bridges the gap between design and development, providing a unified 
 - ⚙️ Server-side rendering support
 
 ### 📦 Development Experience
+
 - 📘 Comprehensive documentation with live examples
 - 🧪 Extensive test coverage
 - 🔄 Regular updates and maintenance
 - 💡 Active community support
 
 ### 🌟 Enterprise Ready
+
 - 🔒 Security-first development approach
 - 🌐 Internationalization support
 - 🎢 Production-tested scalability
@@ -72,7 +78,7 @@ You can import the components directly from the library and use them in your app
 import '@plusui/core/dist/plusui.css';
 import { PlusButton } from '@plusui/core';
 
-<PlusButton>Click Me</PlusButton>
+<PlusButton>Click Me</PlusButton>;
 ```
 
 ### Framework Integration
@@ -89,9 +95,7 @@ import '@plusui/core/dist/plusui.css';
 import { PlusButton } from '@plusui/react';
 
 const App = () => {
-  return (
-    <PlusButton>Click Me</PlusButton>
-  );
+  return <PlusButton>Click Me</PlusButton>;
 };
 
 export default App;

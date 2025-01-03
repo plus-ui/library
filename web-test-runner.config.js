@@ -21,11 +21,7 @@ export default {
       tsconfig: fileURLToPath(new URL('./tsconfig.json', import.meta.url)),
     }),
   ],
-  browsers: [
-    playwrightLauncher({ product: 'chromium' }),
-    playwrightLauncher({ product: 'firefox' }),
-    playwrightLauncher({ product: 'webkit' }),
-  ],
+  browsers: [playwrightLauncher({ product: 'chromium' }), playwrightLauncher({ product: 'firefox' }), playwrightLauncher({ product: 'webkit' })],
   testRunnerHtml: testFramework => `
     <html lang="en-US">
       <head></head>
