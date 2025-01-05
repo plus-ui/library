@@ -59,12 +59,12 @@ export default function (plop) {
           path: `${BASE_PATH}/{{kebabCase name}}.test.ts`,
           templateFile: 'plop-templates/component.test.ts.hbs',
         },
-        {
-          type: 'add',
-          skipIfExists: true,
-          path: `${BASE_PATH}/{{kebabCase name}}.mdx`,
-          templateFile: 'plop-templates/component.docs.hbs',
-        },
+        // {
+        //   type: 'add',
+        //   skipIfExists: true,
+        //   path: `${BASE_PATH}/{{kebabCase name}}.mdx`,
+        //   templateFile: 'plop-templates/component.docs.hbs',
+        // },
         {
           type: 'add',
           skipIfExists: true,

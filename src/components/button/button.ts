@@ -45,7 +45,7 @@ export default class MyButton extends Tailwind {
       <button
         part="control"
         ?disabled=${this.disabled}
-        class="py-2 px-4 border bg-[var(--button-bg-default)] cursor-pointer hover:bg-[var(--button-bg-hovered)] text-base text-color-base"
+        class="py-2 px-4 border bg-[var(--bg-default)] cursor-pointer hover:bg-[var(--bg-hovered)] text-base text-color-base"
         aria-disabled=${this.disabled}
         aria-pressed="false"
       >

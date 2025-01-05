@@ -1,5 +1,6 @@
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { Tailwind } from '../base/index.js';
 import styles from './{{kebabCase name}}.styles.js';
 
 /**
@@ -10,7 +11,7 @@ import styles from './{{kebabCase name}}.styles.js';
  * @status experimental
  *
  **/
-export class {{pascalCase tagName}} extends LitElement {
+export class {{pascalCase tagName}} extends Tailwind {
   static override styles = styles;
 
   @property() 
