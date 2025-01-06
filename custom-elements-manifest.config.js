@@ -32,30 +32,30 @@ export default {
       modulePath: (
         _,
         tagName = '', // varsayılan değer eklendi
-      ) => `../dist/components/${tagName.replace('my-', '')}/index.js`,
+      ) => `../dist/components/${tagName.replace('plus-', '')}/index.js`,
     }),
     customElementSolidJsPlugin({
       outdir: 'types',
       fileName: 'custom-element-solidjs.d.ts',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementJsxPlugin({
       outdir: 'types',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementVuejsPlugin({
       outdir: 'types',
       fileName: 'custom-element-vuejs.d.ts',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementSveltePlugin({
       outdir: 'types',
       fileName: 'custom-element-svelte.d.ts',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementLazyLoaderPlugin({
       outdir: 'cdn',
-      importPathTemplate: (_, tagName) => `../dist/components/${tagName.replace('my-', '')}/${tagName.replace('my-', '')}.js`,
+      importPathTemplate: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
 
     customJSDocTagsPlugin({

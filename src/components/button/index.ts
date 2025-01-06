@@ -1,5 +1,5 @@
-import { MyButton } from './button.js';
+import { PlusButton } from './button.js';
 
 export type * from './button.js';
 
-customElements.define('my-button', MyButton);
+customElements.define('plus-button', PlusButton);

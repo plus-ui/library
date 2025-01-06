@@ -1,25 +1,25 @@
 import './index.js';
 import { expect, fixture, html } from '@open-wc/testing';
-import { MyButton } from './index.js';
+import { PlusButton } from './index.js';
 
-describe('MyButton', () => {
+describe('PlusButton', () => {
   describe('accessibility', () => {
     it('default is accessible', async () => {
-      const el = await fixture<MyButton>(html`<my-button>My Button</my-button>`);
+      const el = await fixture<PlusButton>(html`<plus-button>My Button</plus-button>`);
       await expect(el).to.be.accessible();
     });
 
     it('variations are accessible', async () => {
-      const el = await fixture<MyButton>(html`
-        <my-button variation="primary">My Button</my-button>
-        <my-button variation="hollow">My Button</my-button>
-        <my-button variation="transparent">My Button</my-button>
+      const el = await fixture<PlusButton>(html`
+        <plus-button variation="primary">My Button</plus-button>
+        <plus-button variation="hollow">My Button</plus-button>
+        <plus-button variation="transparent">My Button</plus-button>
       `);
       await expect(el).to.be.accessible();
     });
 
     it('disabled is accessible', async () => {
-      const el = await fixture<MyButton>(html`<my-button disabled>My Button</my-button>`);
+      const el = await fixture<PlusButton>(html`<plus-button disabled>My Button</plus-button>`);
       const button = el.shadowRoot?.querySelector('button');
 
       await expect(el).to.be.accessible();

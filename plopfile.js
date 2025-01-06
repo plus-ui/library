@@ -71,6 +71,12 @@ export default function (plop) {
           path: `${BASE_PATH}/index.ts`,
           templateFile: 'plop-templates/component.definition.ts.hbs',
         },
+        {
+          type: 'append',
+          path: 'src/components/index.ts',
+          template: 'export * from \'./{{kebabCase name}}\';',
+          separator: '',
+        }
       ];
     },
   });
