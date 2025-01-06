@@ -58,6 +58,9 @@ export default [
 
   // watch version
   {
+    watch: {
+      buildDelay: 150,
+    },
     input: Object.fromEntries(
       globSync(['src/**/*.ts', 'src/**/*.css'], {
         ignore: ['src/**/*.test.ts', 'src/**/*.styles.ts', 'src/**/*.d.ts'],
@@ -132,6 +135,9 @@ export default [
   },
   // watch version
   {
+    watch: {
+      buildDelay: 150,
+    },
     input: Object.fromEntries(
       globSync('src/**/*.ts', {
         ignore: ['src/**/*.test.ts', 'src/**/*.styles.ts', 'src/**/*.d.ts'],
@@ -198,6 +204,9 @@ export default [
   },
   // watch version
   {
+    watch: {
+      buildDelay: 150,
+    },
     input: globSync('src/**/index.ts'),
     output: {
       format: 'esm',
@@ -251,6 +260,9 @@ export default [
   },
   // watch version
   {
+    watch: {
+      buildDelay: 150,
+    },
     input: 'react/index.js',
     output: {
       format: 'esm',
@@ -277,6 +289,9 @@ export default [
   },
   // watch version
   {
+    watch: {
+      buildDelay: 150,
+    },
     input: './react/index.d.ts',
     output: [{ file: 'public/react/index.d.ts', format: 'es' }],
     external: ['react'],
