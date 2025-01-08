@@ -8,7 +8,7 @@ import buttonStyle from './button.style';
 /**
  * An example button component
  *
- * @tag my-button
+ * @tag plus-button
  *
  * @csspart control - The button element
  *
@@ -22,7 +22,7 @@ import buttonStyle from './button.style';
 
 //const TailwindButton = createTailwind(buttonCss);
 
-export default class MyButton extends Tailwind {
+export default class PlusButton extends Tailwind {
   static override styles = [
     ...Tailwind.styles,
     // css`${unsafeCSS(buttonCss)}`, // unsafeCSS when using automaticly generated root styles so important
@@ -45,7 +45,7 @@ export default class MyButton extends Tailwind {
       <button
         part="control"
         ?disabled=${this.disabled}
-        class="py-2 px-4 border bg-[var(--button-bg-default)] cursor-pointer hover:bg-[var(--button-bg-hovered)] text-base text-color-base"
+        class="py-2 px-4 border bg-[var(--bg-default)] cursor-pointer hover:bg-[var(--bg-hovered)] text-base text-color-base"
         aria-disabled=${this.disabled}
         aria-pressed="false"
       >
@@ -55,4 +55,4 @@ export default class MyButton extends Tailwind {
   }
 }
 
-export { MyButton };
+export { PlusButton };

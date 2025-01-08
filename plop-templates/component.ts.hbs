@@ -1,6 +1,7 @@
-import { html, LitElement } from 'lit';
+import { html } from 'lit';
 import { property } from 'lit/decorators.js';
-import styles from './{{kebabCase name}}.styles.js';
+import Tailwind from '../base/tailwind-base';
+import style from './avatar.styles';
 
 /**
  * Add a description here
@@ -10,9 +11,16 @@ import styles from './{{kebabCase name}}.styles.js';
  * @status experimental
  *
  **/
-export class {{pascalCase tagName}} extends LitElement {
-  static override styles = styles;
+export default class {{pascalCase tagName}} extends Tailwind {
+  static override styles = [
+    ...Tailwind.styles,
+    style,
+  ];
 
+  constructor() {
+    super();
+  }
+  
   @property() 
   heading = 'Hello, word!';
 
@@ -23,4 +31,4 @@ export class {{pascalCase tagName}} extends LitElement {
   }
 }
 
-export default {{pascalCase tagName}};
+export { {{pascalCase tagName}} };
