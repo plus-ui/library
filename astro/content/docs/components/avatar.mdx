@@ -1,0 +1,313 @@
+---
+title: Avatar
+description: Avatars are an essential element found in a wide range of applications, from tables to dialog menus.
+---
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/avatar/anatomy.png';
+import layoutSpacing1 from '../../../assets/components/avatar/layout-spacing-1.png';
+import layoutSpacing2 from '../../../assets/components/avatar/layout-spacing-2.png';
+import layoutSpacing3 from '../../../assets/components/avatar/layout-spacing-3.png';
+import lightDarkMode from '../../../assets/components/avatar/light-dark-mode.png';
+
+The Avatar component is used to represent users, providing a visual representation such as text initials, profile images, or icons. It comes with 60 variants and different customization options to fit various design requirements.
+
+## Anatomy
+
+The anatomy of avatar component comprises key elements, including the avatar image, container, and optional customization properties. These elements enhance user interaction and engagement in your application.
+
+<Image src={anatomy} alt="anatomy of avatar component" />
+
+## Properties
+
+With our properties and component structure, you have the creative freedom to tailor your avatar to precisely match your design preferences. All variable and variants identified exactly same on both our design system and our multi-framework component library.
+
+| Kind | Size | Invert | Shape |
+| ---- | ---- | ------ | ----- |
+| Text | xs   | True   | Circle |
+| Image | xm   | False  | Square |
+| Icon | md   |        |       |
+|      | lg   |        |       |
+|      | custom |        |       |
+
+
+### Kind
+
+The Avatar component supports different types to represent users in various ways.
+
+* **Text type** avatar displays initials representing the user's name.
+* **Image type** avatar displays a user's profile image.
+* **Icon type** avatar displays a custom icon to represent the user.
+
+<EmbedContent url="https://codesandbox.io/embed/g5758r?hidenavigation=1&module=/index.html&view=preview" />
+
+<Tabs syncKey="usage">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAvatar } from '@plusui/react';
+
+// Plus-Avatar Default Examples in React
+const AvatarExamples = () => (
+  <>
+    <PlusAvatar />  {/* Default empty avatar */}
+    <PlusAvatar text="John Doe" />  {/* Avatar with text */}
+    <PlusAvatar image="https://i.pravatar.cc/50?u=4" />  {/* Avatar with image */}
+  </>
+);
+
+export default AvatarExamples;
+```
+  </TabItem>
+  <TabItem label="Angular">
+```html
+<plus-avatar></plus-avatar>  <!-- Default empty avatar -->
+<plus-avatar text="John Doe"></plus-avatar>  <!-- Avatar with text -->
+<plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>  <!-- Avatar with image -->
+```
+  </TabItem>
+  <TabItem label="Vue">
+```html
+<template>
+  <plus-avatar />  <!-- Default empty avatar -->
+  <plus-avatar text="John Doe" />  <!-- Avatar with text -->
+  <plus-avatar image="https://i.pravatar.cc/50?u=4" />  <!-- Avatar with image -->
+</template>
+```
+  </TabItem>
+  <TabItem label="Javascript">
+```html
+<plus-avatar></plus-avatar>  <!-- Default empty avatar -->
+<plus-avatar text="John Doe"></plus-avatar>  <!-- Avatar with text -->
+<plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>  <!-- Avatar with image -->
+```
+  </TabItem>
+</Tabs>
+
+<Aside type="note">
+When no avatar image is available, the system uses the initials of the user's first and last name, capitalizing them. In the absence of user information, it substitutes with an icon.
+</Aside>
+
+<Aside type="caution">
+* A text avatar acquires the capitalized initials of both the user's first name and last name. However, for XS-sized avatars, it uses only the capitalized initial of the user's first name.
+* When both the first name and last name consist of more than two words, the text avatar will solely utilize the capital initials of the first and last names.
+</Aside>
+
+### Size
+
+The Avatar component supports different size variants such as extra small, small, medium and large to fit various design requirements.&#x20;
+
+You can also customize the size of the avatar component.
+
+<EmbedContent url="https://codesandbox.io/embed/vx9569?hidenavigation=1&module=/index.html&view=preview" />
+
+<Tabs syncKey="size">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAvatar } from '@plusui/react';
+
+// Plus-Avatar with Different Sizes in React
+const AvatarWithSizes = () => (
+  <>
+    <PlusAvatar size="xs" />  {/* Extra small avatar */}
+    <PlusAvatar size="sm" />  {/* Small avatar */}
+    <PlusAvatar size="md" />  {/* Medium avatar */}
+    <PlusAvatar size="lg" />  {/* Large avatar */}
+    <PlusAvatar size="54" />  {/* Custom size avatar with 54px */}
+  </>
+);
+
+export default AvatarWithSizes;
+
+```
+  </TabItem>
+  <TabItem label="Angular">
+```html
+<plus-avatar size="xs"></plus-avatar>  <!-- Extra small avatar -->
+<plus-avatar size="sm"></plus-avatar>  <!-- Small avatar -->
+<plus-avatar size="md"></plus-avatar>  <!-- Medium avatar -->
+<plus-avatar size="lg"></plus-avatar>  <!-- Large avatar -->
+<plus-avatar size="54"></plus-avatar>  <!-- Custom size avatar with 54px -->
+
+```
+  </TabItem>
+  <TabItem label="Vue">
+```html
+<template>
+  <plus-avatar size="xs" />  <!-- Extra small avatar -->
+  <plus-avatar size="sm" />  <!-- Small avatar -->
+  <plus-avatar size="md" />  <!-- Medium avatar -->
+  <plus-avatar size="lg" />  <!-- Large avatar -->
+  <plus-avatar size="54" />  <!-- Custom size avatar with 54px -->
+</template>
+
+```
+  </TabItem>
+  <TabItem label="Javascript">
+```html
+<plus-avatar size="xs"></plus-avatar>  <!-- Extra small avatar -->
+<plus-avatar size="sm"></plus-avatar>  <!-- Small avatar -->
+<plus-avatar size="md"></plus-avatar>  <!-- Medium avatar -->
+<plus-avatar size="lg"></plus-avatar>  <!-- Large avatar -->
+<plus-avatar size="54"></plus-avatar>  <!-- Custom size avatar with 54px -->
+
+```
+  </TabItem>
+</Tabs>
+
+### Invert
+
+The invert property provides the option to invert the color scheme of the avatar. This can be particularly useful for highlighting specific avatars or indicating a change in status or mode. By inverting the colors, you can draw attention to certain avatars and create a visually distinct user experience.
+
+<EmbedContent url="https://codesandbox.io/embed/ntdcng?hidenavigation=1&module=/index.html&view=preview" />
+
+<Tabs syncKey="invert">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAvatar } from '@plusui/react';
+
+// Plus-Avatar with Invert Example in React
+const AvatarWithInvert = () => (
+  <>
+    <PlusAvatar />  {/* Default avatar */}
+    <PlusAvatar invert />  {/* Inverted avatar */}
+  </>
+);
+
+export default AvatarWithInvert;
+
+```
+  </TabItem>
+  <TabItem label="Angular">
+```html
+<plus-avatar></plus-avatar>  <!-- Default avatar -->
+<plus-avatar invert></plus-avatar>  <!-- Inverted avatar -->
+
+```
+  </TabItem>
+  <TabItem label="Vue">
+```html
+<template>
+  <plus-avatar />  <!-- Default avatar -->
+  <plus-avatar invert />  <!-- Inverted avatar -->
+</template>
+
+```
+  </TabItem>
+  <TabItem label="Javascript">
+```html
+<plus-avatar></plus-avatar>  <!-- Default avatar -->
+<plus-avatar invert></plus-avatar>  <!-- Inverted avatar -->
+
+```
+  </TabItem>
+</Tabs>
+
+### Shape
+
+The shape property allows you to define the shape of the avatar. Avatars can take on one of two shapes: "circle" or "square." You can choose the shape that best aligns with your design preferences or the specific context in which the avatar is used.&#x20;
+
+* **Circle shape** imparts a rounded, circular appearance to the avatar. It's often employed to create a softer and more approachable visual identity for users or entities.&#x20;
+* **Square shape** imparts a square or rectangular appearance to the avatar. This shape provides a more geometric and structured visual style, suitable for various design contexts.
+
+<EmbedContent url="https://codesandbox.io/embed/jxgjt8?hidenavigation=1&module=/index.html&view=preview" />
+
+<Tabs syncKey="shape">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAvatar } from '@plusui/react';
+
+// Plus-Avatar with Shape Example in React
+const AvatarWithShape = () => (
+  <>
+    <PlusAvatar />  {/* Default shape (circle) */}
+    <PlusAvatar shape="square" />  {/* Square-shaped avatar */}
+  </>
+);
+
+export default AvatarWithShape;
+
+```
+  </TabItem>
+  <TabItem label="Angular">
+```html
+<plus-avatar></plus-avatar>  <!-- Default shape (circle) -->
+<plus-avatar shape="square"></plus-avatar>  <!-- Square-shaped avatar -->
+
+```
+  </TabItem>
+  <TabItem label="Vue">
+```html
+<template>
+  <plus-avatar />  <!-- Default shape (circle) -->
+  <plus-avatar shape="square" />  <!-- Square-shaped avatar -->
+</template>
+
+```
+  </TabItem>
+  <TabItem label="Javascript">
+```html
+<plus-avatar></plus-avatar>  <!-- Default shape (circle) -->
+<plus-avatar shape="square"></plus-avatar>  <!-- Square-shaped avatar -->
+
+```
+  </TabItem>
+</Tabs>
+
+## Layout & Spacing
+
+Layout and spacing for avatar in user interfaces are crucial for usability, aesthetics, and accessibility. By paying attention to the placement and spacing of avatar, designers can create interfaces that are both visually appealing and user-friendly, ultimately enhancing the overall user experience.
+
+<Image src={layoutSpacing1} alt="layout and spacing of avatar component" />
+
+<Image src={layoutSpacing2} alt="layout and spacing of avatar component" />
+
+<Image src={layoutSpacing3} alt="layout and spacing of avatar component" />
+
+## Light & Dark Mode
+
+Providing both light and dark modes for avatar in user interfaces enhances user comfort, choice, accessibility, and energy efficiency. It also aligns with contemporary design trends and accommodates a variety of user preferences and needs.&#x20;
+
+<Image src={lightDarkMode} alt="dark and light mode of avatar component" />
+
+## Accessibility
+
+Accessibility is not only a moral and legal imperative but also a valuable design principle. Ensuring that avatar in a design system are accessible not only benefits users with disabilities but also leads to a more inclusive, user-friendly, and successful digital product.&#x20;
+
+| Criteria | Description | Status |
+| -------- | ----------- | ------ |
+| ARIA attributes | Ensures ARIA attributes are allowed for an element's role | ✔️ Passed |
+| ARIA Role | Ensures role attribute has an appropriate value for the element | ✔️ Passed |
+| Aria-hidden Elements | Ensures aria-hidden elements are not focusable nor contain focusable elements | ✔️ Passed |
+| Attributes Provided | Ensures elements with ARIA roles have all required ARIA attributes | ✔️ Passed |
+| Roles Valid Values | Ensures all elements with a role attribute use a valid value | ✔️ Passed |
+| Attributes Valid Values | Ensures all ARIA attributes have valid values | ✔️ Passed |
+| Unique ID Attributes | Ensures every id attribute value is unique | ✔️ Passed |
+| Nested Interactive Controls | Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies | ✔️ Passed |
+| Alternative Text | Ensures [role='img'] elements have alternate text | ✔️ Passed |
+| Color Contrast | Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds. | ✔️ AA ~ AAA |
+
+
+To learn more about Plus UI's accessibility criteria, please visit [Accessibility](broken-reference).
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
+
+## API
+
+| Property | Description   | Type           | Accepted Values            | Default |
+| -------- | ------------- | -------------- | -------------------------- | ------- |
+| text     | Avatar text   | String         | —                          | —       |
+| image    | Avatar image  | String         | —                          | —       |
+| icon     | Avatar icon   | String         | —                          | —       |
+| shape    | Avatar shape  | String         | circle, square             | circle  |
+| size     | Avatar size   | String, Number | xs, sm, md, lg, xl, number | md      |
+| invert   | Invert avatar | Boolean        | —                          | false   |
+
