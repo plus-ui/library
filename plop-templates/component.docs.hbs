@@ -7,9 +7,9 @@ import EmbedContent from '../../../components/EmbedContent.astro';
 import { Tabs, TabItem } from '@astrojs/starlight/components';
 import { Aside } from '@astrojs/starlight/components';
 
-// import anatomy from '../../../assets/components/{{kebabCase name}}/anatomy.png';
-// import layoutSpacing from '../../../assets/components/{{kebabCase name}}/layout-spacing.png';
-// import lightDarkMode from '../../../assets/components/{{kebabCase name}}/light-dark-mode.png';
+{/* import anatomy from '../../../assets/components/{{kebabCase name}}/anatomy.png'; */}
+{/* import layoutSpacing from '../../../assets/components/{{kebabCase name}}/layout-spacing.png'; */}
+{/* import lightDarkMode from '../../../assets/components/{{kebabCase name}}/light-dark-mode.png'; */}
 
 # {{dashToTitle name}}
 
@@ -32,7 +32,7 @@ Add kind variations here.
 <code-bubble class="not-content">
 
 ```html
-<{{kebabCase tagName}}></{{kebabCase tagName}}>
+<{{kebabCase tagName}}>Hello</{{kebabCase tagName}}>
 ```
 
 ```tsx
@@ -40,7 +40,7 @@ import { {{pascalCase tagName}} } from '@plusui/library/react';
 
 export default () => {
   return <>
-    <{{pascalCase tagName}} />
+    <{{pascalCase tagName}}>Hello</{{pascalCase tagName}}>
   </>;
 };
 ```
@@ -51,7 +51,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `<div>
-    <{{kebabCase tagName}}></{{kebabCase tagName}}>
+    <{{kebabCase tagName}}>Hello</{{kebabCase tagName}}>
   </div>`
 })
 export class AppComponent {
@@ -60,7 +60,7 @@ export class AppComponent {
 
 ```vue
 <template>
-  <{{kebabCase tagName}}></{{kebabCase tagName}}>
+  <{{kebabCase tagName}}>Hello</{{kebabCase tagName}}>
 </template>
 ```
 </code-bubble>
