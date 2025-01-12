@@ -1,0 +1,12 @@
+---
+import Default from '@astrojs/starlight/components/Head.astro';
+---
+{/* 
+// @ts-ignore */} 
+<Default {...Astro.props}/>
+
+<script>
+  import './code-bubble-setup.js';
+  /** Load client components */
+  import '../../cdn/components/index.js';
+</script>

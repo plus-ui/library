@@ -1,0 +1,514 @@
+---
+title: Accordion
+description: The Accordion component collapses or expands content sections, organizing information on a page.
+---
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import anatomy from '../../../assets/components/accordion/anatomy.png';
+import layoutSpacing from '../../../assets/components/accordion/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/accordion/light-dark-mode.png';
+
+Plus UI's Accordion Component is a compact and efficient way to display content in a collapsible format. Perfect for FAQs, product descriptions, or any content-rich websites, this component allows users to expand and collapse sections with ease, making information discovery not just intuitive but also engaging.
+
+* **Accordion Actions**: A container that groups a set of buttons, optional for use.
+* **Accordion Details**: Encloses the Accordion's content, serving as the main body.
+* **Accordion Summary**: Acts as the Accordion's header. Clicking on it will expand or collapse the content.
+
+## Anatomy
+
+The anatomy of the Accordion Component consists of key elements designed for simplicity and ease of use. It features a title bar that users can click to expand or collapse the accordion's content section. Inside, the content area is spacious, allowing for text, images, or even other components to be displayed. Visual indicators, such as arrows, provide clear feedback on the state of each section, making the interface intuitive and user-friendly.
+
+<Image src={anatomy} alt="anatomy of accordion component" />
+
+## Properties
+
+The Accordion component offers different size options to accommodate various design needs:
+
+### Size
+
+| Size   | Description | Best Use Case |
+|--------|-------------|---------------|
+| Small  | Compact layout with minimal padding | Mobile interfaces, sidebars, tight spaces |
+| Medium | Standard size with balanced spacing | General purpose, most common scenarios |
+| Large  | Expanded layout with generous padding | Detailed content, primary content areas |
+
+Each size variant maintains the same functionality while adapting to different space requirements and content volumes.
+
+<EmbedContent url="https://codesandbox.io/embed/4m3ztz?hidenavigation=1&view=preview" />
+
+
+<Tabs syncKey="usage">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+function App() {
+    return (
+    <PlusAccordion>
+        <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+        <PlusAccordionPanel>
+        Accordion Content
+        </PlusAccordionPanel>
+    </PlusAccordion>
+    );
+}
+
+export default App;
+```
+    </TabItem>
+    
+    <TabItem label="Angular">
+```html
+<plus-accordion>
+    <plus-accordion-header>Accordion Title</plus-accordion-header>
+    <plus-accordion-panel>
+    Accordion Content
+    </plus-accordion-panel>
+</plus-accordion>
+```
+    </TabItem>
+    
+    <TabItem label="Vue">
+```html
+<template>
+    <plus-accordion>
+    <plus-accordion-header>Accordion Title</plus-accordion-header>
+    <plus-accordion-panel>
+        Accordion Content
+    </plus-accordion-panel>
+    </plus-accordion>
+</template>
+```
+    </TabItem>
+    <TabItem label="Svelte">
+```html
+<script>
+    import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+</script>
+
+<PlusAccordion>
+    <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+    <PlusAccordionPanel>
+    Accordion Content
+    </PlusAccordionPanel>
+</PlusAccordion>
+```
+    </TabItem>
+    <TabItem label="Javascript">
+```html
+<plus-accordion>
+    <plus-accordion-header>Accordion Title</plus-accordion-header>
+    <plus-accordion-panel>
+    Accordion Content
+    </plus-accordion-panel>
+</plus-accordion>
+```
+    </TabItem>
+</Tabs>
+
+### Item
+
+The Accordion component can hold a single item or multiple items:
+
+#### Single Item
+
+A single-item accordion is ideal for scenarios where only one section needs to be displayed at a time. It provides a clean and focused user experience without overwhelming the user with too much information.
+
+<EmbedContent url="https://codesandbox.io/embed/r7qmqk?hidenavigation=1&view=preview" />
+
+<Tabs syncKey="single-item">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+function App() {
+    return (
+    <PlusAccordion>
+        <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+        <PlusAccordionPanel>
+        Accordion Content
+        </PlusAccordionPanel>
+    </PlusAccordion>
+    );
+}
+
+export default App;
+```
+    </TabItem>
+    
+    <TabItem label="Angular">
+```html
+<plus-accordion>
+    <plus-accordion-header>Accordion Title</plus-accordion-header>
+    <plus-accordion-panel>
+    Accordion Content
+    </plus-accordion-panel>
+</plus-accordion>
+```
+    </TabItem>
+    
+    <TabItem label="Vue">
+```html
+<template>
+    <plus-accordion>
+    <plus-accordion-header>Accordion Title</plus-accordion-header>
+    <plus-accordion-panel>
+        Accordion Content
+    </plus-accordion-panel>
+    </plus-accordion>
+</template>
+```
+    </TabItem>
+    <TabItem label="Svelte">
+```html
+<script>
+    import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+</script>
+
+<PlusAccordion>
+    <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+    <PlusAccordionPanel>
+    Accordion Content
+    </PlusAccordionPanel>
+</PlusAccordion>
+```
+    </TabItem>
+    <TabItem label="Javascript">
+```html
+<plus-accordion>
+    <plus-accordion-header>Accordion Title</plus-accordion-header>
+    <plus-accordion-panel>
+    Accordion Content
+    </plus-accordion-panel>
+</plus-accordion>
+```
+    </TabItem>
+</Tabs>
+
+#### Multiple Items
+
+A multi-item accordion allows you to display multiple sections simultaneously, providing users with a comprehensive view of the content. This is useful for FAQs, product features, or any scenario where users need to compare information across different sections.
+
+<EmbedContent url="https://codesandbox.io/embed/qcnk3t?hidenavigation=1&view=preview" />
+
+<Tabs syncKey="multi-item">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+function App() {
+    return (
+    <PlusAccordionGroup>
+        <PlusAccordion>
+        <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
+        <PlusAccordionPanel>
+            Content of the first accordion.
+        </PlusAccordionPanel>
+        </PlusAccordion>
+
+        <PlusAccordion>
+        <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
+        <PlusAccordionPanel>
+            Content of the second accordion.
+        </PlusAccordionPanel>
+        </PlusAccordion>
+    </PlusAccordionGroup>
+    );
+}
+
+export default App;
+```
+    </TabItem>
+    
+    <TabItem label="Angular">
+```html
+<plus-accordion-group>
+    <plus-accordion>
+    <plus-accordion-header>Accordion 1</plus-accordion-header>
+    <plus-accordion-panel>
+        Content of the first accordion.
+    </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion>
+    <plus-accordion-header>Accordion 2</plus-accordion-header>
+    <plus-accordion-panel>
+        Content of the second accordion.
+    </plus-accordion-panel>
+    </plus-accordion>
+</plus-accordion-group>
+```
+    </TabItem>
+    
+    <TabItem label="Vue">
+```html
+<template>
+    <plus-accordion-group>
+    <plus-accordion>
+        <plus-accordion-header>Accordion 1</plus-accordion-header>
+        <plus-accordion-panel>
+        Content of the first accordion.
+        </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion>
+        <plus-accordion-header>Accordion 2</plus-accordion-header>
+        <plus-accordion-panel>
+        Content of the second accordion.
+        </plus-accordion-panel>
+    </plus-accordion>
+    </plus-accordion-group>
+</template>
+```
+    </TabItem>
+    <TabItem label="Svelte">
+```html
+<script>
+    import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+</script>
+
+<PlusAccordionGroup>
+    <PlusAccordion>
+    <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
+    <PlusAccordionPanel>
+        Content of the first accordion.
+    </PlusAccordionPanel>
+    </PlusAccordion>
+
+    <PlusAccordion>
+    <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
+    <PlusAccordionPanel>
+        Content of the second accordion.
+    </PlusAccordionPanel>
+    </PlusAccordion>
+</PlusAccordionGroup>
+```
+    </TabItem>
+    <TabItem label="Javascript">
+```html
+<plus-accordion-group>
+    <plus-accordion>
+    <plus-accordion-header>Accordion 1</plus-accordion-header>
+    <plus-accordion-panel>
+        Content of the first accordion.
+    </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion>
+    <plus-accordion-header>Accordion 2</plus-accordion-header>
+    <plus-accordion-panel>
+        Content of the second accordion.
+    </plus-accordion-panel>
+    </plus-accordion>
+</plus-accordion-group>
+```
+    </TabItem>
+</Tabs>
+
+#### Multi-Open Accordion Group
+
+A multi-open accordion group allows users to expand multiple sections at the same time. This is useful when users need to compare information across different sections without having to close one section to open another.
+
+<EmbedContent url="https://codesandbox.io/embed/xv75pp?hidenavigation=1&view=preview" />
+
+<Tabs syncKey="multi-open">
+  <TabItem label="React">
+```jsx
+import React from 'react';
+import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+function App() {
+    return (
+    <PlusAccordionGroup multi>
+        <PlusAccordion open>
+        <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
+        <PlusAccordionPanel>
+            This is the content of the first accordion, which is open by default.
+        </PlusAccordionPanel>
+        </PlusAccordion>
+
+        <PlusAccordion>
+        <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
+        <PlusAccordionPanel>
+            This is the content of the second accordion.
+        </PlusAccordionPanel>
+        </PlusAccordion>
+
+        <PlusAccordion open>
+        <PlusAccordionHeader>Accordion 3</PlusAccordionHeader>
+        <PlusAccordionPanel>
+            This is the content of the third accordion, also open by default.
+        </PlusAccordionPanel>
+        </PlusAccordion>
+    </PlusAccordionGroup>
+    );
+}
+
+export default App;
+```
+    </TabItem>
+    
+    <TabItem label="Angular">
+```html
+<plus-accordion-group multi>
+    <plus-accordion open>
+    <plus-accordion-header>Accordion 1</plus-accordion-header>
+    <plus-accordion-panel>
+        This is the content of the first accordion, which is open by default.
+    </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion>
+    <plus-accordion-header>Accordion 2</plus-accordion-header>
+    <plus-accordion-panel>
+        This is the content of the second accordion.
+    </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion open>
+    <plus-accordion-header>Accordion 3</plus-accordion-header>
+    <plus-accordion-panel>
+        This is the content of the third accordion, also open by default.
+    </plus-accordion-panel>
+    </plus-accordion>
+</plus-accordion-group>
+```
+    </TabItem>
+    
+    <TabItem label="Vue">
+```html
+<template>
+    <plus-accordion-group multi>
+    <plus-accordion open>
+        <plus-accordion-header>Accordion 1</plus-accordion-header>
+        <plus-accordion-panel>
+        This is the content of the first accordion, which is open by default.
+        </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion>
+        <plus-accordion-header>Accordion 2</plus-accordion-header>
+        <plus-accordion-panel>
+        This is the content of the second accordion.
+        </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion open>
+        <plus-accordion-header>Accordion 3</plus-accordion-header>
+        <plus-accordion-panel>
+        This is the content of the third accordion, also open by default.
+        </plus-accordion-panel>
+    </plus-accordion>
+    </plus-accordion-group>
+</template>
+```
+    </TabItem>
+    <TabItem label="Svelte">
+```html
+<script>
+    import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+</script>
+
+<PlusAccordionGroup multi>
+    <PlusAccordion open>
+    <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
+    <PlusAccordionPanel>
+        This is the content of the first accordion, which is open by default.
+    </PlusAccordionPanel>
+    </PlusAccordion>
+
+    <PlusAccordion>
+    <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
+    <PlusAccordionPanel>
+        This is the content of the second accordion.
+    </PlusAccordionPanel>
+    </PlusAccordion>
+
+    <PlusAccordion open>
+    <PlusAccordionHeader>Accordion 3</PlusAccordionHeader>
+    <PlusAccordionPanel>
+        This is the content of the third accordion, also open by default.
+    </PlusAccordionPanel>
+    </PlusAccordion>
+</PlusAccordionGroup>
+```
+    </TabItem>
+    <TabItem label="Javascript">
+```html
+<plus-accordion-group multi>
+    <plus-accordion open>
+    <plus-accordion-header>Accordion 1</plus-accordion-header>
+    <plus-accordion-panel>
+        This is the content of the first accordion, which is open by default.
+    </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion>
+    <plus-accordion-header>Accordion 2</plus-accordion-header>
+    <plus-accordion-panel>
+        This is the content of the second accordion.
+    </plus-accordion-panel>
+    </plus-accordion>
+
+    <plus-accordion open>
+    <plus-accordion-header>Accordion 3</plus-accordion-header>
+    <plus-accordion-panel>
+        This is the content of the third accordion, also open by default.
+    </plus-accordion-panel>
+    </plus-accordion>
+</plus-accordion-group>
+```
+    </TabItem>
+</Tabs>
+
+## Layout & Spacing
+
+Carefully crafted layout and spacing are at the heart of the Plus UI Accordion Component, ensuring that each section is distinctly separated and easily accessible. The component's design promotes a clean and organized look, with adequate padding around content areas to enhance readability and focus.
+
+<Image src={
+    layoutSpacing
+} alt="layout and spacing of accordion component" />
+
+## Light & Dark Mode
+
+The Plus UI Accordion Component seamlessly integrates into any theme, automatically adjusting its color scheme to match the user's preference or system settings. This feature ensures that the accordion remains visually comfortable and consistent with the overall design language of the website or application it's part of.
+
+<Image src={
+    lightDarkMode
+} alt="light and dark mode of accordion component" />
+
+## Accessibility
+
+Accessibility is a priority for the Plus UI Accordion Component, making it fully navigable via keyboard and compatible with screen readers. It follows ARIA guidelines to ensure that all users, regardless of their abilities, can interact with the content effectively.
+
+| Criteria | Description | Status |
+|----------|-------------|--------|
+| Aria-Hidden Elements | Ensures aria-hidden elements are not focusable nor contain focusable elements | ✔️ Passed |
+| Inline Text Spacing | Ensure that text spacing set through style attributes can be adjusted with custom stylesheets | ✔️ Passed |
+| ID Attributes | Ensures every id attribute value is unique |  |
+| Color Contrast | Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds | ✔️ AA ~ AAA |
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-free-2024-design-system-for-figma" />
+
+## API
+
+### Accordion Group API Table
+
+| Property | Description | Type | Accepted Values | Default |
+|----------|-------------|------|-----------------|---------|
+| multi    | Allows multiple open accordions at once | Boolean | true, false | false |
+| size     | Sets the size of the group | String | sm, md, lg | md |
+
+
+### Accordion API Table
+
+| Property | Description | Type | Accepted Values | Default |
+|----------|-------------|------|-----------------|---------|
+| open     | Determines if the accordion is open by default | Boolean | true, false | false |
+| size     | Sets the size of the accordion | String | sm, md, lg | md |
