@@ -1,7 +1,8 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
-import style from './avatar.styles';
+import style from './{{kebabCase name}}.styles';
+import { {{camelCase name}}Style } from './{{kebabCase name}}.style';
 
 /**
  * Add a description here
@@ -12,23 +13,27 @@ import style from './avatar.styles';
  *
  **/
 export default class {{pascalCase tagName}} extends Tailwind {
-  static override styles = [
-    ...Tailwind.styles,
-    style,
-  ];
+  @property() size: 'sm' | 'md' | 'lg' = 'md';
 
   constructor() {
     super();
   }
-  
-  @property() 
-  heading = 'Hello, word!';
+
+  get classes() {
+    return {{camelCase name}}Style({
+      size: this.size,
+    });
+  }
 
   override render() {
     return html`
-      <h1>${this.heading}</h1>
+      <div class=${this.classes}>
+        <slot></slot>
+      </div>
     `;
   }
+
+  static override styles = [...Tailwind.styles, style];
 }
 
 export { {{pascalCase tagName}} };
