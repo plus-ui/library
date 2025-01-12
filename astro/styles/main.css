@@ -80,3 +80,26 @@ a:has(mark) {
   --sl-color-accent: #93c5fd;
   --sl-color-mark: #d8b4fe;
 }
+
+
+
+
+code-bubble [slot="preview"] .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+code-bubble [slot="preview"] .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+code-bubble [slot="preview"] {
+  background-color: var(--plus-color-background-surface);
+}

@@ -25,67 +25,62 @@ The anatomy of avatar component comprises key elements, including the avatar ima
 
 With our properties and component structure, you have the creative freedom to tailor your avatar to precisely match your design preferences. All variable and variants identified exactly same on both our design system and our multi-framework component library.
 
-| Kind | Size | Invert | Shape |
-| ---- | ---- | ------ | ----- |
-| Text | xs   | True   | Circle |
-| Image | xm   | False  | Square |
-| Icon | md   |        |       |
-|      | lg   |        |       |
-|      | custom |        |       |
-
-
 ### Kind
 
 The Avatar component supports different types to represent users in various ways.
 
-* **Text type** avatar displays initials representing the user's name.
-* **Image type** avatar displays a user's profile image.
-* **Icon type** avatar displays a custom icon to represent the user.
+* **Text type** avatar displays initials representing the user's name. When text is provided, it automatically generates initials from the given text.
+* **Image type** avatar displays a user's profile image. If image loading fails, it falls back to the specified fallback strategy.
+* **Icon type** avatar displays a custom icon to represent the user. You can customize the icon using the `icon` property with any Font Awesome icon class.
 
-<EmbedContent url="https://codesandbox.io/embed/g5758r?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content">
 
-<Tabs syncKey="usage">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAvatar } from '@plusui/react';
-
-// Plus-Avatar Default Examples in React
-const AvatarExamples = () => (
-  <>
-    <PlusAvatar />  {/* Default empty avatar */}
-    <PlusAvatar text="John Doe" />  {/* Avatar with text */}
-    <PlusAvatar image="https://i.pravatar.cc/50?u=4" />  {/* Avatar with image */}
-  </>
-);
-
-export default AvatarExamples;
-```
-  </TabItem>
-  <TabItem label="Angular">
 ```html
-<plus-avatar></plus-avatar>  <!-- Default empty avatar -->
-<plus-avatar text="John Doe"></plus-avatar>  <!-- Avatar with text -->
-<plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>  <!-- Avatar with image -->
+  <plus-avatar></plus-avatar>
+  <plus-avatar text="John Doe"></plus-avatar>
+  <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+  <plus-avatar icon="fa-solid fa-star"></plus-avatar>
+``` 
+
+```tsx
+import { PlusAvatar } from '@plusui/library/react';
+
+export default () => {
+  return <>
+    <PlusAvatar />
+    <PlusAvatar text="John Doe" />
+    <PlusAvatar image="https://i.pravatar.cc/50?u=4" />
+    <PlusAvatar icon="fa-solid fa-star" />
+  </>;
+};
 ```
-  </TabItem>
-  <TabItem label="Vue">
-```html
+
+```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div>
+    <plus-avatar></plus-avatar>
+    <plus-avatar text={{text}}></plus-avatar>
+    <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+    <plus-avatar icon="fa-solid fa-star"></plus-avatar>
+  </div>`
+})
+export class AppComponent {
+  @Input() text= 'John Doe';
+}
+```
+
+```vue
 <template>
-  <plus-avatar />  <!-- Default empty avatar -->
-  <plus-avatar text="John Doe" />  <!-- Avatar with text -->
-  <plus-avatar image="https://i.pravatar.cc/50?u=4" />  <!-- Avatar with image -->
+  <plus-avatar></plus-avatar>
+  <plus-avatar text="John Doe"></plus-avatar>
+  <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+  <plus-avatar icon="fa-solid fa-star"></plus-avatar>
 </template>
 ```
-  </TabItem>
-  <TabItem label="Javascript">
-```html
-<plus-avatar></plus-avatar>  <!-- Default empty avatar -->
-<plus-avatar text="John Doe"></plus-avatar>  <!-- Avatar with text -->
-<plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>  <!-- Avatar with image -->
-```
-  </TabItem>
-</Tabs>
+</code-bubble>
 
 <Aside type="note">
 When no avatar image is available, the system uses the initials of the user's first and last name, capitalizing them. In the absence of user information, it substitutes with an icon.
@@ -98,115 +93,129 @@ When no avatar image is available, the system uses the initials of the user's fi
 
 ### Size
 
-The Avatar component supports different size variants such as extra small, small, medium and large to fit various design requirements.&#x20;
+The Avatar component supports different size variants such as extra small (24px), small (32px), medium (40px) and large (48px) to fit various design requirements.
 
-You can also customize the size of the avatar component.
+You can also customize the size of the avatar component by providing any valid CSS size value (e.g., px, rem, em) to the size property. For example:
 
-<EmbedContent url="https://codesandbox.io/embed/vx9569?hidenavigation=1&module=/index.html&view=preview" />
-
-<Tabs syncKey="size">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAvatar } from '@plusui/react';
-
-// Plus-Avatar with Different Sizes in React
-const AvatarWithSizes = () => (
-  <>
-    <PlusAvatar size="xs" />  {/* Extra small avatar */}
-    <PlusAvatar size="sm" />  {/* Small avatar */}
-    <PlusAvatar size="md" />  {/* Medium avatar */}
-    <PlusAvatar size="lg" />  {/* Large avatar */}
-    <PlusAvatar size="54" />  {/* Custom size avatar with 54px */}
-  </>
-);
-
-export default AvatarWithSizes;
-
-```
-  </TabItem>
-  <TabItem label="Angular">
 ```html
-<plus-avatar size="xs"></plus-avatar>  <!-- Extra small avatar -->
-<plus-avatar size="sm"></plus-avatar>  <!-- Small avatar -->
-<plus-avatar size="md"></plus-avatar>  <!-- Medium avatar -->
-<plus-avatar size="lg"></plus-avatar>  <!-- Large avatar -->
-<plus-avatar size="54"></plus-avatar>  <!-- Custom size avatar with 54px -->
-
+<plus-avatar size="54px"></plus-avatar>
+<plus-avatar size="3rem"></plus-avatar>
 ```
-  </TabItem>
-  <TabItem label="Vue">
+
+<code-bubble class="not-content">
+
 ```html
+  <plus-avatar size="xs"></plus-avatar>
+  <plus-avatar size="sm"></plus-avatar>
+  <plus-avatar size="md"></plus-avatar>
+  <plus-avatar size="lg"></plus-avatar>
+  <plus-avatar size="54px"></plus-avatar>
+``` 
+
+```tsx
+import { PlusAvatar } from '@plusui/library/react';
+
+export default () => {
+  return <>
+    <PlusAvatar size="xs" />
+    <PlusAvatar size="sm" />
+    <PlusAvatar size="md" />
+    <PlusAvatar size="lg" />
+    <PlusAvatar size="54px" />
+  </>;
+};
+```
+
+```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div>
+    <plus-avatar size="xs"></plus-avatar>
+    <plus-avatar size="sm"></plus-avatar>
+    <plus-avatar size="md"></plus-avatar>
+    <plus-avatar size="lg"></plus-avatar>
+    <plus-avatar size="54px"></plus-avatar>
+  </div>`
+})
+
+export class AppComponent {}
+```
+
+```vue
 <template>
-  <plus-avatar size="xs" />  <!-- Extra small avatar -->
-  <plus-avatar size="sm" />  <!-- Small avatar -->
-  <plus-avatar size="md" />  <!-- Medium avatar -->
-  <plus-avatar size="lg" />  <!-- Large avatar -->
-  <plus-avatar size="54" />  <!-- Custom size avatar with 54px -->
+  <plus-avatar size="xs"></plus-avatar>
+  <plus-avatar size="sm"></plus-avatar>
+  <plus-avatar size="md"></plus-avatar>
+  <plus-avatar size="lg"></plus-avatar>
+  <plus-avatar size="54px"></plus-avatar>
 </template>
-
 ```
-  </TabItem>
-  <TabItem label="Javascript">
-```html
-<plus-avatar size="xs"></plus-avatar>  <!-- Extra small avatar -->
-<plus-avatar size="sm"></plus-avatar>  <!-- Small avatar -->
-<plus-avatar size="md"></plus-avatar>  <!-- Medium avatar -->
-<plus-avatar size="lg"></plus-avatar>  <!-- Large avatar -->
-<plus-avatar size="54"></plus-avatar>  <!-- Custom size avatar with 54px -->
-
-```
-  </TabItem>
-</Tabs>
+</code-bubble>
 
 ### Invert
 
 The invert property provides the option to invert the color scheme of the avatar. This can be particularly useful for highlighting specific avatars or indicating a change in status or mode. By inverting the colors, you can draw attention to certain avatars and create a visually distinct user experience.
 
-<EmbedContent url="https://codesandbox.io/embed/ntdcng?hidenavigation=1&module=/index.html&view=preview" />
 
-<Tabs syncKey="invert">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAvatar } from '@plusui/react';
+<code-bubble class="not-content">
 
-// Plus-Avatar with Invert Example in React
-const AvatarWithInvert = () => (
-  <>
-    <PlusAvatar />  {/* Default avatar */}
-    <PlusAvatar invert />  {/* Inverted avatar */}
-  </>
-);
+<div slot="preview">
+  <div class="container">
+    <div class="row">
+      <plus-avatar></plus-avatar>
+      <plus-avatar invert></plus-avatar>
+    </div>
+    <div class="row">
+      <plus-avatar text="John Doe"></plus-avatar>
+      <plus-avatar invert text="John Doe"></plus-avatar>
+    </div>
+    <div class="row">
+      <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+      <plus-avatar invert image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+    </div>
+  </div>
+</div>
 
-export default AvatarWithInvert;
 
-```
-  </TabItem>
-  <TabItem label="Angular">
 ```html
-<plus-avatar></plus-avatar>  <!-- Default avatar -->
-<plus-avatar invert></plus-avatar>  <!-- Inverted avatar -->
+  <plus-avatar></plus-avatar>
+  <plus-avatar invert></plus-avatar>
+``` 
 
+```tsx
+import { PlusAvatar } from '@plusui/library/react';
+
+export default () => {
+  return <>
+    <PlusAvatar />
+    <PlusAvatar invert />
+  </>;
+};
 ```
-  </TabItem>
-  <TabItem label="Vue">
-```html
+
+```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div>
+    <plus-avatar></plus-avatar>
+    <plus-avatar invert></plus-avatar>
+  </div>`
+})
+
+export class AppComponent {}
+```
+
+```vue
 <template>
-  <plus-avatar />  <!-- Default avatar -->
-  <plus-avatar invert />  <!-- Inverted avatar -->
+  <plus-avatar></plus-avatar>
+  <plus-avatar invert></plus-avatar>
 </template>
-
 ```
-  </TabItem>
-  <TabItem label="Javascript">
-```html
-<plus-avatar></plus-avatar>  <!-- Default avatar -->
-<plus-avatar invert></plus-avatar>  <!-- Inverted avatar -->
-
-```
-  </TabItem>
-</Tabs>
+</code-bubble>
 
 ### Shape
 
@@ -215,50 +224,62 @@ The shape property allows you to define the shape of the avatar. Avatars can tak
 * **Circle shape** imparts a rounded, circular appearance to the avatar. It's often employed to create a softer and more approachable visual identity for users or entities.&#x20;
 * **Square shape** imparts a square or rectangular appearance to the avatar. This shape provides a more geometric and structured visual style, suitable for various design contexts.
 
-<EmbedContent url="https://codesandbox.io/embed/jxgjt8?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content">
 
-<Tabs syncKey="shape">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAvatar } from '@plusui/react';
+<div slot="preview">
+  <div class="container">
+    <div class="row">
+      <plus-avatar shape="circle"></plus-avatar>
+      <plus-avatar shape="square"></plus-avatar>
+    </div>
+    <div class="row">
+      <plus-avatar shape="circle" text="John Doe"></plus-avatar>
+      <plus-avatar shape="square" text="John Doe"></plus-avatar>
+    </div>
+    <div class="row">
+      <plus-avatar shape="circle" image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+      <plus-avatar shape="square" image="https://i.pravatar.cc/50?u=4"></plus-avatar>
+    </div>
+  </div>
+</div>
 
-// Plus-Avatar with Shape Example in React
-const AvatarWithShape = () => (
-  <>
-    <PlusAvatar />  {/* Default shape (circle) */}
-    <PlusAvatar shape="square" />  {/* Square-shaped avatar */}
-  </>
-);
-
-export default AvatarWithShape;
-
-```
-  </TabItem>
-  <TabItem label="Angular">
 ```html
-<plus-avatar></plus-avatar>  <!-- Default shape (circle) -->
-<plus-avatar shape="square"></plus-avatar>  <!-- Square-shaped avatar -->
+  <plus-avatar shape="circle"></plus-avatar>
+  <plus-avatar shape="square"></plus-avatar>
+``` 
 
+```tsx
+import { PlusAvatar } from '@plusui/library/react';
+
+export default () => {
+  return <>
+    <PlusAvatar shape="circle" />
+    <PlusAvatar shape="square" />
+  </>;
+};
 ```
-  </TabItem>
-  <TabItem label="Vue">
-```html
+
+```ts
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div>
+    <plus-avatar shape="circle"></plus-avatar>
+    <plus-avatar shape="square"></plus-avatar>
+  </div>`
+})
+
+export class AppComponent {}
+```
+
+```vue
 <template>
-  <plus-avatar />  <!-- Default shape (circle) -->
-  <plus-avatar shape="square" />  <!-- Square-shaped avatar -->
+  <plus-avatar shape="circle"></plus-avatar>
+  <plus-avatar shape="square"></plus-avatar>
 </template>
-
 ```
-  </TabItem>
-  <TabItem label="Javascript">
-```html
-<plus-avatar></plus-avatar>  <!-- Default shape (circle) -->
-<plus-avatar shape="square"></plus-avatar>  <!-- Square-shaped avatar -->
-
-```
-  </TabItem>
-</Tabs>
+</code-bubble>
 
 ## Layout & Spacing
 
@@ -302,12 +323,34 @@ To learn more about Plus UI's accessibility criteria, please visit [Accessibilit
 
 ## API
 
-| Property | Description   | Type           | Accepted Values            | Default |
-| -------- | ------------- | -------------- | -------------------------- | ------- |
-| text     | Avatar text   | String         | —                          | —       |
-| image    | Avatar image  | String         | —                          | —       |
-| icon     | Avatar icon   | String         | —                          | —       |
-| shape    | Avatar shape  | String         | circle, square             | circle  |
-| size     | Avatar size   | String, Number | xs, sm, md, lg, xl, number | md      |
-| invert   | Invert avatar | Boolean        | —                          | false   |
+### Properties
+
+| Property | Description | Type | Default |
+| -------- | ----------- | ---- | ------- |
+| `image` | The URL of the avatar image | `string` |  ` ` |
+| `alt` | Alternative text for the avatar image | `string` |  ` ` |
+| `shape` | The shape of the avatar | `'circle' \| 'square'` | `'circle'` |
+| `size` | The size of the avatar | `'xs' \| 'sm' \| 'md' \| 'lg' \| string` | `'md'` |
+| `icon` | The icon class to be used as fallback or icon type avatar | `string` | `'fa-solid fa-user'` |
+| `invert` | Whether to invert the avatar colors | `boolean` | `false` |
+| `text` | The text to display (initials will be generated) | `string` |  ` ` |
+{/* 
+| `loading` | Whether the avatar is in loading state | `boolean` | `false` |
+| `fallbackStrategy` | Strategy to use when image fails to load | `'icon' \| 'text' \| 'custom'` | `'icon'` |
+| `loadingText` | Text to display during loading state | `string` | `'Loading...'` | 
+*/}
+
+### Events
+
+| Event | Description | Type |
+| ----- | ----------- | ---- |
+| `error` | Emitted when the image fails to load | `CustomEvent<void>` |
+| `load` | Emitted when the image successfully loads | `CustomEvent<void>` |
+
+### Slots
+
+| Name | Description |
+| ---- | ----------- |
+| `default` | The default slot for custom content |
+| `fallback` | Custom fallback content when image fails to load |
 

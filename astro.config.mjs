@@ -4,7 +4,7 @@ import lit from '@astrojs/lit';
 import starlightLinksValidator from "starlight-links-validator";
 import starlightImageZoom from "starlight-image-zoom";
 // import tailwind from "@astrojs/tailwind";
-import liveCode from "astro-live-code";
+// import liveCode from "astro-live-code";
 
 export default defineConfig({
   srcDir: './astro',
@@ -123,8 +123,8 @@ export default defineConfig({
     // tailwind({
     //   applyBaseStyles: false,
     // }),
-    liveCode({
-      layout: '/src/components/LiveCodeLayout.astro',
-    }),
+    // liveCode({
+    //   layout: '/src/components/LiveCodeLayout.astro',
+    // }),
   ],
 });

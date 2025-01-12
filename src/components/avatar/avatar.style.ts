@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants';
 
 export const avatarStyle = tv({
-  base: 'avatar flex items-center justify-center font-sans uppercase overflow-hidden',
+  base: 'avatar align-middle inline-flex items-center justify-center font-sans uppercase overflow-hidden',
   variants: {
     size: {
       xs: 'size-4 text-xs',

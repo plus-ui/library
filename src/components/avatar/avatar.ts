@@ -68,7 +68,7 @@ export default class PlusAvatar extends Tailwind {
   private renderImage() {
     if (!this.image) return null;
 
-    return html` <img class="object-cover w-full h-full" loading="lazy" @error=${this.handleError} @load=${this.handleLoad} src=${this.image} alt=${this.alt || this.text || 'Avatar'} />`;
+    return html`<img class="object-cover w-full h-full" loading="lazy" @error=${this.handleError} @load=${this.handleLoad} src=${this.image} alt=${this.alt || this.text || 'Avatar'} />`;
   }
 
   private renderFallback() {
