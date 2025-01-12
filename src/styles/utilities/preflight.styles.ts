@@ -1,115 +1,166 @@
 import { css } from 'lit';
 
 export default css`
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    box-sizing: border-box; /* 1 */
-    margin: 0; /* 2 */
-    padding: 0; /* 2 */
-    border: 0 solid; /* 3 */
-  }
+  @layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: 0 solid;
+    }
 
-  :host {
-    line-height: 1.5; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
-    tab-size: 4; /* 3 */
-    font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'); /* 4 */
-    font-feature-settings: var(--default-font-feature-settings, normal); /* 5 */
-    font-variation-settings: var(--default-font-variation-settings, normal); /* 6 */
-    -webkit-tap-highlight-color: transparent; /* 7 */
-  }
+    html,
+    :host {
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      tab-size: 4;
+      font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji');
+      font-feature-settings: var(--default-font-feature-settings, normal);
+      font-variation-settings: var(--default-font-variation-settings, normal);
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  a {
-    color: inherit;
-    -webkit-text-decoration: inherit;
-    text-decoration: inherit;
-  }
+    body {
+      line-height: inherit;
+    }
 
-  :-moz-focusring {
-    outline: auto;
-  }
+    a {
+      color: inherit;
+      -webkit-text-decoration: inherit;
+      text-decoration: inherit;
+    }
 
-  summary {
-    display: list-item;
-  }
+    b,
+    strong {
+      font-weight: bolder;
+    }
 
-  button,
-  input,
-  select,
-  optgroup,
-  textarea,
-  ::file-selector-button {
-    font: inherit; /* 1 */
-    font-feature-settings: inherit; /* 1 */
-    font-variation-settings: inherit; /* 1 */
-    letter-spacing: inherit; /* 1 */
-    color: inherit; /* 1 */
-    border-radius: 0; /* 2 */
-    background-color: transparent; /* 3 */
-    opacity: 1; /* 4 */
-  }
+    :-moz-focusring {
+      outline: auto;
+    }
 
-  ::file-selector-button {
-    margin-inline-end: 4px;
-  }
+    progress {
+      vertical-align: baseline;
+    }
 
-  ::placeholder {
-    opacity: 1; /* 1 */
-    color: color-mix(in oklab, currentColor 50%, transparent); /* 2 */
-  }
+    summary {
+      display: list-item;
+    }
 
-  textarea {
-    resize: vertical;
-  }
+    ol,
+    ul,
+    menu {
+      list-style: none;
+    }
 
-  ::-webkit-search-decoration {
-    -webkit-appearance: none;
-  }
+    img,
+    svg {
+      display: block;
 
-  ::-webkit-date-and-time-value {
-    min-height: 1lh; /* 1 */
-    text-align: inherit; /* 2 */
-  }
+      vertical-align: middle;
+    }
 
-  ::-webkit-datetime-edit {
-    display: inline-flex;
-  }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
 
-  ::-webkit-datetime-edit-fields-wrapper {
-    padding: 0;
-  }
+    button,
+    input,
+    select,
+    optgroup,
+    textarea,
+    ::file-selector-button {
+      font: inherit;
 
-  ::-webkit-datetime-edit,
-  ::-webkit-datetime-edit-year-field,
-  ::-webkit-datetime-edit-month-field,
-  ::-webkit-datetime-edit-day-field,
-  ::-webkit-datetime-edit-hour-field,
-  ::-webkit-datetime-edit-minute-field,
-  ::-webkit-datetime-edit-second-field,
-  ::-webkit-datetime-edit-millisecond-field,
-  ::-webkit-datetime-edit-meridiem-field {
-    padding-block: 0;
-  }
+      font-feature-settings: inherit;
 
-  :-moz-ui-invalid {
-    box-shadow: none;
-  }
+      font-variation-settings: inherit;
 
-  button,
-  input:where([type='button'], [type='reset'], [type='submit']),
-  ::file-selector-button {
-    appearance: button;
-  }
+      letter-spacing: inherit;
 
-  ::-webkit-inner-spin-button,
-  ::-webkit-outer-spin-button {
-    height: auto;
-  }
+      color: inherit;
 
-  [hidden]:where(:not([hidden='until-found'])) {
-    display: none !important;
+      border-radius: 0;
+
+      background-color: transparent;
+
+      opacity: 1;
+    }
+
+    :where(select:is([multiple], [size])) optgroup {
+      font-weight: bolder;
+    }
+
+    :where(select:is([multiple], [size])) optgroup option {
+      padding-inline-start: 20px;
+    }
+
+    ::file-selector-button {
+      margin-inline-end: 4px;
+    }
+
+    ::placeholder {
+      opacity: 1;
+
+      color: color-mix(in oklab, currentColor 50%, transparent);
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    ::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+
+    ::-webkit-date-and-time-value {
+      min-height: 1lh;
+
+      text-align: inherit;
+    }
+
+    ::-webkit-datetime-edit {
+      display: inline-flex;
+    }
+
+    ::-webkit-datetime-edit-fields-wrapper {
+      padding: 0;
+    }
+
+    ::-webkit-datetime-edit,
+    ::-webkit-datetime-edit-year-field,
+    ::-webkit-datetime-edit-month-field,
+    ::-webkit-datetime-edit-day-field,
+    ::-webkit-datetime-edit-hour-field,
+    ::-webkit-datetime-edit-minute-field,
+    ::-webkit-datetime-edit-second-field,
+    ::-webkit-datetime-edit-millisecond-field,
+    ::-webkit-datetime-edit-meridiem-field {
+      padding-block: 0;
+    }
+
+    :-moz-ui-invalid {
+      box-shadow: none;
+    }
+
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']),
+    ::file-selector-button {
+      appearance: button;
+    }
+
+    ::-webkit-inner-spin-button,
+    ::-webkit-outer-spin-button {
+      height: auto;
+    }
+
+    [hidden]:where(:not([hidden='until-found'])) {
+      display: none !important;
+    }
   }
 `;
