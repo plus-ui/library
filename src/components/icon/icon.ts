@@ -1,16 +1,18 @@
 import { property } from 'lit/decorators.js';
 import { html, LitElement, css } from 'lit';
 import { library, icon } from '@fortawesome/fontawesome-svg-core';
-import { faUser, faHeart, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faHeart, faHome, faXmark } from '@fortawesome/free-solid-svg-icons';
 import type { IconPrefix, IconName, IconLookup } from '@fortawesome/fontawesome-common-types';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 
-library.add(faUser, faHeart, faHome);
+library.add(faUser, faHeart, faHome,faXmark);
 
 export default class PlusIcon extends LitElement {
   static override styles = css`
     :host {
       display: inline-block;
+      height: fit-content;
+      width: fit-content;
     }
     svg {
       height: 1em;
