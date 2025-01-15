@@ -18,6 +18,7 @@ import { chipStyle } from './chip.style';
  * @cssproperty --rounded - Border radius
  * @cssproperty --border - Border color
  *
+ * @attr {string} id - Unique identifier for chip
  * @attr {string} kind - Visual style of chip (filled, outlined) - default: 'filled'
  * @attr {string} size - Size of chip (sm, md, lg) - default: 'md'
  * @attr {string} type - Type of chip (default, avatar) - default: 'default'
@@ -41,6 +42,10 @@ import { chipStyle } from './chip.style';
  */
 
 export default class PlusChip extends Tailwind {
+
+  @property({ type: String, reflect: true })
+  override id: string = `plusui-${Math.random().toString(36).slice(2, 12)}`;
+    
   @property({ type: String, reflect: true })
   kind: 'filled' | 'outlined' = 'filled';
 
@@ -90,7 +95,7 @@ export default class PlusChip extends Tailwind {
   }
 
   private onDismiss() {
-    this.dispatchEvent(new CustomEvent('dismiss'));
+    this.emit('dismiss');
   }
 
   override render() {
