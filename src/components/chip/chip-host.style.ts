@@ -27,6 +27,8 @@ export default css`
 
   :host([disabled]) {
     --bg-default: var(--plus-color-background-disabled);
+    --bg-hovered: var(--plus-color-background-disabled); 
+    --bg-pressed: var(--plus-color-background-disabled);
     --text-color: var(--plus-color-text-disabled);
   }
 `;
