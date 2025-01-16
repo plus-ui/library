@@ -5,13 +5,19 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;600&display=swap");
 
-@import './base/brand.css';
-@import './base/theme.css';
+@import './theme/brand.css';
+@import './theme/light.css';
 @import './theme/dark.css';
 
 @theme {
   --font-sans: 'Inter', sans-serif;
-
-  --color-primary: var(--color-indigo-600);
-  --color-primary-hover: var(--color-indigo-700);
+}
+@theme {
+  --plus-border-radius-none: 0;
+  --plus-border-radius-default: var(--radius-sm);
+  --plus-border-radius-modal: var(--radius-lg);
+  --plus-border-radius-full: 9999px;
+  
+  --radius-default: var(--plus-border-radius-default);
+  --radius-modal: var(--plus-border-radius-modal);
 }

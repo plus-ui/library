@@ -1,0 +1,114 @@
+---
+title: Button
+description: ...
+---
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+{/* import anatomy from '../../../assets/components/button/anatomy.png'; */}
+{/* import layoutSpacing from '../../../assets/components/button/layout-spacing.png'; */}
+{/* import lightDarkMode from '../../../assets/components/button/light-dark-mode.png'; */}
+
+# Button
+
+Add description here.
+
+## Anatomy
+
+Add anatomy description here.
+
+{/* <Image src={anatomy} alt="anatomy of button component" /> */}
+
+## Properties
+
+Add properties overview here.
+
+### Kind
+
+Add kind variations here.
+
+<code-bubble class="not-content">
+
+```html
+<plus-button>Hello</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return <>
+    <PlusButton>Hello</PlusButton>
+  </>;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div>
+    <plus-button>Hello</plus-button>
+  </div>`
+})
+export class AppComponent {
+}
+```
+
+```vue
+<template>
+  <plus-button>Hello</plus-button>
+</template>
+```
+</code-bubble>
+
+<Aside type="note">
+Add note here if needed.
+</Aside>
+
+### Size
+
+Add size variations here.
+
+## Layout & Spacing
+
+Add layout and spacing guidelines here.
+
+{/* <Image src={layoutSpacing} alt="layout and spacing of button component" /> */}
+
+## Light & Dark Mode
+
+Add light and dark mode details here.
+
+{/* <Image src={lightDarkMode} alt="dark and light mode of button component" /> */}
+
+## Accessibility
+
+Add accessibility guidelines here.
+
+## Design System
+
+{/* <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" /> */}
+
+## API
+
+### Properties
+
+| Property | Description | Type | Default |
+| -------- | ----------- | ---- | ------- |
+| Add properties here | | | |
+
+### Events
+
+| Event | Description | Type |
+| ----- | ----------- | ---- |
+| Add events here | | |
+
+### Slots
+
+| Name | Description |
+| ---- | ----------- |
+| `default` | The default slot for custom content |

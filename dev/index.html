@@ -15,17 +15,69 @@
         gap: 1rem;
         margin-bottom: 1rem;
       }
+
+      plus-button.primary-button {
+        --bg-default: var(--plus-color-background-primary-default);
+        --bg-hovered: var(--plus-color-background-primary-hovered);
+        --bg-pressed: var(--plus-color-background-primary-pressed);
+        --bg-focused: var(--plus-color-background-primary-focused);
+        --bg-loading: var(--plus-color-background-primary-loading);
+
+        --text: var(--plus-color-text-base);
+
+        --border: var(--plus-color-border-default);
+      }
     </style>
   </head>
   <body>
     <h1>Component Test Page</h1>
 
     <h2>Button Tests</h2>
+    
     <div class="container">
-      <plus-button>Normal Button</plus-button>
-      <plus-button disabled>Disabled Button</plus-button>
+      <plus-button kind="filled">Button</plus-button>
+      <plus-button  kind="outlined">Button</plus-button>
+      <plus-button kind="dashed">Button</plus-button>
+      <plus-button kind="text">Button</plus-button>
+    </div>
+    <div class="container">
+      <plus-button status="success" kind="filled">Button</plus-button>
+      <plus-button status="success" kind="outlined">Button</plus-button>
+      <plus-button status="success" kind="dashed">Button</plus-button>
+      <plus-button status="success" kind="text">Button</plus-button>
+    </div>
+    <div class="container">
+      <plus-button status="primary" kind="filled">Button</plus-button>
+      <plus-button status="primary" kind="outlined">Button</plus-button>
+      <plus-button status="primary" kind="dashed">Button</plus-button>
+      <plus-button status="primary" kind="text">Button</plus-button>
+    </div>
+    <div class="container">
+      <plus-button class="primary-button" status="success">Button</plus-button>
+      <plus-button status="warning">Button</plus-button>
+      <plus-button status="danger">Button</plus-button>
+      <plus-button status="info">Button</plus-button>
+    </div>
+    
+    <div class="container">
+      <plus-button size="md" kind="filled" status="default">Normal Button</plus-button>
+      <plus-button size="md" kind="filled" status="primary">Normal Button</plus-button>
+      <plus-button size="md" disabled>Disabled Button</plus-button>
+    </div>
+    
+    <div class="container">
+      <plus-button size="sm">Normal Button</plus-button>
+      <plus-button size="sm" disabled>Disabled Button</plus-button>
+    </div>
+    
+    <div class="container">
+      <plus-button size="lg">Normal Button</plus-button>
+      <plus-button size="lg" disabled>Disabled Button</plus-button>
     </div>
 
+    <button>Merhaba</button>
+
     <!-- Diğer komponentler için test alanları buraya eklenebilir -->
+
   </body>
 </html>
