@@ -1,7 +1,20 @@
 import { tv } from 'tailwind-variants';
 
 export const baseButtonStyle = tv({
-  base: ['button font-sans', 'inline-flex items-center justify-center', 'rounded-default', 'border'],
+  base: [
+    'button font-sans',
+    'inline-flex items-center justify-center',
+    'rounded-default',
+    'border',
+
+    'text-color-dynamic',
+    'border-color-dynamic',
+
+    '       bg-color-dynamic-default',
+    ' hover:bg-color-dynamic-hovered',
+    'active:bg-color-dynamic-pressed',
+    ' focus:bg-color-dynamic-focused',
+  ],
 
   variants: {
     size: {

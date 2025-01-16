@@ -22,7 +22,7 @@ export default class PlusButton extends Tailwind {
   @property() kind: 'filled' | 'outlined' | 'dashed' | 'text' = 'filled';
   @property() status: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' = 'default';
   @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-  @property() loading = false;
+  @property({ type: Boolean }) loading = false;
 
   @property() size: 'sm' | 'md' | 'lg' = 'md';
 
@@ -42,8 +42,6 @@ export default class PlusButton extends Tailwind {
 
   override render() {
     const { status } = this;
-
-    let style = {};
 
     const filledStyles = {
       '--i-bg-default': `var(--plus-color-background-${status}-default)`,
@@ -79,7 +77,7 @@ export default class PlusButton extends Tailwind {
       },
     };
 
-    style = styleMap(styles[this.kind]);
+    const style = styleMap(styles[this.kind]);
 
     return html`
       <button class=${this.classes} part="button" ?disabled=${this.disabled} style=${style}>

@@ -12,23 +12,4 @@ export default css`
     // --text-color: var(--plus-color-text-base);
     // --border-color: var(--plus-color-border-primary);
   }
-
-  button {
-    background-color: var(--bg-default, var(--i-bg-default));
-    color: var(--text-color, var(--i-text-color));
-    border-color: var(--border-color, var(--i-border-color));
-  }
-
-  button:hover {
-    background-color: var(--bg-hovered, var(--i-bg-hovered));
-  }
-
-  button:active {
-    background-color: var(--bg-pressed, var(--i-bg-pressed));
-  }
-
-  button:focus {
-    background-color: var(--bg-focused, var(--i-bg-focused));
-  }
-
 `;

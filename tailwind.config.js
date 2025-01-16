@@ -4,6 +4,7 @@ module.exports = {
     extend: {
       textColor: {
         color: {
+          dynamic: 'var(--text-color,var(--i-text-color))',
           base: 'var(--plus-color-text-base)',
           default: 'var(--plus-color-text-default)',
           primary: 'var(--plus-color-text-primary)',
@@ -40,6 +41,7 @@ module.exports = {
         },
       },
       borderColor: {
+        dynamic: 'var(--border-color,var(--i-border-color))',
         DEFAULT: 'var(--plus-color-border-default)',
         color: {
           base: 'var(--plus-color-border-base)',
@@ -55,6 +57,12 @@ module.exports = {
       },
       backgroundColor: {
         color: {
+          dynamic: {
+            default: 'var(--bg-default,var(--i-bg-default))',
+            hovered: 'var(--bg-hovered,var(--i-bg-hovered))',
+            pressed: 'var(--bg-pressed,var(--i-bg-pressed))',
+            focused: 'var(--bg-focused,var(--i-bg-focused))',
+          },
           surface: 'var(--plus-color-background-surface)',
           disabled: 'var(--plus-color-background-disabled)',
           transparent: 'var(--plus-color-background-transparent)',
