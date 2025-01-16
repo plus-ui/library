@@ -1,8 +1,9 @@
-import { html, PropertyValues, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import Tailwind from '../base/tailwind-base';
 import { property } from 'lit/decorators.js';
 import chipHostStyle from './chip-host.style';
 import { chipStyle } from './chip.style';
+import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * A customizable chip component with status and dismissible features
@@ -42,10 +43,9 @@ import { chipStyle } from './chip.style';
  */
 
 export default class PlusChip extends Tailwind {
-
   @property({ type: String, reflect: true })
   override id: string = `plusui-${Math.random().toString(36).slice(2, 12)}`;
-    
+
   @property({ type: String, reflect: true })
   kind: 'filled' | 'outlined' = 'filled';
 
@@ -76,30 +76,50 @@ export default class PlusChip extends Tailwind {
     super();
   }
 
-  protected override updated(_changedProperties: PropertyValues): void {
-    super.updated(_changedProperties);
-    if (_changedProperties.has('status') || _changedProperties.has('kind')) {
-      if (this.status !== 'default' && this.kind == 'filled') {
-        const prefix = this.invert ? 'invert-' : '';
-        this.style.setProperty('--bg-default', `var(--plus-color-background-status-${prefix}${this.status}-default)`);
-        this.style.setProperty('--bg-hovered', `var(--plus-color-background-status-${prefix}${this.status}-hovered)`);
-        this.style.setProperty('--bg-pressed', `var(--plus-color-background-status-${prefix}${this.status}-pressed)`);
-        this.style.setProperty('--text-color', `var(--plus-color-text-${this.invert ? 'default' : 'base'})`);
-      }
-
-      if (this.kind == 'outlined' && this.status != 'default') {
-        this.style.setProperty('--text-color', `var(--plus-color-text-${this.status})`);
-        this.style.setProperty('--border', `var(--plus-color-border-${this.status})`);
-      }
-    }
-  }
-
   private onDismiss() {
     this.emit('dismiss');
   }
 
   override render() {
-    const { kind, status, size, type, shape, disabled, dismiss } = this;
+    const { kind, status, size, type, shape, disabled, dismiss, invert } = this;
+    
+    const filledStyles = {
+      '--i-bg-default': `var(--plus-color-background-${status}-default)`,
+      '--i-bg-hovered': `var(--plus-color-background-${status}-hovered)`,
+      '--i-bg-focused': `var(--plus-color-background-${status}-pressed)`,
+      '--i-bg-pressed': `var(--plus-color-background-${status}-focused)`,
+      '--i-text-color': `var(--plus-color-text-${status === 'default' ? 'default' : 'base'})`,
+      '--i-border-color': 'transparent',
+    };
+    
+    const invertFilledStyles = {
+      '--i-bg-default': `var(--plus-color-background-${status}-invert-default)`,
+      '--i-bg-hovered': `var(--plus-color-background-${status}-invert-hovered)`,
+      '--i-bg-focused': `var(--plus-color-background-${status}-invert-pressed)`,
+      '--i-bg-pressed': `var(--plus-color-background-${status}-invert-focused)`,
+      '--i-text-color': `var(--plus-color-text-${status === 'default' ? 'base' : 'default'})`,
+      '--i-border-color': 'transparent',
+    };
+    
+    const outlinedStyles = {
+      '--i-bg-default': `var(--plus-color-background-surface)`,
+      '--i-bg-hovered': 'var(--plus-color-background-default-hovered)',
+      '--i-bg-pressed': 'var(--plus-color-background-default-pressed)',
+      '--i-bg-focused': 'var(--plus-color-background-default-focused)',
+      '--i-text-color': `var(--plus-color-text-${status})`,
+      '--i-border-color': `var(--plus-color-border-${status})`,
+    };
+
+    const styles = {
+      filled: {
+        ...(invert ? invertFilledStyles : filledStyles),
+      },
+      outlined: {
+        ...outlinedStyles,
+      },
+    };
+
+    const style = styleMap(styles[this.kind]);
 
     return html`
       <div
@@ -115,18 +135,11 @@ export default class PlusChip extends Tailwind {
           shape,
           disabled,
         })}
+        style=${style}
       >
         <slot></slot>
         ${dismiss
-          ? html`<plus-icon
-              class=${!disabled ? 'cursor-pointer' : 'cursor-not-allowed'}
-              role="button"
-              tabindex="0"
-              aria-label="Remove"
-              @click=${() => !disabled && this.onDismiss()}
-              iconName="xmark"
-            >
-            </plus-icon>`
+          ? html`<plus-icon class=${!disabled ? 'cursor-pointer' : 'cursor-not-allowed'} role="button" tabindex="0" aria-label="Remove" @click=${() => !disabled && this.onDismiss()} iconName="xmark"> </plus-icon>`
           : nothing}
       </div>
     `;

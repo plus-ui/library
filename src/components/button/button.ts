@@ -53,10 +53,10 @@ export default class PlusButton extends Tailwind {
     };
 
     const commonStyles = {
+      '--i-bg-default': `var(--plus-color-background-surface)`,
       '--i-bg-hovered': 'var(--plus-color-background-default-hovered)',
       '--i-bg-pressed': 'var(--plus-color-background-default-pressed)',
       '--i-bg-focused': 'var(--plus-color-background-default-focused)',
-      '--i-bg-loading': 'var(--plus-color-background-default-loading)',
       '--i-text-color': `var(--plus-color-text-${status})`,
       '--i-border-color': `var(--plus-color-border-${status})`,
     };
@@ -73,6 +73,7 @@ export default class PlusButton extends Tailwind {
       },
       text: {
         ...commonStyles,
+        '--i-bg-default': 'transparent',
         '--i-border-color': 'transparent',
       },
     };

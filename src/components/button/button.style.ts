@@ -53,18 +53,3 @@ export const baseButtonStyle = tv({
     loading: false,
   },
 });
-
-export const filledButtonStyle = tv({
-  extend: baseButtonStyle,
-  base: '',
-  variants: {
-    status: {
-      default: '',
-      primary: '',
-      success: '',
-      warning: '',
-      danger: '',
-      info: '',
-    },
-  },
-});

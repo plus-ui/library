@@ -4,8 +4,14 @@ export const chipStyle = tv({
   base: [
     'antialiased font-sans box-content select-none',
     'inline-flex items-center justify-center font-normal',
-    'bg-[var(--bg-default)] text-[var(--text-color)] border-[var(--border)]',
-    'hover:bg-[var(--bg-hovered)] active:bg-[var(--bg-pressed)]',
+
+    'text-color-dynamic',
+    'border-color-dynamic',
+
+    '       bg-color-dynamic-default',
+    ' hover:bg-color-dynamic-hovered',
+    'active:bg-color-dynamic-pressed',
+    ' focus:bg-color-dynamic-focused',
   ],
   variants: {
     size: {
