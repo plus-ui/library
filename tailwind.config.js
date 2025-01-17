@@ -41,9 +41,9 @@ module.exports = {
         },
       },
       borderColor: {
-        dynamic: 'var(--border-color,var(--i-border-color))',
         DEFAULT: 'var(--plus-color-border-default)',
         color: {
+          dynamic: 'var(--border-color,var(--i-border-color))',
           base: 'var(--plus-color-border-base)',
           default: 'var(--plus-color-border-default)',
           primary: 'var(--plus-color-border-primary)',
@@ -152,12 +152,12 @@ module.exports = {
           },
         },
       },
-      ringColor: {
-        DEFAULT: 'var(--plus-color-border-ring)',
-        color: {
-          default: 'var(--plus-color-border-ring)',
-        },
-      },
+      // ringColor: {
+      //   DEFAULT: 'var(--plus-color-border-ring)',
+      //   color: {
+      //     default: 'var(--plus-color-border-ring)',
+      //   },
+      // },
     },
   },
 };
