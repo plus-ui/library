@@ -1,21 +1,14 @@
 import { tv } from 'tailwind-variants';
 
 export const baseButtonStyle = tv({
-  base: [
-    'button font-sans',
-    'inline-flex items-center justify-center',
-    'rounded-default',
-    'border',
-
-    'text-color-dynamic',
-    'border-color-dynamic',
-
-    '       bg-color-dynamic-default',
-    ' hover:bg-color-dynamic-hovered',
-    'active:bg-color-dynamic-pressed',
-    ' focus:bg-color-dynamic-focused',
-  ],
-
+  slots: {
+    base: [
+      'button font-sans',
+      'inline-flex items-center justify-center',
+      'rounded-default',
+      'border',
+    ],
+  },
   variants: {
     size: {
       sm: 'small text-sm p-2 gap-2',
@@ -37,8 +30,20 @@ export const baseButtonStyle = tv({
       info: 'info',
     },
     disabled: {
-      false: 'cursor-pointer',
-      true: 'disabled',
+      true: [
+        'disabled cursor-not-allowed',
+        'bg-color-disabled text-color-disabled border-color-disabled',
+      ],
+      false: [
+        'cursor-pointer',
+        'text-color-dynamic',
+        'border-color-dynamic',
+        'bg-color-dynamic-default',
+        'hover:bg-color-dynamic-hovered',
+        'active:bg-color-dynamic-pressed',
+        'focus-visible:bg-color-dynamic-focused',
+        'focus-visible:ring-default',
+      ],
     },
     loading: {
       false: '',

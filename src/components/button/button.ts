@@ -2,75 +2,102 @@ import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { baseButtonStyle } from './button.style';
-
-import style from './button.styles';
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
- * Add a description here
- *
  * @tag plus-button
  * @since 0.0.0
  * @status experimental
  *
- * @slot - The default slot
+ * PlusButton component provides a clickable button element with various styles and states.
+ * Supports different visual styles, sizes, and interactive states.
  *
- **/
+ * @slot - The default slot for button content
+ *
+ * @csspart button - The component's base wrapper
+ *
+ * @cssproperty --text-color - Controls the text color of the button
+ * @cssproperty --border-color - Controls the border color of the button
+ * @cssproperty --bg-default - Controls the default background color
+ * @cssproperty --bg-hovered - Controls the background color when hovered
+ * @cssproperty --bg-pressed - Controls the background color when pressed
+ * @cssproperty --bg-focused - Controls the background color when focused
+ */
 export default class PlusButton extends Tailwind {
-  static override styles = [...Tailwind.styles, style];
+  static override styles = [...Tailwind.styles];
 
-  @property() kind: 'filled' | 'outlined' | 'dashed' | 'text' = 'filled';
-  @property() status: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' = 'default';
-  @property({ type: Boolean, reflect: true }) disabled: boolean = false;
-  @property({ type: Boolean }) loading = false;
+  /**
+   * Determines the visual style of the button
+   * - filled: Solid background color
+   * - outlined: Transparent background with border
+   * - dashed: Transparent background with dashed border
+   * - text: Text only without background or border
+   * @default 'filled'
+   */
+  @property({ type: String })
+  kind: 'filled' | 'outlined' | 'dashed' | 'text' = 'filled';
 
-  @property() size: 'sm' | 'md' | 'lg' = 'md';
+  /**
+   * Sets the status/color variant of the button
+   * - default: Neutral color scheme
+   * - primary: Brand color scheme
+   * - success: Green color scheme
+   * - warning: Yellow color scheme
+   * - danger: Red color scheme
+   * - info: Blue color scheme
+   * @default 'default'
+   */
+  @property({ type: String })
+  status: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' =
+    'default';
 
-  constructor() {
-    super();
-  }
+  /**
+   * Sets the size of the button
+   * - sm: Small size
+   * - md: Medium size
+   * - lg: Large size
+   * @default 'md'
+   */
+  @property({ type: String })
+  size: 'sm' | 'md' | 'lg' = 'md';
 
-  get classes() {
-    return baseButtonStyle({
-      size: this.size,
-      kind: this.kind,
-      status: this.status,
-      disabled: this.disabled,
-      loading: this.loading,
-    });
-  }
+  /**
+   * Disables the button interaction
+   * @default false
+   */
+  @property({ type: Boolean, reflect: true })
+  disabled = false;
+
+  /**
+   * Shows loading spinner and disables interaction
+   * @default false
+   */
+  @property({ type: Boolean })
+  loading = false;
 
   override render() {
-    const { status } = this;
-
-    const filledStyles = {
-      '--i-bg-default': `var(--plus-color-background-${status}-default)`,
-      '--i-bg-hovered': `var(--plus-color-background-${status}-hovered)`,
-      '--i-bg-focused': `var(--plus-color-background-${status}-pressed)`,
-      '--i-bg-pressed': `var(--plus-color-background-${status}-focused)`,
-      '--i-text-color': `var(--plus-color-text-${status === 'default' ? 'default' : 'base'})`,
-      '--i-border-color': 'transparent',
-    };
-
     const commonStyles = {
-      '--i-bg-default': `var(--plus-color-background-surface)`,
+      '--i-bg-default': 'var(--plus-color-background-surface)',
       '--i-bg-hovered': 'var(--plus-color-background-default-hovered)',
       '--i-bg-pressed': 'var(--plus-color-background-default-pressed)',
       '--i-bg-focused': 'var(--plus-color-background-default-focused)',
-      '--i-text-color': `var(--plus-color-text-${status})`,
-      '--i-border-color': `var(--plus-color-border-${status})`,
+      '--i-text-color': `var(--plus-color-text-${this.status})`,
+      '--i-border-color': `var(--plus-color-border-${this.status})`,
+    };
+
+    const filledStyles = {
+      '--i-bg-default': `var(--plus-color-background-${this.status}-default)`,
+      '--i-bg-hovered': `var(--plus-color-background-${this.status}-hovered)`,
+      '--i-bg-focused': `var(--plus-color-background-${this.status}-pressed)`,
+      '--i-bg-pressed': `var(--plus-color-background-${this.status}-focused)`,
+      '--i-text-color': `var(--plus-color-text-${this.status === 'default' ? 'default' : 'base'})`,
+      '--i-border-color': 'transparent',
     };
 
     const styles = {
-      filled: {
-        ...filledStyles,
-      },
-      outlined: {
-        ...commonStyles,
-      },
-      dashed: {
-        ...commonStyles,
-      },
+      filled: filledStyles,
+      outlined: commonStyles,
+      dashed: commonStyles,
       text: {
         ...commonStyles,
         '--i-bg-default': 'transparent',
@@ -78,10 +105,21 @@ export default class PlusButton extends Tailwind {
       },
     };
 
-    const style = styleMap(styles[this.kind]);
+    const { base } = baseButtonStyle({
+      size: this.size,
+      kind: this.kind,
+      status: this.status,
+      disabled: this.disabled,
+      loading: this.loading,
+    });
 
     return html`
-      <button class=${this.classes} part="button" ?disabled=${this.disabled} style=${style}>
+      <button
+        class=${base()}
+        part="button"
+        ?disabled=${this.disabled}
+        style=${styleMap(styles[this.kind])}
+      >
         <slot></slot>
       </button>
     `;
