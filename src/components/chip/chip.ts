@@ -1,148 +1,183 @@
 import { html, nothing } from 'lit';
 import Tailwind from '../base/tailwind-base';
 import { property } from 'lit/decorators.js';
-import chipHostStyle from './chip-host.style';
 import { chipStyle } from './chip.style';
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
- * A customizable chip component with status and dismissible features
+ * @tag plus-chip
+ * @since 0.0.0
+ * @status experimental
  *
- * @element plus-chip
+ * PlusChip component provides a compact element for displaying information, tags, or actions.
+ * Supports various visual styles, sizes, and states.
  *
- * @slot - Default slot for chip content
+ * @slot - The default slot for chip content
  *
- * @cssproperty --bg-default - Default background color
- * @cssproperty --bg-hovered - Background color on hover
- * @cssproperty --bg-pressed - Background color when pressed
- * @cssproperty --text-color - Text color
- * @cssproperty --rounded - Border radius
- * @cssproperty --border - Border color
+ * @csspart base - The component's base wrapper
+ * @csspart icon - The dismiss icon wrapper
  *
- * @attr {string} id - Unique identifier for chip
- * @attr {string} kind - Visual style of chip (filled, outlined) - default: 'filled'
- * @attr {string} size - Size of chip (sm, md, lg) - default: 'md'
- * @attr {string} type - Type of chip (default, avatar) - default: 'default'
- * @attr {string} status - Status of chip (default, success, warning, danger, info) - default: 'default'
- * @attr {string} shape - Border radius style (full, rounded) - default: 'full'
- * @attr {boolean} invert - Whether to use inverted colors - default: false
- * @attr {boolean} dismiss - Whether chip is dismissible - default: false
- * @attr {boolean} disabled - Whether chip is disabled - default: false
- *
- * @fires dismiss - Fired when dismiss button is clicked
- *
- * @csspart base - The chip wrapper element
- * @csspart dismiss-icon - The dismiss button icon
- *
- * @accessibility
- * - Uses role="status" for screen reader announcements
- * - Supports aria-live="polite" for dynamic content changes
- * - Includes aria-label with status information
- * - Dismiss button has aria-label="Remove" and role="button"
- * - Disabled state reflected with aria-disabled and tabindex
+ * @cssproperty --text-color - Controls the text color of the chip
+ * @cssproperty --border-color - Controls the border color of the chip
+ * @cssproperty --bg-default - Controls the default background color
+ * @cssproperty --bg-hovered - Controls the background color when hovered
+ * @cssproperty --bg-pressed - Controls the background color when pressed
+ * @cssproperty --bg-focused - Controls the background color when focused
  */
-
 export default class PlusChip extends Tailwind {
-  @property({ type: String, reflect: true })
-  override id: string = `plusui-${Math.random().toString(36).slice(2, 12)}`;
-
-  @property({ type: String, reflect: true })
+  /**
+   * Determines the visual style of the chip
+   * - filled: Solid background color
+   * - outlined: Transparent background with border
+   * @default 'filled'
+   */
+  @property({ type: String })
   kind: 'filled' | 'outlined' = 'filled';
 
+  /**
+   * Sets the size of the chip
+   * - sm: Small size
+   * - md: Medium size
+   * - lg: Large size
+   * @default 'md'
+   */
   @property({ type: String })
   size: 'sm' | 'md' | 'lg' = 'md';
 
+  /**
+   * Defines the type of chip
+   * - default: Standard chip
+   * - avatar: Chip with avatar support
+   * @default 'default'
+   */
   @property({ type: String })
   type: 'default' | 'avatar' = 'default';
 
+  /**
+   * Sets the status/color variant of the chip
+   * - default: Neutral color scheme
+   * - success: Green color scheme
+   * - warning: Yellow color scheme
+   * - danger: Red color scheme
+   * - info: Blue color scheme
+   * @default 'default'
+   */
   @property({ type: String })
   status: 'default' | 'success' | 'warning' | 'danger' | 'info' = 'default';
 
+  /**
+   * Controls the border radius style
+   * - full: Fully rounded corners
+   * - rounded: Slightly rounded corners
+   * @default 'full'
+   */
   @property({ type: String })
   shape: 'full' | 'rounded' = 'full';
 
-  @property({ type: Boolean, converter: value => value != 'false' })
+  /**
+   * Toggles inverted color scheme
+   * @default false
+   */
+  @property({ type: Boolean, converter: (value) => value !== 'false' })
   invert = false;
 
-  @property({ type: Boolean, converter: value => value != 'false' })
+  /**
+   * Shows/hides the dismiss button
+   * @default false
+   */
+  @property({ type: Boolean, converter: (value) => value !== 'false' })
   dismiss = false;
 
+  /**
+   * Disables the chip interaction
+   * @default false
+   */
   @property({ type: Boolean })
   disabled = false;
 
-  static override styles = [...Tailwind.styles, chipHostStyle];
+  static override styles = [...Tailwind.styles];
 
-  constructor() {
-    super();
-  }
-
+  /**
+   * Handles the dismiss event
+   * @private
+   */
   private onDismiss() {
-    this.emit('dismiss');
+    if (!this.disabled) {
+      this.emit('dismiss');
+    }
   }
 
   override render() {
-    const { kind, status, size, type, shape, disabled, dismiss, invert } = this;
-    
     const filledStyles = {
-      '--i-bg-default': `var(--plus-color-background-${status}-default)`,
-      '--i-bg-hovered': `var(--plus-color-background-${status}-hovered)`,
-      '--i-bg-focused': `var(--plus-color-background-${status}-pressed)`,
-      '--i-bg-pressed': `var(--plus-color-background-${status}-focused)`,
-      '--i-text-color': `var(--plus-color-text-${status === 'default' ? 'default' : 'base'})`,
+      '--i-bg-default': `var(--plus-color-background-${this.status}-default)`,
+      '--i-bg-hovered': `var(--plus-color-background-${this.status}-hovered)`,
+      '--i-bg-focused': `var(--plus-color-background-${this.status}-pressed)`,
+      '--i-bg-pressed': `var(--plus-color-background-${this.status}-focused)`,
+      '--i-text-color': `var(--plus-color-text-${this.status === 'default' ? 'default' : 'base'})`,
       '--i-border-color': 'transparent',
     };
-    
-    const invertFilledStyles = {
-      '--i-bg-default': `var(--plus-color-background-${status}-invert-default)`,
-      '--i-bg-hovered': `var(--plus-color-background-${status}-invert-hovered)`,
-      '--i-bg-focused': `var(--plus-color-background-${status}-invert-pressed)`,
-      '--i-bg-pressed': `var(--plus-color-background-${status}-invert-focused)`,
-      '--i-text-color': `var(--plus-color-text-${status === 'default' ? 'base' : 'default'})`,
+
+    const filledInvertStyles = {
+      '--i-bg-default': `var(--plus-color-background-${this.status}-invert-default)`,
+      '--i-bg-hovered': `var(--plus-color-background-${this.status}-invert-hovered)`,
+      '--i-bg-focused': `var(--plus-color-background-${this.status}-invert-pressed)`,
+      '--i-bg-pressed': `var(--plus-color-background-${this.status}-invert-focused)`,
+      '--i-text-color': `var(--plus-color-text-${this.status === 'default' ? 'base' : 'default'})`,
       '--i-border-color': 'transparent',
     };
-    
+
     const outlinedStyles = {
-      '--i-bg-default': `var(--plus-color-background-surface)`,
+      '--i-bg-default': 'var(--plus-color-background-surface)',
       '--i-bg-hovered': 'var(--plus-color-background-default-hovered)',
       '--i-bg-pressed': 'var(--plus-color-background-default-pressed)',
       '--i-bg-focused': 'var(--plus-color-background-default-focused)',
-      '--i-text-color': `var(--plus-color-text-${status})`,
-      '--i-border-color': `var(--plus-color-border-${status})`,
+      '--i-text-color': `var(--plus-color-text-${this.status})`,
+      '--i-border-color': `var(--plus-color-border-${this.status})`,
     };
 
     const styles = {
-      filled: {
-        ...(invert ? invertFilledStyles : filledStyles),
-      },
-      outlined: {
-        ...outlinedStyles,
-      },
+      filled: this.invert ? filledInvertStyles : filledStyles,
+      outlined: outlinedStyles,
     };
 
     const style = styleMap(styles[this.kind]);
+
+    const { base, icon } = chipStyle({
+      kind: this.kind,
+      size: this.size,
+      type: this.type,
+      shape: this.shape,
+      disabled: this.disabled,
+      status: this.status,
+    });
 
     return html`
       <div
         role="status"
         aria-live="polite"
-        tabindex=${disabled ? '-1' : '0'}
-        aria-disabled=${disabled ? 'true' : 'false'}
-        aria-label=${status !== 'default' ? status + '-chip' : nothing}
-        class=${chipStyle({
-          kind,
-          size,
-          type,
-          shape,
-          disabled,
-        })}
+        tabindex=${this.disabled ? '-1' : '0'}
+        aria-disabled=${this.disabled}
+        aria-label=${`${this.status} chip`}
+        class=${base()}
         style=${style}
+        part="base"
       >
         <slot></slot>
-        ${dismiss
-          ? html`<plus-icon class=${!disabled ? 'cursor-pointer' : 'cursor-not-allowed'} role="button" tabindex="0" aria-label="Remove" @click=${() => !disabled && this.onDismiss()} iconName="xmark"> </plus-icon>`
+        ${this.dismiss
+          ? html`<plus-icon
+              class=${icon()}
+              role="button"
+              tabindex="0"
+              part="icon"
+              aria-label="Remove"
+              @click=${this.onDismiss}
+              iconName="xmark"
+            >
+            </plus-icon>`
           : nothing}
       </div>
     `;
   }
 }
+
 export { PlusChip };
