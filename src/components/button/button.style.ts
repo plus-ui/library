@@ -1,14 +1,12 @@
 import { tv } from 'tailwind-variants';
 
 export const baseButtonStyle = tv({
-  slots: {
-    base: [
-      'button font-sans',
-      'inline-flex items-center justify-center',
-      'rounded-default',
-      'border',
-    ],
-  },
+  base: [
+    'button font-sans',
+    'inline-flex items-center justify-center',
+    'rounded-default',
+    'border',
+  ],
   variants: {
     size: {
       sm: 'small text-sm p-2 gap-2',

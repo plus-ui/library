@@ -65,7 +65,7 @@ export default class PlusButton extends Tailwind {
    * Disables the button interaction
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean })
   disabled = false;
 
   /**
@@ -105,7 +105,7 @@ export default class PlusButton extends Tailwind {
       },
     };
 
-    const { base } = baseButtonStyle({
+    const classes = baseButtonStyle({
       size: this.size,
       kind: this.kind,
       status: this.status,
@@ -115,7 +115,7 @@ export default class PlusButton extends Tailwind {
 
     return html`
       <button
-        class=${base()}
+        class=${classes}
         part="button"
         ?disabled=${this.disabled}
         style=${styleMap(styles[this.kind])}
