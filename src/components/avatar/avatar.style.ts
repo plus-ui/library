@@ -1,7 +1,11 @@
 import { tv } from 'tailwind-variants';
 
 export const avatarStyle = tv({
-  base: 'avatar align-middle inline-flex items-center justify-center font-sans uppercase overflow-hidden',
+  base: [
+    'avatar align-middle inline-flex items-center justify-center font-sans uppercase overflow-hidden',
+    'text-color-dynamic',
+    'bg-color-dynamic-default',
+  ],
   variants: {
     size: {
       xs: 'size-4 text-xs',
@@ -15,14 +19,9 @@ export const avatarStyle = tv({
       circle: 'rounded-full',
       square: 'rounded',
     },
-    invert: {
-      false: 'bg-color-neutral-default text-color-default',
-      true: 'bg-color-invert-neutral-default text-color-invert-default',
-    },
   },
   defaultVariants: {
     size: 'md',
     shape: 'circle',
-    invert: false,
   },
 });

@@ -25,8 +25,6 @@ import { styleMap } from 'lit/directives/style-map.js';
  * @cssproperty --bg-focused - Controls the background color when focused
  */
 export default class PlusChip extends Tailwind {
-  static override styles = [...Tailwind.styles];
-
   /**
    * Determines the visual style of the chip
    * - filled: Solid background color

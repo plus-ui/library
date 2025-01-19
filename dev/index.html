@@ -32,6 +32,62 @@
   <body>
     <h1>Component Test Page</h1>
 
+    <h2>Avatar</h2>
+
+    <div class="container">
+      <!-- Farklı boyutlarda avatarlar -->
+      <plus-avatar size="xs" text="John Doe"></plus-avatar>
+      <plus-avatar size="sm" text="John Doe"></plus-avatar>
+      <plus-avatar size="md" text="John Doe"></plus-avatar>
+      <plus-avatar size="lg" text="John Doe"></plus-avatar>
+      <plus-avatar size="xl" text="John Doe"></plus-avatar>
+      <plus-avatar size="70px" text="John Doe"></plus-avatar>
+    </div>
+
+    <div class="container">
+      <!-- Farklı şekiller -->
+      <plus-avatar shape="circle" text="John Doe"></plus-avatar>
+      <plus-avatar shape="square" text="John Doe"></plus-avatar>
+    </div>
+
+    <div class="container">
+      <!-- Resim kullanımı -->
+      <plus-avatar
+        image="https://i.pravatar.cc/300"
+        alt="User avatar"
+      ></plus-avatar>
+      <plus-avatar
+        image="https://i.pravatar.cc/300"
+        alt="User avatar"
+        fallbackStrategy="icon"
+        icon="fa-solid fa-user"
+      >
+      </plus-avatar>
+    </div>
+
+    <div class="container">
+      <!-- Fallback stratejileri -->
+      <plus-avatar fallbackStrategy="text" text="John Doe"></plus-avatar>
+      <plus-avatar
+        fallbackStrategy="icon"
+        icon="fa-solid fa-user"
+      ></plus-avatar>
+      <plus-avatar fallbackStrategy="custom">
+        <div slot="fallback">Custom</div>
+      </plus-avatar>
+    </div>
+
+    <div class="container">
+      <!-- Loading durumu -->
+      <plus-avatar loading loadingText="Yükleniyor..."></plus-avatar>
+    </div>
+
+    <div class="container">
+      <!-- Invert özelliği -->
+      <plus-avatar invert text="John Doe"></plus-avatar>
+      <plus-avatar invert icon="fa-solid fa-user"></plus-avatar>
+    </div>
+
     <h2>Button Tests</h2>
 
     <div class="container">
