@@ -13,6 +13,8 @@ import { styleMap } from 'lit/directives/style-map.js';
  * Supports different visual styles, sizes, and interactive states.
  *
  * @slot - The default slot for button content
+ * @slot prefix - Slot for content to be placed before the button content
+ * @slot suffix - Slot for content to be placed after the button content
  *
  * @csspart button - The component's base wrapper
  *
@@ -73,6 +75,18 @@ export default class PlusButton extends Tailwind {
   @property({ type: Boolean })
   loading = false;
 
+  private handleClick() {
+    this.emit('plus-click');
+  }
+
+  private handleFocus() {
+    this.emit('plus-focus');
+  }
+
+  private handleBlur() {
+    this.emit('plus-blur');
+  }
+
   override render() {
     const commonStyles = {
       '--i-bg-default': 'var(--plus-color-background-surface)',
@@ -117,8 +131,13 @@ export default class PlusButton extends Tailwind {
         part="button"
         ?disabled=${this.disabled}
         style=${styleMap(styles[this.kind])}
+        @click=${this.handleClick}
+        @focus=${this.handleFocus}
+        @blur=${this.handleBlur}
       >
+        <slot name="prefix"></slot>
         <slot></slot>
+        <slot name="suffix"></slot>
       </button>
     `;
   }
