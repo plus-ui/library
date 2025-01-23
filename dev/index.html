@@ -1,207 +1,44 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Component Test Page</title>
-    <script type="module" src="../cdn/components/index.js"></script>
-    <style>
-      body {
-        padding: 2rem;
-        font-family: system-ui, sans-serif;
-      }
-      .container {
-        display: flex;
-        gap: 1rem;
-        margin-bottom: 1rem;
-      }
 
-      plus-button.primary-button {
-        --bg-default: var(--plus-color-background-primary-default);
-        --bg-hovered: var(--plus-color-background-primary-hovered);
-        --bg-pressed: var(--plus-color-background-primary-pressed);
-        --bg-focused: var(--plus-color-background-primary-focused);
-        --bg-loading: var(--plus-color-background-primary-loading);
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Component Test Page</title>
+  <script type="module" src="../cdn/components/index.js"></script>
+  <style>
+    body {
+      padding: 2rem;
+      font-family: system-ui, sans-serif;
+    }
 
-        --text: var(--plus-color-text-base);
+    .container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
 
-        --border: var(--plus-color-border-default);
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Component Test Page</h1>
+<body>
+  <plus-link disabled truncated href="https://example.com">
+    <plus-icon slot="prefix-icon" iconName="user"></plus-icon>
+    Link Test Deneme
+    <plus-icon slot="suffix-icon" iconName="user"></plus-icon>
+  </plus-link>
 
-    <h2>Avatar</h2>
+  <plus-link truncated href="https://example.com">
+    <plus-icon slot="prefix-icon" iconName="user"></plus-icon>
+    Link Test Deneme
+    <plus-icon slot="suffix-icon" iconName="user"></plus-icon>
+  </plus-link>
 
-    <div class="container">
-      <!-- Farklı boyutlarda avatarlar -->
-      <plus-avatar size="xs" text="John Doe"></plus-avatar>
-      <plus-avatar size="sm" text="John Doe"></plus-avatar>
-      <plus-avatar size="md" text="John Doe"></plus-avatar>
-      <plus-avatar size="lg" text="John Doe"></plus-avatar>
-      <plus-avatar size="xl" text="John Doe"></plus-avatar>
-      <plus-avatar size="70px" text="John Doe"></plus-avatar>
-    </div>
+  <plus-link readonly truncated href="https://example.com">
+    <plus-icon slot="prefix-icon" iconName="user"></plus-icon>
+    Link Test Deneme
+    <plus-icon slot="suffix-icon" iconName="user"></plus-icon>
+  </plus-link>
 
-    <div class="container">
-      <!-- Farklı şekiller -->
-      <plus-avatar shape="circle" text="John Doe"></plus-avatar>
-      <plus-avatar shape="square" text="John Doe"></plus-avatar>
-    </div>
+</body>
 
-    <div class="container">
-      <!-- Resim kullanımı -->
-      <plus-avatar
-        image="https://i.pravatar.cc/300"
-        alt="User avatar"
-      ></plus-avatar>
-      <plus-avatar
-        image="https://i.pravatar.cc/300"
-        alt="User avatar"
-        fallbackStrategy="icon"
-        icon="fa-solid fa-user"
-      >
-      </plus-avatar>
-    </div>
-
-    <div class="container">
-      <!-- Fallback stratejileri -->
-      <plus-avatar fallbackStrategy="text" text="John Doe"></plus-avatar>
-      <plus-avatar
-        fallbackStrategy="icon"
-        icon="fa-solid fa-user"
-      ></plus-avatar>
-      <plus-avatar fallbackStrategy="custom">
-        <div slot="fallback">Custom</div>
-      </plus-avatar>
-    </div>
-
-    <div class="container">
-      <!-- Loading durumu -->
-      <plus-avatar loading loadingText="Yükleniyor..."></plus-avatar>
-    </div>
-
-    <div class="container">
-      <!-- Invert özelliği -->
-      <plus-avatar invert text="John Doe"></plus-avatar>
-      <plus-avatar invert icon="fa-solid fa-user"></plus-avatar>
-    </div>
-
-    <h2>Button Tests</h2>
-
-    <div class="container">
-      <plus-button kind="filled">Button</plus-button>
-      <plus-button kind="outlined">Button</plus-button>
-      <plus-button kind="dashed">Button</plus-button>
-      <plus-button kind="text">Button</plus-button>
-    </div>
-    <div class="container">
-      <plus-button status="success" kind="filled">Button</plus-button>
-      <plus-button status="success" kind="outlined">Button</plus-button>
-      <plus-button status="success" kind="dashed">Button</plus-button>
-      <plus-button status="success" kind="text">Button</plus-button>
-    </div>
-    <div class="container">
-      <plus-button status="primary" kind="filled">Button</plus-button>
-      <plus-button status="primary" kind="outlined">Button</plus-button>
-      <plus-button status="primary" kind="dashed">Button</plus-button>
-      <plus-button status="primary" kind="text">Button</plus-button>
-    </div>
-    <div class="container">
-      <plus-button class="primary-button" status="success">Button</plus-button>
-      <plus-button status="warning">Button</plus-button>
-      <plus-button status="danger">Button</plus-button>
-      <plus-button status="info">Button</plus-button>
-    </div>
-
-    <div class="container">
-      <plus-button size="md" kind="filled" status="default"
-        >Normal Button</plus-button
-      >
-      <plus-button size="md" kind="filled" status="primary"
-        >Normal Button</plus-button
-      >
-      <plus-button size="md" disabled>Disabled Button</plus-button>
-    </div>
-
-    <div class="container">
-      <plus-button size="sm">Normal Button</plus-button>
-      <plus-button size="sm" disabled>Disabled Button</plus-button>
-    </div>
-
-    <div class="container">
-      <plus-button size="lg">Normal Button</plus-button>
-      <plus-button size="lg" disabled>Disabled Button</plus-button>
-    </div>
-
-    <button>Merhaba</button>
-
-    <div class="container">
-      <plus-chip invert>Test</plus-chip>
-      <plus-chip status="success" invert>Test</plus-chip>
-      <plus-chip status="warning" invert>Test</plus-chip>
-      <plus-chip status="danger" invert>Test</plus-chip>
-      <plus-chip status="info" invert>Test</plus-chip>
-    </div>
-    <div class="container">
-      <plus-chip>Test</plus-chip>
-      <plus-chip status="success">Test</plus-chip>
-      <plus-chip status="warning">Test</plus-chip>
-      <plus-chip status="danger">Test</plus-chip>
-      <plus-chip status="info">Test</plus-chip>
-    </div>
-
-    <div class="container">
-      <plus-chip kind="outlined">Test</plus-chip>
-      <plus-chip kind="outlined" status="success">Test</plus-chip>
-      <plus-chip kind="outlined" status="warning">Test</plus-chip>
-      <plus-chip kind="outlined" status="danger">Test</plus-chip>
-      <plus-chip kind="outlined" status="info">Test</plus-chip>
-    </div>
-    <div class="container">
-      <plus-chip disabled invert>Test</plus-chip>
-      <plus-chip disabled status="success" invert>Test</plus-chip>
-      <plus-chip disabled status="warning" invert>Test</plus-chip>
-      <plus-chip disabled status="danger" invert>Test</plus-chip>
-      <plus-chip disabled status="info" invert>Test</plus-chip>
-    </div>
-    <div class="container">
-      <plus-chip disabled>Test</plus-chip>
-      <plus-chip disabled status="success">Test</plus-chip>
-      <plus-chip disabled status="warning">Test</plus-chip>
-      <plus-chip disabled status="danger">Test</plus-chip>
-      <plus-chip disabled status="info">Test</plus-chip>
-    </div>
-
-    <div class="container">
-      <plus-chip disabled kind="outlined">Test</plus-chip>
-      <plus-chip disabled kind="outlined" status="success">Test</plus-chip>
-      <plus-chip disabled kind="outlined" status="warning">Test</plus-chip>
-      <plus-chip disabled kind="outlined" status="danger">Test</plus-chip>
-      <plus-chip disabled kind="outlined" status="info">Test</plus-chip>
-    </div>
-    <div class="container">
-      <plus-chip dismiss>Test</plus-chip>
-      <plus-chip kind="outlined" size="sm">Test</plus-chip>
-      <plus-chip kind="outlined" status="success" size="md">Test</plus-chip>
-      <plus-chip kind="outlined" status="warning" size="lg">Test</plus-chip>
-    </div>
-    <div class="container">
-      <plus-chip dismiss disabled
-        ><plus-icon iconName="user"></plus-icon>Test</plus-chip
-      >
-    </div>
-
-    <div class="container">
-      <plus-chip dissmissable
-        ><plus-icon iconName="user"></plus-icon>Test</plus-chip
-      >
-      <plus-chip size="sm">Test</plus-chip>
-      <plus-chip status="success" size="md">Test</plus-chip>
-      <plus-chip shape="rounded" status="success" size="md">Test</plus-chip>
-
-      <plus-chip status="warning" size="lg">Test</plus-chip>
-    </div>
-  </body>
 </html>
