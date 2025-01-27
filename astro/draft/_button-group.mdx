@@ -1,0 +1,115 @@
+---
+description: The button group component can be used to group related buttons.
+---
+
+# Button Group
+
+A button group component is a user interface element that allows the grouping of multiple buttons or related actions in a cohesive and visually organized manner. It serves to enhance user interaction and streamline the accessibility and use of various functions within an application by presenting them as a unified set. Button groups are a versatile tool for creating clear and efficient navigation, selection, or action-taking options, improving the overall user experience.
+
+## Anatomy
+
+The button group's anatomy consists of essential elements: a "label" for identification, a "container" for defining boundaries, and optional "suffix" and "prefix icons" for added context. This organized layout streamlines user interaction and enhances the group's usability in your application.
+
+<figure><img src="../../../assets/gitbook/showcase (65).png" alt=""><figcaption><p>anatomy of button group component</p></figcaption></figure>
+
+## Properties
+
+Button group component properties enable customization of appearance and behavior. They include options for layout, styling, spacing, button variants, and selection behavior. These properties allow tailored design and interaction, ensuring a user-friendly experience in your application.
+
+The Button Group component comprises items derived from Plus UI's [button component.](button.md) Each item inherits the properties of the button component. For more details on the properties specific to button components, please refer to the [button documentation](button.md). To customize the Button Group component, you can tailor the properties of its underlying button components.
+
+### Vertical
+
+{% embed url="https://codesandbox.io/embed/5fhpj3?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusButtonGroup, PlusButton } from '@plusui/react';
+
+const ButtonGroupExample = () => (
+  <PlusButtonGroup>
+    <PlusButton>Button 1</PlusButton>
+    <PlusButton>Button 2</PlusButton>
+    <PlusButton>Button 3</PlusButton>
+  </PlusButtonGroup>
+);
+
+export default ButtonGroupExample;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-button-group>
+  <plus-button>Button 1</plus-button>
+  <plus-button>Button 2</plus-button>
+  <plus-button>Button 3</plus-button>
+</plus-button-group>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-button-group>
+    <plus-button>Button 1</plus-button>
+    <plus-button>Button 2</plus-button>
+    <plus-button>Button 3</plus-button>
+  </plus-button-group>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-button-group>
+  <plus-button>Button 1</plus-button>
+  <plus-button>Button 2</plus-button>
+  <plus-button>Button 3</plus-button>
+</plus-button-group>
+
+```
+{% endtab %}
+{% endtabs %}
+
+
+
+## Layout & Spacing
+
+Achieve precision in design with our Button Group Component's flexible layout and spacing options. Define the arrangement and spacing between buttons to create a visually balanced and cohesive presentation. Whether integrated into navigation bars or content sections, the layout adapts seamlessly to diverse design structures.
+
+<figure><img src="../../../assets/gitbook/showcase (42).png" alt=""><figcaption><p>layout &#x26; spacing of button group component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+Effortlessly adapt to user preferences with our Button Group Component's built-in support for both light and dark modes. Enhance visibility and aesthetics by seamlessly transitioning between these modes, ensuring a consistent and visually pleasing experience across different environmental settings.
+
+<figure><img src="../../../assets/gitbook/property (7).png" alt=""><figcaption><p>light and dark mode of button group component</p></figcaption></figure>
+
+## Accessibility
+
+Engineered with industry-leading standards, it ensures a user-friendly experience for all individuals, including those with disabilities. Screen reader compatibility, keyboard navigation, and high contrast options make our Button Group Component accessible and intuitive for a diverse user base.
+
+<table><thead><tr><th width="182">Criteria</th><th width="434">Description</th><th>Status<select><option value="c0f7fb0404f244c9a8779e10a0d86f08" label="✔️ Passed" color="blue"></option><option value="12c4f63b77854193a55b06e8874cc181" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>Discernible text</td><td>Ensures buttons have discernible text</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>Tabindex</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>Nested Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="12c4f63b77854193a55b06e8874cc181">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+#### Props
+
+#### Slots
+
+| Name    | Description          |
+| ------- | -------------------- |
+| default | Button group content |
+

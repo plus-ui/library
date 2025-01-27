@@ -1,0 +1,616 @@
+---
+description: Elevate Choices with Our Radiant Radio Buttons
+---
+
+# Radio
+
+Our radio component is crafted for seamless decision-making, providing an elegant and intuitive interface that simplifies selection processes, making it a delight for users to navigate and choose options effortlessly.
+
+## Anatomy
+
+Featuring circular or elliptical buttons with a distinctive selection indicator, our radio component includes clear labels, guiding users through a visually appealing and user-friendly design that ensures clarity in option selection.
+
+<figure><img src="../../../assets/gitbook/showcase (49).png" alt=""><figcaption><p>anatomy of radio component</p></figcaption></figure>
+
+## Properties
+
+With essential properties like "checked" to determine the selected option, our radio component offers a straightforward yet robust set of features. The "disabled" property restricts user interaction when needed, ensuring controlled behavior in various contexts.
+
+| Checked | State    | Size   | Disabled | Read-Only |
+| ------- | -------- | ------ | -------- | --------- |
+| True    | Default  | Small  | True     | True      |
+| False   | Hovered  | Medium | False    | False     |
+|         | Pressed  | Large  |          |           |
+|         | Readonly |        |          |           |
+
+### Checked
+
+* **Default radio** component represents an unselected state, providing users with a clear set of options to choose from.&#x20;
+* **Checked radio** component indicates the user's selection within a group of options. It’s filled, highlighting the chosen radio button
+
+{% embed url="https://codesandbox.io/embed/p7trm8?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+const RadioGroupWithCheckedItem = () => (
+  <PlusRadioGroup orientation="horizontal" size="md" label="Choose an option">
+    <PlusRadio text="Option 1" checked />  {/* Checked radio item */}
+    <PlusRadio text="Option 2" />
+    <PlusRadio text="Option 3" />
+  </PlusRadioGroup>
+);
+
+export default RadioGroupWithCheckedItem;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-radio-group orientation="horizontal" size="md" label="Choose an option">
+  <plus-radio text="Option 1" checked></plus-radio>  <!-- Checked radio item -->
+  <plus-radio text="Option 2"></plus-radio>
+  <plus-radio text="Option 3"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-radio-group orientation="horizontal" size="md" label="Choose an option">
+    <plus-radio text="Option 1" checked />  <!-- Checked radio item -->
+    <plus-radio text="Option 2" />
+    <plus-radio text="Option 3" />
+  </plus-radio-group>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-radio-group orientation="horizontal" size="md" label="Choose an option">
+  <plus-radio text="Option 1" checked></plus-radio>  <!-- Checked radio item -->
+  <plus-radio text="Option 2"></plus-radio>
+  <plus-radio text="Option 3"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### State
+
+The state of radio component represents the current visual state of the radio button, with options including default, hover, press, readonly, and error, offering a dynamic and responsive user interface.
+
+* **Default radio** state represents the unselected and normal state of the radio component.&#x20;
+* **Hovered radio** responds dynamically to interactions. As the user hovers over the radio button, it may showcase a subtle visual change.&#x20;
+* **Pressed radio** is activated when a user clicks or taps on the radio button.&#x20;
+* Read-only radio is static and non-interactive. Users cannot select or modify the radio button in this mode.&#x20;
+* **Disabled radio** indicates that the radio component is temporarily inactive or unavailable for interaction.
+
+{% embed url="https://codesandbox.io/embed/wyhdzm?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Default Radio Group
+const DefaultRadioGroup = () => (
+  <PlusRadioGroup orientation="vertical" size="md" label="Choose a payment method">
+    <PlusRadio text="Credit Card" />
+    <PlusRadio text="PayPal" checked />
+    <PlusRadio text="Bank Transfer" />
+  </PlusRadioGroup>
+);
+
+// Readonly Radio Group
+const ReadonlyRadioGroup = () => (
+  <PlusRadioGroup orientation="vertical" size="md" label="Choose a shipping method">
+    <PlusRadio text="Standard" readonly />
+    <PlusRadio text="Express" readonly checked />
+    <PlusRadio text="Overnight" readonly />
+  </PlusRadioGroup>
+);
+
+// Disabled Radio Group
+const DisabledRadioGroup = () => (
+  <PlusRadioGroup orientation="vertical" size="md" label="Choose a subscription plan">
+    <PlusRadio text="Monthly" disabled />
+    <PlusRadio text="Yearly" disabled checked />
+    <PlusRadio text="Lifetime" disabled />
+  </PlusRadioGroup>
+);
+
+export default {
+  DefaultRadioGroup,
+  ReadonlyRadioGroup,
+  DisabledRadioGroup,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Default Radio Group -->
+<plus-radio-group orientation="vertical" size="md" label="Choose a payment method">
+  <plus-radio text="Credit Card"></plus-radio>
+  <plus-radio text="PayPal" checked></plus-radio>
+  <plus-radio text="Bank Transfer"></plus-radio>
+</plus-radio-group>
+
+<!-- Readonly Radio Group -->
+<plus-radio-group orientation="vertical" size="md" label="Choose a shipping method">
+  <plus-radio text="Standard" readonly></plus-radio>
+  <plus-radio text="Express" readonly checked></plus-radio>
+  <plus-radio text="Overnight" readonly></plus-radio>
+</plus-radio-group>
+
+<!-- Disabled Radio Group -->
+<plus-radio-group orientation="vertical" size="md" label="Choose a subscription plan">
+  <plus-radio text="Monthly" disabled></plus-radio>
+  <plus-radio text="Yearly" disabled checked></plus-radio>
+  <plus-radio text="Lifetime" disabled></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Default Radio Group -->
+  <plus-radio-group orientation="vertical" size="md" label="Choose a payment method">
+    <plus-radio text="Credit Card" />
+    <plus-radio text="PayPal" checked />
+    <plus-radio text="Bank Transfer" />
+  </plus-radio-group>
+
+  <!-- Readonly Radio Group -->
+  <plus-radio-group orientation="vertical" size="md" label="Choose a shipping method">
+    <plus-radio text="Standard" readonly />
+    <plus-radio text="Express" readonly checked />
+    <plus-radio text="Overnight" readonly />
+  </plus-radio-group>
+
+  <!-- Disabled Radio Group -->
+  <plus-radio-group orientation="vertical" size="md" label="Choose a subscription plan">
+    <plus-radio text="Monthly" disabled />
+    <plus-radio text="Yearly" disabled checked />
+    <plus-radio text="Lifetime" disabled />
+  </plus-radio-group>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Default Radio Group -->
+<plus-radio-group orientation="vertical" size="md" label="Choose a payment method">
+  <plus-radio text="Credit Card"></plus-radio>
+  <plus-radio text="PayPal" checked></plus-radio>
+  <plus-radio text="Bank Transfer"></plus-radio>
+</plus-radio-group>
+
+<!-- Readonly Radio Group -->
+<plus-radio-group orientation="vertical" size="md" label="Choose a shipping method">
+  <plus-radio text="Standard" readonly></plus-radio>
+  <plus-radio text="Express" readonly checked></plus-radio>
+  <plus-radio text="Overnight" readonly></plus-radio>
+</plus-radio-group>
+
+<!-- Disabled Radio Group -->
+<plus-radio-group orientation="vertical" size="md" label="Choose a subscription plan">
+  <plus-radio text="Monthly" disabled></plus-radio>
+  <plus-radio text="Yearly" disabled checked></plus-radio>
+  <plus-radio text="Lifetime" disabled></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Size
+
+The size of radio offers flexibility in design, allowing developers to choose from small, medium, and large checkboxes based on their application's aesthetic and layout preferences. By adjusting the size property, you can make the radio button larger or smaller, providing flexibility in meeting specific layout requirements.
+
+{% embed url="https://codesandbox.io/embed/sfmntf?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Small Size Radio Group
+const SmallRadioGroup = () => (
+  <PlusRadioGroup orientation="horizontal" size="sm" label="Select a Color">
+    <PlusRadio text="Red" />
+    <PlusRadio text="Green" />
+    <PlusRadio text="Blue" />
+  </PlusRadioGroup>
+);
+
+// Medium Size Radio Group
+const MediumRadioGroup = () => (
+  <PlusRadioGroup orientation="horizontal" size="md" label="Select a Gender">
+    <PlusRadio text="Male" />
+    <PlusRadio text="Female" />
+    <PlusRadio text="Other" />
+  </PlusRadioGroup>
+);
+
+// Large Size Radio Group
+const LargeRadioGroup = () => (
+  <PlusRadioGroup orientation="horizontal" size="lg" label="Choose a Vehicle">
+    <PlusRadio text="Car" />
+    <PlusRadio text="Bike" />
+    <PlusRadio text="Bus" />
+  </PlusRadioGroup>
+);
+
+export default {
+  SmallRadioGroup,
+  MediumRadioGroup,
+  LargeRadioGroup,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Small Size Radio Group -->
+<plus-radio-group orientation="horizontal" size="sm" label="Select a Color">
+  <plus-radio text="Red"></plus-radio>
+  <plus-radio text="Green"></plus-radio>
+  <plus-radio text="Blue"></plus-radio>
+</plus-radio-group>
+
+<!-- Medium Size Radio Group -->
+<plus-radio-group orientation="horizontal" size="md" label="Select a Gender">
+  <plus-radio text="Male"></plus-radio>
+  <plus-radio text="Female"></plus-radio>
+  <plus-radio text="Other"></plus-radio>
+</plus-radio-group>
+
+<!-- Large Size Radio Group -->
+<plus-radio-group orientation="horizontal" size="lg" label="Choose a Vehicle">
+  <plus-radio text="Car"></plus-radio>
+  <plus-radio text="Bike"></plus-radio>
+  <plus-radio text="Bus"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Small Size Radio Group -->
+  <plus-radio-group orientation="horizontal" size="sm" label="Select a Color">
+    <plus-radio text="Red" />
+    <plus-radio text="Green" />
+    <plus-radio text="Blue" />
+  </plus-radio-group>
+
+  <!-- Medium Size Radio Group -->
+  <plus-radio-group orientation="horizontal" size="md" label="Select a Gender">
+    <plus-radio text="Male" />
+    <plus-radio text="Female" />
+    <plus-radio text="Other" />
+  </plus-radio-group>
+
+  <!-- Large Size Radio Group -->
+  <plus-radio-group orientation="horizontal" size="lg" label="Choose a Vehicle">
+    <plus-radio text="Car" />
+    <plus-radio text="Bike" />
+    <plus-radio text="Bus" />
+  </plus-radio-group>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Small Size Radio Group -->
+<plus-radio-group orientation="horizontal" size="sm" label="Select a Color">
+  <plus-radio text="Red"></plus-radio>
+  <plus-radio text="Green"></plus-radio>
+  <plus-radio text="Blue"></plus-radio>
+</plus-radio-group>
+
+<!-- Medium Size Radio Group -->
+<plus-radio-group orientation="horizontal" size="md" label="Select a Gender">
+  <plus-radio text="Male"></plus-radio>
+  <plus-radio text="Female"></plus-radio>
+  <plus-radio text="Other"></plus-radio>
+</plus-radio-group>
+
+<!-- Large Size Radio Group -->
+<plus-radio-group orientation="horizontal" size="lg" label="Choose a Vehicle">
+  <plus-radio text="Car"></plus-radio>
+  <plus-radio text="Bike"></plus-radio>
+  <plus-radio text="Bus"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Status
+
+* **Default radio** status is in its normal state, indicating an unselected option.&#x20;
+* **Error radio** status occurs when there is an issue or validation error associated with the radio component.
+
+{% embed url="https://codesandbox.io/embed/7mnxng?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Default Status Radio Group
+const DefaultRadioGroup = () => (
+  <PlusRadioGroup orientation="horizontal" size="md" label="Select a Fruit">
+    <PlusRadio text="Apple" />
+    <PlusRadio text="Banana" />
+    <PlusRadio text="Orange" />
+  </PlusRadioGroup>
+);
+
+// Error Status Radio Group
+const ErrorRadioGroup = () => (
+  <PlusRadioGroup orientation="horizontal" size="md" label="Select a Fruit" error>
+    <PlusRadio text="Apple" />
+    <PlusRadio text="Banana" />
+    <PlusRadio text="Orange" />
+  </PlusRadioGroup>
+);
+
+export default {
+  DefaultRadioGroup,
+  ErrorRadioGroup,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Default Status Radio Group -->
+<plus-radio-group orientation="horizontal" size="md" label="Select a Fruit">
+  <plus-radio text="Apple"></plus-radio>
+  <plus-radio text="Banana"></plus-radio>
+  <plus-radio text="Orange"></plus-radio>
+</plus-radio-group>
+
+<!-- Error Status Radio Group -->
+<plus-radio-group orientation="horizontal" size="md" label="Select a Fruit" error>
+  <plus-radio text="Apple"></plus-radio>
+  <plus-radio text="Banana"></plus-radio>
+  <plus-radio text="Orange"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Default Status Radio Group -->
+  <plus-radio-group orientation="horizontal" size="md" label="Select a Fruit">
+    <plus-radio text="Apple"></plus-radio>
+    <plus-radio text="Banana"></plus-radio>
+    <plus-radio text="Orange"></plus-radio>
+  </plus-radio-group>
+  
+  <!-- Error Status Radio Group -->
+  <plus-radio-group orientation="horizontal" size="md" label="Select a Fruit" error>
+    <plus-radio text="Apple"></plus-radio>
+    <plus-radio text="Banana"></plus-radio>
+    <plus-radio text="Orange"></plus-radio>
+  </plus-radio-group>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Default Status Radio Group -->
+<plus-radio-group orientation="horizontal" size="md" label="Select a Fruit">
+  <plus-radio text="Apple"></plus-radio>
+  <plus-radio text="Banana"></plus-radio>
+  <plus-radio text="Orange"></plus-radio>
+</plus-radio-group>
+
+<!-- Error Status Radio Group -->
+<plus-radio-group orientation="horizontal" size="md" label="Select a Fruit" error>
+  <plus-radio text="Apple"></plus-radio>
+  <plus-radio text="Banana"></plus-radio>
+  <plus-radio text="Orange"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+{% endtabs %}
+
+## Radio Group
+
+Our Radio Group component provides a seamless way to create sets of radio buttons for user selection. What sets it apart is the flexibility it offers in terms of layout. The component can be customized to render radio buttons either horizontally or vertically, adapting to your specific design preferences.
+
+{% embed url="https://codesandbox.io/embed/m8klp2?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+function App() {
+    return (
+        <>
+            <PlusRadioGroup>
+                <PlusRadio text="Radio Text" checked></PlusRadio>
+                <PlusRadio text="Radio Text"></PlusRadio>
+            </PlusRadioGroup>
+            <PlusRadioGroup orientation="vertical">
+                <PlusRadio text="Radio Text" checked></PlusRadio>
+                <PlusRadio text="Radio Text"></PlusRadio>
+            </PlusRadioGroup>
+        </>
+    );
+}
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-radio-group>
+  <plus-radio text="Radio Text" checked></plus-radio>
+  <plus-radio text="Radio Text"></plus-radio>
+</plus-radio-group>
+<plus-radio-group orientation="vertical">
+  <plus-radio text="Radio Text" checked></plus-radio>
+  <plus-radio text="Radio Text"></plus-radio>
+</plus-radio-group>
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-radio-group>
+  <plus-radio text="Radio Text" checked></plus-radio>
+  <plus-radio text="Radio Text"></plus-radio>
+</plus-radio-group>
+<plus-radio-group orientation="vertical">
+  <plus-radio text="Radio Text" checked></plus-radio>
+  <plus-radio text="Radio Text"></plus-radio>
+</plus-radio-group>
+```
+{% endtab %}
+{% endtabs %}
+
+### Required
+
+The required radio group component emphasizes the mandatory nature of the radio selection. It ensures that users understand the necessity of making a choice by using visual indicators like asterisks, bold labels, or other cues to highlight the importance of selecting an option.
+
+{% embed url="https://codesandbox.io/embed/6sdvyy?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+const RequiredRadioGroup = () => (
+  <PlusRadioGroup size="md" label="Choose a programming language" required>
+    <PlusRadio text="Python" />
+    <PlusRadio text="JavaScript" />
+    <PlusRadio text="Java" />
+  </PlusRadioGroup>
+);
+
+export default RequiredRadioGroup;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-radio-group size="md" label="Choose a programming language" required>
+  <plus-radio text="Python"></plus-radio>
+  <plus-radio text="JavaScript"></plus-radio>
+  <plus-radio text="Java"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-radio-group size="md" label="Choose a programming language" required>
+    <plus-radio text="Python" />
+    <plus-radio text="JavaScript" />
+    <plus-radio text="Java" />
+  </plus-radio-group>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javacript" %}
+```html
+<plus-radio-group size="md" label="Choose a programming language" required>
+  <plus-radio text="Python"></plus-radio>
+  <plus-radio text="JavaScript"></plus-radio>
+  <plus-radio text="Java"></plus-radio>
+</plus-radio-group>
+
+```
+{% endtab %}
+{% endtabs %}
+
+## Layout & Spacing
+
+Our radio component prioritizes thoughtful layout and spacing, contributing to an organized and visually cohesive form. Consistent alignment ensures an aesthetically pleasing design, enhancing the overall user experience during option selection.
+
+<figure><img src="../../../assets/gitbook/showcase (50).png" alt=""><figcaption><p>layout and spacing of radio component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+Seamlessly adapting to both light and dark modes, our radio component ensures optimal visibility and readability in diverse lighting conditions. Careful consideration of color choices and contrast adjustments guarantees a comfortable and stylish user experience, irrespective of the interface theme.
+
+<figure><img src="../../../assets/gitbook/container (2).png" alt=""><figcaption><p>light and dark mode of radio component</p></figcaption></figure>
+
+## Accessibility
+
+Built with accessibility at the forefront, our radio component incorporates features such as clear labels, logical tab order, keyboard navigation, and appropriate ARIA roles. This commitment to accessibility ensures that the component is usable by all, including those with disabilities, fostering inclusivity in the digital environment.
+
+<table><thead><tr><th width="141">Criteria</th><th width="490">Description</th><th>Status<select><option value="10406b35fd6e4aad840861d3df9eb611" label="Passed" color="blue"></option><option value="9b293fa058a34116b524593358290696" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ID Attribute</td><td>Ensures every id attribute value used in ARIA and in labels is unique</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>ID Attribute Value</td><td>Ensures every id attribute value is unique</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Form fields</td><td>Ensures form field does not have multiple label elements</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Form elements</td><td>Ensures that every form element has a visible label and is not solely labeled using hidden labels, or the title or aria-describedby attributes</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA  contrast ratio thresholds.</td><td><span data-option="9b293fa058a34116b524593358290696">AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+### Plus-Radio
+
+\
+
+
+### Plus-Radio-Group
+
+| Property    | Description                                       | Type    | Accepted Values          | Default      |
+| ----------- | ------------------------------------------------- | ------- | ------------------------ | ------------ |
+| orientation | Determines if the group is horizontal or vertical | String  | `horizontal`, `vertical` | `horizontal` |
+| size        | Sets the size of the radio group                  | String  | `sm`, `md`, `lg`         | `md`         |
+| label       | The label for the radio group                     | String  | Any valid string         | `null`       |
+| caption     | Additional text or description for the group      | String  | Any valid string         | `null`       |
+| error       | Indicates if the group has an error               | Boolean | `true`, `false`          | `false`      |
+| required    | Indicates if the group has required fields        | Boolean | `true`, `false`          | `false`      |
+| name        | Form input name attribute for the radio group     | String  | Any valid string         | `null`       |
+| value       | Current selected value of the radio group         | String  | Any valid string         | `null`       |
+
+
+

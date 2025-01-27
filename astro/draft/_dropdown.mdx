@@ -1,0 +1,355 @@
+---
+description: Easily Navigate Your Choices with Dropdown Component
+---
+
+# Dropdown
+
+The Dropdown Component is an essential UI element designed to offer users a compact and efficient way to select one or more options from a list. Perfect for conserving screen real estate while maintaining an intuitive and accessible selection process, the dropdown is ideal for forms, filters, and anywhere user choice is needed. Its seamless integration and customization options make it a versatile tool for any application.
+
+## Anatomy
+
+The anatomy of the Dropdown Component consists of a trigger element, often displayed as a button or field, that users interact with to reveal the options list. This list is dynamically populated and can support various item types, including text, icons, or even custom templates. Optional elements like search fields or section dividers further enhance usability and organization within the dropdown.
+
+<figure><img src="../../../assets/gitbook/Screenshot 2024-03-04 at 12.43.27.png" alt=""><figcaption><p>anatomy of dropdown component</p></figcaption></figure>
+
+## Properties
+
+The Plus UI Dropdown Component offers customizable properties to fit various design and functionality needs, categorized into kinds, size, and orientation.
+
+| Kind         | Size   | Orientation |
+| ------------ | ------ | ----------- |
+| Button       | Small  | Right       |
+| Button Group | Medium | Middle      |
+| Avatar       | Large  | Left        |
+
+### Kinds
+
+* **Button Dropdown Component** integrates a dropdown with a button, ideal for actions or options.
+* **Button Group Dropdown Component is** a group of buttons, for cohesive multiple actions.
+* **Avatar Dropdown Component** is attached to an avatar, perfect for user profile or settings options
+
+{% embed url="https://codesandbox.io/embed/cg2k7q?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusDropdown, PlusDropdownMenu, PlusDropdownItem } from '@plusui/react';
+
+const DropdownExample = () => (
+  <PlusDropdown text="Select an Option">
+    <PlusDropdownMenu>
+      <PlusDropdownItem>Profile Settings</PlusDropdownItem>
+      <PlusDropdownItem>Account Information</PlusDropdownItem>
+      <PlusDropdownItem>Security & Privacy</PlusDropdownItem>
+      <PlusDropdownItem>Billing & Subscription</PlusDropdownItem>
+      <PlusDropdownItem>Log Out</PlusDropdownItem>
+    </PlusDropdownMenu>
+  </PlusDropdown>
+);
+
+export default DropdownExample;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-dropdown text="Select an Option">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Profile Settings</plus-dropdown-item>
+    <plus-dropdown-item>Account Information</plus-dropdown-item>
+    <plus-dropdown-item>Security & Privacy</plus-dropdown-item>
+    <plus-dropdown-item>Billing & Subscription</plus-dropdown-item>
+    <plus-dropdown-item>Log Out</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-dropdown text="Select an Option">
+    <plus-dropdown-menu>
+      <plus-dropdown-item>Profile Settings</plus-dropdown-item>
+      <plus-dropdown-item>Account Information</plus-dropdown-item>
+      <plus-dropdown-item>Security & Privacy</plus-dropdown-item>
+      <plus-dropdown-item>Billing & Subscription</plus-dropdown-item>
+      <plus-dropdown-item>Log Out</plus-dropdown-item>
+    </plus-dropdown-menu>
+  </plus-dropdown>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-dropdown text="Select an Option">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Profile Settings</plus-dropdown-item>
+    <plus-dropdown-item>Account Information</plus-dropdown-item>
+    <plus-dropdown-item>Security & Privacy</plus-dropdown-item>
+    <plus-dropdown-item>Billing & Subscription</plus-dropdown-item>
+    <plus-dropdown-item>Log Out</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Size
+
+* **Small Dropdown Component** is compact, for limited spaces or minimalist designs.
+* **Medium Dropdown Component** is the standard size, suitable for most applications.
+* **Large Dropdown Component** offers more space for options, enhancing readability.
+
+
+
+{% embed url="https://codesandbox.io/embed/qqz38z?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusDropdown, PlusDropdownMenu, PlusDropdownItem } from '@plusui/react';
+
+const DropdownWithSizes = () => (
+  <>
+    <PlusDropdown text="Small Dropdown" size="sm">
+      <PlusDropdownMenu>
+        <PlusDropdownItem>Item 1</PlusDropdownItem>
+        <PlusDropdownItem>Item 2</PlusDropdownItem>
+      </PlusDropdownMenu>
+    </PlusDropdown>
+
+    <PlusDropdown text="Medium Dropdown" size="md">
+      <PlusDropdownMenu>
+        <PlusDropdownItem>Item 1</PlusDropdownItem>
+        <PlusDropdownItem>Item 2</PlusDropdownItem>
+        <PlusDropdownItem>Item 3</PlusDropdownItem>
+      </PlusDropdownMenu>
+    </PlusDropdown>
+
+    <PlusDropdown text="Large Dropdown" size="lg">
+      <PlusDropdownMenu>
+        <PlusDropdownItem>Item 1</PlusDropdownItem>
+        <PlusDropdownItem>Item 2</PlusDropdownItem>
+        <PlusDropdownItem>Item 3</PlusDropdownItem>
+        <PlusDropdownItem>Item 4</PlusDropdownItem>
+      </PlusDropdownMenu>
+    </PlusDropdown>
+  </>
+);
+
+export default DropdownWithSizes;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-dropdown text="Small Dropdown" size="sm">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+<plus-dropdown text="Medium Dropdown" size="md">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+    <plus-dropdown-item>Item 3</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+<plus-dropdown text="Large Dropdown" size="lg">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+    <plus-dropdown-item>Item 3</plus-dropdown-item>
+    <plus-dropdown-item>Item 4</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-dropdown text="Small Dropdown" size="sm">
+    <plus-dropdown-menu>
+      <plus-dropdown-item>Item 1</plus-dropdown-item>
+      <plus-dropdown-item>Item 2</plus-dropdown-item>
+    </plus-dropdown-menu>
+  </plus-dropdown>
+
+  <plus-dropdown text="Medium Dropdown" size="md">
+    <plus-dropdown-menu>
+      <plus-dropdown-item>Item 1</plus-dropdown-item>
+      <plus-dropdown-item>Item 2</plus-dropdown-item>
+      <plus-dropdown-item>Item 3</plus-dropdown-item>
+    </plus-dropdown-menu>
+  </plus-dropdown>
+
+  <plus-dropdown text="Large Dropdown" size="lg">
+    <plus-dropdown-menu>
+      <plus-dropdown-item>Item 1</plus-dropdown-item>
+      <plus-dropdown-item>Item 2</plus-dropdown-item>
+      <plus-dropdown-item>Item 3</plus-dropdown-item>
+      <plus-dropdown-item>Item 4</plus-dropdown-item>
+    </plus-dropdown-menu>
+  </plus-dropdown>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-dropdown text="Small Dropdown" size="sm">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+<plus-dropdown text="Medium Dropdown" size="md">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+    <plus-dropdown-item>Item 3</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+<plus-dropdown text="Large Dropdown" size="lg">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+    <plus-dropdown-item>Item 3</plus-dropdown-item>
+    <plus-dropdown-item>Item 4</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Orientation
+
+* **Right-Oriented Dropdown Component** aligns to the right, useful for right-aligned interfaces.
+* **Middle-Orientated Dropdown Component** centers the dropdown, ideal for balanced designs.
+* **Left-Orientated Dropdown Component** aligns the dropdown to the left, supporting left-aligned layouts.
+
+{% embed url="https://codesandbox.io/embed/qzjlrq?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusDropdown, PlusDropdownMenu, PlusDropdownItem } from '@plusui/react';
+
+// 'orientation' accepts the following values:
+// 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end',
+// 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'.
+
+const DropdownWithOrientation = () => (
+  <PlusDropdown text="Select an Option" orientation="bottom-start">
+    <PlusDropdownMenu>
+      <PlusDropdownItem>Item 1</PlusDropdownItem>
+      <PlusDropdownItem>Item 2</PlusDropdownItem>
+      <PlusDropdownItem>Item 3</PlusDropdownItem>
+    </PlusDropdownMenu>
+  </PlusDropdown>
+);
+
+export default DropdownWithOrientation;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- 'orientation' accepts the following values: -->
+<!-- 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', -->
+<!-- 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'. -->
+
+<plus-dropdown text="Select an Option" orientation="bottom-start">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+    <plus-dropdown-item>Item 3</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+<!-- 'orientation' accepts the following values: -->
+<!-- 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', -->
+<!-- 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'. -->
+
+  <plus-dropdown text="Select an Option" orientation="bottom-start">
+    <plus-dropdown-menu>
+      <plus-dropdown-item>Item 1</plus-dropdown-item>
+      <plus-dropdown-item>Item 2</plus-dropdown-item>
+      <plus-dropdown-item>Item 3</plus-dropdown-item>
+    </plus-dropdown-menu>
+  </plus-dropdown>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- 'orientation' accepts the following values: -->
+<!-- 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', -->
+<!-- 'left', 'left-start', 'left-end', 'right', 'right-start', 'right-end'. -->
+
+<plus-dropdown text="Select an Option" orientation="bottom-start">
+  <plus-dropdown-menu>
+    <plus-dropdown-item>Item 1</plus-dropdown-item>
+    <plus-dropdown-item>Item 2</plus-dropdown-item>
+    <plus-dropdown-item>Item 3</plus-dropdown-item>
+  </plus-dropdown-menu>
+</plus-dropdown>
+```
+{% endtab %}
+{% endtabs %}
+
+## Layout & Spacing
+
+The Plus UI Dropdown Component is crafted with meticulous attention to layout and spacing, ensuring that each element is perfectly positioned for optimal readability and accessibility. The spacing between options is carefully calibrated to prevent accidental selections, while the overall layout is designed to be fluid and adaptable to any screen size, maintaining its aesthetic integrity and functionality across devices.
+
+<figure><img src="../../../assets/gitbook/layout spacing dropdown.png" alt=""><figcaption><p>Layout and spacing of dropdown component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+Designed to flawlessly integrate with any design aesthetic, the Plus UI Dropdown Component offers full support for light and dark modes. It automatically adjusts its colors based on the user's system preferences or application settings, providing a visually cohesive experience that reduces eye strain and enhances usability in varying lighting conditions.
+
+<figure><img src="../../../assets/gitbook/light dark dropdown.png" alt=""><figcaption><p>light and dark mode of dropdown component</p></figcaption></figure>
+
+## Accessibility
+
+Accessibility is paramount in the design of the Plus UI Dropdown Component. It is fully compliant with modern web accessibility standards, including keyboard navigation and screen reader support. ARIA roles and attributes are thoughtfully applied to ensure that all users can navigate and select options with ease, making the dropdown component a model of inclusivity and user-centric design.
+
+<table><thead><tr><th width="168">Criteria</th><th width="481">Description</th><th>Status<select><option value="ptGuVmLOGtZQ" label="✔️ Passed" color="blue"></option><option value="x7Mo4hoRdMAg" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Attributes</td><td>Ensures ARIA attributes are allowed for an element's role</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensure the autocomplete attribute is correct and suitable for the form field</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ARIA Valid Values</td><td>Ensures all ARIA attributes have valid values</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ARIA Valid Names</td><td>Ensures attributes that begin with aria- are valid ARIA attributes</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures buttons have discernible text</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readers  or can cause focus problems for assistive technologies</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA  contrast ratio thresholds.</td><td><span data-option="x7Mo4hoRdMAg">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+<table><thead><tr><th width="130">Property</th><th width="285">Description</th><th>Type</th><th>Accepted Values</th><th>Default</th></tr></thead><tbody><tr><td>text</td><td>The displayed text of the dropdown button</td><td>String</td><td>Any valid string</td><td><code>null</code></td></tr><tr><td>orientation</td><td>Determines the dropdown's opening direction</td><td>String</td><td><code>top</code>, <code>top-start</code>, <code>top-end</code>, <code>bottom</code>, <code>bottom-start</code>, <code>bottom-end</code>, <code>left</code>, <code>left-start</code>, <code>left-end</code>, <code>right</code>, <code>right-start</code>, <code>right-end</code></td><td><code>bottom</code></td></tr><tr><td>size</td><td>Sets the size of the dropdown</td><td>String</td><td><code>sm</code>, <code>md</code>, <code>lg</code></td><td><code>md</code></td></tr><tr><td>kind</td><td>Sets the style of the dropdown button</td><td>String</td><td><code>default</code>, <code>primary</code></td><td><code>default</code></td></tr><tr><td>disabled</td><td>Disables the dropdown button</td><td>Boolean</td><td><code>true</code>, <code>false</code></td><td><code>false</code></td></tr></tbody></table>
+

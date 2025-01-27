@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import lit from '@astrojs/lit';
-import starlightLinksValidator from "starlight-links-validator";
-import starlightImageZoom from "starlight-image-zoom";
+import starlightLinksValidator from 'starlight-links-validator';
+import starlightImageZoom from 'starlight-image-zoom';
 // import tailwind from "@astrojs/tailwind";
 // import liveCode from "astro-live-code";
 
@@ -12,7 +12,8 @@ export default defineConfig({
   integrations: [
     lit(),
     starlight({
-      title: 'Plus UI',logo: {
+      title: 'Plus UI',
+      logo: {
         src: './astro/assets/plus-ui-logo.svg',
       },
       social: {

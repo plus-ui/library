@@ -56,9 +56,11 @@ mark {
 
 a:has(mark) {
   color: var(--sl-color-mark);
+
   &:hover {
     color: var(--sl-color-accent);
-    > mark {
+
+    >mark {
       color: var(--sl-color-accent);
     }
   }
@@ -82,7 +84,13 @@ a:has(mark) {
 }
 
 
+.content-panel+.content-panel {
+  padding: 0.5rem var(--sl-content-pad-x);
+}
 
+.content-panel+.content-panel .sl-container .sl-markdown-content {
+  margin-top: 0.5rem;
+}
 
 code-bubble [slot="preview"] .row {
   display: flex;
@@ -91,6 +99,7 @@ code-bubble [slot="preview"] .row {
   justify-content: center;
   gap: 8px;
 }
+
 code-bubble [slot="preview"] .container {
   display: flex;
   flex-direction: column;
