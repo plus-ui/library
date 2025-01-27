@@ -1,0 +1,775 @@
+---
+description: Select components are used for collecting user inputs from a list of options.
+---
+
+# Select
+
+Select Component revolutionizes the way users interact with dropdown menus, blending intuitive design with advanced usability, offers a seamless,  user-friendly selection process.
+
+## Anatomy
+
+Select Component features a prefix icon for visual representation, a label for context, and a placeholder for hints within the select input, which serves as the trigger for the dropdown list. The component also includes a collapse icon to expand or collapse the select box, where the options are displayed.&#x20;
+
+<figure><img src="../../../assets/gitbook/selectcomponent_anatomy.png" alt=""><figcaption><p>anatomy of select component</p></figcaption></figure>
+
+## Properties
+
+The Plus UI Select Component is designed with various properties to enhance its functionality and adaptability across different UI requirements. These properties are categorized into states, status, size and required each affecting how the select component looks and behaves in different scenarios.
+
+| States         | Status  | Size   | Required |
+| -------------- | ------- | ------ | -------- |
+| Default        | Default | Small  | True     |
+| Hovered        | Error   | Medium | False    |
+| Pressed        |         | Large  |          |
+| Filled         |         |        |          |
+| Filled hovered |         |        |          |
+| Read-only      |         |        |          |
+| Disabled       |         |        |          |
+
+### States
+
+* **Default** select component is the initial state with no interaction.
+* **Hovered** select component is a change appearance when a user hovers over it with a mouse.
+* **Pressed** select component shows feedback when the user clicks or taps on the component.
+* **Filled** select component indicates an option has been selected.
+* **Filled hovered** select component reflects a hovered state when the component already has a selection.
+* **Read-only** select component is visible but not interactive; users can view the selection but not change it.
+* **Disabled** select component is completely non-interactive, typically grayed out to indicate it is not available for action.
+
+{% embed url="https://codesandbox.io/embed/wc6jtt?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusSelect, PlusSelectOption, PlusSelectOptions } from '@plusui/react';
+
+// Empty Select
+const EmptySelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>  {/* Empty state */}
+);
+
+// Filled Select
+const FilledSelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+    value="Option 2"  {/* Pre-selected option */}
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>
+);
+
+// Readonly Select
+const ReadonlySelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+    readonly  {/* Read-only state */}
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>
+);
+
+// Disabled Select
+const DisabledSelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+    disabled  {/* Disabled state */}
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>
+);
+
+export default {
+  EmptySelect,
+  FilledSelect,
+  ReadonlySelect,
+  DisabledSelect,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Empty Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Empty state -->
+
+<!-- Filled Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  value="Option 2" 
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+<!-- Readonly Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  readonly 
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+<!-- Disabled Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  disabled  
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Empty Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>  <!-- Empty state -->
+
+  <!-- Filled Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+    value="Option 2"  
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>
+
+  <!-- Readonly Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+    readonly 
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>
+
+  <!-- Disabled Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+    disabled  
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Empty Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Empty state -->
+
+<!-- Filled Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  value="Option 2"  <!-- Pre-selected option -->
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+<!-- Readonly Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  readonly  <!-- Read-only state -->
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+<!-- Disabled Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  disabled  <!-- Disabled state -->
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Status
+
+* **Default status** select component is the standard look without any validation status.
+* **Error status** select component highlights the component with colors or icons to indicate a problem with the selection, typically used for form validation.
+
+{% embed url="https://codesandbox.io/embed/7rvyr6?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusSelect, PlusSelectOption, PlusSelectOptions } from '@plusui/react';
+
+// Default Status Select
+const DefaultStatusSelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+    caption="This is a default select"
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>  {/* Default status */}
+);
+
+// Error Status Select
+const ErrorStatusSelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+    caption="This select has an error"
+    error  {/* Error status */}
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>
+);
+
+export default {
+  DefaultStatusSelect,
+  ErrorStatusSelect,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Default Status Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  caption="This is a default select"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Default status -->
+
+<!-- Error Status Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  caption="This select has an error"
+  error  
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Default Status Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+    caption="This is a default select"
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>  <!-- Default status -->
+
+  <!-- Error Status Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+    caption="This select has an error"
+    error  
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Default Status Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  caption="This is a default select"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Default status -->
+
+<!-- Error Status Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  caption="This select has an error"
+  error 
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Size
+
+* **Small Select Component** is for limited space or minimalistic layouts.
+* **Medium Select Component** is the standard size, balancing visibility and space efficiency.
+* **Large Select Component** provides larger click areas and more visual prominence, suitable for primary interactions.
+
+{% embed url="https://codesandbox.io/embed/hxl3pn?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusSelect, PlusSelectOption, PlusSelectOptions } from '@plusui/react';
+
+// Small Size Select
+const SmallSizeSelect = () => (
+  <PlusSelect
+    size="sm"
+    label="Select (Small)"
+    placeholder="Select an option"
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>  {/* Small size */}
+);
+
+// Medium Size Select
+const MediumSizeSelect = () => (
+  <PlusSelect
+    size="md"
+    label="Select (Medium)"
+    placeholder="Select an option"
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>  {/* Medium size */}
+);
+
+// Large Size Select
+const LargeSizeSelect = () => (
+  <PlusSelect
+    size="lg"
+    label="Select (Large)"
+    placeholder="Select an option"
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>  {/* Large size */}
+);
+
+export default {
+  SmallSizeSelect,
+  MediumSizeSelect,
+  LargeSizeSelect,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Small Size Select -->
+<plus-select
+  size="sm"
+  label="Select (Small)"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Small size -->
+
+<!-- Medium Size Select -->
+<plus-select
+  size="md"
+  label="Select (Medium)"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Medium size -->
+
+<!-- Large Size Select -->
+<plus-select
+  size="lg"
+  label="Select (Large)"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Large size -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Small Size Select -->
+  <plus-select
+    size="sm"
+    label="Select (Small)"
+    placeholder="Select an option"
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>  <!-- Small size -->
+
+  <!-- Medium Size Select -->
+  <plus-select
+    size="md"
+    label="Select (Medium)"
+    placeholder="Select an option"
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>  <!-- Medium size -->
+
+  <!-- Large Size Select -->
+  <plus-select
+    size="lg"
+    label="Select (Large)"
+    placeholder="Select an option"
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>  <!-- Large size -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Small Size Select -->
+<plus-select
+  size="sm"
+  label="Select (Small)"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Small size -->
+
+<!-- Medium Size Select -->
+<plus-select
+  size="md"
+  label="Select (Medium)"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Medium size -->
+
+<!-- Large Size Select -->
+<plus-select
+  size="lg"
+  label="Select (Large)"
+  placeholder="Select an option"
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>  <!-- Large size -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Required
+
+The **Required** property makes a selection mandatory in the Plus UI Select Component, preventing form submission until an option is chosen. Essential for forms needing specific user input, it ensures no selection is missed, often highlighted with visual indicators for users.
+
+{% embed url="https://codesandbox.io/embed/2kvg8s?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusSelect, PlusSelectOption, PlusSelectOptions } from '@plusui/react';
+
+// Required Select
+const RequiredSelect = () => (
+  <PlusSelect
+    label="Select an Option"
+    placeholder="Select an option"
+    caption="This field is required"
+    required  {/* Required state */}
+  >
+    <PlusSelectOptions>
+      <PlusSelectOption>Option 1</PlusSelectOption>
+      <PlusSelectOption>Option 2</PlusSelectOption>
+      <PlusSelectOption>Option 3</PlusSelectOption>
+    </PlusSelectOptions>
+  </PlusSelect>
+);
+
+export default RequiredSelect;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Required Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  caption="This field is required"
+  required 
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Required Select -->
+  <plus-select
+    label="Select an Option"
+    placeholder="Select an option"
+    caption="This field is required"
+    required  
+  >
+    <plus-select-options>
+      <plus-select-option>Option 1</plus-select-option>
+      <plus-select-option>Option 2</plus-select-option>
+      <plus-select-option>Option 3</plus-select-option>
+    </plus-select-options>
+  </plus-select>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Required Select -->
+<plus-select
+  label="Select an Option"
+  placeholder="Select an option"
+  caption="This field is required"
+  required 
+>
+  <plus-select-options>
+    <plus-select-option>Option 1</plus-select-option>
+    <plus-select-option>Option 2</plus-select-option>
+    <plus-select-option>Option 3</plus-select-option>
+  </plus-select-options>
+</plus-select>
+
+```
+{% endtab %}
+{% endtabs %}
+
+## Layout & Spacing
+
+Layout and spacing within the Select Component are crafted to ensure optimal readability and ease of interaction. Adequate spacing between options prevents accidental selections, while the layout is designed to be responsive, adapting to different screen sizes and resolutions. The dropdown's width automatically adjusts to the content size or can be manually set, providing flexibility in various design contexts.
+
+<figure><img src="../../../assets/gitbook/select component layout.png" alt=""><figcaption><p>layout &#x26; spacing of select component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+It seamlessly supports both light and dark modes, ensuring consistency with your application’s theme. The component automatically detects the system preference or can be toggled manually, adjusting its color scheme to provide the best visibility and reduce eye strain in any lighting condition.
+
+<figure><img src="../../../assets/gitbook/selectcomponent_dark.png" alt=""><figcaption><p>light &#x26; dark mode of select component</p></figcaption></figure>
+
+## Accessibility
+
+Accessibility is a cornerstone of the Plus UI Select Component's design, ensuring that everyone, including users with disabilities, can navigate and interact with it efficiently. It adheres to WCAG guidelines, featuring keyboard navigation, screen reader support, and ARIA attributes. These features make the component not only compliant with accessibility standards but also inclusive, offering a user-friendly experience for all users.
+
+<table><thead><tr><th width="149">Criteria</th><th width="474">Description</th><th>Status<select><option value="0F5Ua8mP8j6L" label="✔️ Passed" color="blue"></option><option value="mohcn0cuRvFf" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="0F5Ua8mP8j6L">✔️ Passed</span></td></tr><tr><td>Inline Text Spacing</td><td>Ensure that text spacing set through style attributes can be adjusted with custom stylesheets</td><td><span data-option="0F5Ua8mP8j6L">✔️ Passed</span></td></tr><tr><td>IDs of Active Elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="0F5Ua8mP8j6L">✔️ Passed</span></td></tr><tr><td>ID Attribute Value</td><td>Ensures every id attribute value is unique</td><td><span data-option="0F5Ua8mP8j6L">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="0F5Ua8mP8j6L">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA  contrast ratio thresholds.</td><td><span data-option="mohcn0cuRvFf">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+| Property    | Description                               | Type    | Accepted Values  | Default |
+| ----------- | ----------------------------------------- | ------- | ---------------- | ------- |
+| size        | Sets the size of the select               | String  | `sm`, `md`, `lg` | `md`    |
+| label       | Label text for the select                 | String  | Any valid text   | `""`    |
+| caption     | Additional caption text                   | String  | Any valid text   | `""`    |
+| placeholder | Placeholder text for the select           | String  | Any valid text   | `""`    |
+| required    | If `true`, the select is a required field | Boolean | `true`, `false`  | `false` |
+| readonly    | If `true`, the select is read-only        | Boolean | `true`, `false`  | `false` |
+| disabled    | If `true`, the select is disabled         | Boolean | `true`, `false`  | `false` |
+| error       | If `true`, the select has an error status | Boolean | `true`, `false`  | `false` |
+| value       | The current value of the select           | String  | Any valid string | `""`    |
+| name        | Name for form submission                  | String  | Any valid string | `""`    |
+
+\
+
+

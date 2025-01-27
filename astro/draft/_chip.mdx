@@ -1,0 +1,367 @@
+---
+description: Use our Chip component to represent tags, categories, or simple selections
+---
+
+# Chip
+
+The Chip component is a versatile UI element that can display various types of information in a compact, interactive format. It's commonly used to represent tags, categories, or simple selections. This documentation provides an overview of the Chip component and its different variants, along with usage examples.
+
+## Anatomy
+
+The anatomy of a Chip component within Plus UI is comprised of several integral elements that collectively define its functionality and appearance. It includes the chip label, container, and optional prefix/suffix icons. These elements collectively create a versatile component for displaying essential information or context in a visually appealing manner. Customizable properties further enhance the Chip component's user interaction and engagement capabilities within your application.
+
+<figure><img src="../../../assets/gitbook/showcase (38).png" alt=""><figcaption><p>anatomy of chip component</p></figcaption></figure>
+
+## Properties
+
+Our chip component offers consistent design properties across our system and component library, giving you the creative freedom to customize and match your design preferences. With customizable variants and a unified structure, you can effortlessly create chips that seamlessly integrate with your application's design.
+
+| Kinds    | State   | Status  | Size   | Invert | Disabled |
+| -------- | ------- | ------- | ------ | ------ | -------- |
+| Filled   | Default | Default | Small  | True   | True     |
+| Outlined | Hovered | Info    | Medium | False  | False    |
+|          | Pressed | Success | Large  |        |          |
+|          |         | Warning |        |        |          |
+|          |         | Error   |        |        |          |
+
+### Kinds
+
+* **Filled chip** type provides a simple, solid-colored chip without any specific styling.
+* **Outlined chip** type features a transparent background with a border. It's suitable for scenarios where you want a chip that doesn't stand out too much.
+
+{% embed url="https://codesandbox.io/embed/c9p6pv?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusChip } from '@plusui/react';
+
+const ChipWithKind = () => (
+  <>
+    <PlusChip kind="filled">Filled Chip</PlusChip>
+    <PlusChip kind="outlined">Outlined Chip</PlusChip>
+  </>
+);
+
+export default ChipWithKind;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-chip kind="filled">Filled Chip</plus-chip>
+<plus-chip kind="outlined">Outlined Chip</plus-chip>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-chip kind="filled">Filled Chip</plus-chip>
+  <plus-chip kind="outlined">Outlined Chip</plus-chip>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-chip kind="filled">Filled Chip</plus-chip>
+<plus-chip kind="outlined">Outlined Chip</plus-chip>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### State
+
+* **Default chip** represents the normal state of a chip, with no specific interactions or changes.
+* **Hover chip** represents a chip that the user's mouse pointer is currently hovering over. It can provide visual feedback to indicate interactivity.
+* **Press chip** signifies a chip in its activated state, typically triggered when the user clicks or presses it. This state communicates user interaction and engagement with the chip's content or functionality.
+* **Disabled chip**
+
+{% embed url="https://codesandbox.io/embed/zzydp2?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusChip } from '@plusui/react';
+
+const ChipWithStates = () => (
+  <>
+    <PlusChip>Normal Chip</PlusChip>
+    <PlusChip disabled>Disabled Chip</PlusChip>
+  </>
+);
+
+export default ChipWithStates;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-chip>Normal Chip</plus-chip>
+<plus-chip disabled>Disabled Chip</plus-chip>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-chip>Normal Chip</plus-chip>
+  <plus-chip disabled>Disabled Chip</plus-chip>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-chip>Normal Chip</plus-chip>
+<plus-chip disabled>Disabled Chip</plus-chip>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Status
+
+The Chip component can display different statuses using predefined colors.
+
+* **Default chip** displays the information without any specific status color.
+* **In progress chip** is typically used to indicate that a task or process is currently ongoing. It uses a distinct color to grab the user's attention.
+* **Success chip** is used to signify that a task or action has been completed successfully. It typically uses a green color.
+* **Warning chip** is used to highlight potential issues or warnings. It typically uses a yellow or orange color.
+* **Error** **chip** is used to indicate errors or critical issues. It typically uses a red color to alert the user.
+
+{% embed url="https://codesandbox.io/embed/wshcx9?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```html
+import React from 'react';
+import { PlusChip } from '@plusui/react';
+
+const ChipWithStatuses = () => (
+  <>
+    <PlusChip status="default">Default Chip</PlusChip>
+    <PlusChip status="info">Info Chip</PlusChip>
+    <PlusChip status="success">Success Chip</PlusChip>
+    <PlusChip status="error">Error Chip</PlusChip>
+    <PlusChip status="warning">Warning Chip</PlusChip>
+  </>
+);
+
+export default ChipWithStatuses;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-chip status="default">Default Chip</plus-chip>
+<plus-chip status="info">Info Chip</plus-chip>
+<plus-chip status="success">Success Chip</plus-chip>
+<plus-chip status="error">Error Chip</plus-chip>
+<plus-chip status="warning">Warning Chip</plus-chip>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-chip status="default">Default Chip</plus-chip>
+  <plus-chip status="info">Info Chip</plus-chip>
+  <plus-chip status="success">Success Chip</plus-chip>
+  <plus-chip status="error">Error Chip</plus-chip>
+  <plus-chip status="warning">Warning Chip</plus-chip>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-chip status="default">Default Chip</plus-chip>
+<plus-chip status="info">Info Chip</plus-chip>
+<plus-chip status="success">Success Chip</plus-chip>
+<plus-chip status="error">Error Chip</plus-chip>
+<plus-chip status="warning">Warning Chip</plus-chip>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Size
+
+Chips come in different sizes to accommodate various design needs.
+
+* **Small**
+* **Medium (Default)**
+* **Large**
+
+{% embed url="https://codesandbox.io/embed/kfpm6k?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```html
+import React from 'react';
+import { PlusChip } from '@plusui/react';
+
+const ChipWithSizes = () => (
+  <>
+    <PlusChip size="sm">Small Chip</PlusChip>
+    <PlusChip size="md">Medium Chip</PlusChip>
+    <PlusChip size="lg">Large Chip</PlusChip>
+  </>
+);
+
+export default ChipWithSizes;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-chip size="sm">Small Chip</plus-chip>
+<plus-chip size="md">Medium Chip</plus-chip>
+<plus-chip size="lg">Large Chip</plus-chip>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-chip size="sm">Small Chip</plus-chip>
+  <plus-chip size="md">Medium Chip</plus-chip>
+  <plus-chip size="lg">Large Chip</plus-chip>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-chip size="sm">Small Chip</plus-chip>
+<plus-chip size="md">Medium Chip</plus-chip>
+<plus-chip size="lg">Large Chip</plus-chip>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Invert
+
+The "invert" property for the chip component is a versatile attribute that empowers developers to easily toggle between the default and inverted appearance of the chip. This feature allows for greater design flexibility, enabling you to create eye-catching interfaces and customize the chip's look to match your application's style. Whether you're highlighting specific selections or adding emphasis to certain chips, the "invert" property provides a straightforward way to achieve a dynamic and engaging user interface.
+
+{% embed url="https://codesandbox.io/embed/v4dk59?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusChip } from '@plusui/react';
+
+const ChipWithStatusesAndInvert = () => (
+  <>
+    <PlusChip status="default" invert>Default Chip</PlusChip>
+    <PlusChip status="info" invert>Info Chip</PlusChip>
+    <PlusChip status="success" invert>Success Chip</PlusChip>
+    <PlusChip status="error" invert>Error Chip</PlusChip>
+    <PlusChip status="warning" invert>Warning Chip</PlusChip>
+  </>
+);
+
+export default ChipWithStatusesAndInvert;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-chip status="default" invert>Default Chip</plus-chip>
+<plus-chip status="info" invert>Info Chip</plus-chip>
+<plus-chip status="success" invert>Success Chip</plus-chip>
+<plus-chip status="error" invert>Error Chip</plus-chip>
+<plus-chip status="warning" invert>Warning Chip</plus-chip>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-chip status="default" invert>Default Chip</plus-chip>
+  <plus-chip status="info" invert>Info Chip</plus-chip>
+  <plus-chip status="success" invert>Success Chip</plus-chip>
+  <plus-chip status="error" invert>Error Chip</plus-chip>
+  <plus-chip status="warning" invert>Warning Chip</plus-chip>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-chip status="default" invert>Default Chip</plus-chip>
+<plus-chip status="info" invert>Info Chip</plus-chip>
+<plus-chip status="success" invert>Success Chip</plus-chip>
+<plus-chip status="error" invert>Error Chip</plus-chip>
+<plus-chip status="warning" invert>Warning Chip</plus-chip>
+
+```
+{% endtab %}
+{% endtabs %}
+
+
+
+## Layout & Spacing
+
+The placement and spacing of chip elements significantly impact the overall aesthetics and usability of your design. Well-considered spacing between chips, as well as their arrangement, enhances the user experience, making it easier for users to interact with and comprehend the content. Careful spacing and layout contribute to an intuitive and engaging interface, ensuring that your chip components serve their purpose effectively.
+
+<figure><img src="../../../assets/gitbook/showcase (39).png" alt=""><figcaption><p>layout and spacing of chip component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+Offering light and dark mode options for chip components in user interfaces enhances user experience by catering to their comfort, preference, and accessibility. This design approach aligns with current trends and supports a range of user needs and choices. Additionally, it contributes to energy efficiency and a more sustainable user interaction.
+
+<figure><img src="../../../assets/gitbook/container (1).png" alt=""><figcaption><p>light and dark mode of chip component</p></figcaption></figure>
+
+## Accessibility
+
+Ensuring that chip components meet all accessibility criteria is of paramount importance. Accessible chips enable a wide range of users, including those with disabilities, to interact with the interface effectively. By adhering to these criteria, the chips provide equal access to information and functionality, promoting inclusivity and a positive user experience for everyone.
+
+<table><thead><tr><th>Criteria</th><th width="397.3333333333333">Description</th><th>Status<select><option value="f8d51c31cf0241779e5ec22e891b5e55" label="Passed" color="blue"></option><option value="1e653c31532d49828ba5d3b6b7660ce7" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>IDs of Active Elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>ID Elements</td><td>Ensures every id attribute value is unique</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>Tabindex Attributes</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="1e653c31532d49828ba5d3b6b7660ce7">AA ~ AAA</span></td></tr></tbody></table>
+
+To learn more about Plus UI's accessibility criteria, please visit [Accessibility](broken-reference).
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+#### Props
+
+| Property | Description | Type   | Accepted Values         | Default |
+| -------- | ----------- | ------ | ----------------------- | ------- |
+| size     | Chip size   | string | sm, md, lg              | md      |
+| kind     | Chip kind   | string | filled, outline         | filled  |
+| status   | Chip status | string | success, error, warning | -       |
+
+#### Slots
+
+| Name    | Description  |
+| ------- | ------------ |
+| default | Chip content |
+

@@ -1,0 +1,327 @@
+---
+description: Customize your anchor elements with Link to match your theme's style.
+---
+
+# Link
+
+The Link component is a fundamental UI element used for navigating between different parts of a web application or opening external resources. This documentation provides an overview of the Link component and its different variants, states, sizes, and additional features, along with usage examples.
+
+## Anatomy
+
+The anatomy of a link component consists of essential elements such as the link text, destination and optional properties for customization, enabling user interaction and engagement within your application.
+
+<figure><img src="../../../assets/gitbook/showcase (67).png" alt=""><figcaption><p>anatomy of link component</p></figcaption></figure>
+
+## Properties
+
+The Link component supports different types to provide visual cues and context.
+
+The wide array of properties available for customizing the appearance and behavior of links. Tailor links to match your design requirements, enabling you to create intuitive and visually appealing navigation elements.
+
+| Kind    | States  | Size   | Disabled |
+| ------- | ------- | ------ | -------- |
+| Default | Default | Small  | True     |
+| Primary | Hovered | Medium | False    |
+|         | Visited | Large  |          |
+
+### Status
+
+* **Primary link** type represents the main or most important link on the page.
+* **Default link** type represents links that are of lesser importance or are alternative options.
+
+{% embed url="https://codesandbox.io/embed/9v4vzv?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusLink } from '@plusui/react';
+
+const LinkWithKinds = () => (
+  <>
+    <PlusLink href="https://google.com"> Go to Google </PlusLink>  {/* Default kind */}
+
+    <PlusLink href="https://google.com" kind="primary"> Go to Google </PlusLink>  {/* Primary kind */}
+  </>
+);
+
+export default LinkWithKinds;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-link href="https://google.com"> Go to Google </plus-link>  <!-- Default kind -->
+
+<plus-link href="https://google.com" kind="primary"> Go to Google </plus-link>  <!-- Primary kind -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-link href="https://google.com"> Go to Google </plus-link>  <!-- Default kind -->
+
+  <plus-link href="https://google.com" kind="primary"> Go to Google </plus-link>  <!-- Primary kind -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```markup
+<plus-link href="https://google.com"> Go to Google </plus-link>  <!-- Default kind -->
+
+<plus-link href="https://google.com" kind="primary"> Go to Google </plus-link>  <!-- Primary kind -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### States
+
+The Link component supports different states to communicate interactivity and provide visual feedback.
+
+* **Default link** state represents the normal state of the link, with no specific interactions or changes.
+* **Hovered link** state occurs when the user's mouse pointer is over the link, providing visual feedback to indicate interactivity.
+* **Visited link** state represents a link that the user has already clicked or visited.
+
+{% embed url="https://codesandbox.io/embed/445qfg?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusLink } from '@plusui/react';
+
+const LinkWithStates = () => (
+  <>
+    <PlusLink href="https://google.com"> Go to Google </PlusLink>  {/* Default link */}
+    
+    <PlusLink href="https://docs.plusui.com/components/link"> Go to Visited Link </PlusLink>  {/* Visited link */}
+  </>
+);
+
+export default LinkWithStates;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-link href="https://google.com"> Go to Google </plus-link>  <!-- Default link -->
+
+<plus-link href="https://docs.plusui.com/components/link"> Go to Visited Link </plus-link>  <!-- Visited link -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-link href="https://google.com"> Go to Google </plus-link>  <!-- Default link -->
+
+  <plus-link href="https://docs.plusui.com/components/link"> Go to Visited Link </plus-link>  <!-- Visited link -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```
+<plus-link href="https://google.com"> Go to Google </plus-link>  <!-- Default link -->
+
+<plus-link href="https://docs.plusui.com/components/link"> Go to Visited Link </plus-link>  <!-- Visited link -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Size
+
+You can set the size of a link using the `size` prop as small, medium, large.
+
+{% embed url="https://codesandbox.io/embed/m7g2s9?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusLink } from '@plusui/react';
+
+const LinkWithSizes = () => (
+  <>
+    <div style={{ fontSize: '1.5em' }}>  {/* Parent with a larger font size */}
+      <PlusLink href="https://google.com"> Inherited Size Link </PlusLink>  {/* Inherited size */}
+    </div>
+
+    <PlusLink size="sm" href="https://google.com"> Small Link </PlusLink>  {/* Small size */}
+    <PlusLink size="md" href="https://google.com"> Medium Link </PlusLink>  {/* Medium size */}
+    <PlusLink size="lg" href="https://google.com"> Large Link </PlusLink>  {/* Large size */}
+  </>
+);
+
+export default LinkWithSizes;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<div style="font-size: 1.5em">  <!-- Parent with a larger font size -->
+  <plus-link href="https://google.com"> Inherited Size Link </plus-link>  <!-- Inherited size -->
+</div>
+
+<plus-link size="sm" href="https://google.com"> Small Link </plus-link>  <!-- Small size -->
+<plus-link size="md" href="https://google.com"> Medium Link </plus-link>  <!-- Medium size -->
+<plus-link size="lg" href="https://google.com"> Large Link </plus-link>  <!-- Large size -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <div style="font-size: 1.5em">  <!-- Parent with a larger font size -->
+    <plus-link href="https://google.com"> Inherited Size Link </plus-link>  <!-- Inherited size -->
+  </div>
+
+  <plus-link size="sm" href="https://google.com"> Small Link </plus-link>  <!-- Small size -->
+  <plus-link size="md" href="https://google.com"> Medium Link </plus-link>  <!-- Medium size -->
+  <plus-link size="lg" href="https://google.com"> Large Link </plus-link>  <!-- Large size -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<div style="font-size: 1.5em">  <!-- Parent with a larger font size -->
+  <plus-link href="https://google.com"> Inherited Size Link </plus-link>  <!-- Inherited size -->
+</div>
+
+<plus-link size="sm" href="https://google.com"> Small Link </plus-link>  <!-- Small size -->
+<plus-link size="md" href="https://google.com"> Medium Link </plus-link>  <!-- Medium size -->
+<plus-link size="lg" href="https://google.com"> Large Link </plus-link>  <!-- Large size -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Disabled
+
+Disabled link component ensures that users receive visual and functional cues when a link cannot be interacted with, maintaining a user-friendly and inclusive experience. You can use its variant as true / false.&#x20;
+
+
+
+{% embed url="https://codesandbox.io/embed/rgwm95?hidenavigation=1&module=/index.html&view=Preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusLink } from '@plusui/react';
+
+const LinkWithDisabled = () => (
+  <>
+    <PlusLink href="https://google.com" kind="primary" disabled>
+      Go to Google
+    </PlusLink>  {/* Primary kind, disabled */}
+
+    <PlusLink href="https://google.com" disabled>
+      Go to Google
+    </PlusLink>  {/* Default kind, disabled */}
+  </>
+);
+
+export default LinkWithDisabled;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-link href="https://google.com" kind="primary" disabled>
+  Go to Google
+</plus-link>  <!-- Primary kind, disabled -->
+
+<plus-link href="https://google.com" disabled>
+  Go to Google
+</plus-link>  <!-- Default kind, disabled -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <plus-link href="https://google.com" kind="primary" disabled>
+    Go to Google
+  </plus-link>  <!-- Primary kind, disabled -->
+
+  <plus-link href="https://google.com" disabled>
+    Go to Google
+  </plus-link>  <!-- Default kind, disabled -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-link href="https://google.com" kind="primary" disabled>
+  Go to Google
+</plus-link>  <!-- Primary kind, disabled -->
+
+<plus-link href="https://google.com" disabled>
+  Go to Google
+</plus-link>  <!-- Default kind, disabled -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+## Layout & Spacing
+
+Effective layout and spacing of link components play a vital role in crafting user-friendly, visually appealing, and accessible interfaces. Thoughtful consideration of how links are positioned and the space around them enhances both aesthetics and usability, resulting in an overall improved user experience. Properly spaced and arranged links make it easier for users to navigate and interact with your content, promoting an intuitive and engaging interface.
+
+<figure><img src="../../../assets/gitbook/showcase (30).png" alt=""><figcaption></figcaption></figure>
+
+## Light & Dark Mode
+
+Implementing light and dark modes for link components enhances user experience, accessibility, and aesthetics. It accommodates various user preferences, improves readability, and keeps your design modern.
+
+<figure><img src="../../../assets/gitbook/property (3).png" alt=""><figcaption></figcaption></figure>
+
+## Accessibility
+
+Accessibility is a core consideration for our link components, just like it is for buttons. Accessible links benefit users with disabilities and enhance the overall user experience, making our digital product more inclusive, user-friendly, and legally compliant. In this section, we'll provide guidelines for ensuring accessibility in our link components.
+
+<table><thead><tr><th width="204.33333333333331">Criteria</th><th width="445">Description</th><th>Status<select><option value="412c0e2b398c4ccbb9e5da490ea3ebaf" label="Passed" color="blue"></option><option value="c47e6a5ce126452b8f6795a62fcaaa24" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="412c0e2b398c4ccbb9e5da490ea3ebaf">Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="412c0e2b398c4ccbb9e5da490ea3ebaf">Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures links have discernible text</td><td><span data-option="412c0e2b398c4ccbb9e5da490ea3ebaf">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="c47e6a5ce126452b8f6795a62fcaaa24">AA ~ AAA</span></td></tr></tbody></table>
+
+To learn more about Plus UI's accessibility criteria, please visit [Accessibility](broken-reference).
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+#### Props
+
+| Property | Description | Type   | Accepted Values                  | Default |
+| -------- | ----------- | ------ | -------------------------------- | ------- |
+| kind     | Kind        | String | primary, default                 | default |
+| href     | Link        | String |                                  |         |
+| target   | Target      | String | \_blank, \_self, \_parent, \_top | \_self  |
+
+#### Slots
+
+| Name    | Description  |
+| ------- | ------------ |
+| default | Link content |
+

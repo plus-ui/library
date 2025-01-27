@@ -1,0 +1,367 @@
+---
+description: Empower Your Interface with Sleek Popovers
+---
+
+# Popover
+
+The Popover Component is a dynamic UI element designed to display additional content, such as tips, links, or actions, in a floating container attached to a trigger element. It serves as an essential tool for enhancing user engagement and providing contextual information without cluttering the page layout.
+
+## Anatomy
+
+The anatomy of Popover Component consists of a trigger element that activates the popover, a floating panel for content, and an arrow pointing to the trigger. Inside the panel, it have titles, icon, text, buttons, container, optional area such as for an image or custom content, providing flexibility in presentation and functionality.
+
+<figure><img src="../../../assets/gitbook/anatomy of popover.png" alt=""><figcaption><p>anatomy of popover</p></figcaption></figure>
+
+## Properties
+
+The Popover Component is designed with customizable properties to adapt to various UI design requirements, including size and orientation:
+
+| Size   | Orientation     |
+| ------ | --------------- |
+| Small  | Right - Middle  |
+| Medium | Right - Up      |
+| Large  | Right - Down    |
+|        | Left - Middle   |
+|        | Left - Up       |
+|        | Left - Down     |
+|        | Top - Left      |
+|        | Top - Right     |
+|        | Top - Middle    |
+|        | Bottom - Middle |
+|        | Bottom - Left   |
+|        | Bottom - Right  |
+
+### Size
+
+* **Small** size popover component is a compact option for brief content.
+* **Medium** size popover component is the standard size, suitable for a balance of text and interactive elements.
+* **Large** size popover component provides ample space for detailed information or complex content.
+
+{% embed url="https://codesandbox.io/embed/ckn2q5?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusPopover, PlusButton, PlusInput } from '@plusui/react';
+
+const PopoverWithSizes = () => (
+  <>
+    {/* Small Popover */}
+    <PlusPopover size="sm" title="Small Popover">
+      <PlusButton kind="outlined" size="sm">Small</PlusButton>
+      <div slot="content">
+        <PlusInput label="Label" placeholder="Enter something..." size="sm" />
+      </div>
+    </PlusPopover>
+
+    {/* Medium Popover */}
+    <PlusPopover size="md" title="Medium Popover">
+      <PlusButton kind="outlined" size="md">Medium</PlusButton>
+      <div slot="content">
+        <PlusInput label="Label" placeholder="Enter something..." size="md" />
+      </div>
+    </PlusPopover>
+
+    {/* Large Popover */}
+    <PlusPopover size="lg" title="Large Popover">
+      <PlusButton kind="outlined" size="lg">Large</PlusButton>
+      <div slot="content">
+        <PlusInput label="Label" placeholder="Enter something..." size="lg" />
+      </div>
+    </PlusPopover>
+  </>
+);
+
+export default PopoverWithSizes;
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Small Popover -->
+<plus-popover size="sm" title="Small Popover">
+  <plus-button kind="outlined" size="sm">Small</plus-button>
+  <div slot="content">
+    <plus-input label="Label" placeholder="Enter something..." size="sm"></plus-input>
+  </div>
+</plus-popover>
+
+<!-- Medium Popover -->
+<plus-popover size="md" title="Medium Popover">
+  <plus-button kind="outlined" size="md">Medium</plus-button>
+  <div slot="content">
+    <plus-input label="Label" placeholder="Enter something..." size="md"></plus-input>
+  </div>
+</plus-popover>
+
+<!-- Large Popover -->
+<plus-popover size="lg" title="Large Popover">
+  <plus-button kind="outlined" size="lg">Large</plus-button>
+  <div slot="content">
+    <plus-input label="Label" placeholder="Enter something..." size="lg"></plus-input>
+  </div>
+</plus-popover>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Small Popover -->
+  <plus-popover size="sm" title="Small Popover">
+    <plus-button kind="outlined" size="sm">Small</plus-button>
+    <div slot="content">
+      <plus-input label="Label" placeholder="Enter something..." size="sm" />
+    </div>
+  </plus-popover>
+
+  <!-- Medium Popover -->
+  <plus-popover size="md" title="Medium Popover">
+    <plus-button kind="outlined" size="md">Medium</plus-button>
+    <div slot="content">
+      <plus-input label="Label" placeholder="Enter something..." size="md" />
+    </div>
+  </plus-popover>
+
+  <!-- Large Popover -->
+  <plus-popover size="lg" title="Large Popover">
+    <plus-button kind="outlined" size="lg">Large</plus-button>
+    <div slot="content">
+      <plus-input label="Label" placeholder="Enter something..." size="lg" />
+    </div>
+  </plus-popover>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Small Popover -->
+<plus-popover size="sm" title="Small Popover">
+  <plus-button kind="outlined" size="sm">Small</plus-button>
+  <div slot="content">
+    <plus-input label="Label" placeholder="Enter something..." size="sm"></plus-input>
+  </div>
+</plus-popover>
+
+<!-- Medium Popover -->
+<plus-popover size="md" title="Medium Popover">
+  <plus-button kind="outlined" size="md">Medium</plus-button>
+  <div slot="content">
+    <plus-input label="Label" placeholder="Enter something..." size="md"></plus-input>
+  </div>
+</plus-popover>
+
+<!-- Large Popover -->
+<plus-popover size="lg" title="Large Popover">
+  <plus-button kind="outlined" size="lg">Large</plus-button>
+  <div slot="content">
+    <plus-input label="Label" placeholder="Enter something..." size="lg"></plus-input>
+  </div>
+</plus-popover>
+
+```
+{% endtab %}
+{% endtabs %}
+
+## Orientation
+
+Orientation options determine the popover's position relative to its trigger element:
+
+* **Right - Middle:** Center-aligned to the right of the trigger.
+* **Right - Up:** Aligned to the right, positioned above the center.
+* **Right - Down:** Aligned to the right, positioned below the center.
+* **Left - Middle:** Center-aligned to the left of the trigger.
+* **Left - Up:** Aligned to the left, positioned above the center.
+* **Left - Down:** Aligned to the left, positioned below the center.
+* **Top - Middle:** Center-aligned above the trigger.
+* **Top - Up:** Positioned slightly higher than the middle top.
+* **Top - Down:** Positioned slightly lower than the middle top.
+* **Bottom - Middle:** Center-aligned below the trigger.
+* **Bottom - Up:** Positioned slightly higher than the middle bottom.
+* **Bottom - Down:** Positioned slightly lower than the middle bottom.
+
+{% embed url="https://codesandbox.io/embed/z2dv7t?hidenavigation=1&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusPopover, PlusButton, PlusInput } from '@plusui/react';
+
+// Top Placement Example
+const PopoverTop = () => (
+  <PlusPopover placement="top" title="User Info" description="Please enter your name.">
+    <PlusButton>Top Popover</PlusButton>
+    <div slot="content">
+      <PlusInput label="Name" placeholder="Enter your name..." />
+    </div>
+  </PlusPopover>
+);
+
+// Bottom Placement Example
+const PopoverBottom = () => (
+  <PlusPopover placement="bottom" title="Address Info" description="Please enter your address.">
+    <PlusButton>Bottom Popover</PlusButton>
+    <div slot="content">
+      <PlusInput label="Address" placeholder="Enter your address..." />
+    </div>
+  </PlusPopover>
+);
+
+// Left Placement Example
+const PopoverLeft = () => (
+  <PlusPopover placement="left" title="Security Question" description="What is your favorite color?">
+    <PlusButton>Left Popover</PlusButton>
+    <div slot="content">
+      <PlusInput label="Answer" placeholder="Enter your answer..." />
+    </div>
+  </PlusPopover>
+);
+
+export default {
+  PopoverTop,
+  PopoverBottom,
+  PopoverLeft,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Top Placement Example -->
+<plus-popover placement="top" title="User Info" description="Please enter your name.">
+  <plus-button>Top Popover</plus-button>
+  <div slot="content">
+    <plus-input label="Name" placeholder="Enter your name..." />
+  </div>
+</plus-popover>
+
+<!-- Bottom Placement Example -->
+<plus-popover placement="bottom" title="Address Info" description="Please enter your address.">
+  <plus-button>Bottom Popover</plus-button>
+  <div slot="content">
+    <plus-input label="Address" placeholder="Enter your address..." />
+  </div>
+</plus-popover>
+
+<!-- Left Placement Example -->
+<plus-popover placement="left" title="Security Question" description="What is your favorite color?">
+  <plus-button>Left Popover</plus-button>
+  <div slot="content">
+    <plus-input label="Answer" placeholder="Enter your answer..." />
+  </div>
+</plus-popover>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Top Placement Example -->
+  <plus-popover placement="top" title="User Info" description="Please enter your name.">
+    <plus-button>Top Popover</plus-button>
+    <div slot="content">
+      <plus-input label="Name" placeholder="Enter your name..." />
+    </div>
+  </plus-popover>
+
+  <!-- Bottom Placement Example -->
+  <plus-popover placement="bottom" title="Address Info" description="Please enter your address.">
+    <plus-button>Bottom Popover</plus-button>
+    <div slot="content">
+      <plus-input label="Address" placeholder="Enter your address..." />
+    </div>
+  </plus-popover>
+
+  <!-- Left Placement Example -->
+  <plus-popover placement="left" title="Security Question" description="What is your favorite color?">
+    <plus-button>Left Popover</plus-button>
+    <div slot="content">
+      <plus-input label="Answer" placeholder="Enter your answer..." />
+    </div>
+  </plus-popover>
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Top Placement Example -->
+<plus-popover placement="top" title="User Info" description="Please enter your name.">
+  <plus-button>Top Popover</plus-button>
+  <div slot="content">
+    <plus-input label="Name" placeholder="Enter your name..." />
+  </div>
+</plus-popover>
+
+<!-- Bottom Placement Example -->
+<plus-popover placement="bottom" title="Address Info" description="Please enter your address.">
+  <plus-button>Bottom Popover</plus-button>
+  <div slot="content">
+    <plus-input label="Address" placeholder="Enter your address..." />
+  </div>
+</plus-popover>
+
+<!-- Left Placement Example -->
+<plus-popover placement="left" title="Security Question" description="What is your favorite color?">
+  <plus-button>Left Popover</plus-button>
+  <div slot="content">
+    <plus-input label="Answer" placeholder="Enter your answer..." />
+  </div>
+</plus-popover>
+
+```
+{% endtab %}
+{% endtabs %}
+
+## Popover Features
+
+<figure><img src="../../../assets/gitbook/popover feature.png" alt=""><figcaption></figcaption></figure>
+
+## Layout & Spacing
+
+The Popover Component is designed with optimal layout and spacing to ensure readability and usability. Adequate padding around the content area, along with strategic positioning of the popover, guarantees that information is presented clearly without obstructing underlying content.
+
+<figure><img src="../../../assets/gitbook/layout of popover.png" alt=""><figcaption><p>layout &#x26; spacing of popover component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+Designed to adapt seamlessly to both light and dark modes, the Popover Component automatically adjusts its color scheme to match the user's preference or the system setting, ensuring consistency across various environments.
+
+<figure><img src="../../../assets/gitbook/light &#x26; dark popover.png" alt=""><figcaption><p>light &#x26; dark mode of popover component</p></figcaption></figure>
+
+## Accessibility
+
+Accessibility features include keyboard navigation, focus management, and ARIA attributes to ensure that the popover is usable and accessible to all users, including those relying on assistive technologies.
+
+<table><thead><tr><th width="143">Criteria</th><th width="477">Description</th><th>Status<select><option value="xxTqaaIGH5cE" label="✔️ Passed" color="blue"></option><option value="twx92UU2ruye" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Role</td><td>Ensures role attribute has an appropriate value for the element</td><td><span data-option="xxTqaaIGH5cE">✔️ Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="xxTqaaIGH5cE">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="xxTqaaIGH5cE">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA  contrast ratio thresholds</td><td><span data-option="twx92UU2ruye">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+| Property   | Description                            | Type    | Accepted Values                                                                                                                              | Default             |
+| ---------- | -------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| size       | Sets the size of the popover           | String  | `sm`, `md`, `lg`                                                                                                                             | `md`                |
+| placement  | Determines the position of the popover | String  | `top`, `top-start`, `top-end`, `bottom`, `bottom-start`, `bottom-end`, `left`, `left-start`, `left-end`, `right`, `right-start`, `right-end` | `top`               |
+| showArrow  | Shows or hides the arrow               | Boolean | `true`, `false`                                                                                                                              | `true`              |
+| title      | The title of the popover               | String  | Any valid string                                                                                                                             | `null`              |
+| okText     | Text for the confirmation button       | String  | Any valid string                                                                                                                             | `Confirm`           |
+| cancelText | Text for the cancellation button       | String  | Any valid string                                                                                                                             | `Cancel`            |
+| trigger    | Defines how the popover is triggered   | String  | `click`, `manual`                                                                                                                            | `click`             |
+| prefixIcon | Custom icon for the popover            | String  | Any valid icon class                                                                                                                         | Depends on `status` |
+
