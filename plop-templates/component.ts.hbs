@@ -13,21 +13,20 @@ import { {{camelCase name}}Style } from './{{kebabCase name}}.style';
  *
  **/
 export default class {{pascalCase tagName}} extends Tailwind {
+  /**
+   * The size of the {{pascalCase tagName}}
+   *
+   * @type {'sm' | 'md' | 'lg'}
+   * @default 'md'
+   */
   @property() size: 'sm' | 'md' | 'lg' = 'md';
-
-  constructor() {
-    super();
-  }
-
-  get classes() {
-    return {{camelCase name}}Style({
-      size: this.size,
-    });
-  }
 
   override render() {
     return html`
-      <div class=${this.classes}>
+      <div 
+        class=${alertStyle({
+          size: this.size,
+        })}>
         <slot></slot>
       </div>
     `;
