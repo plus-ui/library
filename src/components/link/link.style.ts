@@ -1,61 +1,39 @@
 import { tv } from 'tailwind-variants';
 
 export const linkStyle = tv({
-  slots: {
-    base: [
-      'link antialiased appearance-none',
-      'flex flex-row items-center justify-center',
-      'font-sans font-normal',
-      'text-color-link',
-      'hover:underline',
-      'visited:text-color-visited',
-      'focus-visible:ring-default',
-      'w-max',
-    ],
-    mainSlot: '',
-  },
+  base: [
+    'link plus-ui-element',
+    'font-normal appearance-none',
+  ],
   variants: {
     size: {
-      sm: {
-        base: 'small gap-1 text-sm',
-      },
-      md: {
-        base: 'medium gap-2 text-base',
-      },
-      lg: {
-        base: 'large gap-3 text-lg',
-      },
+      sm: 'small text-sm',
+      md: 'medium text-base',
+      lg: 'large text-lg',
+      inherit: '',
     },
     disabled: {
-      true: {
-        base: 'disabled cursor-not-allowed text-color-disabled hover:no-underline visited:text-color-disabled focus-visible:ring-0',
-        mainSlot: '',
-      },
-      false: '',
+      true: 'disabled text-color-disabled cursor-not-allowed',
     },
     readonly: {
-      true: {
-        base: 'readonly cursor-default text-color-caption visited:text-color-caption hover:no-underline focus-visible:ring-0',
-        mainSlot: '',
-      },
-      false: '',
+      true: 'readonly text-color-caption cursor-default',
     },
-    truncated: {
-      true: {
-        base: 'overflow-hidden whitespace-nowrap',
-        mainSlot:
-          'max-w-[80px] truncate text-center',
-      },
-      false: {
-        base: '',
-        mainSlot: 'flex-1',
-      },
+    notAllowed: {
+      true: '',
+      false:
+        'text-color-link visited:text-color-visited focus-visible:ring-default cursor-pointer',
+    },
+    underline: {
+      hover: 'hover:underline',
+      always: 'underline hover:underline',
+      never: 'hover:underline-none',
     },
   },
   defaultVariants: {
     size: 'md',
     disabled: false,
     readonly: false,
-    truncated: false,
+    underline: 'hover',
+    notAllowed: false,
   },
 });

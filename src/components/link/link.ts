@@ -1,4 +1,4 @@
-import { css, html } from 'lit';
+import { html } from 'lit';
 import Tailwind from '../base/tailwind-base';
 import { property } from 'lit/decorators.js';
 import { linkStyle } from './link.style';
@@ -6,115 +6,159 @@ import { linkStyle } from './link.style';
 /**
  * @tag plus-link
  * @since 0.0.0
- * @status stable
+ * @status experimental
  *
  * PlusLink component provides a customizable link element for navigation and actions.
- * Supports size variants, states management, and icon configuration.
  *
  * @slot - The default slot for link content
- * @slot prefix-icon - Slot for an icon before the link text
- * @slot suffix-icon - Slot for an icon after the link text
+ * @slot prefix - Slot for content to be placed before the link content
+ * @slot suffix - Slot for content to be placed after the link content
  *
- * @csspart base - The component's base wrapper element
- * @csspart main-slot - The main content wrapper element
+ * @csspart base - The component's base wrapper
  */
 export default class PlusLink extends Tailwind {
-  static override styles = [
-    ...Tailwind.styles,
-    css`
-      :host {
-        display: inline-block;
-      }
-    `,
-  ];
-
   /**
    * Controls the size of the link
-   * - sm: Small size
-   * - md: Medium size
-   * - lg: Large size
-   * @default 'md'
+   * - sm: Small size with smaller text and spacing
+   * - md: Medium size with default text and spacing
+   * - lg: Large size with larger text and spacing
+   * - inherit: Inherits size from parent element
+   * @default 'inherit'
    */
-  @property({ type: String }) size: 'sm' | 'md' | 'lg' = 'md';
+  @property({ type: String })
+  size: 'sm' | 'md' | 'lg' | 'inherit' = 'inherit';
 
   /**
-   * When true, the link will be disabled and non-interactive
+   * When true, the link becomes non-interactive and shows disabled styling
    * @default false
    */
-  @property({ type: Boolean }) disabled: boolean = false;
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: (value) => (value == 'false' || false ? false : true),
+  })
+  disabled = false;
 
   /**
-   * When true, the link will be in readonly state
+   * When true, the link becomes non-interactive but maintains normal styling
    * @default false
    */
-  @property({ type: Boolean }) readonly: boolean = false;
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: (value) => (value == 'false' || false ? false : true),
+  })
+  readonly = false;
 
   /**
-   * The URL that the link points to
+   * The URL that the hyperlink points to
    * @default ''
    */
-  @property({ type: String }) href: string = '';
+  @property({ type: String })
+  href = '';
 
   /**
-   * Specifies where to open the linked document
+   * Specifies where to display the linked URL
+   * Common values: _blank, _self, _parent, _top
    * @default ''
    */
-  @property({ type: String }) target: string = '';
+  @property({ type: String })
+  target = '';
 
   /**
    * Specifies the relationship between the current document and the linked document
+   * Common values: nofollow, noopener, noreferrer
    * @default ''
    */
-  @property({ type: String }) rel: string = '';
+  @property({ type: String })
+  rel = '';
 
   /**
-   * When true, the link text will be truncated with an ellipsis
+   * Sets the link to download the target URL instead of navigating
+   * Optional value specifies the suggested filename
+   * @default ''
+   */
+  @property({ type: String })
+  download = '';
+
+  /**
+   * When true, displays loading state and disables interaction
    * @default false
    */
-  @property({ type: Boolean }) truncated: boolean = false;
+  @property({ type: Boolean })
+  loading = false;
 
   /**
-   * Name of the icon to display before the link text (not supported yet)
-   * @default ''
+   * When true, link opens in new tab with secure attributes
+   * Automatically sets target="_blank" and rel="noopener noreferrer"
+   * @default false
    */
-  @property({ type: String, attribute: 'prefix-icon' }) prefixIcon: string = '';
+  @property({ type: Boolean })
+  external = false;
 
   /**
-   * Name of the icon to display after the link text (not supported yet)
-   * @default ''
+   * Controls the underline style of the link
+   * values:
+   * - always: always underlined
+   * - hover: underlined on hover
+   * - never: never underlined
+   * @default 'hover'
    */
-  @property({ type: String, attribute: 'suffix-icon' }) suffixIcon: string = '';
+  @property({ type: String })
+  underline?: 'always' | 'hover' | 'never';
 
-  handleLinkClick(e: Event) {
+  private handleClick(e: Event) {
     if (this.disabled || this.readonly) {
       e.preventDefault();
     }
+    this.emit('plus-click');
+  }
+
+  private handleFocus() {
+    this.emit('plus-focus');
+  }
+
+  private handleBlur() {
+    this.emit('plus-blur');
   }
 
   override render() {
-    const { base, mainSlot } = linkStyle({
-      size: this.size,
-      disabled: this.disabled,
-      readonly: this.readonly,
-      truncated: this.truncated,
-    });
+    const target = this.external ? '_blank' : this.target;
+    const rel = this.external ? 'noopener noreferrer' : this.rel;
+
+    let _underline: typeof this.underline;
+
+    if (this.underline) {
+      _underline = this.underline;
+    } else if (this.disabled || this.readonly) {
+      _underline = 'never';
+    } else {
+      _underline = 'hover';
+    }
+
     return html`
-        <a
-          role="link"
-          class=${base()}
-          .?disabled="${this.disabled}"
-          href="${this.href}"
-          target="${this.target}"
-          rel="${this.rel}"
-          aria-disabled="${this.disabled}"
-          aria-readonly="${this.readonly}"
-          tabindex="${this.disabled ? '-1' : '0'}"
-        >
-            <slot name="prefix-icon">${this.prefixIcon}</slot>
-            <div class="${mainSlot()}"><slot></slot></div>
-            <slot name="suffix-icon">${this.suffixIcon}</slot>
-          </a>
-      </div>
+      <a
+        role="link"
+        class=${linkStyle({
+          size: this.size,
+          underline: _underline,
+          disabled: this.disabled,
+          readonly: this.readonly,
+          notAllowed: this.disabled || this.readonly,
+        })}
+        href="${this.href}"
+        target="${target}"
+        rel="${rel}"
+        download="${this.download}"
+        aria-disabled="${this.disabled}"
+        aria-readonly="${this.readonly}"
+        tabindex="${this.disabled ? '-1' : '0'}"
+        part="base"
+        @click="${this.handleClick}"
+        @focus="${this.handleFocus}"
+        @blur="${this.handleBlur}"
+        ><slot name="prefix"></slot><slot></slot><slot name="suffix"></slot
+      ></a>
     `;
   }
 }

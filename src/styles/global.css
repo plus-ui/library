@@ -26,3 +26,7 @@
 @utility ring-default {
   @apply ring-2 ring-[var(--plus-color-border-ring)] outline-0 ring-offset-2;
 }
+
+@utility plus-ui-element {
+  @apply antialiased font-sans
+}
