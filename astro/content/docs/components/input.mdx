@@ -1,0 +1,447 @@
+---
+title: Input
+description: The input component allows users to enter and edit text.
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/input/anatomy.png';
+import layoutSpacing from '../../../assets/components/input/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/input/light-dark-mode.png';
+
+The Input component is a versatile UI element used to capture user input, such as text or numbers. It offers various customization options and states to ensure a seamless user experience in your applications.
+
+## Anatomy
+
+The anatomy of an input component includes the input field itself, a container to frame the input, and optional elements like labels and icons that assist in user interaction and information conveyance.
+
+<Image src={anatomy} alt="anatomy of input component" />
+
+## Properties
+
+Input components typically have properties like type (e.g., text fields, checkboxes), labels, placeholders, value, read-only and disabled states, required fields, validation rules, and events. These components offer a means to capture user data, provide feedback, and ensure accessibility and security while enhancing the overall user experience.
+
+| Status  | States     | Size   | Disabled |
+| ------- | ---------- | ------ | -------- |
+| Default | Default    | Small  | True     |
+| Error   | Hover      | Medium | False    |
+|         | Fill       | Large  |          |
+|         | Fill-hover |        |          |
+|         | Press      |        |          |
+
+### Status
+
+* **Default input** component is the standard, regular input field for user data entry.
+* **Error input** is an input field that indicates an error, often with a highlighted border or error message, when user input is incorrect or doesn't meet validation criteria.
+
+<EmbedContent url="https://codesandbox.io/embed/nyxysj?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-input
+  size="md"
+  label="Label"
+  caption="There will be a caption text here"
+  placeholder="Placeholder"
+  required
+>
+  <i slot="prefix" class="fa-solid fa-plus"></i>
+  <i slot="suffix" class="fa-solid fa-plus"></i>
+</plus-input>
+
+<plus-input
+  error
+  size="md"
+  label="Label"
+  caption="There will be a caption text here"
+  placeholder="Placeholder"
+  required
+>
+  <i slot="prefix" class="fa-solid fa-plus"></i>
+  <i slot="suffix" class="fa-solid fa-plus"></i>
+</plus-input>
+```
+
+```tsx
+import { PlusInput } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusInput
+        size="md"
+        label="Label"
+        caption="There will be a caption text here"
+        placeholder="Placeholder"
+        required
+      >
+        <i slot="prefix" className="fa-solid fa-plus"></i>
+        <i slot="suffix" className="fa-solid fa-plus"></i>
+      </PlusInput>
+
+      <PlusInput
+        error
+        size="md"
+        label="Label"
+        caption="There will be a caption text here"
+        placeholder="Placeholder"
+        required
+      >
+        <i slot="prefix" className="fa-solid fa-plus"></i>
+        <i slot="suffix" className="fa-solid fa-plus"></i>
+      </PlusInput>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-input
+      size="md"
+      label="Label"
+      caption="There will be a caption text here"
+      placeholder="Placeholder"
+      required
+    >
+      <i slot="prefix" class="fa-solid fa-plus"></i>
+      <i slot="suffix" class="fa-solid fa-plus"></i>
+    </plus-input>
+
+    <plus-input
+      error
+      size="md"
+      label="Label"
+      caption="There will be a caption text here"
+      placeholder="Placeholder"
+      required
+    >
+      <i slot="prefix" class="fa-solid fa-plus"></i>
+      <i slot="suffix" class="fa-solid fa-plus"></i>
+    </plus-input>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-input
+    size="md"
+    label="Label"
+    caption="There will be a caption text here"
+    placeholder="Placeholder"
+    required
+  >
+    <i slot="prefix" class="fa-solid fa-plus"></i>
+    <i slot="suffix" class="fa-solid fa-plus"></i>
+  </plus-input>
+
+  <plus-input
+    error
+    size="md"
+    label="Label"
+    caption="There will be a caption text here"
+    placeholder="Placeholder"
+    required
+  >
+    <i slot="prefix" class="fa-solid fa-plus"></i>
+    <i slot="suffix" class="fa-solid fa-plus"></i>
+  </plus-input>
+</template>
+```
+</code-bubble>
+
+### States
+
+* **Default input** state is component in its initial state, ready for user interaction.
+* **Hover input** is the appearance of an input component when a user hovers their mouse cursor over it, which can include visual changes like a highlighted background.
+* **Fill input** is component with content or data already filled in, which users can edit or modify as needed.
+* **Fill-Hover** input is a combination of the "Fill Input" and "Hover Input" states, indicating the appearance when the cursor hovers over a filled input.
+* **Press input** is how an input component looks when a user clicks or presses on it, often indicating that it's currently being interacted with.
+
+<EmbedContent url="https://codesandbox.io/embed/59gl2t?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-input size="md" label="Default Input" placeholder="Type here..."></plus-input>  <!-- Default input -->
+
+<plus-input
+  size="md"
+  label="Input with Value"
+  placeholder="Type here..."
+  value="Predefined Value"
+></plus-input>  <!-- Input with a predefined value -->
+```
+
+```tsx
+import { PlusInput } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusInput size="md" label="Default Input" placeholder="Type here..." />  {/* Default input */}
+
+      <PlusInput
+        size="md"
+        label="Input with Value"
+        placeholder="Type here..."
+        value="Predefined Value"  {/* Input with a predefined value */}
+      />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-input
+      size="md"
+      label="Default Input"
+      placeholder="Type here..."
+    ></plus-input>  <!-- Default input -->
+
+    <plus-input
+      size="md"
+      label="Input with Value"
+      placeholder="Type here..."
+      value="Predefined Value"
+    ></plus-input>  <!-- Input with a predefined value -->
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-input
+    size="md"
+    label="Default Input"
+    placeholder="Type here..."
+  ></plus-input>  <!-- Default input -->
+
+  <plus-input
+    size="md"
+    label="Input with Value"
+    placeholder="Type here..."
+    value="Predefined Value"
+  ></plus-input>  <!-- Input with a predefined value -->
+</template>
+```
+</code-bubble>
+
+### Size
+
+* **Small input** is a smaller-sized input component, typically used for compact forms or in specific design contexts.
+* **Medium input** is a standard-sized input component, suitable for most data entry scenarios.
+* **Large input** is a larger-sized input field, often used when more space is needed for user input or for a prominent display.
+
+<EmbedContent url="https://codesandbox.io/embed/g67j9v?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-input size="sm" label="Small Input" placeholder="Type here..."></plus-input>  <!-- Small size -->
+
+<plus-input size="md" label="Medium Input" placeholder="Type here..."></plus-input>  <!-- Medium size -->
+
+<plus-input size="lg" label="Large Input" placeholder="Type here..."></plus-input>  <!-- Large size -->
+```
+
+```tsx
+import { PlusInput } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusInput size="sm" label="Small Input" placeholder="Type here..." />  {/* Small size */}
+
+      <PlusInput size="md" label="Medium Input" placeholder="Type here..." />  {/* Medium size */}
+
+      <PlusInput size="lg" label="Large Input" placeholder="Type here..." />  {/* Large size */}
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-input
+      size="sm"
+      label="Small Input"
+      placeholder="Type here..."
+    ></plus-input>  <!-- Small size -->
+
+    <plus-input
+      size="md"
+      label="Medium Input"
+      placeholder="Type here..."
+    ></plus-input>  <!-- Medium size -->
+
+    <plus-input
+      size="lg"
+      label="Large Input"
+      placeholder="Type here..."
+    ></plus-input>  <!-- Large size -->
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-input
+    size="sm"
+    label="Small Input"
+    placeholder="Type here..."
+  ></plus-input>  <!-- Small size -->
+
+  <plus-input
+    size="md"
+    label="Medium Input"
+    placeholder="Type here..."
+  ></plus-input>  <!-- Medium size -->
+
+  <plus-input
+    size="lg"
+    label="Large Input"
+    placeholder="Type here..."
+  ></plus-input>  <!-- Large size -->
+</template>
+```
+</code-bubble>
+
+### Disabled
+
+Disabled input is an input component that cannot be interacted with by the user, often used when certain conditions or permissions prevent input.
+
+<EmbedContent url="https://codesandbox.io/embed/fp22wh?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-input
+  size="md"
+  label="Default Input"
+  placeholder="Type here..."
+></plus-input>  <!-- Default state -->
+
+<plus-input
+  size="md"
+  label="Disabled Input"
+  placeholder="Can't type here..."
+  disabled
+></plus-input>  <!-- Disabled state -->
+```
+
+```tsx
+import { PlusInput } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusInput size="md" label="Default Input" placeholder="Type here..." />  {/* Default state */}
+
+      <PlusInput
+        size="md"
+        label="Disabled Input"
+        placeholder="Can't type here..."
+        disabled  {/* Disabled state */}
+      />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-input
+      size="md"
+      label="Default Input"
+      placeholder="Type here..."
+    ></plus-input>  <!-- Default state -->
+
+    <plus-input
+      size="md"
+      label="Disabled Input"
+      placeholder="Can't type here..."
+      disabled
+    ></plus-input>  <!-- Disabled state -->
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-input
+    size="md"
+    label="Default Input"
+    placeholder="Type here..."
+  ></plus-input>  <!-- Default state -->
+
+  <plus-input
+    size="md"
+    label="Disabled Input"
+    placeholder="Can't type here..."
+    disabled
+  ></plus-input>  <!-- Disabled state -->
+</template>
+```
+</code-bubble>
+
+## Layout & Spacing
+
+Layout and spacing in input components influence user interface clarity. Consistent spacing and alignment help organize input fields, leading to a more user-friendly and visually cohesive design.
+
+<Image src={layoutSpacing} alt="layout and spacing of input component" />
+
+## Light & Dark Mode
+
+Supporting light and dark modes is essential for user interface adaptability. Proper color choices and contrast adjustments ensure readability and comfort for users in different lighting conditions.
+
+<Image src={lightDarkMode} alt="light and dark mode of input component" />
+
+## Accessibility
+
+Input components must prioritize accessibility for users with disabilities. This includes clear labels, logical tab order, color contrast, ARIA roles, and keyboard navigation, fostering inclusivity and usability for all.
+
+<table data-full-width="false"><thead><tr><th width="195">Criteria</th><th width="461.3333333333333">Description</th><th>Status<select><option value="871ca74978e34cb6a897fa96f2763611" label="Passed" color="blue"></option><option value="63b9ff302cd74683b66177da970a685c" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>Autocomplete Attribute</td><td>Ensure the autocomplete attribute is correct and suitable for the form field</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Active Elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Form Elements</td><td>Ensures form field does not have multiple label elements</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Visible Labels</td><td>Ensures that every form element has a visible label and is not solely labeled using hidden labels,or the title or aria-describedby attributes</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="63b9ff302cd74683b66177da970a685c">AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API
+
+| Property    | Description       | Type    | Accepted Values                         | Default |
+| ----------- | ----------------- | ------- | --------------------------------------- | ------- |
+| type        | Input type        | String  | text, email, password, number, tel, url | text    |
+| size        | Input size        | String  | sm, md, lg                              | md      |
+| disabled    | Input disabled    | Boolean | true, false                             | false   |
+| readonly    | Input readonly    | Boolean | true, false                             | false   |
+| required    | Input required    | Boolean | true, false                             | false   |
+| value       | Input value       | String  |                                         |         |
+| name        | Input name        | String  |                                         |         |
+| placeholder | Input placeholder | String  |                                         |         |
+| label       | Input label       | String  |                                         |         |
+| caption     | Input caption     | String  |                                         |         |
+| error       | Input error text  | String  |                                         |         |
+| clearable   | Input clearable   | Boolean | true, false                             | false   |

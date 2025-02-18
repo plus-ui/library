@@ -6,7 +6,7 @@ import { customElementSolidJsPlugin } from 'custom-element-solidjs-integration';
 import { customElementJsxPlugin } from 'custom-element-jsx-integration';
 import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
 import { customElementSveltePlugin } from 'custom-element-svelte-integration';
-import { cemInheritancePlugin } from 'custom-elements-manifest-inheritance';
+// import { cemInheritancePlugin } from 'custom-elements-manifest-inheritance';
 import { customElementLazyLoaderPlugin } from 'custom-element-lazy-loader';
 import { customJSDocTagsPlugin } from 'cem-plugin-custom-jsdoc-tags';
 import { customEsLintRuleGeneratorPlugin } from 'custom-element-eslint-rule-generator';
@@ -22,7 +22,7 @@ export default {
   /** Provide custom plugins */
   plugins: [
     expandTypesPlugin(),
-    cemInheritancePlugin(),
+    // cemInheritancePlugin(),
     cemDeprecatorPlugin(),
 
     customElementVsCodePlugin(),
@@ -31,31 +31,36 @@ export default {
       outdir: 'react',
       modulePath: (
         _,
-        tagName = '', // varsayılan değer eklendi
+        tagName = '' // varsayılan değer eklendi
       ) => `../dist/components/${tagName.replace('plus-', '')}/index.js`,
     }),
     customElementSolidJsPlugin({
       outdir: 'types',
       fileName: 'custom-element-solidjs.d.ts',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
+      modulePath: (_, tagName) =>
+        `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementJsxPlugin({
       outdir: 'types',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
+      modulePath: (_, tagName) =>
+        `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementVuejsPlugin({
       outdir: 'types',
       fileName: 'custom-element-vuejs.d.ts',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
+      modulePath: (_, tagName) =>
+        `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementSveltePlugin({
       outdir: 'types',
       fileName: 'custom-element-svelte.d.ts',
-      modulePath: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
+      modulePath: (_, tagName) =>
+        `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
     customElementLazyLoaderPlugin({
       outdir: 'cdn',
-      importPathTemplate: (_, tagName) => `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
+      importPathTemplate: (_, tagName) =>
+        `../dist/components/${tagName.replace('plus-', '')}/${tagName.replace('plus-', '')}.js`,
     }),
 
     customJSDocTagsPlugin({
@@ -76,6 +81,8 @@ export default {
 
   overrideModuleCreation: ({ ts, globs }) => {
     const program = getTsProgram(ts, globs, 'tsconfig.json');
-    return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob)));
+    return program
+      .getSourceFiles()
+      .filter((sf) => globs.find((glob) => sf.fileName.includes(glob)));
   },
 };

@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import lit from '@astrojs/lit';
-import starlightLinksValidator from "starlight-links-validator";
-import starlightImageZoom from "starlight-image-zoom";
+import starlightLinksValidator from 'starlight-links-validator';
+import starlightImageZoom from 'starlight-image-zoom';
 // import tailwind from "@astrojs/tailwind";
 // import liveCode from "astro-live-code";
 
@@ -12,7 +12,8 @@ export default defineConfig({
   integrations: [
     lit(),
     starlight({
-      title: 'Plus UI',logo: {
+      title: 'Plus UI',
+      logo: {
         src: './astro/assets/plus-ui-logo.svg',
       },
       social: {
@@ -43,6 +44,7 @@ export default defineConfig({
         },
         {
           label: 'UI Library',
+          collapsed: false,
           items: [
             {
               label: 'Overview',
@@ -81,6 +83,7 @@ export default defineConfig({
         },
         {
           label: 'Design System',
+          collapsed: false,
           items: [
             {
               label: 'Overview',
@@ -98,7 +101,59 @@ export default defineConfig({
         },
         {
           label: 'Components',
+          collapsed: false,
           autogenerate: { directory: 'components' },
+        },
+        {
+          label: 'Foundation',
+          collapsed: false,
+          // autogenerate: { directory: 'foundation' },
+
+          items: [
+            {
+              label: 'Overview',
+              slug: 'foundation/overview',
+            },
+            {
+              label: 'Color',
+              // slug: 'foundation/color',
+              items: [
+                {
+                  label: 'Color Palette',
+                  slug: 'foundation/color/color-palette',
+                },
+                {
+                  label: 'Color Variables',
+                  slug: 'foundation/color/color-variables',
+                },
+
+                {
+                  label: 'Color Token List',
+                  slug: 'foundation/color/color-token-list',
+                },
+              ],
+            },
+            {
+              label: 'Typography',
+              slug: 'foundation/typography',
+            },
+            {
+              label: 'Icons',
+              slug: 'foundation/icons',
+            },
+            {
+              label: 'Border',
+              slug: 'foundation/border',
+            },
+            {
+              label: 'Spacing',
+              slug: 'foundation/spacing',
+            },
+            {
+              label: 'Opacity',
+              slug: 'foundation/opacity',
+            },
+          ],
         },
       ],
       components: {

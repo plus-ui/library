@@ -1,6 +1,10 @@
 {
-  "css.customData": [".vscode/tailwindcss.json"],
+  "css.customData": [
+    ".vscode/tailwindcss.json"
+  ],
   "css.validate": false,
   "less.validate": false,
-  "scss.validate": false
+  "scss.validate": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }

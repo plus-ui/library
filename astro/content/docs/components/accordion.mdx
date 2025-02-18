@@ -37,76 +37,72 @@ Each size variant maintains the same functionality while adapting to different s
 
 <EmbedContent url="https://codesandbox.io/embed/4m3ztz?hidenavigation=1&view=preview" />
 
-
-<Tabs syncKey="usage">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
-
-function App() {
-    return (
-    <PlusAccordion>
-        <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
-        <PlusAccordionPanel>
-        Accordion Content
-        </PlusAccordionPanel>
-    </PlusAccordion>
-    );
-}
-
-export default App;
-```
-    </TabItem>
-    
-    <TabItem label="Angular">
+<code-bubble class="not-content">
 ```html
 <plus-accordion>
-    <plus-accordion-header>Accordion Title</plus-accordion-header>
-    <plus-accordion-panel>
+  <plus-accordion-header>Accordion Title</plus-accordion-header>
+  <plus-accordion-panel>
     Accordion Content
-    </plus-accordion-panel>
+  </plus-accordion-panel>
 </plus-accordion>
 ```
-    </TabItem>
-    
-    <TabItem label="Vue">
-```html
-<template>
+
+```tsx
+import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusAccordion>
+      <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+      <PlusAccordionPanel>
+        Accordion Content
+      </PlusAccordionPanel>
+    </PlusAccordion>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
     <plus-accordion>
+      <plus-accordion-header>Accordion Title</plus-accordion-header>
+      <plus-accordion-panel>
+        Accordion Content
+      </plus-accordion-panel>
+    </plus-accordion>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion>
     <plus-accordion-header>Accordion Title</plus-accordion-header>
     <plus-accordion-panel>
-        Accordion Content
+      Accordion Content
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 </template>
 ```
-    </TabItem>
-    <TabItem label="Svelte">
-```html
+
+```svelte
 <script>
-    import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+  import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
 </script>
 
 <PlusAccordion>
-    <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
-    <PlusAccordionPanel>
+  <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+  <PlusAccordionPanel>
     Accordion Content
-    </PlusAccordionPanel>
+  </PlusAccordionPanel>
 </PlusAccordion>
 ```
-    </TabItem>
-    <TabItem label="Javascript">
-```html
-<plus-accordion>
-    <plus-accordion-header>Accordion Title</plus-accordion-header>
-    <plus-accordion-panel>
-    Accordion Content
-    </plus-accordion-panel>
-</plus-accordion>
-```
-    </TabItem>
-</Tabs>
+</code-bubble>
 
 ### Item
 
@@ -118,75 +114,72 @@ A single-item accordion is ideal for scenarios where only one section needs to b
 
 <EmbedContent url="https://codesandbox.io/embed/r7qmqk?hidenavigation=1&view=preview" />
 
-<Tabs syncKey="single-item">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
-
-function App() {
-    return (
-    <PlusAccordion>
-        <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
-        <PlusAccordionPanel>
-        Accordion Content
-        </PlusAccordionPanel>
-    </PlusAccordion>
-    );
-}
-
-export default App;
-```
-    </TabItem>
-    
-    <TabItem label="Angular">
+<code-bubble class="not-content">
 ```html
 <plus-accordion>
-    <plus-accordion-header>Accordion Title</plus-accordion-header>
-    <plus-accordion-panel>
+  <plus-accordion-header>Accordion Title</plus-accordion-header>
+  <plus-accordion-panel>
     Accordion Content
-    </plus-accordion-panel>
+  </plus-accordion-panel>
 </plus-accordion>
 ```
-    </TabItem>
-    
-    <TabItem label="Vue">
-```html
-<template>
+
+```tsx
+import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusAccordion>
+      <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+      <PlusAccordionPanel>
+        Accordion Content
+      </PlusAccordionPanel>
+    </PlusAccordion>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
     <plus-accordion>
+      <plus-accordion-header>Accordion Title</plus-accordion-header>
+      <plus-accordion-panel>
+        Accordion Content
+      </plus-accordion-panel>
+    </plus-accordion>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion>
     <plus-accordion-header>Accordion Title</plus-accordion-header>
     <plus-accordion-panel>
-        Accordion Content
+      Accordion Content
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 </template>
 ```
-    </TabItem>
-    <TabItem label="Svelte">
-```html
+
+```svelte
 <script>
-    import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+  import { PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
 </script>
 
 <PlusAccordion>
-    <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
-    <PlusAccordionPanel>
+  <PlusAccordionHeader>Accordion Title</PlusAccordionHeader>
+  <PlusAccordionPanel>
     Accordion Content
-    </PlusAccordionPanel>
+  </PlusAccordionPanel>
 </PlusAccordion>
 ```
-    </TabItem>
-    <TabItem label="Javascript">
-```html
-<plus-accordion>
-    <plus-accordion-header>Accordion Title</plus-accordion-header>
-    <plus-accordion-panel>
-    Accordion Content
-    </plus-accordion-panel>
-</plus-accordion>
-```
-    </TabItem>
-</Tabs>
+</code-bubble>
 
 #### Multiple Items
 
@@ -194,120 +187,117 @@ A multi-item accordion allows you to display multiple sections simultaneously, p
 
 <EmbedContent url="https://codesandbox.io/embed/qcnk3t?hidenavigation=1&view=preview" />
 
-<Tabs syncKey="multi-item">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
-
-function App() {
-    return (
-    <PlusAccordionGroup>
-        <PlusAccordion>
-        <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
-        <PlusAccordionPanel>
-            Content of the first accordion.
-        </PlusAccordionPanel>
-        </PlusAccordion>
-
-        <PlusAccordion>
-        <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
-        <PlusAccordionPanel>
-            Content of the second accordion.
-        </PlusAccordionPanel>
-        </PlusAccordion>
-    </PlusAccordionGroup>
-    );
-}
-
-export default App;
-```
-    </TabItem>
-    
-    <TabItem label="Angular">
+<code-bubble class="not-content">
 ```html
 <plus-accordion-group>
-    <plus-accordion>
+  <plus-accordion>
     <plus-accordion-header>Accordion 1</plus-accordion-header>
     <plus-accordion-panel>
-        Content of the first accordion.
+      Content of the first accordion.
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 
-    <plus-accordion>
+  <plus-accordion>
     <plus-accordion-header>Accordion 2</plus-accordion-header>
     <plus-accordion-panel>
-        Content of the second accordion.
+      Content of the second accordion.
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 </plus-accordion-group>
 ```
-    </TabItem>
-    
-    <TabItem label="Vue">
-```html
-<template>
+
+```tsx
+import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusAccordionGroup>
+      <PlusAccordion>
+        <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
+        <PlusAccordionPanel>
+          Content of the first accordion.
+        </PlusAccordionPanel>
+      </PlusAccordion>
+
+      <PlusAccordion>
+        <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
+        <PlusAccordionPanel>
+          Content of the second accordion.
+        </PlusAccordionPanel>
+      </PlusAccordion>
+    </PlusAccordionGroup>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
     <plus-accordion-group>
-    <plus-accordion>
+      <plus-accordion>
         <plus-accordion-header>Accordion 1</plus-accordion-header>
         <plus-accordion-panel>
-        Content of the first accordion.
+          Content of the first accordion.
         </plus-accordion-panel>
+      </plus-accordion>
+
+      <plus-accordion>
+        <plus-accordion-header>Accordion 2</plus-accordion-header>
+        <plus-accordion-panel>
+          Content of the second accordion.
+        </plus-accordion-panel>
+      </plus-accordion>
+    </plus-accordion-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion-group>
+    <plus-accordion>
+      <plus-accordion-header>Accordion 1</plus-accordion-header>
+      <plus-accordion-panel>
+        Content of the first accordion.
+      </plus-accordion-panel>
     </plus-accordion>
 
     <plus-accordion>
-        <plus-accordion-header>Accordion 2</plus-accordion-header>
-        <plus-accordion-panel>
+      <plus-accordion-header>Accordion 2</plus-accordion-header>
+      <plus-accordion-panel>
         Content of the second accordion.
-        </plus-accordion-panel>
+      </plus-accordion-panel>
     </plus-accordion>
-    </plus-accordion-group>
+  </plus-accordion-group>
 </template>
 ```
-    </TabItem>
-    <TabItem label="Svelte">
-```html
+
+```svelte
 <script>
-    import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+  import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
 </script>
 
 <PlusAccordionGroup>
-    <PlusAccordion>
+  <PlusAccordion>
     <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
     <PlusAccordionPanel>
-        Content of the first accordion.
+      Content of the first accordion.
     </PlusAccordionPanel>
-    </PlusAccordion>
+  </PlusAccordion>
 
-    <PlusAccordion>
+  <PlusAccordion>
     <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
     <PlusAccordionPanel>
-        Content of the second accordion.
+      Content of the second accordion.
     </PlusAccordionPanel>
-    </PlusAccordion>
+  </PlusAccordion>
 </PlusAccordionGroup>
 ```
-    </TabItem>
-    <TabItem label="Javascript">
-```html
-<plus-accordion-group>
-    <plus-accordion>
-    <plus-accordion-header>Accordion 1</plus-accordion-header>
-    <plus-accordion-panel>
-        Content of the first accordion.
-    </plus-accordion-panel>
-    </plus-accordion>
-
-    <plus-accordion>
-    <plus-accordion-header>Accordion 2</plus-accordion-header>
-    <plus-accordion-panel>
-        Content of the second accordion.
-    </plus-accordion-panel>
-    </plus-accordion>
-</plus-accordion-group>
-```
-    </TabItem>
-</Tabs>
+</code-bubble>
 
 #### Multi-Open Accordion Group
 
@@ -315,155 +305,152 @@ A multi-open accordion group allows users to expand multiple sections at the sam
 
 <EmbedContent url="https://codesandbox.io/embed/xv75pp?hidenavigation=1&view=preview" />
 
-<Tabs syncKey="multi-open">
-  <TabItem label="React">
-```jsx
-import React from 'react';
-import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
-
-function App() {
-    return (
-    <PlusAccordionGroup multi>
-        <PlusAccordion open>
-        <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
-        <PlusAccordionPanel>
-            This is the content of the first accordion, which is open by default.
-        </PlusAccordionPanel>
-        </PlusAccordion>
-
-        <PlusAccordion>
-        <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
-        <PlusAccordionPanel>
-            This is the content of the second accordion.
-        </PlusAccordionPanel>
-        </PlusAccordion>
-
-        <PlusAccordion open>
-        <PlusAccordionHeader>Accordion 3</PlusAccordionHeader>
-        <PlusAccordionPanel>
-            This is the content of the third accordion, also open by default.
-        </PlusAccordionPanel>
-        </PlusAccordion>
-    </PlusAccordionGroup>
-    );
-}
-
-export default App;
-```
-    </TabItem>
-    
-    <TabItem label="Angular">
+<code-bubble class="not-content">
 ```html
 <plus-accordion-group multi>
-    <plus-accordion open>
+  <plus-accordion open>
     <plus-accordion-header>Accordion 1</plus-accordion-header>
     <plus-accordion-panel>
-        This is the content of the first accordion, which is open by default.
+      This is the content of the first accordion, which is open by default.
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 
-    <plus-accordion>
+  <plus-accordion>
     <plus-accordion-header>Accordion 2</plus-accordion-header>
     <plus-accordion-panel>
-        This is the content of the second accordion.
+      This is the content of the second accordion.
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 
-    <plus-accordion open>
+  <plus-accordion open>
     <plus-accordion-header>Accordion 3</plus-accordion-header>
     <plus-accordion-panel>
-        This is the content of the third accordion, also open by default.
+      This is the content of the third accordion, also open by default.
     </plus-accordion-panel>
-    </plus-accordion>
+  </plus-accordion>
 </plus-accordion-group>
 ```
-    </TabItem>
-    
-    <TabItem label="Vue">
-```html
-<template>
+
+```tsx
+import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusAccordionGroup multi>
+      <PlusAccordion open>
+        <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
+        <PlusAccordionPanel>
+          This is the content of the first accordion, which is open by default.
+        </PlusAccordionPanel>
+      </PlusAccordion>
+
+      <PlusAccordion>
+        <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
+        <PlusAccordionPanel>
+          This is the content of the second accordion.
+        </PlusAccordionPanel>
+      </PlusAccordion>
+
+      <PlusAccordion open>
+        <PlusAccordionHeader>Accordion 3</PlusAccordionHeader>
+        <PlusAccordionPanel>
+          This is the content of the third accordion, also open by default.
+        </PlusAccordionPanel>
+      </PlusAccordion>
+    </PlusAccordionGroup>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
     <plus-accordion-group multi>
-    <plus-accordion open>
+      <plus-accordion open>
         <plus-accordion-header>Accordion 1</plus-accordion-header>
         <plus-accordion-panel>
-        This is the content of the first accordion, which is open by default.
+          This is the content of the first accordion, which is open by default.
         </plus-accordion-panel>
+      </plus-accordion>
+
+      <plus-accordion>
+        <plus-accordion-header>Accordion 2</plus-accordion-header>
+        <plus-accordion-panel>
+          This is the content of the second accordion.
+        </plus-accordion-panel>
+      </plus-accordion>
+
+      <plus-accordion open>
+        <plus-accordion-header>Accordion 3</plus-accordion-header>
+        <plus-accordion-panel>
+          This is the content of the third accordion, also open by default.
+        </plus-accordion-panel>
+      </plus-accordion>
+    </plus-accordion-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion-group multi>
+    <plus-accordion open>
+      <plus-accordion-header>Accordion 1</plus-accordion-header>
+      <plus-accordion-panel>
+        This is the content of the first accordion, which is open by default.
+      </plus-accordion-panel>
     </plus-accordion>
 
     <plus-accordion>
-        <plus-accordion-header>Accordion 2</plus-accordion-header>
-        <plus-accordion-panel>
+      <plus-accordion-header>Accordion 2</plus-accordion-header>
+      <plus-accordion-panel>
         This is the content of the second accordion.
-        </plus-accordion-panel>
+      </plus-accordion-panel>
     </plus-accordion>
 
     <plus-accordion open>
-        <plus-accordion-header>Accordion 3</plus-accordion-header>
-        <plus-accordion-panel>
+      <plus-accordion-header>Accordion 3</plus-accordion-header>
+      <plus-accordion-panel>
         This is the content of the third accordion, also open by default.
-        </plus-accordion-panel>
+      </plus-accordion-panel>
     </plus-accordion>
-    </plus-accordion-group>
+  </plus-accordion-group>
 </template>
 ```
-    </TabItem>
-    <TabItem label="Svelte">
-```html
+
+```svelte
 <script>
-    import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
+  import { PlusAccordionGroup, PlusAccordion, PlusAccordionHeader, PlusAccordionPanel } from '@plusui/svelte';
 </script>
 
 <PlusAccordionGroup multi>
-    <PlusAccordion open>
+  <PlusAccordion open>
     <PlusAccordionHeader>Accordion 1</PlusAccordionHeader>
     <PlusAccordionPanel>
-        This is the content of the first accordion, which is open by default.
+      This is the content of the first accordion, which is open by default.
     </PlusAccordionPanel>
-    </PlusAccordion>
+  </PlusAccordion>
 
-    <PlusAccordion>
+  <PlusAccordion>
     <PlusAccordionHeader>Accordion 2</PlusAccordionHeader>
     <PlusAccordionPanel>
-        This is the content of the second accordion.
+      This is the content of the second accordion.
     </PlusAccordionPanel>
-    </PlusAccordion>
+  </PlusAccordion>
 
-    <PlusAccordion open>
+  <PlusAccordion open>
     <PlusAccordionHeader>Accordion 3</PlusAccordionHeader>
     <PlusAccordionPanel>
-        This is the content of the third accordion, also open by default.
+      This is the content of the third accordion, also open by default.
     </PlusAccordionPanel>
-    </PlusAccordion>
+  </PlusAccordion>
 </PlusAccordionGroup>
 ```
-    </TabItem>
-    <TabItem label="Javascript">
-```html
-<plus-accordion-group multi>
-    <plus-accordion open>
-    <plus-accordion-header>Accordion 1</plus-accordion-header>
-    <plus-accordion-panel>
-        This is the content of the first accordion, which is open by default.
-    </plus-accordion-panel>
-    </plus-accordion>
-
-    <plus-accordion>
-    <plus-accordion-header>Accordion 2</plus-accordion-header>
-    <plus-accordion-panel>
-        This is the content of the second accordion.
-    </plus-accordion-panel>
-    </plus-accordion>
-
-    <plus-accordion open>
-    <plus-accordion-header>Accordion 3</plus-accordion-header>
-    <plus-accordion-panel>
-        This is the content of the third accordion, also open by default.
-    </plus-accordion-panel>
-    </plus-accordion>
-</plus-accordion-group>
-```
-    </TabItem>
-</Tabs>
+</code-bubble>
 
 ## Layout & Spacing
 

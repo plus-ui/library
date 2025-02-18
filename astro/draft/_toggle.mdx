@@ -1,0 +1,811 @@
+---
+description: 'Toggle the Future: Seamless Interaction with Our Dynamic Toggle Component'
+---
+
+# Toggle
+
+Step into a new era of user-friendly interfaces with our Dynamic Toggle Component. This versatile element provides an effortless and visually engaging way for users to switch between two states, whether it's activating features, adjusting preferences, or initiating actions. Elevate your application's interactivity with this sleek and intuitive toggle.
+
+## Anatomy
+
+The Toggle Component features a visually straightforward switch that smoothly transitions between two states—on and off. Its compact design ensures clarity and simplicity, allowing users to grasp the status instantly. Whether integrated into a compact control panel or standing as a prominent interactive element, this toggle adapts seamlessly to various contexts within your application.
+
+<figure><img src="../../../assets/gitbook/showcase (53).png" alt=""><figcaption><p>anatomy of toggle component</p></figcaption></figure>
+
+## Properties
+
+Tailor the Toggle Component to suit your design vision. Customize properties such as color, size, and animation to seamlessly integrate the toggle into your application's visual identity. With adjustable parameters, you have the creative freedom to create a toggle that aligns harmoniously with your overall design aesthetic.
+
+
+
+| Checked | States    | Size   | Orientation | Status  | Icons      |
+| ------- | --------- | ------ | ----------- | ------- | ---------- |
+| True    | Default   | Small  | Right       | Default | No icon    |
+| False   | Hovered   | Medium | Left        | Error   | Right Icon |
+|         | Pressed   | Large  |             |         | Left Icon  |
+|         | Disabled  |        |             |         |            |
+|         | Read-only |        |             |         |            |
+
+### Checked
+
+* **Default toggle** state represents the initial condition of the toggle component, indicating that it is currently in unchecked position.&#x20;
+* **Checked toggle** signifies that it is in the "on" or checked position. Visually, the toggle handle often shifts to the opposite side, indicating that the associated action or setting is now active or enabled.
+
+{% embed url="https://codesandbox.io/embed/t6wq7q?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusToggle } from '@plusui/react';
+
+// Unchecked Toggle
+const UncheckedToggle = () => (
+  <PlusToggle
+    name="theme"
+    value="light"
+    label="Light Theme"
+    caption="Toggle between light and dark theme"
+    text="Light"
+    textPosition="right"
+  />
+);
+
+// Checked Toggle
+const CheckedToggle = () => (
+  <PlusToggle
+    name="theme"
+    value="dark"
+    label="Dark Theme"
+    caption="Toggle between light and dark theme"
+    text="Dark"
+    textPosition="right"
+    checked={true}  {/* Checked */}
+  />
+);
+
+export default {
+  UncheckedToggle,
+  CheckedToggle,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Unchecked Toggle -->
+<plus-toggle
+  name="theme"
+  value="light"
+  label="Light Theme"
+  caption="Toggle between light and dark theme"
+  text="Light"
+  text-position="right"
+></plus-toggle>
+
+<!-- Checked Toggle -->
+<plus-toggle
+  name="theme"
+  value="dark"
+  label="Dark Theme"
+  caption="Toggle between light and dark theme"
+  text="Dark"
+  text-position="right"
+  [checked]="true"  
+></plus-toggle>
+
+```
+
+```
+// Some code
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Unchecked Toggle -->
+  <plus-toggle
+    name="theme"
+    value="light"
+    label="Light Theme"
+    caption="Toggle between light and dark theme"
+    text="Light"
+    textPosition="right"
+  />
+
+  <!-- Checked Toggle -->
+  <plus-toggle
+    name="theme"
+    value="dark"
+    label="Dark Theme"
+    caption="Toggle between light and dark theme"
+    text="Dark"
+    textPosition="right"
+    :checked="true" 
+  />
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Unchecked Toggle -->
+<plus-toggle
+  name="theme"
+  value="light"
+  label="Light Theme"
+  caption="Toggle between light and dark theme"
+  text="Light"
+  text-position="right"
+></plus-toggle>
+
+<!-- Checked Toggle -->
+<plus-toggle
+  name="theme"
+  value="dark"
+  label="Dark Theme"
+  caption="Toggle between light and dark theme"
+  text="Dark"
+  text-position="right"
+  checked="true"  
+></plus-toggle>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Size
+
+The size property in a toggle component allows you to adjust the visual dimensions of the toggle. By adjusting the size property, you can make the toggle smaller, medium-sized, or larger, providing flexibility in meeting specific layout requirements.
+
+{% embed url="https://codesandbox.io/embed/76qp2n?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusToggle } from '@plusui/react';
+
+// Small Toggle
+const SmallToggle = () => (
+  <PlusToggle
+    label="Small Size"
+    caption="This is a small toggle"
+    size="sm"  {/* Small size */}
+  />
+);
+
+// Medium Toggle
+const MediumToggle = () => (
+  <PlusToggle
+    label="Medium Size"
+    caption="This is a medium toggle"
+    size="md"  {/* Medium size */}
+  />
+);
+
+// Large Toggle
+const LargeToggle = () => (
+  <PlusToggle
+    label="Large Size"
+    caption="This is a large toggle"
+    size="lg"  {/* Large size */}
+  />
+);
+
+export default {
+  SmallToggle,
+  MediumToggle,
+  LargeToggle,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Small Toggle -->
+<plus-toggle
+  label="Small Size"
+  caption="This is a small toggle"
+  size="sm" 
+></plus-toggle>
+
+<!-- Medium Toggle -->
+<plus-toggle
+  label="Medium Size"
+  caption="This is a medium toggle"
+  size="md"  
+></plus-toggle>
+
+<!-- Large Toggle -->
+<plus-toggle
+  label="Large Size"
+  caption="This is a large toggle"
+  size="lg" 
+></plus-toggle>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Small Toggle -->
+  <plus-toggle
+    label="Small Size"
+    caption="This is a small toggle"
+    size="sm"
+  />
+
+  <!-- Medium Toggle -->
+  <plus-toggle
+    label="Medium Size"
+    caption="This is a medium toggle"
+    size="md"  
+  />
+
+  <!-- Large Toggle -->
+  <plus-toggle
+    label="Large Size"
+    caption="This is a large toggle"
+    size="lg" 
+  />
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Small Toggle -->
+<plus-toggle
+  label="Small Size"
+  caption="This is a small toggle"
+  size="sm"  
+></plus-toggle>
+
+<!-- Medium Toggle -->
+<plus-toggle
+  label="Medium Size"
+  caption="This is a medium toggle"
+  size="md"
+></plus-toggle>
+
+<!-- Large Toggle -->
+<plus-toggle
+  label="Large Size"
+  caption="This is a large toggle"
+  size="lg" 
+></plus-toggle>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### States
+
+* **Default toggle** state represents the initial condition of the toggle component. In this state, the toggle is in its standard, unaltered appearance, indicating the "off".&#x20;
+* **Hovered toggle** state esponds to user interaction that showcase a subtle visual change, such as a color shift.&#x20;
+* **Pressed toggle** state is activated when a user clicks or taps on the toggle.&#x20;
+* **Read-only toggle** state indicates that the toggle is non-interactive and cannot be modified by user input.&#x20;
+* **Disabled toggle** state implies that the toggle is temporarily inactive or unavailable for interaction.
+
+{% embed url="https://codesandbox.io/embed/rkrk4m?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusToggle } from '@plusui/react';
+
+// Default Toggle
+const DefaultToggle = () => (
+  <PlusToggle
+    label="Default Toggle"
+    caption="This is a default toggle"
+  />  {/* Default state */}
+);
+
+// Readonly Toggle
+const ReadonlyToggle = () => (
+  <PlusToggle
+    label="Readonly Toggle"
+    caption="This toggle is read-only"
+    readOnly  {/* Read-only state */}
+  />
+);
+
+// Disabled Toggle
+const DisabledToggle = () => (
+  <PlusToggle
+    label="Disabled Toggle"
+    caption="This toggle is disabled"
+    disabled  {/* Disabled state */}
+  />
+);
+
+export default {
+  DefaultToggle,
+  ReadonlyToggle,
+  DisabledToggle,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Default Toggle -->
+<plus-toggle
+  label="Default Toggle"
+  caption="This is a default toggle"
+></plus-toggle>  <!-- Default state -->
+
+<!-- Readonly Toggle -->
+<plus-toggle
+  label="Readonly Toggle"
+  caption="This toggle is read-only"
+  readonly  
+></plus-toggle><!-- Read-only state -->
+
+<!-- Disabled Toggle -->
+<plus-toggle
+  label="Disabled Toggle"
+  caption="This toggle is disabled"
+  disabled 
+></plus-toggle> <!-- Disabled state -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Default Toggle -->
+  <plus-toggle
+    label="Default Toggle"
+    caption="This is a default toggle"
+  />  <!-- Default state -->
+
+  <!-- Readonly Toggle -->
+  <plus-toggle
+    label="Readonly Toggle"
+    caption="This toggle is read-only"
+    readonly 
+  /> <!-- Read-only state -->
+
+  <!-- Disabled Toggle -->
+  <plus-toggle
+    label="Disabled Toggle"
+    caption="This toggle is disabled"
+    disabled 
+  /> <!-- Disabled state -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Default Toggle -->
+<plus-toggle
+  label="Default Toggle"
+  caption="This is a default toggle"
+></plus-toggle>  <!-- Default state -->
+
+<!-- Readonly Toggle -->
+<plus-toggle
+  label="Readonly Toggle"
+  caption="This toggle is read-only"
+  readonly  
+></plus-toggle><!-- Read-only state -->
+
+<!-- Disabled Toggle -->
+<plus-toggle
+  label="Disabled Toggle"
+  caption="This toggle is disabled"
+  disabled 
+></plus-toggle> <!-- Disabled state -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Orientation
+
+* **Left oriented toggle** is positioned to the left of the label or control text. This layout is often used for design consistency or when aligning with specific UI patterns. Users can toggle the switch to the right for the "on" position and to the left for the "off" position.&#x20;
+* **Right oriented toggle** is positioned to the right of the label or control text. This layout is also chosen for design consistency or when aligning with particular UI conventions. Users can toggle the switch to the left for the "off" position and to the right for the "on" position.
+
+{% embed url="https://codesandbox.io/embed/m943lv?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusToggle } from '@plusui/react';
+
+// Default Text Position (Right)
+const DefaultTextPosition = () => (
+  <PlusToggle
+    label="Text Position - Default"
+    caption="Text is on the right side"
+    text="Toggle"
+  />  {/* Default text position (right) */}
+);
+
+// Text Position Left
+const TextPositionLeft = () => (
+  <PlusToggle
+    label="Text Position - Left"
+    caption="Text is on the left side"
+    text="Toggle"
+    textPosition="left"  {/* Text position is on the left */}
+  />
+);
+
+export default {
+  DefaultTextPosition,
+  TextPositionLeft,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Default Text Position (Right) -->
+<plus-toggle
+  label="Text Position - Default"
+  caption="Text is on the right side"
+  text="Toggle"
+></plus-toggle>  <!-- Default text position (right) -->
+
+<!-- Text Position Left -->
+<plus-toggle
+  label="Text Position - Left"
+  caption="Text is on the left side"
+  text="Toggle"
+  text-position="left" 
+></plus-toggle> <!-- Text position on the left -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Default Text Position (Right) -->
+  <plus-toggle
+    label="Text Position - Default"
+    caption="Text is on the right side"
+    text="Toggle"
+  />  <!-- Default text position (right) -->
+
+  <!-- Text Position Left -->
+  <plus-toggle
+    label="Text Position - Left"
+    caption="Text is on the left side"
+    text="Toggle"
+    textPosition="left" 
+  /> <!-- Text position on the left -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Default Text Position (Right) -->
+<plus-toggle
+  label="Text Position - Default"
+  caption="Text is on the right side"
+  text="Toggle"
+></plus-toggle>  <!-- Default text position (right) -->
+
+<!-- Text Position Left -->
+<plus-toggle
+  label="Text Position - Left"
+  caption="Text is on the left side"
+  text="Toggle"
+  text-position="left" 
+></plus-toggle> <!-- Text position on the left -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Status
+
+* **Default toggle** status is always ready for action, serving as the reliable foundation of your user interface.&#x20;
+* **Error toggle** status is a special status that emphasises the button's significance and its role as a primary call to action, ensuring it stands out and captures user attention.
+
+{% embed url="https://codesandbox.io/embed/98yyqc?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusToggle } from '@plusui/react';
+
+// Default Toggle
+const DefaultToggle = () => (
+  <PlusToggle
+    label="Default Toggle"
+    caption="This is a default toggle"
+  />  {/* Default state */}
+);
+
+// Error Toggle
+const ErrorToggle = () => (
+  <PlusToggle
+    label="Error Toggle"
+    caption="This toggle has an error"
+    error  {/* Error state */}
+  />
+);
+
+export default {
+  DefaultToggle,
+  ErrorToggle,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Default Toggle -->
+<plus-toggle
+  label="Default Toggle"
+  caption="This is a default toggle"
+></plus-toggle>  <!-- Default state -->
+
+<!-- Error Toggle -->
+<plus-toggle
+  label="Error Toggle"
+  caption="This toggle has an error"
+  error  
+></plus-toggle><!-- Error state -->
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Default Toggle -->
+  <plus-toggle
+    label="Default Toggle"
+    caption="This is a default toggle"
+  />  <!-- Default state -->
+
+  <!-- Error Toggle -->
+  <plus-toggle
+    label="Error Toggle"
+    caption="This toggle has an error"
+    error 
+  /> <!-- Error state -->
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Default Toggle -->
+<plus-toggle
+  label="Default Toggle"
+  caption="This is a default toggle"
+></plus-toggle>  <!-- Default state -->
+
+<!-- Error Toggle -->
+<plus-toggle
+  label="Error Toggle"
+  caption="This toggle has an error"
+  error  
+></plus-toggle><!-- Error state -->
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Icon
+
+* **No-icon toggle** features a simple design without any additional visual elements. Users interact with the toggle switch to change its state, and the absence of an icon maintains a clean and minimalist appearance.
+* **Right-icon toggle** is positioned to the right of the toggle switch. This visual arrangement can provide users with additional context or feedback related to the toggle state.
+* **Left-icon toggle i**s positioned to the left of the toggle switch. This layout is another way to incorporate visual cues or feedback associated with the toggle state. For instance, a sun icon on the left might represent the "on" position.
+
+{% embed url="https://codesandbox.io/embed/g5kktq?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import React from 'react';
+import { PlusToggle } from '@plusui/react';
+
+// Toggle with General Icon
+const ToggleWithGeneralIcon = () => (
+  <PlusToggle
+    label="Toggle with Icon"
+    caption="This toggle has a general icon"
+    text="Toggle Text"
+    toggleIcon="fa-solid fa-star"  {/* General icon for both states */}
+  />
+);
+
+// Toggle with Active/Inactive Icons
+const ToggleWithActiveInactiveIcons = () => (
+  <PlusToggle
+    label="Toggle with Active/Inactive Icons"
+    caption="This toggle has different icons for active/inactive states"
+    text="Toggle Text"
+    toggleInactiveIcon="fa-solid fa-volume-xmark"  {/* Inactive state icon */}
+    toggleActiveIcon="fa-solid fa-volume-low"  {/* Active state icon */}
+  />
+);
+
+export default {
+  ToggleWithGeneralIcon,
+  ToggleWithActiveInactiveIcons,
+};
+
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<!-- Toggle with General Icon -->
+<plus-toggle
+  label="Toggle with Icon"
+  caption="This toggle has a general icon"
+  text="Toggle Text"
+  toggle-icon="fa-solid fa-star"  
+></plus-toggle>
+
+<!-- Toggle with Active/Inactive Icons -->
+<plus-toggle
+  label="Toggle with Active/Inactive Icons"
+  caption="This toggle has different icons for active/inactive states"
+  text="Toggle Text"
+  toggle-inactive-icon="fa-solid fa-volume-xmark"  
+  toggle-active-icon="fa-solid fa-volume-low"  
+></plus-toggle>
+
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+```html
+<template>
+  <!-- Toggle with General Icon -->
+  <plus-toggle
+    label="Toggle with Icon"
+    caption="This toggle has a general icon"
+    text="Toggle Text"
+    toggleIcon="fa-solid fa-star" 
+  />
+
+  <!-- Toggle with Active/Inactive Icons -->
+  <plus-toggle
+    label="Toggle with Active/Inactive Icons"
+    caption="This toggle has different icons for active/inactive states"
+    text="Toggle Text"
+    toggleInactiveIcon="fa-solid fa-volume-xmark" 
+    toggleActiveIcon="fa-solid fa-volume-low"  
+  />
+</template>
+
+```
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<!-- Toggle with General Icon -->
+<plus-toggle
+  label="Toggle with Icon"
+  caption="This toggle has a general icon"
+  text="Toggle Text"
+  toggle-icon="fa-solid fa-star"  
+></plus-toggle>
+
+<!-- Toggle with Active/Inactive Icons -->
+<plus-toggle
+  label="Toggle with Active/Inactive Icons"
+  caption="This toggle has different icons for active/inactive states"
+  text="Toggle Text"
+  toggle-inactive-icon="fa-solid fa-volume-xmark"  
+  toggle-active-icon="fa-solid fa-volume-low"  
+></plus-toggle>
+
+```
+{% endtab %}
+{% endtabs %}
+
+### Required
+
+The Required Toggle component in our UI library ensures that critical choices are made through a customizable toggle switch, marked as required for form submissions. Extending the standard toggle functionality, this component indicating that users must make a selection before submitting the form.
+
+{% embed url="https://codesandbox.io/embed/krt3vd?hidenavigation=1&module=/index.html&view=preview" %}
+
+{% tabs %}
+{% tab title="React" %}
+```jsx
+import { PlusToggle } from '@plusui/react';
+
+function App() {
+    return (
+        <>
+            <PlusToggle label="Label" caption="Caption" text="Toogle Text" required />
+        </>
+    );
+}
+```
+{% endtab %}
+
+{% tab title="Angular" %}
+```html
+<plus-toggle label="Label" caption="Caption" text="Toogle Text" required></plus-toggle>
+```
+{% endtab %}
+
+{% tab title="Vue" %}
+
+{% endtab %}
+
+{% tab title="Javascript" %}
+```html
+<plus-toggle label="Label" caption="Caption" text="Toogle Text" required></plus-toggle>
+```
+{% endtab %}
+{% endtabs %}
+
+## Layout & Spacing
+
+Achieve precision in design with our Toggle Component's flexible layout and spacing options. Define the placement and spacing to ensure seamless integration into your application's layout, whether it's part of a compact control panel or a standalone interactive element.
+
+<figure><img src="../../../assets/gitbook/showcase (54).png" alt=""><figcaption><p>layout and spacing of toggle component</p></figcaption></figure>
+
+## Light & Dark Mode
+
+Effortlessly adapt to user preferences with our Toggle Component's built-in support for both light and dark modes. Enhance visibility and aesthetics by seamlessly transitioning between these modes, ensuring a consistent and visually appealing experience in any lighting condition.
+
+<figure><img src="../../../assets/gitbook/Frame 5389 (2).png" alt=""><figcaption><p>light and dark mode of toggle component</p></figcaption></figure>
+
+## Accessibility
+
+Engineered with industry-leading standards, it ensures a user-friendly experience for all individuals, including those with disabilities. Screen reader compatibility, keyboard navigation, and high contrast options make our Toggle Component accessible and intuitive for a diverse user base.
+
+<table><thead><tr><th width="192">Criteria</th><th width="455">Description</th><th>Status<select><option value="f40c3be7f4384cfeba842398b6e4570f" label="Passed" color="blue"></option><option value="cc1638133b644029b3854adbb0636b3d" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ID’s active element</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="f40c3be7f4384cfeba842398b6e4570f">Passed</span></td></tr><tr><td>ID’s use in ARIA</td><td>Ensures every id attribute value used in ARIA and in labels is unique</td><td><span data-option="f40c3be7f4384cfeba842398b6e4570f">Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="f40c3be7f4384cfeba842398b6e4570f">Passed</span></td></tr><tr><td>Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="f40c3be7f4384cfeba842398b6e4570f">Passed</span></td></tr></tbody></table>
+
+## Design System
+
+{% embed url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" %}
+Plus UI Design System on Figma
+{% endembed %}
+
+## API
+
+
+
+| Property           | Description                                      | Type    | Accepted Values      | Default |
+| ------------------ | ------------------------------------------------ | ------- | -------------------- | ------- |
+| name               | Form name attribute                              | String  | Any valid string     | `""`    |
+| value              | Value for form submission                        | String  | Any valid string     | `""`    |
+| checked            | If `true`, toggle is in the "checked" state      | Boolean | `true`, `false`      | `false` |
+| size               | Sets the size of the toggle                      | String  | `sm`, `md`, `lg`     | `md`    |
+| label              | Label text for the toggle                        | String  | Any valid string     | `""`    |
+| text               | Text displayed beside the toggle                 | String  | Any valid string     | `""`    |
+| textPosition       | Position of the text relative to the toggle      | String  | `left`, `right`      | `right` |
+| toggleIcon         | Icon for the toggle switch                       | String  | Any valid icon class | `""`    |
+| toggleActiveIcon   | Icon when the toggle is in the "checked" state   | String  | Any valid icon class | `""`    |
+| toggleInActiveIcon | Icon when the toggle is in the "unchecked" state | String  | Any valid icon class | `""`    |
+| caption            | Additional descriptive text for the toggle       | String  | Any valid string     | `""`    |
+| error              | If `true`, the toggle has an error state         | Boolean | `true`, `false`      | `false` |
+| readonly           | If `true`, the toggle is read-only               | Boolean | `true`, `false`      | `false` |
+| required           | If `true`, the toggle is a required field        | Boolean | `true`, `false`      | `false` |
+| disabled           | If `true`, the toggle is disabled                | Boolean | `true`, `false`      | `false` |
+

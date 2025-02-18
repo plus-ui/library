@@ -10,22 +10,63 @@
         padding: 2rem;
         font-family: system-ui, sans-serif;
       }
+
       .container {
         display: flex;
         gap: 1rem;
         margin-bottom: 1rem;
       }
+      /* .truncaded-div {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      } */
     </style>
   </head>
+
   <body>
-    <h1>Component Test Page</h1>
+    <div>
+      <plus-link disabled truncated href="https://example.com">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>Link Test
+        Deneme<plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
 
-    <h2>Button Tests</h2>
-    <div class="container">
-      <plus-button>Normal Button</plus-button>
-      <plus-button disabled>Disabled Button</plus-button>
+      <plus-link truncated href="https://example.com">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        Link Test Deneme
+        <plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
+
+      <plus-link readonly truncated href="https://example.com">
+        Link Test Deneme
+      </plus-link>
     </div>
+    <div>
+      <plus-link
+        underline="always"
+        disabled
+        truncated
+        href="https://example.com"
+      >
+        <plus-icon slot="prefix" iconName="user"></plus-icon>Link Test
+        Deneme<plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
 
-    <!-- Diğer komponentler için test alanları buraya eklenebilir -->
+      <plus-link underline="always" truncated href="https://example.com">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        Link Test Deneme
+        <plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
+
+      <plus-link
+        underline="always"
+        readonly
+        truncated
+        href="https://example.com"
+      >
+        Link Test Deneme
+      </plus-link>
+    </div>
   </body>
 </html>
