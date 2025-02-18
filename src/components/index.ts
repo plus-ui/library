@@ -4,3 +4,4 @@ export * from './button';
 export * from './icon';
 export * from './chip';
 export * from './link';
+export * from './alert';
