@@ -75,12 +75,12 @@ jobs:
             --site "${{ steps.pages.outputs.origin }}"
         working-directory: ${{ env.BUILD_PATH }}
       - name: Create .nojekyll file
-        run: touch ./dist/.nojekyll
+        run: touch ./astro/dist/.nojekyll
         working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_PATH }}/dist
+          path: ${{ env.BUILD_PATH }}/astro/dist
 
   deploy:
     environment:
