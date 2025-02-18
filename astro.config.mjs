@@ -9,7 +9,7 @@ import starlightImageZoom from 'starlight-image-zoom';
 export default defineConfig({
   srcDir: './astro',
   outDir: './astro/dist',
-  base: process.env.NODE_ENV === 'production' ? '/library' : '/',
+  base: '/library',
   integrations: [
     lit(),
     starlight({
