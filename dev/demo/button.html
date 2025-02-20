@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <style>
+      body {
+        padding: 2rem;
+        font-family: system-ui, sans-serif;
+      }
+
+      .container {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+      /* .truncaded-div {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      } */
+    </style>
+  </head>
+
+  <body>
+    <h2>Button Variants</h2>
+
+    <!-- Kind variants -->
+    <div class="container">
+      <plus-button>Default Button</plus-button>
+      <plus-button kind="outlined">Outlined Button</plus-button>
+      <plus-button kind="dashed">Dashed Button</plus-button>
+      <plus-button kind="text">Text Button</plus-button>
+    </div>
+    <div class="container">
+      <plus-button disabled>Default Button</plus-button>
+      <plus-button disabled kind="outlined">Outlined Button</plus-button>
+      <plus-button disabled kind="dashed">Dashed Button</plus-button>
+      <plus-button disabled kind="text">Text Button</plus-button>
+    </div>
+    <div class="container">
+      <plus-button loading>Default Button</plus-button>
+      <plus-button loading kind="outlined">Outlined Button</plus-button>
+      <plus-button loading kind="dashed">Dashed Button</plus-button>
+      <plus-button loading kind="text">Text Button</plus-button>
+    </div>
+    <div class="container">
+      <plus-button disabled loading>Default Button</plus-button>
+      <plus-button disabled loading kind="outlined"
+        >Outlined Button</plus-button
+      >
+      <plus-button disabled loading kind="dashed">Dashed Button</plus-button>
+      <plus-button disabled loading kind="text">Text Button</plus-button>
+    </div>
+
+    <!-- Status variants -->
+    <div class="container">
+      <plus-button status="default">Default</plus-button>
+      <plus-button status="primary">Primary</plus-button>
+      <plus-button status="success">Success</plus-button>
+      <plus-button status="warning">Warning</plus-button>
+      <plus-button status="danger">Danger</plus-button>
+      <plus-button status="info">Info</plus-button>
+    </div>
+    <div class="container">
+      <plus-button disabled status="default">Default</plus-button>
+      <plus-button disabled status="primary">Primary</plus-button>
+      <plus-button disabled status="success">Success</plus-button>
+      <plus-button disabled status="warning">Warning</plus-button>
+      <plus-button disabled status="danger">Danger</plus-button>
+      <plus-button disabled status="info">Info</plus-button>
+    </div>
+    <div class="container">
+      <plus-button loading status="default">Default</plus-button>
+      <plus-button loading status="primary">Primary</plus-button>
+      <plus-button loading status="success">Success</plus-button>
+      <plus-button loading status="warning">Warning</plus-button>
+      <plus-button loading status="danger">Danger</plus-button>
+      <plus-button loading status="info">Info</plus-button>
+    </div>
+
+    <!-- Size variants -->
+    <div class="container">
+      <plus-button size="sm">Small</plus-button>
+      <plus-button size="md">Medium</plus-button>
+      <plus-button size="lg">Large</plus-button>
+    </div>
+
+    <!-- State variants -->
+    <div class="container">
+      <plus-button disabled>Disabled</plus-button>
+      <plus-button loading>Loading</plus-button>
+    </div>
+
+    <!-- Slots usage -->
+    <div class="container">
+      <plus-button>
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        With Prefix Icon
+      </plus-button>
+
+      <plus-button>
+        With Suffix Icon
+        <plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-button>
+
+      <plus-button>
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        Both Icons
+        <plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-button>
+    </div>
+
+    <!-- Mixed examples -->
+    <div class="container">
+      <plus-button kind="outlined" status="primary" size="lg">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        Large Primary Outlined
+      </plus-button>
+
+      <plus-button kind="filled" status="success" loading>
+        Loading Success
+        <plus-icon slot="suffix" iconName="check"></plus-icon>
+      </plus-button>
+
+      <plus-button kind="dashed" status="warning" size="sm" disabled>
+        Small Warning Disabled
+      </plus-button>
+    </div>
+
+    <div>
+      <plus-link disabled truncated href="https://example.com">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>Link Test
+        Deneme<plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
+
+      <plus-link truncated href="https://example.com">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        Link Test Deneme
+        <plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
+
+      <plus-link readonly truncated href="https://example.com">
+        Link Test Deneme
+      </plus-link>
+    </div>
+    <div>
+      <plus-link
+        underline="always"
+        disabled
+        truncated
+        href="https://example.com"
+      >
+        <plus-icon slot="prefix" iconName="user"></plus-icon>Link Test
+        Deneme<plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
+
+      <plus-link underline="always" truncated href="https://example.com">
+        <plus-icon slot="prefix" iconName="user"></plus-icon>
+        Link Test Deneme
+        <plus-icon slot="suffix" iconName="user"></plus-icon>
+      </plus-link>
+
+      <plus-link
+        underline="always"
+        readonly
+        truncated
+        href="https://example.com"
+      >
+        Link Test Deneme
+      </plus-link>
+    </div>
+  </body>
+</html>
