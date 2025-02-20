@@ -11,6 +11,7 @@
 
 @theme {
   --font-sans: 'Inter', sans-serif;
+  --animate-spin: spin 2s linear infinite;
 }
 
 @theme {
