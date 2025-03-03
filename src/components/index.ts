@@ -5,3 +5,5 @@ export * from './icon';
 export * from './chip';
 export * from './link';
 export * from './radio';
+export * from './segmented-picker';
+export * from './segmented-picker-item';
