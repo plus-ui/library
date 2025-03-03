@@ -3,7 +3,6 @@ import { property, query, state } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { radioStyle } from './radio.style';
 import { styleMap } from 'lit/directives/style-map.js';
-import { live } from 'lit/directives/live.js';
 
 /**
  * @tag plus-radio
@@ -18,8 +17,8 @@ import { live } from 'lit/directives/live.js';
  * @csspart radio - The component's radio input element
  */
 export default class PlusRadio extends Tailwind {
-  @query('.radio-input')
-  radio!: HTMLInputElement;
+  @query('input[type="radio"]')
+  input!: HTMLInputElement;
 
   /**
    * Sets the size of the radio button
@@ -67,6 +66,24 @@ export default class PlusRadio extends Tailwind {
   readonly = false;
 
   /**
+   * The name of the radio button, used for form submission and radio grouping
+   */
+  @property()
+  name = '';
+
+  /**
+   * Indicates if the radio input is required
+   */
+  @property({ type: Boolean, reflect: true })
+  required = false;
+
+  /**
+   * The value associated with the radio button
+   */
+  @property()
+  value = '';
+
+  /**
    * Internal state to track if the radio button has focus
    * @default false
    */
@@ -78,9 +95,16 @@ export default class PlusRadio extends Tailwind {
    */
   handleChange() {
     if (!this.readonly && !this.disabled) {
-      this.checked = this.radio.checked;
-      this.requestUpdate();
-      this.emit('plus-change', { detail: { checked: this.checked } });
+      this.checked = this.input.checked;
+      this.emit('plus-change', {
+        detail: {
+          checked: this.checked,
+          value: this.value || this.input.value,
+          name: this.name || this.input.name,
+        },
+        bubbles: true,
+        composed: true,
+      });
     }
   }
 
@@ -171,25 +195,26 @@ export default class PlusRadio extends Tailwind {
       ...dynamicStyles,
     };
 
-    const radioId = 'radio-' + this.id || 'plus-radio';
+    const radioId = `radio-${this.id || Math.random().toString(36).substring(2, 9)}`;
 
     return html`
       <div class=${host()} style=${styleMap(globalStyles)}>
         <div class=${wrapper()}>
           <input
             part="radio"
-            id=${radioId}
             type="radio"
+            id=${radioId}
             class=${radio()}
-            ?checked=${live(this.checked)}
+            .name=${this.name}
+            .value=${this.value}
+            .checked=${this.checked}
             ?disabled=${this.disabled || this.readonly}
-            aria-checked=${this.checked}
-            aria-disabled=${this.disabled || this.readonly}
-            aria-label=${this.text || 'Radio button'}
-            aria-invalid=${this.error}
             @focus=${this.handleFocus}
             @blur=${this.handleBlur}
             @change=${this.handleChange}
+            ?required=${this.required}
+            aria-checked=${this.checked}
+            aria-disabled=${this.disabled || this.readonly}
           />
           <div class=${dot()}></div>
         </div>
