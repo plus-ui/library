@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { PlusRadio } from '../radio/radio';
+import { radioGroupStyle } from './radio-group.style';
 
 export default class PlusRadioGroup extends Tailwind {
   static formAssociated = true;
@@ -18,6 +19,30 @@ export default class PlusRadioGroup extends Tailwind {
   @property({ type: Boolean, reflect: true })
   required = false;
 
+  /**
+   * The size of all radio buttons in the group
+   * - sm: Small size
+   * - md: Medium size
+   * - lg: Large size
+   * @default 'md'
+   */
+  @property({ type: String })
+  size: 'sm' | 'md' | 'lg' = 'md';
+
+  /**
+   * Shows error styling on the radio group
+   */
+  @property({ type: Boolean })
+  error = false;
+
+  /**
+   * Orientation of the radio buttons
+   * - horizontal: Radio buttons are arranged side by side
+   * - vertical: Radio buttons are stacked vertically
+   */
+  @property()
+  orientation: 'horizontal' | 'vertical' = 'horizontal';
+
   private internals: ElementInternals;
 
   constructor() {
@@ -32,6 +57,8 @@ export default class PlusRadioGroup extends Tailwind {
       radio.name = this.name;
       radio.checked = radio.value === this.value;
       radio.disabled = this.disabled;
+      radio.size = this.size;
+      radio.error = this.error;
     });
   }
 
@@ -71,14 +98,26 @@ export default class PlusRadioGroup extends Tailwind {
     if (
       changedProperties.has('name') ||
       changedProperties.has('value') ||
-      changedProperties.has('disabled')
+      changedProperties.has('disabled') ||
+      changedProperties.has('size') ||
+      changedProperties.has('error')
     ) {
       this.updateRadios();
     }
   }
 
   override firstUpdated() {
+    // Find any radio with checked attribute and use its value
+    const checkedRadio = Array.from(this.querySelectorAll('plus-radio')).find(
+      (radio) => radio.hasAttribute('checked')
+    ) as PlusRadio | undefined;
+
+    if (checkedRadio && !this.value) {
+      this.value = checkedRadio.value;
+    }
+
     this.updateRadios();
+
     if (this.value) {
       this.internals.setFormValue(this.value);
     }
@@ -100,12 +139,17 @@ export default class PlusRadioGroup extends Tailwind {
   }
 
   override render() {
+    const { base } = radioGroupStyle({
+      orientation: this.orientation,
+    });
+
     return html`
       <div
         role="radiogroup"
         part="base"
-        class="contents"
+        class=${base()}
         aria-required=${this.required}
+        aria-labelledby=${this.name}
       >
         <input type="hidden" name=${this.name} .value=${this.value || ''} />
         <slot @slotchange=${() => this.updateRadios()}></slot>
