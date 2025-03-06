@@ -18,7 +18,7 @@ export default class Tailwind extends LitElement {
     const event = new CustomEvent(name, {
       bubbles: true,
       cancelable: true,
-      composed: true,
+      composed: false,
       detail: {},
       ...options,
     });
