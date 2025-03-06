@@ -138,13 +138,7 @@ export default class PlusAlert extends Tailwind {
 
       setTimeout(() => {
         this.hiddenAlert = true;
-        this.dispatchEvent(
-          new CustomEvent('plus-dismiss', {
-            bubbles: true,
-            composed: true,
-            detail: { status: this.status },
-          })
-        );
+        this.emit('plus-dismiss', { detail: { status: this.status } });
       }, 250);
     }
   }
