@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Component Test Page</title>
     <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
         padding: 2rem;
-        font-family: system-ui, sans-serif;
+        font-family: 'Inter', sans-serif;
       }
 
       .col {
@@ -21,20 +27,164 @@
   </head>
 
   <body>
-    <div class="col">
-      <plus-radio>test</plus-radio>
-      <plus-radio checked>Checked</plus-radio>
-      <plus-radio error>Error</plus-radio>
-      <plus-radio error checked>Error Checked</plus-radio>
-      <plus-radio disabled>Disabled</plus-radio>
-      <plus-radio disabled checked>Disabled Checked</plus-radio>
-      <plus-radio readonly checked>Readonly Checked</plus-radio>
-      <plus-radio readonly>Readonly</plus-radio>
+    <div class="container">
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="filled"
+      ></plus-alert>
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="filled"
+        invert
+      ></plus-alert>
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="outlined"
+      ></plus-alert>
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="dashed"
+      ></plus-alert>
     </div>
-    <div class="col">
-      <plus-radio name="test" size="sm">Size Small</plus-radio>
-      <plus-radio name="test">Size Medium </plus-radio>
-      <plus-radio name="test" size="lg">Size Large</plus-radio>
+    <div class="container">
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="filled"
+        status="info"
+      ></plus-alert>
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="filled"
+        invert
+        status="info"
+      ></plus-alert>
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="outlined"
+        status="info"
+      ></plus-alert>
+      <plus-alert
+        message="This is a Plus UI alert message component"
+        description="Lorem ipsum dolor sit amet, his rebum salutatus id, purto vitae signi ferumque ea per. An quod erant sed. Viris aliquam impedit et est has veri deleniti sensi busid, summo paulo cetero no vel."
+        kind="dashed"
+        status="info"
+      ></plus-alert>
+    </div>
+
+    <!-- Filled Alerts -->
+    <div class="container">
+      <plus-alert message="Alert" status="info" kind="filled"></plus-alert>
+      <plus-alert message="Info alert" status="info" kind="filled"></plus-alert>
+      <plus-alert
+        message="Success alert"
+        status="success"
+        kind="filled"
+      ></plus-alert>
+      <plus-alert
+        message="Warning alert"
+        status="warning"
+        kind="filled"
+      ></plus-alert>
+      <plus-alert
+        message="Danger alert"
+        status="danger"
+        kind="filled"
+      ></plus-alert>
+    </div>
+
+    <!-- Filled Inverted Alerts -->
+    <div class="container">
+      <plus-alert
+        message="Info alert"
+        status="info"
+        kind="filled"
+        invert
+      ></plus-alert>
+      <plus-alert
+        message="Success alert"
+        status="success"
+        kind="filled"
+        invert
+      ></plus-alert>
+      <plus-alert
+        message="Warning alert"
+        status="warning"
+        kind="filled"
+        invert
+      ></plus-alert>
+      <plus-alert
+        message="Danger alert"
+        status="danger"
+        kind="filled"
+        invert
+      ></plus-alert>
+    </div>
+
+    <!-- Outlined Alerts -->
+    <div class="container">
+      <plus-alert
+        message="Info alert"
+        status="info"
+        kind="outlined"
+      ></plus-alert>
+      <plus-alert
+        message="Success alert"
+        status="success"
+        kind="outlined"
+      ></plus-alert>
+      <plus-alert
+        message="Warning alert"
+        status="warning"
+        kind="outlined"
+      ></plus-alert>
+      <plus-alert
+        message="Danger alert"
+        status="danger"
+        kind="outlined"
+      ></plus-alert>
+    </div>
+
+    <!-- Dashed Alerts -->
+    <div class="container">
+      <plus-alert message="Info alert" status="info" kind="dashed"></plus-alert>
+      <plus-alert
+        message="Success alert"
+        status="success"
+        kind="dashed"
+      ></plus-alert>
+      <plus-alert
+        message="Warning alert"
+        status="warning"
+        kind="dashed"
+      ></plus-alert>
+      <plus-alert
+        message="Danger alert"
+        status="danger"
+        kind="dashed"
+      ></plus-alert>
+    </div>
+
+    <!-- Size Variants (Default kind and status) -->
+    <div class="container">
+      <plus-alert message="Small alert" size="sm"></plus-alert>
+      <plus-alert message="Medium alert" size="md"></plus-alert>
+      <plus-alert message="Large alert" size="lg"></plus-alert>
+    </div>
+
+    <!-- Alert with Description -->
+    <div class="container">
+      <plus-alert
+        message="Alert with Description"
+        description="This is a more detailed description of the alert."
+        full-width
+      ></plus-alert>
     </div>
 
     <h3>Native Form Integration</h3>
