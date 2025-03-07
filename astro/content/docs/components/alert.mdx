@@ -11,39 +11,40 @@ import anatomy from '../../../assets/components/alert/anatomy.png';
 import layoutSpacing from '../../../assets/components/alert/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/alert/light-dark-mode.png';
 
-The alert component is a crucial user interface element designed to notify users of important information, such as messages, warnings, or errors. It serves as a prominent visual cue within an application, ensuring that essential messages are conveyed effectively to enhance user awareness and engagement. The alert component with 60 variants is highly versatile, offering various properties for customization to suit different use cases.
+The alert component provides contextual feedback messages for typical user actions. It supports various styles, states and customization options to effectively communicate different types of information.
 
 ## Anatomy
 
-The alert component's anatomy is built around its core purpose - delivering messages. It typically consists of a container that holds the message content. Depending on the properties applied, the alert can appear as filled, outlined, or dashed. Additionally, it can include icons to signify the type of message, such as info, success, or error. The size of the alert can be adjusted to small, medium, or large, ensuring it aligns with the layout and design.
+The alert component consists of several key elements:
+- Status icon (optional)
+- Message content
+- Description (optional) 
+- Dismiss button (optional)
 
 <Image src={anatomy} alt="anatomy of alert component" />
 
-## Properties
+## Usage
 
-The alert component is highly customizable, thanks to a range of properties. These properties include "filled," "outlined," or "dashed" for distinct styles. You can specify the message type using "info," "success," or "error," offering clarity to users. Size options like "small," "medium," or "large" allow you to adapt the alert to your layout. The "inverted" property offers a unique visual style.
+### Basic Alert
 
-| Kind     | Status  | Size   | Invert |
-| -------- | ------- | ------ | ------ |
-| Filled   | Default | Small  | True   |
-| Outlined | Info    | Medium | False  |
-| Dashed   | Success | Large  |        |
-|          | Warning |        |        |
-|          | Error   |        |        |
-
-### Kind
-
-* **Filled alert** is a prominent user interface element used to convey essential messages, warnings, or information with a solid background, ensuring high visibility and immediate user attention. This style is ideal for highlighting critical notifications and delivering important content in a clear and attention-grabbing manner.
-* **Outlined alert** is a user interface component that presents messages or notifications with a distinct outline but without a filled background. This style offers a balance between visibility and subtlety, making it suitable for conveying information without overwhelming the user interface.
-* **Dashed alert** is a user interface element that utilizes a dashed line style to delineate and convey messages, warnings, or information. This style adds a unique visual effect to the alert, making it an eye-catching choice for important content while maintaining a clean and distinctive appearance.
-
-<EmbedContent url="https://codesandbox.io/embed/cnp36c?hidenavigation=1&module=/index.html&view=preview" />
+The most basic usage of the alert component with different status types.
 
 <code-bubble class="not-content">
+
+<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
+  <plus-alert message="Default Alert"></plus-alert>
+  <plus-alert status="success" message="Success Alert"></plus-alert>
+  <plus-alert status="warning" message="Warning Alert"></plus-alert>
+  <plus-alert status="danger" message="Danger Alert"></plus-alert>
+  <plus-alert status="info" message="Info Alert"></plus-alert>
+</div>
+
 ```html
-<plus-alert kind="filled" message="Filled Alert" description="This is a filled alert with a solid background."></plus-alert>
-<plus-alert kind="outlined" message="Outlined Alert" description="This is an outlined alert with a border."></plus-alert>
-<plus-alert kind="dashed" message="Dashed Alert" description="This is a dashed alert with a dashed border."></plus-alert>
+<plus-alert message="Default Alert"></plus-alert>
+<plus-alert status="success" message="Success Alert"></plus-alert>
+<plus-alert status="warning" message="Warning Alert"></plus-alert>
+<plus-alert status="danger" message="Danger Alert"></plus-alert>
+<plus-alert status="info" message="Info Alert"></plus-alert>
 ```
 
 ```tsx
@@ -52,9 +53,11 @@ import { PlusAlert } from '@plusui/react';
 export default () => {
   return (
     <>
-      <PlusAlert kind="filled" message="Filled Alert" description="This is a filled alert with a solid background." />
-      <PlusAlert kind="outlined" message="Outlined Alert" description="This is an outlined alert with a border." />
-      <PlusAlert kind="dashed" message="Dashed Alert" description="This is a dashed alert with a dashed border." />
+      <PlusAlert message="Default Alert" />
+      <PlusAlert status="success" message="Success Alert" />
+      <PlusAlert status="warning" message="Warning Alert" />
+      <PlusAlert status="danger" message="Danger Alert" />
+      <PlusAlert status="info" message="Info Alert" />
     </>
   );
 };
@@ -66,9 +69,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <plus-alert kind="filled" message="Filled Alert" description="This is a filled alert with a solid background."></plus-alert>
-    <plus-alert kind="outlined" message="Outlined Alert" description="This is an outlined alert with a border."></plus-alert>
-    <plus-alert kind="dashed" message="Dashed Alert" description="This is a dashed alert with a dashed border."></plus-alert>
+    <plus-alert message="Default Alert"></plus-alert>
+    <plus-alert status="success" message="Success Alert"></plus-alert>
+    <plus-alert status="warning" message="Warning Alert"></plus-alert>
+    <plus-alert status="danger" message="Danger Alert"></plus-alert>
+    <plus-alert status="info" message="Info Alert"></plus-alert>
   `
 })
 export class AppComponent {}
@@ -76,29 +81,32 @@ export class AppComponent {}
 
 ```vue
 <template>
-  <plus-alert kind="filled" message="Filled Alert" description="This is a filled alert with a solid background."></plus-alert>
-  <plus-alert kind="outlined" message="Outlined Alert" description="This is an outlined alert with a border."></plus-alert>
-  <plus-alert kind="dashed" message="Dashed Alert" description="This is a dashed alert with a dashed border."></plus-alert>
+  <plus-alert message="Default Alert"></plus-alert>
+  <plus-alert status="success" message="Success Alert"></plus-alert>
+  <plus-alert status="warning" message="Warning Alert"></plus-alert>
+  <plus-alert status="danger" message="Danger Alert"></plus-alert>
+  <plus-alert status="info" message="Info Alert"></plus-alert>
 </template>
 ```
 </code-bubble>
 
-### Status
+### Alert Kinds
 
-* **Info Alert** is a user interface component specifically designed to convey informative messages or updates. It typically features a style and icon that signifies informational content, ensuring users quickly recognize and understand the message's purpose.
-* **Success Alert** is employed to indicate successful operations, achievements, or confirmations within an application. It is designed with a style and icon that conveys positive outcomes and provides a reassuring visual cue to users.
-* **Warning Alert** is used to alert users to potential issues, risks, or cautionary information. It employs a distinct style and icon that signifies the need for attention and awareness, helping users make informed decisions.
-* **Error Alert** is a critical user interface component used to notify users of errors, problems, or issues that require immediate attention. It features a style and icon that clearly indicates the presence of an error, helping users address and resolve the problem promptly.
-
-<EmbedContent url="https://codesandbox.io/embed/p6t9j8?hidenavigation=1&module=/index.html&view=preview" />
+Alerts come in three visual styles: `filled`, `outlined`, and `dashed`.
 
 <code-bubble class="not-content">
+
+<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
+  <plus-alert kind="filled" message="Filled Alert"></plus-alert>
+  <plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
+  <plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
+</div>
+
+
 ```html
-<plus-alert message="Default Alert" description="This is a default alert with no specific status."></plus-alert>
-<plus-alert status="info" message="Information Alert" description="This is an informational alert."></plus-alert>
-<plus-alert status="success" message="Success Alert" description="Operation completed successfully."></plus-alert>
-<plus-alert status="warning" message="Warning Alert" description="There might be some issues to address."></plus-alert>
-<plus-alert status="error" message="Error Alert" description="An error occurred while processing your request."></plus-alert>
+<plus-alert kind="filled" message="Filled Alert"></plus-alert>
+<plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
+<plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
 ```
 
 ```tsx
@@ -107,11 +115,9 @@ import { PlusAlert } from '@plusui/react';
 export default () => {
   return (
     <>
-      <PlusAlert message="Default Alert" description="This is a default alert with no specific status." />
-      <PlusAlert status="info" message="Information Alert" description="This is an informational alert." />
-      <PlusAlert status="success" message="Success Alert" description="Operation completed successfully." />
-      <PlusAlert status="warning" message="Warning Alert" description="There might be some issues to address." />
-      <PlusAlert status="error" message="Error Alert" description="An error occurred while processing your request." />
+      <PlusAlert kind="filled" message="Filled Alert" />
+      <PlusAlert kind="outlined" message="Outlined Alert" />
+      <PlusAlert kind="dashed" message="Dashed Alert" />
     </>
   );
 };
@@ -123,11 +129,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <plus-alert message="Default Alert" description="This is a default alert with no specific status."></plus-alert>
-    <plus-alert status="info" message="Information Alert" description="This is an informational alert."></plus-alert>
-    <plus-alert status="success" message="Success Alert" description="Operation completed successfully."></plus-alert>
-    <plus-alert status="warning" message="Warning Alert" description="There might be some issues to address."></plus-alert>
-    <plus-alert status="error" message="Error Alert" description="An error occurred while processing your request."></plus-alert>
+    <plus-alert kind="filled" message="Filled Alert"></plus-alert>
+    <plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
+    <plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
   `
 })
 export class AppComponent {}
@@ -135,28 +139,29 @@ export class AppComponent {}
 
 ```vue
 <template>
-  <plus-alert message="Default Alert" description="This is a default alert with no specific status."></plus-alert>
-  <plus-alert status="info" message="Information Alert" description="This is an informational alert."></plus-alert>
-  <plus-alert status="success" message="Success Alert" description="Operation completed successfully."></plus-alert>
-  <plus-alert status="warning" message="Warning Alert" description="There might be some issues to address."></plus-alert>
-  <plus-alert status="error" message="Error Alert" description="An error occurred while processing your request."></plus-alert>
+  <plus-alert kind="filled" message="Filled Alert"></plus-alert>
+  <plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
+  <plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
 </template>
 ```
 </code-bubble>
 
-### Size
+### Alert Sizes
 
-* **Small Alert** is a compact user interface element designed for conveying concise messages or notifications within limited screen.
-* **Medium Alert** is a standard-sized user interface component for displaying messages, information, or notifications. It strikes a balance between visibility and space consumption, making it a versatile choice for various use cases.
-* **Large Alert** is a spacious user interface element used to emphasize and prominently present messages or notifications. Its generous size ensures that important information is highly visible and cannot be easily overlooked, making it suitable for critical alerts or announcements.
-
-<EmbedContent url="https://codesandbox.io/embed/f579l3?hidenavigation=1&module=/index.html&view=preview" />
+Available in three sizes: `sm`, `md`, and `lg`.
 
 <code-bubble class="not-content">
+
+<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
+  <plus-alert size="sm" message="Small Alert"></plus-alert>
+  <plus-alert size="md" message="Medium Alert"></plus-alert>
+  <plus-alert size="lg" message="Large Alert"></plus-alert>
+</div>
+
 ```html
-<plus-alert size="sm" message="Small Alert" description="This is a small-sized alert."></plus-alert>
-<plus-alert size="md" message="Medium Alert" description="This is a medium-sized alert."></plus-alert>
-<plus-alert size="lg" message="Large Alert" description="This is a large-sized alert."></plus-alert>
+<plus-alert size="sm" message="Small Alert"></plus-alert>
+<plus-alert size="md" message="Medium Alert"></plus-alert>
+<plus-alert size="lg" message="Large Alert"></plus-alert>
 ```
 
 ```tsx
@@ -165,9 +170,9 @@ import { PlusAlert } from '@plusui/react';
 export default () => {
   return (
     <>
-      <PlusAlert size="sm" message="Small Alert" description="This is a small-sized alert." />
-      <PlusAlert size="md" message="Medium Alert" description="This is a medium-sized alert." />
-      <PlusAlert size="lg" message="Large Alert" description="This is a large-sized alert." />
+      <PlusAlert size="sm" message="Small Alert" />
+      <PlusAlert size="md" message="Medium Alert" />
+      <PlusAlert size="lg" message="Large Alert" />
     </>
   );
 };
@@ -179,9 +184,9 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <plus-alert size="sm" message="Small Alert" description="This is a small-sized alert."></plus-alert>
-    <plus-alert size="md" message="Medium Alert" description="This is a medium-sized alert."></plus-alert>
-    <plus-alert size="lg" message="Large Alert" description="This is a large-sized alert."></plus-alert>
+    <plus-alert size="sm" message="Small Alert"></plus-alert>
+    <plus-alert size="md" message="Medium Alert"></plus-alert>
+    <plus-alert size="lg" message="Large Alert"></plus-alert>
   `
 })
 export class AppComponent {}
@@ -189,26 +194,85 @@ export class AppComponent {}
 
 ```vue
 <template>
-  <plus-alert size="sm" message="Small Alert" description="This is a small-sized alert."></plus-alert>
-  <plus-alert size="md" message="Medium Alert" description="This is a medium-sized alert."></plus-alert>
-  <plus-alert size="lg" message="Large Alert" description="This is a large-sized alert."></plus-alert>
+  <plus-alert size="sm" message="Small Alert"></plus-alert>
+  <plus-alert size="md" message="Medium Alert"></plus-alert>
+  <plus-alert size="lg" message="Large Alert"></plus-alert>
 </template>
 ```
 </code-bubble>
 
-### Invert
+### With Description
 
-An "inverted alert" presents messages with an attention-grabbing high-contrast style achieved by inverting background and text colors. This property is useful for highlighting important information and creating visually striking alerts in your application.
-
-<EmbedContent url="https://codesandbox.io/embed/drg9tp?hidenavigation=1&module=/index.html&view=preview" />
+Alerts can include additional descriptive text.
 
 <code-bubble class="not-content">
+
+<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
+  <plus-alert 
+    message="Alert with Description" 
+    description="This alert includes additional details to provide more context."
+  ></plus-alert>
+</div>
+
 ```html
-<plus-alert invert message="Default Alert" description="This is a default alert with inverted colors."></plus-alert>
-<plus-alert invert status="info" message="Information Alert" description="An inverted information alert."></plus-alert>
-<plus-alert invert status="success" message="Success Alert" description="Operation completed successfully with inverted colors."></plus-alert>
-<plus-alert invert status="warning" message="Warning Alert" description="An inverted warning alert."></plus-alert>
-<plus-alert invert status="error" message="Error Alert" description="An inverted error alert."></plus-alert>
+<plus-alert 
+  message="Alert with Description" 
+  description="This alert includes additional details to provide more context."
+></plus-alert>
+```
+
+```tsx
+import { PlusAlert } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusAlert 
+      message="Alert with Description"
+      description="This alert includes additional details to provide more context."
+    />
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-alert 
+      message="Alert with Description"
+      description="This alert includes additional details to provide more context."
+    ></plus-alert>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-alert 
+    message="Alert with Description"
+    description="This alert includes additional details to provide more context."
+  ></plus-alert>
+</template>
+```
+</code-bubble>
+
+### Inverted Style
+
+Use the `invert` property for a contrasting color scheme.
+
+<code-bubble class="not-content">
+
+<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
+  <plus-alert invert message="Inverted Alert"></plus-alert>
+  <plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
+</div>
+
+```html
+<plus-alert invert message="Inverted Alert"></plus-alert>
+<plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
 ```
 
 ```tsx
@@ -217,11 +281,8 @@ import { PlusAlert } from '@plusui/react';
 export default () => {
   return (
     <>
-      <PlusAlert invert message="Default Alert" description="This is a default alert with inverted colors." />
-      <PlusAlert invert status="info" message="Information Alert" description="An inverted information alert." />
-      <PlusAlert invert status="success" message="Success Alert" description="Operation completed successfully with inverted colors." />
-      <PlusAlert invert status="warning" message="Warning Alert" description="An inverted warning alert." />
-      <PlusAlert invert status="error" message="Error Alert" description="An inverted error alert." />
+      <PlusAlert invert message="Inverted Alert" />
+      <PlusAlert invert status="success" message="Inverted Success Alert" />
     </>
   );
 };
@@ -233,11 +294,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <plus-alert invert message="Default Alert" description="This is a default alert with inverted colors."></plus-alert>
-    <plus-alert invert status="info" message="Information Alert" description="An inverted information alert."></plus-alert>
-    <plus-alert invert status="success" message="Success Alert" description="Operation completed successfully with inverted colors."></plus-alert>
-    <plus-alert invert status="warning" message="Warning Alert" description="An inverted warning alert."></plus-alert>
-    <plus-alert invert status="error" message="Error Alert" description="An inverted error alert."></plus-alert>
+    <plus-alert invert message="Inverted Alert"></plus-alert>
+    <plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
   `
 })
 export class AppComponent {}
@@ -245,49 +303,49 @@ export class AppComponent {}
 
 ```vue
 <template>
-  <plus-alert invert message="Default Alert" description="This is a default alert with inverted colors."></plus-alert>
-  <plus-alert invert status="info" message="Information Alert" description="An inverted information alert."></plus-alert>
-  <plus-alert invert status="success" message="Success Alert" description="Operation completed successfully with inverted colors."></plus-alert>
-  <plus-alert invert status="warning" message="Warning Alert" description="An inverted warning alert."></plus-alert>
-  <plus-alert invert status="error" message="Error Alert" description="An inverted error alert."></plus-alert>
+  <plus-alert invert message="Inverted Alert"></plus-alert>
+  <plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
 </template>
 ```
 </code-bubble>
 
 ## Layout & Spacing
 
-Careful consideration of the layout and spacing of the alert component is crucial for achieving an organized and visually appealing user interface. Proper spacing ensures that alerts seamlessly integrate with other elements, while a well-defined layout enhances their readability and impact. Customizing layout and spacing properties allows you to create alerts that harmonize with your design, maintaining a clean and polished appearance throughout your application.
+The alert component maintains consistent spacing and can adapt to different container widths. Use the `full-width` property to make it span the full width of its container.
 
 <Image src={layoutSpacing} alt="layout and spacing of alert component" />
 
 ## Light & Dark Mode
 
-Supporting both light and dark modes for the alert component is essential in accommodating various user interface themes and preferences. In light mode, alerts maintain a classic appearance, while in dark mode, they provide a visually appealing contrast. This flexibility not only aligns with contemporary design trends but also enhances user experience by catering to diverse design choices and accessibility needs, ensuring that your alerts seamlessly adapt to any interface and lighting conditions.
+Alerts automatically adjust their appearance based on the system theme while maintaining proper contrast and visibility.
 
 <Image src={lightDarkMode} alt="light and dark mode of alert component" />
 
-## Accessibility
+## API Reference
 
-Plus UI's alert component boasts a high accessibility score in both light and dark modes. By implementing ARIA roles, labels, and keyboard support, alerts become usable for all, including users with disabilities. This ensures that crucial information is accessible to a wider audience, promoting a user-friendly and inclusive design.
+### Properties
 
-<table><thead><tr><th width="148.33333333333331">Criteria</th><th width="476">Description</th><th>Status<select><option value="661ce971b52146ac8e0b634101c4d030" label="Passed" color="blue"></option><option value="6aa5fe5ad5744b9e834098e1949edd4e" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Valid Values</td><td>Ensures all elements with a role attribute use a valid value</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Color Constrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="6aa5fe5ad5744b9e834098e1949edd4e">AA ~ AAA</span></td></tr></tbody></table>
+| Property     | Description               | Type     | Values                                     | Default  |
+|-------------|---------------------------|----------|-------------------------------------------|----------|
+| kind        | Visual style              | string   | 'filled', 'outlined', 'dashed'            | 'filled' |
+| status      | Alert type                | string   | 'default', 'success', 'warning', 'danger', 'info' | 'default' |
+| size        | Component size            | string   | 'sm', 'md', 'lg'                          | 'md'     |
+| message     | Main alert text           | string   | -                                         | ''       |
+| description | Additional details        | string   | -                                         | ''       |
+| invert      | Inverted color scheme     | boolean  | true, false                               | false    |
+| dismissible | Show close button         | boolean  | true, false                               | true     |
+| statusIcon  | Custom status icon        | string   | -                                         | ''       |
+| dismissIcon | Custom dismiss icon       | string   | -                                         | ''       |
+| fullWidth   | Full width display        | boolean  | true, false                               | false    |
 
-To learn more about Plus UI's accessibility criteria, please visit Accessibility.
+### Events
+
+| Event Name    | Description            | Detail                |
+|--------------|------------------------|----------------------|
+| plus-dismiss | Fired when dismissed   | `{ status: string }` |
 
 ## Design System
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
 
-## API
-
-| Property    | Description               | Type    | Accepted Values               | Default |
-| ----------- | ------------------------- | ------- | ----------------------------- | ------- |
-| message     | Alert message             | String  | —                             | —       |
-| description | Alert description         | String  | —                             | —       |
-| prefix-icon | Alert icon                | String  | —                             | —       |
-| status      | Alert status              | String  | success, warning, error, info | —       |
-| kind        | Alert kind                | String  | filled, outlined, dashed      | filled  |
-| size        | Alert size                | String  | sm, md, lg                    | md      |
-| dismiss     | Whether Alert is closable | Boolean | —                             | false   |
-| invert      | Whether Alert is invert   | Boolean | —                             | false   |
 
