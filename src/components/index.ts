@@ -1,6 +1,7 @@
 export * from './base';
 export * from './avatar';
 export * from './button';
+export * from './button-group';
 export * from './icon';
 export * from './svg-icon';
 export * from './chip';

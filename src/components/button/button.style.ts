@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants';
 export const baseButtonStyle = tv({
   slots: {
     base: [
-      'button font-sans',
+      'button plus-button plus-ui-element',
       'inline-flex items-center justify-center',
       'rounded-default',
       'border',
@@ -52,6 +52,9 @@ export const baseButtonStyle = tv({
       false: '',
       true: 'loading cursor-not-allowed relative overflow-hidden',
     },
+    fullWidth: {
+      true: 'w-full',
+    },
   },
   defaultVariants: {
     size: 'md',
@@ -59,5 +62,6 @@ export const baseButtonStyle = tv({
     status: 'default',
     disabled: false,
     loading: false,
+    fullWidth: false,
   },
 });
