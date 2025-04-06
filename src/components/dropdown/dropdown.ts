@@ -32,10 +32,6 @@ import { PlusDropDownItem } from '../dropdown-item';
  * @event plus-dropdown-close - Emitted when the dropdown is closed
  * @event plus-dropdown-selected-item - Emitted when an item is selected with the selected item in detail
  *
- * @cssproperty --dropdown-bg - Controls the background color of the dropdown panel
- * @cssproperty --dropdown-border - Controls the border of the dropdown panel
- * @cssproperty --dropdown-shadow - Controls the shadow of the dropdown panel
- * @cssproperty --dropdown-z-index - Controls the z-index of the dropdown panel
  */
 export default class PlusDropdown extends Tailwind {
   /**
