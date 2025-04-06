@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { baseButtonStyle } from './button.style';
@@ -36,6 +36,17 @@ const textColorMap = {
 } as const;
 
 export default class PlusButton extends Tailwind {
+  static override styles = [
+    ...Tailwind.styles,
+    css`
+      :host {
+        display: inline-block;
+        height: fit-content;
+        width: fit-content;
+      }
+    `,
+  ];
+
   /**
    * Determines the visual style of the button
    * - filled: Solid background color
