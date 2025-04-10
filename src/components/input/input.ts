@@ -1,4 +1,4 @@
-import { html, css } from 'lit';
+import { html, css, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -12,8 +12,8 @@ import { captionStyle } from '../caption/caption.style';
  * @since 0.0.0
  * @status experimental
  *
- * PlusInput component is a form input component that provides various input types,
- * validation, and accessibility features.
+ * PlusInput is a modern and customizable form input component.
+ * It provides various input types, validation, accessibility, and styling features.
  *
  * @slot prefix - Content to be placed before the input
  * @slot suffix - Content to be placed after the input
@@ -61,12 +61,30 @@ export default class PlusInput extends Tailwind {
     `,
   ];
 
+  /**
+   * Reference to the native input element
+   * @private
+   */
   @query('input')
   input!: HTMLInputElement;
 
+  /**
+   * Indicates if the input has focus
+   * @private
+   */
   @state() private hasFocus = false;
+
+  /**
+   * Validation message for the input
+   * @private
+   */
   @state() private validationMessage = '';
 
+  /**
+   * The type of input
+   * @type {'date'|'datetime-local'|'email'|'number'|'password'|'search'|'tel'|'text'|'time'|'url'}
+   * @default 'text'
+   */
   @property({ reflect: true }) type:
     | 'date'
     | 'datetime-local'
@@ -78,32 +96,147 @@ export default class PlusInput extends Tailwind {
     | 'text'
     | 'time'
     | 'url' = 'text';
+
+  /**
+   * The name of the input
+   * @type {string}
+   * @default ''
+   */
   @property() name = '';
+
+  /**
+   * The value of the input
+   * @type {string}
+   * @default ''
+   */
   @property() value = '';
+
+  /**
+   * The placeholder text
+   * @type {string}
+   * @default ''
+   */
   @property() placeholder = '';
+
+  /**
+   * The size of the input
+   * @type {'sm'|'md'|'lg'}
+   * @default 'md'
+   */
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
+
+  /**
+   * Whether the input should have a clear button
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, converter: (value) => value != 'false' })
   clearable = false;
+
+  /**
+   * Whether the input is disabled
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, converter: (value) => value != 'false' })
   disabled = false;
+
+  /**
+   * Whether the input is readonly
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, converter: (value) => value != 'false' })
   readonly = false;
+
+  /**
+   * Whether the input is required
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, converter: (value) => value != 'false' })
   required = false;
+
+  /**
+   * Whether to show a password toggle button
+   * @type {boolean}
+   * @default false
+   */
   @property({ attribute: 'password-toggle', type: Boolean }) passwordToggle =
     false;
+
+  /**
+   * Whether the password is visible
+   * @type {boolean}
+   * @default false
+   */
   @property({ attribute: 'password-visible', type: Boolean }) passwordVisible =
     false;
+
+  /**
+   * The label for the input
+   * @type {string}
+   */
   @property({ type: String }) label?: string;
+
+  /**
+   * The validation pattern for the input
+   * @type {string}
+   */
   @property() pattern?: string;
+
+  /**
+   * The minimum length of the input value
+   * @type {number}
+   */
   @property({ type: Number }) minlength?: number;
+
+  /**
+   * The maximum length of the input value
+   * @type {number}
+   */
   @property({ type: Number }) maxlength?: number;
+
+  /**
+   * The minimum value of the input
+   * @type {number|string}
+   */
   @property() min?: number | string;
+
+  /**
+   * The maximum value of the input
+   * @type {number|string}
+   */
   @property() max?: number | string;
+
+  /**
+   * The step value for numeric inputs
+   * @type {number|'any'}
+   */
   @property() step?: number | 'any';
+
+  /**
+   * Whether autocorrect is enabled
+   * @type {'off'|'on'}
+   */
   @property() autocorrect?: 'off' | 'on';
+
+  /**
+   * The autocomplete attribute
+   * @type {string}
+   */
   @property() autocomplete?: string;
+
+  /**
+   * Whether the input should automatically get focus
+   * @type {boolean}
+   */
   @property({ type: Boolean }) autoFocus?: boolean;
+
+  /**
+   * The enterkeyhint attribute
+   * @type {'enter'|'done'|'go'|'next'|'previous'|'search'|'send'}
+   */
   @property() enterkeyhint?:
     | 'enter'
     | 'done'
@@ -112,6 +245,11 @@ export default class PlusInput extends Tailwind {
     | 'previous'
     | 'search'
     | 'send';
+
+  /**
+   * The inputmode attribute
+   * @type {'none'|'text'|'decimal'|'numeric'|'tel'|'search'|'email'|'url'}
+   */
   @property() inputmode?:
     | 'none'
     | 'text'
@@ -121,32 +259,126 @@ export default class PlusInput extends Tailwind {
     | 'search'
     | 'email'
     | 'url';
+
+  /**
+   * Whether spellcheck is enabled
+   * @type {boolean}
+   */
   @property({ type: Boolean }) spellCheck?: boolean;
+
+  /**
+   * Caption text to display below the input
+   * @type {string}
+   */
   @property({ type: String }) caption?: string;
+
+  /**
+   * Whether the input is in an error state
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, converter: (value) => value != 'false' }) error =
     false;
+
+  /**
+   * The error message to display
+   * @type {string}
+   * @default ''
+   */
   @property({ type: String, attribute: 'error-message' }) errorMessage = '';
 
+  /**
+   * Whether the input should take up full width
+   * @type {boolean}
+   * @default false
+   */
   @property({ reflect: true, attribute: 'full-width', type: Boolean })
   fullWidth = false;
+
+  /**
+   * Whether the input is used as part of a select component
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, converter: (value) => value != 'false' })
   isSelect = false;
 
+  /**
+   * Icon name for the prefix icon
+   * @type {string}
+   */
   @property({ type: String, attribute: 'prefix-icon' }) prefixIcon?: string;
+
+  /**
+   * Icon name for the suffix icon
+   * @type {string}
+   */
   @property({ type: String, attribute: 'suffix-icon' }) suffixIcon?: string;
 
+  /**
+   * Checks if the input is valid
+   * @returns {boolean} True if the input is valid, false otherwise
+   */
+  public checkValidity(): boolean {
+    return this.input.validity.valid;
+  }
+
+  /**
+   * Reports the validity of the input to the user
+   * @returns {boolean} True if the input is valid, false otherwise
+   */
+  public reportValidity(): boolean {
+    const isValid = this.checkValidity();
+    if (!isValid) {
+      this.validate();
+    }
+    return isValid;
+  }
+
+  /**
+   * Sets a custom validation message
+   * @param {string} message The validation message
+   */
+  public setCustomValidity(message: string): void {
+    this.input.setCustomValidity(message);
+    if (message) {
+      this.error = true;
+      this.caption = message;
+      this.validationMessage = message;
+    } else {
+      this.error = false;
+      if (this.caption === this.validationMessage) {
+        this.caption = '';
+      }
+      this.validationMessage = '';
+    }
+  }
+
+  /**
+   * Called when the input loses focus
+   * @private
+   */
   private handleBlur() {
     this.hasFocus = false;
     this.emit('plus-blur');
     this.validate();
   }
 
+  /**
+   * Called when the input value changes
+   * @private
+   */
   private handleChange() {
     this.value = this.input.value;
     this.emit('plus-change');
     this.validate();
   }
 
+  /**
+   * Called when the clear button is clicked
+   * @param {MouseEvent} event The event object
+   * @private
+   */
   private handleClearClick(event: MouseEvent) {
     this.value = '';
     this.emit('plus-clear');
@@ -158,6 +390,11 @@ export default class PlusInput extends Tailwind {
     event.stopPropagation();
   }
 
+  /**
+   * Called when the password toggle button is clicked
+   * @param {MouseEvent} event The event object
+   * @private
+   */
   private handlePasswordToggle(event: MouseEvent) {
     this.passwordVisible = !this.passwordVisible;
     this.emit('plus-password-toggle', {
@@ -166,51 +403,117 @@ export default class PlusInput extends Tailwind {
     event.stopPropagation();
   }
 
+  /**
+   * Called when the input receives focus
+   * @private
+   */
   private handleFocus() {
     this.hasFocus = true;
     this.emit('plus-focus');
   }
 
+  /**
+   * Called when the input value changes
+   * @private
+   */
   private handleInput() {
     this.value = this.input.value;
     this.emit('plus-input');
+    this.error = false;
+    this.validationMessage = '';
+  }
+
+  /**
+   * Gets the validation message for the input
+   * @returns {string} The validation message
+   * @private
+   */
+  private getValidationMessage(): string {
+    const validity = this.input.validity;
+
+    if (validity.valueMissing) {
+      return 'This field is required';
+    }
+
+    if (validity.typeMismatch && this.type === 'email') {
+      return 'Please enter a valid email address';
+    }
+
+    if (validity.patternMismatch) {
+      return 'Please match the requested format';
+    }
+
+    if (validity.tooLong) {
+      return `Please use no more than ${this.maxlength} characters`;
+    }
+
+    if (validity.tooShort) {
+      return `Please use at least ${this.minlength} characters`;
+    }
+
+    if (validity.rangeUnderflow) {
+      return `Please enter a value greater than or equal to ${this.min}`;
+    }
+
+    if (validity.rangeOverflow) {
+      return `Please enter a value less than or equal to ${this.max}`;
+    }
+
+    if (validity.stepMismatch) {
+      return `Please enter a valid value. The nearest valid value is ${this.getStepValue()}`;
+    }
+
+    if (validity.badInput) {
+      return 'Please enter a valid value';
+    }
+
+    return this.input.validationMessage || 'Please correct the error';
+  }
+
+  /**
+   * Validates the input
+   * @private
+   */
+  private validate() {
+    const isValid = this.input.validity.valid;
+
+    if (isValid) {
+      this.error = false;
+      this.validationMessage = '';
+      // Only clear caption if it was set by validation
+      if (this.caption === this.validationMessage) {
+        this.caption = '';
+      }
+      return;
+    }
+
+    this.error = true;
+    this.validationMessage = this.getValidationMessage();
+    this.caption = this.validationMessage;
+
+    this.emit('plus-invalid', {
+      detail: {
+        message: this.validationMessage,
+        validity: this.input.validity,
+      },
+    });
+  }
+
+  /**
+   * Called when the input is invalid
+   * @param {Event} event The event object
+   * @private
+   */
+  private handleInvalid(event: Event) {
+    event.preventDefault();
     this.validate();
   }
 
-  private handleInvalid(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const validity = input.validity;
-    let message = this.errorMessage;
-
-    if (!message) {
-      if (validity.valueMissing) {
-        message = 'This field is required';
-      } else if (validity.typeMismatch) {
-        message = 'Please enter a valid value';
-      } else if (validity.patternMismatch) {
-        message = 'Please match the requested format';
-      } else if (validity.tooLong) {
-        message = `Please use no more than ${this.maxlength} characters`;
-      } else if (validity.tooShort) {
-        message = `Please use at least ${this.minlength} characters`;
-      } else if (validity.rangeUnderflow) {
-        message = `Please enter a value greater than or equal to ${this.min}`;
-      } else if (validity.rangeOverflow) {
-        message = `Please enter a value less than or equal to ${this.max}`;
-      } else if (validity.stepMismatch) {
-        message = `Please enter a valid value. The nearest valid value is ${this.getStepValue()}`;
-      } else if (validity.badInput) {
-        message = 'Please enter a valid value';
-      } else {
-        message = 'Please correct the error';
-      }
-    }
-
-    this.validationMessage = message;
-    this.error = true;
-    this.emit('plus-invalid', { detail: { message, validity } });
-  }
-
+  /**
+   * Called when a key is pressed
+   * @param {KeyboardEvent} event The event object
+   * @private
+   */
   private handleKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter' && !event.shiftKey) {
       const form = this.input.form;
@@ -224,13 +527,11 @@ export default class PlusInput extends Tailwind {
     }
   }
 
-  private validate() {
-    if (this.input.validity.valid) {
-      this.error = false;
-      this.validationMessage = '';
-    }
-  }
-
+  /**
+   * Calculates the step value
+   * @returns {number} The calculated step value
+   * @private
+   */
   private getStepValue(): number {
     const value = parseFloat(this.value);
     const step = parseFloat(this.step as string) || 1;
@@ -238,6 +539,11 @@ export default class PlusInput extends Tailwind {
     return Math.round((value - min) / step) * step + min;
   }
 
+  /**
+   * Called when a slot changes
+   * @param {Event} e The event object
+   * @private
+   */
   handleSlotchange(e: Event) {
     const slot = e.target as HTMLSlotElement;
     const childNodes = slot.assignedNodes({ flatten: true });
@@ -246,6 +552,11 @@ export default class PlusInput extends Tailwind {
     }
   }
 
+  /**
+   * Renders the component
+   * @returns {TemplateResult} The template to render
+   * @override
+   */
   override render() {
     const {
       label,
@@ -287,13 +598,11 @@ export default class PlusInput extends Tailwind {
         ? html`<label class=${labelStyle({ size, required })} for="input"
             >${label}</label
           >`
-        : null;
+        : nothing;
     const CaptionTemplate = () =>
-      caption || validationMessage
-        ? html`<div class=${captionStyle({ error, size })} id="help-text">
-            ${validationMessage || caption}
-          </div>`
-        : null;
+      html`<div class=${captionStyle({ error, size })} id="help-text">
+        ${validationMessage || caption}
+      </div>`;
     const ClearTemplate = () =>
       clearable && value
         ? html`<div
@@ -305,7 +614,7 @@ export default class PlusInput extends Tailwind {
           >
             <plus-svg-icon iconName="xmark"></plus-svg-icon>
           </div>`
-        : null;
+        : nothing;
 
     const PasswordToggleTemplate = () =>
       passwordToggle && this.type === 'password'
@@ -320,7 +629,7 @@ export default class PlusInput extends Tailwind {
               iconName=${passwordVisible ? 'eye' : 'eye-slash'}
             ></plus-svg-icon>
           </div>`
-        : null;
+        : nothing;
 
     return html`<div
       class=${host()}
@@ -334,14 +643,13 @@ export default class PlusInput extends Tailwind {
           ? html`<div class=${prefix()} aria-hidden="true">
               <plus-svg-icon iconName=${prefixIcon}></plus-svg-icon>
             </div>`
-          : null}
+          : nothing}
         <slot
           name="prefix"
           class=${prefix() + ' hidden'}
           @slotchange=${this.handleSlotchange}
         ></slot>
         <input
-          id="input"
           type="text"
           class=${inputElement()}
           type=${this.type === 'password' && this.passwordVisible
@@ -390,7 +698,7 @@ export default class PlusInput extends Tailwind {
           ? html`<div class=${suffix()} aria-hidden="true">
               <plus-svg-icon iconName=${suffixIcon}></plus-svg-icon>
             </div>`
-          : null}
+          : nothing}
       </div>
       ${CaptionTemplate()}
     </div>`;
