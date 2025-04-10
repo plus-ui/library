@@ -650,7 +650,6 @@ export default class PlusInput extends Tailwind {
           @slotchange=${this.handleSlotchange}
         ></slot>
         <input
-          type="text"
           class=${inputElement()}
           type=${this.type === 'password' && this.passwordVisible
             ? 'text'
