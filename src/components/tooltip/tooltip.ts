@@ -6,6 +6,7 @@ import {
   offset,
   shift,
   arrow,
+  flip,
 } from '@floating-ui/dom';
 import Tailwind from '../base/tailwind-base';
 import { tooltipStyle } from './tooltip.style';
@@ -72,11 +73,15 @@ export default class PlusTooltip extends Tailwind {
   @property({ type: String })
   orientation: TooltipOrientation = TooltipOrientation.Top;
 
+  @property({ type: Number })
+  hideDelay = 0;
+
   @state()
   private isVisible = false;
 
   private targetElement?: HTMLElement;
   private cleanup?: () => void;
+  private hideTimeout?: number;
 
   /**
    * Retrieves the tooltip element from the DOM.
@@ -90,18 +95,22 @@ export default class PlusTooltip extends Tailwind {
    */
   private updatePosition = () => {
     const tooltip = this.getTooltip();
-    if (!tooltip) return;
+    if (!tooltip || !this.targetElement) return;
+
     const arrowElement = tooltip.querySelector('.arrow') as HTMLElement;
-    if (!this.targetElement || !arrowElement) return;
+    if (!arrowElement) return;
 
     computePosition(this.targetElement, tooltip, {
       placement: this.orientation,
       middleware: [
         offset(8),
         shift(),
+        flip(),
         arrow({ element: arrowElement, padding: 4 }),
       ],
     }).then(({ x, y, middlewareData, placement }) => {
+      if (!tooltip) return;
+
       Object.assign(tooltip.style, { left: `${x}px`, top: `${y}px` });
 
       const { x: arrowX, y: arrowY } = middlewareData.arrow || {};
@@ -124,24 +133,32 @@ export default class PlusTooltip extends Tailwind {
    * Handles tooltip appearance when the mouse enters the target element.
    */
   private handleMouseEnter = () => {
+    if (this.hideTimeout) {
+      window.clearTimeout(this.hideTimeout);
+      this.hideTimeout = undefined;
+    }
+
     const tooltip = this.getTooltip();
-    if (!tooltip) return;
+    if (!tooltip || !this.targetElement) return;
 
     this.isVisible = true;
     this.updatePosition();
-    this.cleanup = autoUpdate(
-      this.targetElement!,
-      tooltip,
-      this.updatePosition
-    );
+    this.cleanup = autoUpdate(this.targetElement, tooltip, this.updatePosition);
   };
 
   /**
    * Handles tooltip disappearance when the mouse leaves the target element.
    */
   private handleMouseLeave = () => {
-    this.isVisible = false;
-    this.cleanupAutoUpdate();
+    if (this.hideDelay > 0) {
+      this.hideTimeout = window.setTimeout(() => {
+        this.isVisible = false;
+        this.cleanupAutoUpdate();
+      }, this.hideDelay);
+    } else {
+      this.isVisible = false;
+      this.cleanupAutoUpdate();
+    }
   };
 
   /**
@@ -149,17 +166,24 @@ export default class PlusTooltip extends Tailwind {
    */
   private handleClick = () => {
     const tooltip = this.getTooltip();
-    if (!tooltip) return;
+    if (!tooltip || !this.targetElement) return;
 
     this.isVisible = !this.isVisible;
     if (this.isVisible) {
       this.updatePosition();
       this.cleanup = autoUpdate(
-        this.targetElement!,
+        this.targetElement,
         tooltip,
         this.updatePosition
       );
     } else {
+      this.cleanupAutoUpdate();
+    }
+  };
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && this.isVisible) {
+      this.isVisible = false;
       this.cleanupAutoUpdate();
     }
   };
@@ -188,6 +212,7 @@ export default class PlusTooltip extends Tailwind {
         this.handleMouseLeave
       );
       this.targetElement.removeEventListener('click', this.handleClick);
+      this.targetElement.removeEventListener('keydown', this.handleKeyDown);
     }
     this.cleanupAutoUpdate();
     this.isVisible = false;
@@ -219,11 +244,17 @@ export default class PlusTooltip extends Tailwind {
     } else if (this.trigger === TooltipTrigger.Click) {
       this.targetElement.addEventListener('click', this.handleClick);
     }
+
+    this.targetElement.addEventListener('keydown', this.handleKeyDown);
+    this.targetElement.setAttribute('aria-describedby', 'tooltip-content');
   }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
     this._cleanupTarget();
+    if (this.hideTimeout) {
+      window.clearTimeout(this.hideTimeout);
+    }
   }
 
   override render() {
@@ -233,7 +264,12 @@ export default class PlusTooltip extends Tailwind {
     });
     return html`
       <slot @slotchange=${this.handleSlotChange}></slot>
-      <div role="tooltip" aria-hidden="${!this.isVisible}" class="${base()}">
+      <div
+        role="tooltip"
+        id="tooltip-content"
+        aria-hidden="${!this.isVisible}"
+        class="${base()}"
+      >
         ${this.message}
         <div class="${arrow()}" aria-label="Tooltip arrow"></div>
       </div>
