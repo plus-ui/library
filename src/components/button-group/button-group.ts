@@ -1,6 +1,6 @@
 import { html, css } from 'lit';
-import { property } from 'lit/decorators.js';
-import { baseButtonGroupStyle } from './button-group.style';
+import { property, state } from 'lit/decorators.js';
+import { buttonGroupStyle } from './button-group.style';
 import Tailwind from '../base/tailwind-base';
 
 /**
@@ -10,6 +10,8 @@ export type Orientation = 'horizontal' | 'vertical';
 
 /**
  * Button group component that allows grouping related buttons together.
+ * The button group's properties can either override the properties of its child buttons
+ * or respect their individual properties based on the override prop.
  *
  * @element plus-button-group
  *
@@ -23,6 +25,19 @@ export default class PlusButtonGroup extends Tailwind {
    */
   @property({ type: String, reflect: true })
   orientation: Orientation = 'horizontal';
+
+  /**
+   * Determines whether the button group's properties override the properties of its child buttons.
+   * When true, all buttons in the group will have the same appearance.
+   * When false, each button can have its own properties.
+   * @default true
+   */
+  @property({
+    type: Boolean,
+    converter: (value) => (value == 'false' || false ? false : true),
+  })
+  override = false;
+
   /**
    * Determines the visual style of the button
    * - filled: Solid background color
@@ -72,11 +87,8 @@ export default class PlusButtonGroup extends Tailwind {
   @property({ type: Boolean })
   loading = false;
 
-  // Cache for the buttons to avoid re-querying the DOM
-  private _buttons: HTMLElement[] | null = null;
-
-  // Flag to determine if buttons need style update
-  private _needsStyleUpdate = true;
+  @state()
+  private _buttons: HTMLElement[] = [];
 
   static override styles = [
     ...Tailwind.styles,
@@ -91,48 +103,39 @@ export default class PlusButtonGroup extends Tailwind {
    * Gets all child buttons in the group
    */
   private get buttons() {
-    // Use cached buttons if available and slot hasn't changed
-    if (this._buttons !== null) {
-      return this._buttons;
-    }
-
-    const slot = this.shadowRoot?.querySelector('slot');
-    if (!slot) return [];
-
-    this._buttons = slot
-      .assignedElements()
-      .filter(
-        (element) => element.tagName.toLowerCase() === 'plus-button'
-      ) as HTMLElement[];
-
     return this._buttons;
   }
 
   /**
-   * Apply shared properties to buttons in the group
+   * Apply shared properties to buttons in the group.
+   * This method either overrides the properties of child buttons or respects their individual properties
+   * based on the override prop.
    */
   private applyPropertiesToButtons() {
     const isVertical = this.orientation === 'vertical';
 
     this.buttons.forEach((button) => {
-      // Apply properties directly to buttons
-      if (this.disabled) {
-        button.setAttribute('disabled', '');
-      }
-
-      if (this.size && !button.hasAttribute('size')) {
+      if (this.override) {
+        // Override button properties with group properties
         button.setAttribute('size', this.size);
-      }
-
-      if (this.kind && !button.hasAttribute('kind')) {
         button.setAttribute('kind', this.kind);
-      }
-
-      if (this.status && !button.hasAttribute('status')) {
         button.setAttribute('status', this.status);
+
+        // Override disabled and loading states
+        if (this.disabled) {
+          button.setAttribute('disabled', '');
+        } else {
+          button.removeAttribute('disabled');
+        }
+
+        if (this.loading) {
+          button.setAttribute('loading', '');
+        } else {
+          button.removeAttribute('loading');
+        }
       }
 
-      // Set full-width attribute on buttons when orientation is vertical
+      // Always set full-width attribute on buttons when orientation is vertical
       if (isVertical) {
         button.setAttribute('full-width', '');
       } else {
@@ -145,8 +148,6 @@ export default class PlusButtonGroup extends Tailwind {
    * Apply styles to buttons based on their position in the group
    */
   private applyStylesToButtons() {
-    if (!this._needsStyleUpdate) return;
-
     const buttons = this.buttons;
     const totalButtons = buttons.length;
     const isHorizontal = this.orientation === 'horizontal';
@@ -192,8 +193,6 @@ export default class PlusButtonGroup extends Tailwind {
         }
       }
     });
-
-    this._needsStyleUpdate = false;
   }
 
   /**
@@ -205,22 +204,20 @@ export default class PlusButtonGroup extends Tailwind {
   }
 
   /**
-   * Handle slot changes: reset button cache and update styles
+   * Handle slot changes: update button list and styles
    */
-  private handleSlotChange() {
-    this._buttons = null;
-    this._needsStyleUpdate = true;
+  private handleSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    this._buttons = slot
+      .assignedElements()
+      .filter(
+        (element) => element.tagName.toLowerCase() === 'plus-button'
+      ) as HTMLElement[];
     this.updateButtons();
   }
 
   override updated(changedProperties: Map<string, unknown>) {
     super.updated(changedProperties);
-
-    // Only trigger style recalculation if relevant properties changed
-    if (changedProperties.has('orientation')) {
-      this._needsStyleUpdate = true;
-    }
-
     this.updateButtons();
   }
 
@@ -228,14 +225,22 @@ export default class PlusButtonGroup extends Tailwind {
     super.connectedCallback();
     this.setAttribute('role', 'group');
     // Initial update when connected to DOM
-    setTimeout(() => this.updateButtons(), 0);
+    requestAnimationFrame(() => this.updateButtons());
   }
 
   override render() {
-    const { base } = baseButtonGroupStyle({ orientation: this.orientation });
-
     return html`
-      <div class=${base()} part="base">
+      <div
+        class=${buttonGroupStyle({
+          orientation: this.orientation,
+          size: this.size,
+          kind: this.kind,
+          status: this.status,
+          disabled: this.disabled,
+          loading: this.loading,
+        })}
+        part="base"
+      >
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
     `;
