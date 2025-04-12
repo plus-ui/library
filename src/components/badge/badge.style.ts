@@ -1,72 +1,64 @@
-/* badge.host.style.ts */
-
 import { tv } from 'tailwind-variants';
 
 export const badgeStyle = tv({
-  base: ['plus-badge inner-host antialiased flex flex-row items-center justify-center font-sans rounded-full', 'absolute z-10',
-    'bg-[var(--inline-bg-color)] text-[var(--inline-text-color)]'
-],
+  base: [
+    'plus-badge antialiased flex flex-row items-center justify-center font-sans rounded-full',
+    'absolute z-10',
+    'text-(--d-text)',
+    'bg-(--d-bg-default)',
+    'border border-(--d-border)',
+  ],
   variants: {
-    status: {
-        success: '![--inline-bg-color:var(--plus-color-background-status-success-default)] ![--inline-text-color:var(--plus-color-text-base)]',
-        warning: '',
-        danger: '',
-        info: '',
-        default: '',
-    },
     size: {
       sm: 'h-4 min-w-4 text-xs px-1',
       md: 'h-5 min-w-5 text-sm px-1.5',
       lg: 'h-6 min-w-6 text-base px-2',
     },
-    kind: {
-      dot: 'min-w-0 px-0 py-0',
-      text: 'py-0.5',
+    hasContent: {
+      true: 'py-0.5',
+      false: 'min-w-0 px-0 py-0',
+    },
+    status: {
+      default: 'default',
+      primary: 'primary',
+      success: 'success',
+      warning: 'warning',
+      danger: 'danger',
+      info: 'info',
     },
     orientation: {
-      'top-right': 'top-[-6px] right-[-6px] translate-x-[50%] translate-y-[-50%]',
-      'top-left': 'top-[-6px] left-[-6px] translate-x-[-50%] translate-y-[-50%]',
-      'bottom-right': 'bottom-[-6px] right-[-6px] translate-x-[50%] translate-y-[50%]',
-      'bottom-left': 'bottom-[-6px] left-[-6px] translate-x-[-50%] translate-y-[50%]',
+      'top-right':
+        'top-0 right-0 translate-x-[50%] translate-y-[-50%]',
+      'top-left':
+        'top-0 left-0 translate-x-[-50%] translate-y-[-50%]',
+      'bottom-right':
+        'bottom-0 right-0 translate-x-[50%] translate-y-[50%]',
+      'bottom-left':
+        'bottom-0 left-0 translate-x-[-50%] translate-y-[50%]',
       '': '',
     },
   },
   compoundVariants: [
     {
-      kind: 'dot',
+      hasContent: false,
       size: 'sm',
-      class: 'size-1.5',
+      class: 'p-0 w-1.5 h-1.5',
     },
     {
-      kind: 'dot',
+      hasContent: false,
       size: 'md',
-      class: 'size-2',
+      class: 'p-0 w-2 h-2',
     },
     {
-      kind: 'dot',
+      hasContent: false,
       size: 'lg',
-      class: 'size-2.5',
-    },
-    {
-      kind: 'text',
-      size: 'sm',
-      class: 'px-1 text-xs',
-    },
-    {
-      kind: 'text',
-      size: 'md',
-      class: 'px-1.5 text-sm',
-    },
-    {
-      kind: 'text',
-      size: 'lg',
-      class: 'px-1.5 text-base',
+      class: 'p-0 w-2.5 h-2.5',
     },
   ],
   defaultVariants: {
     size: 'md',
-    kind: 'text',
+    hasContent: false,
     orientation: 'top-right',
-    status: 'default' as 'success' | 'warning' | 'danger' | 'info' | 'default',
+    status: 'default',
   },
 });
