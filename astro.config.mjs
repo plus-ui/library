@@ -9,6 +9,7 @@ import starlightImageZoom from 'starlight-image-zoom';
 export default defineConfig({
   srcDir: './astro',
   outDir: './astro/dist',
+  base: '/library',
   integrations: [
     lit(),
     starlight({

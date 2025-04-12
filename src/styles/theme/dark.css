@@ -1,7 +1,9 @@
 [theme-dark] {
   --plus-color-background-surface: var(--plus-color-base-black);
-  --plus-color-background-disabled: var(--plus-color-neutral-800);
+  --plus-color-background-disabled-default: var(--plus-color-neutral-800);
   --plus-color-background-transparent: var(--plus-color-base-transparent);
+  --plus-color-background-divider: var(--plus-color-neutral-600);
+  --plus-color-background-modal: var(--plus-color-neutral-900);
 
   --plus-color-background-default-default: var(--plus-color-neutral-900);
   --plus-color-background-default-hovered: var(--plus-color-neutral-800);

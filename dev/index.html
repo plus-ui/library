@@ -1,66 +1,67 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Component Test Page</title>
-  <script type="module" src="../cdn/components/index.js"></script>
-  <style>
-    body {
-      padding: 2rem;
-      font-family: system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <plus-segmented-picker shape="circle" status="primary">
+      <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item disabled value="2"
+        >Section</plus-segmented-picker-item
+      >
+      <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
+    </plus-segmented-picker>
 
-    .col {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-  </style>
-</head>
+    <plus-segmented-picker shape="circle">
+      <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="2">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
+    </plus-segmented-picker>
 
-<body>
+    <plus-segmented-picker status="primary">
+      <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="2">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
+    </plus-segmented-picker>
 
-  <plus-segmented-picker shape="circle" status="primary">
-    <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item disabled value="2">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
-  </plus-segmented-picker>
-
-  <plus-segmented-picker shape="circle">
-    <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="2">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
-  </plus-segmented-picker>
-
-  <plus-segmented-picker status="primary">
-    <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="2">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
-  </plus-segmented-picker>
-
-  <plus-segmented-picker>
-    <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="2">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
-    <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
-  </plus-segmented-picker>
-</body>
-
+    <plus-segmented-picker>
+      <plus-segmented-picker-item value="1">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="2">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="3">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="4">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="5">Section</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="6">Section</plus-segmented-picker-item>
+    </plus-segmented-picker>
+  </body>
 </html>

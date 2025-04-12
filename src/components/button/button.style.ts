@@ -1,12 +1,25 @@
 import { tv } from 'tailwind-variants';
 
 export const baseButtonStyle = tv({
-  base: [
-    'button font-sans',
-    'inline-flex items-center justify-center',
-    'rounded-default',
-    'border',
-  ],
+  slots: {
+    base: [
+      'button font-sans',
+      'inline-flex items-center justify-center',
+      'rounded-default',
+      'border',
+
+      'text-(--d-text)',
+      'border-(--d-border)',
+      'bg-(--d-bg-default)',
+      'enabled:hover:bg-(--d-bg-hovered)',
+      'enabled:active:bg-(--d-bg-pressed)',
+      'focus-visible:bg-(--d-bg-focused)',
+      'focus-visible:ring-default',
+    ],
+    loading: [
+      'loading cursor-not-allowed relative',
+    ],
+  },
   variants: {
     size: {
       sm: 'small text-sm p-2 gap-2',
@@ -28,24 +41,16 @@ export const baseButtonStyle = tv({
       info: 'info',
     },
     disabled: {
-      true: [
-        'disabled cursor-not-allowed',
-        'bg-color-disabled text-color-disabled border-color-disabled',
-      ],
-      false: [
-        'cursor-pointer',
-        'text-color-dynamic',
-        'border-color-dynamic',
-        'bg-color-dynamic-default',
-        'hover:bg-color-dynamic-hovered',
-        'active:bg-color-dynamic-pressed',
-        'focus-visible:bg-color-dynamic-focused',
-        'focus-visible:ring-default',
-      ],
+      true: {
+        base: ['disabled cursor-not-allowed'],
+      },
+      false: {
+        base: ['cursor-pointer'],
+      },
     },
     loading: {
       false: '',
-      true: 'loading',
+      true: 'loading cursor-not-allowed relative overflow-hidden',
     },
   },
   defaultVariants: {
