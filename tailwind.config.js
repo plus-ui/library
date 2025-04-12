@@ -64,7 +64,7 @@ module.exports = {
             focused: 'var(--bg-focused,var(--i-bg-focused))',
           },
           surface: 'var(--plus-color-background-surface)',
-          disabled: 'var(--plus-color-background-disabled)',
+          disabled: 'var(--plus-color-background-disabled-default)',
           transparent: 'var(--plus-color-background-transparent)',
           divider: 'var(--plus-color-background-divider)',
           modal: 'var(--plus-color-background-modal)',
