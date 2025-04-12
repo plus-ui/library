@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Input Examples</h2>
+
+    <div class="container">
+      <h3>Basic Inputs</h3>
+      <div class="col">
+        <plus-input
+          label="Default Input"
+          placeholder="Enter text here"
+        ></plus-input>
+        <plus-input
+          label="Disabled Input"
+          disabled
+          placeholder="Disabled input"
+        ></plus-input>
+        <plus-input
+          label="Readonly Input"
+          readonly
+          value="Readonly value"
+        ></plus-input>
+        <plus-input
+          label="Required Input"
+          required
+          placeholder="Required field"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input Sizes</h3>
+      <div class="col">
+        <plus-input
+          label="Small Input"
+          size="sm"
+          placeholder="Small size"
+        ></plus-input>
+        <plus-input
+          label="Medium Input"
+          size="md"
+          placeholder="Medium size"
+        ></plus-input>
+        <plus-input
+          label="Large Input"
+          size="lg"
+          placeholder="Large size"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input Types</h3>
+      <div class="col">
+        <plus-input
+          label="Email Input"
+          type="email"
+          placeholder="Enter email"
+        ></plus-input>
+        <plus-input
+          label="Password Input"
+          type="password"
+          placeholder="Enter password"
+        ></plus-input>
+        <plus-input
+          label="Number Input"
+          type="number"
+          placeholder="Enter number"
+        ></plus-input>
+        <plus-input
+          label="Search Input"
+          type="search"
+          placeholder="Search..."
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input with Icons</h3>
+      <div class="col">
+        <plus-input
+          label="Input with Prefix Icon"
+          prefix-icon="fa-solid fa-user"
+          placeholder="Username"
+        ></plus-input>
+        <plus-input
+          label="Input with Suffix Icon"
+          suffix-icon="fa-solid fa-lock"
+          placeholder="Password"
+        ></plus-input>
+        <plus-input
+          label="Input with Both Icons"
+          prefix-icon="fa-solid fa-envelope"
+          suffix-icon="fa-solid fa-check"
+          placeholder="Email"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input States</h3>
+      <div class="col">
+        <plus-input
+          label="Error Input"
+          error
+          caption="This field has an error"
+          placeholder="Error state"
+        ></plus-input>
+        <plus-input
+          label="Input with Caption"
+          caption="This is a helpful caption"
+          placeholder="With caption"
+        ></plus-input>
+        <plus-input
+          label="Clearable Input"
+          clearable
+          placeholder="Type and clear"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Full Width Input</h3>
+      <div class="col">
+        <plus-input
+          label="Full Width Input"
+          full-width
+          placeholder="This input takes full width"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Form Integration Examples</h3>
+      <form id="loginForm" class="col">
+        <plus-input
+          label="Email"
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        ></plus-input>
+        <plus-input
+          label="Password"
+          type="password"
+          name="password"
+          required
+          password-toggle
+          placeholder="Enter your password"
+          minlength="8"
+        ></plus-input>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        >
+          Login
+        </button>
+      </form>
+
+      <form id="registrationForm" class="col mt-4">
+        <plus-input
+          label="Full Name"
+          name="fullName"
+          required
+          placeholder="Enter your full name"
+          minlength="3"
+        ></plus-input>
+        <plus-input
+          label="Phone Number"
+          type="tel"
+          name="phone"
+          pattern="[0-9]{10}"
+          placeholder="Enter your phone number"
+        ></plus-input>
+        <plus-input
+          label="Age"
+          type="number"
+          name="age"
+          min="18"
+          max="100"
+          placeholder="Enter your age"
+        ></plus-input>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+
+    <script>
+      // Input event handlers
+      document.addEventListener('DOMContentLoaded', () => {
+        const inputs = document.querySelectorAll('plus-input');
+        inputs.forEach((input) => {
+          input.addEventListener('plus-input', (e) => {
+            console.log('Input changed:', {
+              value: e.target.value,
+              name: e.target.name,
+            });
+          });
+
+          input.addEventListener('plus-focus', () => {
+            console.log('Input focused:', input.label);
+          });
+
+          input.addEventListener('plus-blur', () => {
+            console.log('Input blurred:', input.label);
+          });
+
+          input.addEventListener('plus-clear', () => {
+            console.log('Input cleared:', input.label);
+          });
+
+          input.addEventListener('plus-password-toggle', (e) => {
+            console.log('Password visibility toggled:', e.detail.visible);
+          });
+
+          input.addEventListener('plus-invalid', (e) => {
+            console.log('Input invalid:', e.detail);
+          });
+        });
+
+        // Form submission handlers
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const data = {};
+          let isValid = true;
+
+          // Get all plus-input elements in the form
+          const inputs = form.querySelectorAll('plus-input');
+          inputs.forEach((input) => {
+            if (input.name) {
+              data[input.name] = input.value;
+
+              // Use the new reportValidity method to validate
+              if (!input.reportValidity()) {
+                isValid = false;
+              }
+            }
+          });
+
+          console.log('Form is valid:', isValid);
+
+          if (isValid) {
+            console.log('Login form submitted:', data);
+          } else {
+            console.log('Form validation failed');
+          }
+        });
+
+        document
+          .getElementById('registrationForm')
+          .addEventListener('submit', (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const data = {};
+            let isValid = true;
+
+            // Get all plus-input elements in the form
+            const inputs = form.querySelectorAll('plus-input');
+            inputs.forEach((input) => {
+              if (input.name) {
+                data[input.name] = input.value;
+
+                // Use the new reportValidity method to validate
+                if (!input.reportValidity()) {
+                  isValid = false;
+                }
+              }
+            });
+
+            console.log('Form is valid:', isValid);
+
+            if (isValid) {
+              console.log('Registration form submitted:', data);
+            } else {
+              console.log('Form validation failed');
+            }
+          });
+      });
+    </script>
+  </body>
+</html>

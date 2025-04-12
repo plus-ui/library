@@ -36,6 +36,22 @@ const textColorMap = {
 } as const;
 
 export default class PlusButton extends Tailwind {
+  static override styles = [
+    ...Tailwind.styles,
+    css`
+      :host {
+        display: inline-block;
+        height: fit-content;
+        width: fit-content;
+      }
+      .plus-button {
+        border-top-left-radius: var(--border-top-left-radius, 0.375rem);
+        border-top-right-radius: var(--border-top-right-radius, 0.375rem);
+        border-bottom-left-radius: var(--border-bottom-left-radius, 0.375rem);
+        border-bottom-right-radius: var(--border-bottom-right-radius, 0.375rem);
+      }
+    `,
+  ];
   /**
    * Determines the visual style of the button
    * - filled: Solid background color
@@ -112,18 +128,6 @@ export default class PlusButton extends Tailwind {
   private handleBlur() {
     this.emit('plus-blur');
   }
-
-  static override styles = [
-    ...Tailwind.styles,
-    css`
-      .plus-button {
-        border-top-left-radius: var(--border-top-left-radius, 0.375rem);
-        border-top-right-radius: var(--border-top-right-radius, 0.375rem);
-        border-bottom-left-radius: var(--border-bottom-left-radius, 0.375rem);
-        border-bottom-right-radius: var(--border-bottom-right-radius, 0.375rem);
-      }
-    `,
-  ];
 
   override render() {
     const _statusColor = this.disabled ? 'disabled' : this.status;
