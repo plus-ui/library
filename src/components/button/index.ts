@@ -1,5 +1,5 @@
 import { PlusButton } from './button.js';
 
-export type * from './button';
+export * from './button.js';
 
 customElements.define('plus-button', PlusButton);
