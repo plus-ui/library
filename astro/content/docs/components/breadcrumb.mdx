@@ -1,0 +1,230 @@
+---
+title: Breadcrumb
+description: Elevate your user experience to new heights with our Breadcrumb Component, a seamless and intuitive way to guide users through the digital landscape. This feature-rich element, 18 variant component ensures that users never feel lost, offering a clear and concise path back to key pages. Enhance your website's usability and keep your audience engaged effortlessly.
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/breadcrumb/anatomy.png';
+import layoutSpacing from '../../../assets/components/breadcrumb/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/breadcrumb/light-dark-mode.png';
+
+## Anatomy
+
+The Breadcrumb Component comprises a series of clickable links, each representing a step in the user's journey. It typically appears near the top of a webpage, showcasing the hierarchical structure of the site. The links progress from left to right, providing a visual representation of the user's location within the website's content hierarchy.
+
+<Image src={anatomy} alt="Anatomy of Breadcrumb Component" />
+
+## Properties
+
+Customize your Breadcrumb Component with ease! Tailor its appearance and behavior to suit your design requirements. From adjusting link styles to defining separator symbols, our component properties empower you to integrate the breadcrumb seamlessly into your unique design language.
+
+| Separator | Size   |
+| --------- | ------ |
+| Arrow     | Small  |
+| Slash     | Medium |
+|           | Large  |
+
+### Separator
+
+* **The arrow** icon ">", used denote the hierarchy between breadcrumb items.
+* **The slash** icon "/", used as the separator between breadcrumb items
+
+
+
+<EmbedContent url="https://codesandbox.io/embed/6lyxh9?hidenavigation=1&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-breadcrumb separator=">">
+  <plus-link href="#">
+    <i class="fa-solid fa-house-chimney-medical"></i> Dashboard
+  </plus-link>
+  <plus-link href="#">Reports</plus-link>
+  <plus-link href="#">Sales</plus-link>
+  <plus-link href="#">Monthly</plus-link>
+  <plus-link href="#">February</plus-link>
+</plus-breadcrumb>
+
+<plus-breadcrumb separator="/">
+  <plus-link href="#">
+    <i class="fa-solid fa-house-chimney-medical"></i> Home
+  </plus-link>
+  <plus-link href="#">Products</plus-link>
+  <plus-link href="#">Electronics</plus-link>
+  <plus-link href="#">Laptops</plus-link>
+  <plus-link href="#">Dell</plus-link>
+</plus-breadcrumb>
+```
+
+```tsx
+import { PlusBreadcrumb, PlusLink } from '@plusui/react';
+
+export default () => {
+  return <>
+    <PlusBreadcrumb separator=">">
+      <PlusLink href="#">
+        <i className="fa-solid fa-house-chimney-medical"></i> Dashboard
+      </PlusLink>
+      <PlusLink href="#">Reports</PlusLink>
+      <PlusLink href="#">Sales</PlusLink>
+      <PlusLink href="#">Monthly</PlusLink>
+      <PlusLink href="#">February</PlusLink>
+    </PlusBreadcrumb>
+    
+    <PlusBreadcrumb separator="/">
+      <PlusLink href="#">
+        <i className="fa-solid fa-house-chimney-medical"></i> Home
+      </PlusLink>
+      <PlusLink href="#">Products</PlusLink>
+      <PlusLink href="#">Electronics</PlusLink>
+      <PlusLink href="#">Laptops</PlusLink>
+      <PlusLink href="#">Dell</PlusLink>
+    </PlusBreadcrumb>
+  </>;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-breadcrumb separator=">">
+      <plus-link href="#">
+        <i class="fa-solid fa-house-chimney-medical"></i> Dashboard
+      </plus-link>
+      <plus-link href="#">Reports</plus-link>
+      <plus-link href="#">Sales</plus-link>
+      <plus-link href="#">Monthly</plus-link>
+      <plus-link href="#">February</plus-link>
+</plus-breadcrumb>
+
+    <plus-breadcrumb separator="/">
+      <plus-link href="#">
+        <i class="fa-solid fa-house-chimney-medical"></i> Home
+      </plus-link>
+      <plus-link href="#">Products</plus-link>
+      <plus-link href="#">Electronics</plus-link>
+      <plus-link href="#">Laptops</plus-link>
+      <plus-link href="#">Dell</plus-link>
+    </plus-breadcrumb>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-breadcrumb separator=">">
+    <plus-link href="#">
+      <i class="fa-solid fa-house-chimney-medical"></i> Dashboard
+    </plus-link>
+    <plus-link href="#">Reports</plus-link>
+    <plus-link href="#">Sales</plus-link>
+    <plus-link href="#">Monthly</plus-link>
+    <plus-link href="#">Febr</plus-link>
+uary</plus-link>
+</plus-breadcrumb>
+  
+  <plus-breadcrumb separator="/">
+    <plus-link href="#">
+      <i class="fa-solid fa-house-chimney-medical"></i> Home
+    </plus-link>
+    <plus-link href="#">Products</plus-link>
+    <plus-link href="#">Electronics</plus-link>
+    <plus-link href="#">Laptops</plus-link>
+    <plus-link href="#">Dell</plus-link>
+  </plus-breadcrumb>
+</template>
+```
+</code-bubble>
+
+### Size
+
+Our button component supports different sizes such as small, medium, large to fit various design requirements.
+
+<code-bubble class="not-content">
+```html
+<plus-breadcrumb size="sm" separator="/">
+  <plus-link href="#">Home</plus-link>
+  <plus-link href="#">Products</plus-link>
+  <plus-link href="#">Electronics</plus-link>
+  <plus-link href="#">Laptops</plus-link>
+</plus-breadcrumb>
+```
+
+```tsx
+import { PlusBreadcrumb, PlusLink } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusBreadcrumb size="sm" separator="/">
+      <PlusLink href="#">Home</PlusLink>
+      <PlusLink href="#">Products</PlusLink>
+      <PlusLink href="#">Electronics</PlusLink>
+      <PlusLink href="#">Laptops</PlusLink>
+    </PlusBreadcrumb>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-breadcrumb size="sm" separator="/">
+      <plus-link href="#">Home</plus-link>
+      <plus-link href="#">Products</plus-link>
+      <plus-link href="#">Electronics</plus-link>
+      <plus-link href="#">Laptops</plus-link>
+    </plus-breadcrumb>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-breadcrumb size="sm" separator="/">
+    <plus-link href="#">Home</plus-link>
+    <plus-link href="#">Products</plus-link>
+    <plus-link href="#">Electronics</plus-link>
+    <plus-link href="#">Laptops</plus-link>
+  </plus-breadcrumb>
+</template>
+```
+</code-bubble>
+
+## Layout & Spacing
+
+Achieve pixel-perfect precision with our Breadcrumb Component's flexible layout and spacing options. Whether you prefer a compact design or a more spacious arrangement, you have the tools to ensure the component seamlessly integrates into your layout, maintaining visual harmony and balance.
+
+<Image src={layoutSpacing} alt="Layout and Spacing of Breadcrumb Component" />
+
+## Light & Dark Mode
+
+Adapt to your users' preferences effortlessly with our Breadcrumb Component's built-in light and dark mode support. Enhance readability and aesthetics by seamlessly transitioning between these modes, ensuring a cohesive and visually pleasing experience in any lighting condition.
+
+<Image src={lightDarkMode} alt="Light and Dark Mode of Breadcrumb Component" />
+
+## Accessibility
+
+Champion inclusivity with our Breadcrumb Component's commitment to accessibility. Built with industry-leading standards in mind, it ensures a smooth experience for all users, including those with disabilities. Screen reader compatibility, keyboard navigation, and high contrast options are just a few features that make our Breadcrumb Component accessible to everyone.
+
+<table><thead><tr><th>Criteria</th><th width="393">Description</th><th>Status<select><option value="e97a3e7c418846ba82ba0854f38ddd4d" label="✔️ Passed" color="blue"></option><option value="9e9b6ea338a346e4aeeb11bea22d1b6a" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Inline Text Spacing</td><td>Ensure that text spacing set through style attributes can be adjusted with custom stylesheets</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID’s of active elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures links have discernible text</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="9e9b6ea338a346e4aeeb11bea22d1b6a">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API
+
+<table><thead><tr><th width="121">Property</th><th width="248">Description</th><th>Type</th><th width="186">Accepted Values	</th><th>Default</th></tr></thead><tbody><tr><td>separator</td><td>Sets the separator between breadcrumb items</td><td>String</td><td>Any valid string (e.g., "/", "→", ">")</td><td>"/"</td></tr><tr><td>size</td><td>Determines the size of the breadcrumb</td><td>String</td><td>sm, md, lg</td><td>md</td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+

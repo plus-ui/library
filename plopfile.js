@@ -19,7 +19,7 @@ export default function (plop) {
         type: 'input',
         name: 'prefix',
         message: 'What is the prefix for your component? (e.g. my)',
-        default: '',
+        default: 'plus',
       },
     ],
     actions: function (data) {
@@ -59,17 +59,23 @@ export default function (plop) {
           path: `${BASE_PATH}/{{kebabCase name}}.test.ts`,
           templateFile: 'plop-templates/component.test.ts.hbs',
         },
-        // {
-        //   type: 'add',
-        //   skipIfExists: true,
-        //   path: `${BASE_PATH}/{{kebabCase name}}.mdx`,
-        //   templateFile: 'plop-templates/component.docs.hbs',
-        // },
+        {
+          type: 'add',
+          skipIfExists: true,
+          path: `astro/content/docs/components/{{kebabCase name}}.mdx`,
+          templateFile: 'plop-templates/component.docs.hbs',
+        },
         {
           type: 'add',
           skipIfExists: true,
           path: `${BASE_PATH}/index.ts`,
           templateFile: 'plop-templates/component.definition.ts.hbs',
+        },
+        {
+          type: 'add',
+          skipIfExists: true,
+          path: `${BASE_PATH}/{{kebabCase name}}.style.ts`,
+          templateFile: 'plop-templates/component.style.ts.hbs',
         },
         {
           type: 'append',

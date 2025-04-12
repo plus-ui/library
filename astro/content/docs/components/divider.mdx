@@ -1,0 +1,137 @@
+---
+title: Divider
+description: A divider line separates contents each other.
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/divider/anatomy.png';
+import layoutSpacing from '../../../assets/components/divider/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/divider/light-dark-mode.png';
+
+
+A divider component is a fundamental element in user interfaces used to create visual separation and hierarchy within a layout. It serves to improve readability and organization by inserting horizontal or vertical lines or spaces that divide content. Dividers offer a versatile solution to distinguish sections or elements in various design contexts, making interfaces more structured and user-friendly.
+
+## Anatomy
+
+The anatomy of a divider component is simple and consists of a straight line or space that visually separates content. Depending on its properties, dividers can take different forms, such as solid lines, dashed lines, and can be oriented horizontally or vertically. The anatomy of a divider is designed to be minimal and functional, effectively enhancing the organization of content.
+
+<Image src={anatomy} alt="anatomy of divider component" />
+
+## Properties
+
+Divider components come with several properties that enable customization. These properties include the ability to set the line type (default or dashed), specify the orientation (horizontal or vertical), and control the thickness and color of the divider. By adjusting these properties, designers can create dividers that seamlessly integrate with their layout, providing the desired visual separation and structure.
+
+| Kind    | Orientation |
+| ------- | ----------- |
+| Default | Horizontal  |
+| Dashed  | Vertical    |
+
+### Kind
+
+* **Default divider** represents the standard line style, typically a solid and continuous line that visually separates content. It is the default appearance when no specific line style is defined.
+* **Dashed divider** allows you to create a line with a dashed or dotted pattern. This style adds a touch of variation to the divider, providing a different visual effect while still separating content effectively.
+
+<EmbedContent url="https://codesandbox.io/embed/h7w7yq?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-divider kind="solid"></plus-divider>  <!-- Solid divider -->
+<plus-divider kind="dashed"></plus-divider>  <!-- Dashed divider -->
+```
+
+```tsx
+import { PlusDivider } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusDivider kind="solid" />  {/* Solid divider */}
+      <PlusDivider kind="dashed" />  {/* Dashed divider */}
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-divider kind="solid"></plus-divider>
+```
+</code-bubble>
+
+### Orientation
+
+* **Horizontal divider** is useful for dividing content in a left-to-right or right-to-left fashion, enhancing readability and structure in a layout.
+* **Vertical divider** is valuable for dividing content in an up-and-down fashion, improving visual organization and separation within the user interface.
+
+<EmbedContent url="https://codesandbox.io/embed/m73722?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-divider></plus-divider>  <!-- Horizontal divider -->
+<plus-divider orientation="vertical" style="height: 200px;"></plus-divider>  <!-- Vertical divider -->
+```
+
+```tsx
+import { PlusDivider } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusDivider />  {/* Horizontal divider */}
+      <PlusDivider orientation="vertical" style={{ height: '200px' }} />  {/* Vertical divider */}
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-divider></plus-divider>
+    <plus-divider orientation="vertical" style="height: 200px;"></plus-divider>
+  `
+})
+export class AppComponent {}
+```
+</code-bubble>
+
+## Layout & Spacing
+
+The layout and spacing of a divider component play a critical role in enhancing the overall structure and aesthetics of a user interface. Careful consideration of the spacing around dividers ensures that content separation is both visually appealing and functional. By adjusting layout and spacing properties, you can create dividers that harmoniously integrate with your design, providing an organized and polished look to your interface.
+
+<Image src={layoutSpacing} alt="" />
+
+## Light & Dark Mode
+
+Supporting both light and dark modes for the divider component ensures that it seamlessly adapts to various user interface themes and preferences. In light mode, dividers maintain a clean and classic appearance, while in dark mode, they offer a visually pleasing contrast. This flexibility not only aligns with contemporary design trends but also enhances user experience by catering to diverse design choices and accessibility needs, ensuring that your dividers seamlessly fit into any interface.
+
+<Image src={lightDarkMode} alt="" />
+
+## Accessibility
+
+Creating an accessible divider component is crucial for an inclusive user interface. By implementing ARIA roles, labels, and keyboard navigation support, dividers become navigable and comprehensible for users with disabilities. This approach ensures that content separation is clear and meaningful, promoting a user-friendly and inclusive interface.
+
+<table><thead><tr><th width="129.33333333333331">Criteria</th><th width="471">Description</th><th>Status<select><option value="7ad6cf3efa9e418baec32d5ab2c2b018" label="Passed" color="blue"></option><option value="012a297e515542e2975285945195e1b8" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>Inline Text Spacing</td><td>Ensure that text spacing set through style attributes can be adjusted with custom stylesheets</td><td><span data-option="7ad6cf3efa9e418baec32d5ab2c2b018">Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="7ad6cf3efa9e418baec32d5ab2c2b018">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="012a297e515542e2975285945195e1b8">AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API
+
+| Property    | Description | Type   | Accepted Values      | Default    |
+| ----------- | ----------- | ------ | -------------------- | ---------- |
+| orientation | Orientation | String | horizontal, vertical | horizontal |
+| kind        | Kind        | String | solid, dashed        | solid      |
+

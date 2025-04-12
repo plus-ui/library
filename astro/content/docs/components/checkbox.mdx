@@ -1,0 +1,361 @@
+---
+title: Checkbox
+description: Enhance Choices with Stylish Checkboxes
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/checkbox/anatomy.png';
+import layoutSpacing from '../../../assets/components/checkbox/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/checkbox/light-dark-mode.png';
+
+Our checkbox component is a user-friendly and visually intuitive UI element designed to enhance decision-making in your application or website. With a clear and straightforward design, it simplifies binary choices, making interactions smooth and engaging for users.
+
+## Anatomy
+
+The checkbox features a small box with a checkmark or indicator representing its selected state. Accompanied by a label, users interact by clicking or tapping, toggling between selected and unselected states. Its simplicity makes it an effective UI element for binary choices.
+
+<Image src={anatomy} alt="anatomy of checkbox component" />
+
+## Properties
+
+Key properties like "checked" determine the checkbox state, while "disabled" prevents user interaction when activated. The "label" associates descriptive text, enhancing usability. Events such as "change" trigger dynamic responses to user actions, offering developers customization options for functionality and appearance in the interface.
+
+<table><thead><tr><th width="131.33333333333331">Checked</th><th>Indeterminate</th><th>State</th><th>Size</th></tr></thead><tbody><tr><td>True</td><td>True</td><td>Default</td><td>Small</td></tr><tr><td>False</td><td>False</td><td>Hover</td><td>Medium</td></tr><tr><td></td><td></td><td>Press</td><td>Large</td></tr><tr><td></td><td></td><td>Error</td><td></td></tr><tr><td></td><td></td><td>Require</td><td></td></tr><tr><td></td><td></td><td>Read-only</td><td></td></tr><tr><td></td><td></td><td>Disabled</td><td></td></tr></tbody></table>
+
+### Status
+
+* **Default checkbox** is the initial state when the checkbox is rendered, allowing users to make a conscious selection.&#x20;
+* **Checked checkbox** indicates user affirmation or consent and is visually represented by a marked or filled checkbox.&#x20;
+* **Indeterminate checkbox** represents a state where a checkbox's selection status is not explicitly checked or unchecked. It’s often used in scenarios where a checkbox group has a mix of selected and unselected items.
+
+<EmbedContent url="https://codesandbox.io/embed/znggh4?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal checkbox -->
+<plus-checkbox checked>Checkbox</plus-checkbox>  <!-- Checked checkbox -->
+<plus-checkbox indeterminate>Checkbox</plus-checkbox>  <!-- Indeterminate checkbox -->
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusCheckbox>Checkbox</PlusCheckbox>  {/* Normal checkbox */}
+      <PlusCheckbox checked>Checkbox</PlusCheckbox>  {/* Checked checkbox */}
+      <PlusCheckbox indeterminate>Checkbox</PlusCheckbox>  {/* Indeterminate checkbox */}
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal checkbox -->
+    <plus-checkbox checked>Checkbox</plus-checkbox>  <!-- Checked checkbox -->
+    <plus-checkbox indeterminate>Checkbox</plus-checkbox>  <!-- Indeterminate checkbox -->
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal checkbox -->
+  <plus-checkbox checked>Checkbox</plus-checkbox>  <!-- Checked checkbox -->
+  <plus-checkbox indeterminate>Checkbox</plus-checkbox>  <!-- Indeterminate checkbox -->
+</template>
+```
+</code-bubble>
+
+### State
+
+The checkbox supports various visual states, enhancing its adaptability.
+
+* **Default checkbox** is the standard appearance when not interacting.
+* **Hover checkbox** is the visual change that occurs when the user hovers over the checkbox
+* **Press checkbox** is the appearance when the user clicks or taps on the checkbox.
+* **Read-only checkbox** state ensures that users can view the checkbox state but cannot modify it.
+* **Disabled checkbox** state implies that the checkbox is not only non-interactive but also visually subdued to convey its inactive status.
+
+<EmbedContent url="https://codesandbox.io/embed/98zkkf?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal state -->
+<plus-checkbox readonly>Checkbox</plus-checkbox>  <!-- Readonly state -->
+<plus-checkbox disabled>Checkbox</plus-checkbox>  <!-- Disabled state -->
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusCheckbox>Checkbox</PlusCheckbox>  {/* Normal state */}
+      <PlusCheckbox readOnly>Checkbox</PlusCheckbox>  {/* Readonly state */}
+      <PlusCheckbox disabled>Checkbox</PlusCheckbox>  {/* Disabled state */}
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal state -->
+    <plus-checkbox readonly>Checkbox</plus-checkbox>  <!-- Readonly state -->
+    <plus-checkbox disabled>Checkbox</plus-checkbox>  <!-- Disabled state -->
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal state -->
+  <plus-checkbox readonly>Checkbox</plus-checkbox>  <!-- Readonly state -->
+  <plus-checkbox disabled>Checkbox</plus-checkbox>  <!-- Disabled state -->
+</template>
+```
+</code-bubble>
+
+### Size
+
+The size property offers flexibility in design, allowing developers to choose from small, medium, and large checkboxes based on their application's aesthetic and layout preferences.
+
+<EmbedContent url="https://codesandbox.io/embed/8rhhzv?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-checkbox size="sm">Small Checkbox</plus-checkbox>
+<plus-checkbox size="md">Medium Checkbox</plus-checkbox>
+<plus-checkbox size="lg">Large Checkbox</plus-checkbox>
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      <PlusCheckbox size="sm">Small Checkbox</PlusCheckbox>
+      <PlusCheckbox size="md">Medium Checkbox</PlusCheckbox>
+      <PlusCheckbox size="lg">Large Checkbox</PlusCheckbox>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-checkbox size="sm">Small Checkbox</plus-checkbox>
+    <plus-checkbox size="md">Medium Checkbox</plus-checkbox>
+    <plus-checkbox size="lg">Large Checkbox</plus-checkbox>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox size="sm">Small Checkbox</plus-checkbox>
+  <plus-checkbox size="md">Medium Checkbox</plus-checkbox>
+  <plus-checkbox size="lg">Large Checkbox</plus-checkbox>
+</template>
+```
+</code-bubble>
+
+### Status
+
+* Error checkbox  is the visual cue indicating an error state, often accompanied by an error message.
+
+<EmbedContent url="https://codesandbox.io/embed/wmqkcz?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-checkbox required error caption="This is a required field with an error">Checkbox</plus-checkbox>
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusCheckbox required error caption="This is a required field with an error">
+      Checkbox
+    </PlusCheckbox>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-checkbox required error caption="This is a required field with an error">Checkbox</plus-checkbox>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox required error caption="This is a required field with an error">Checkbox</plus-checkbox>
+</template>
+```
+</code-bubble>
+
+### Required
+
+Required checkbox is s state emphasizing the mandatory nature of the checkbox, typically for required fields, with a distinct visual representation.
+
+<EmbedContent url="https://codesandbox.io/embed/nhn2gg?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-checkbox required caption="This is a required field">Checkbox</plus-checkbox>
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusCheckbox required caption="This is a required field">
+      Checkbox
+    </PlusCheckbox>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-checkbox required caption="This is a required field">Checkbox</plus-checkbox>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox required caption="This is a required field">Checkbox</plus-checkbox>
+</template>
+```
+</code-bubble>
+
+### Checkbox Group
+
+The Checkbox Group inherits essential properties from the Checkbox, offering seamless integration and consistent behavior. With two additional properties, vertical and horizontal, customization becomes effortless, allowing you to tailor the layout of your checkbox group according to your design preferences. The power lies in the ability to fine-tune the appearance of each checkbox within the group by leveraging the customizable properties inherited from Plus UI's Checkbox component.
+
+<EmbedContent url="https://codesandbox.io/embed/2sp9qn?hidenavigation=1&module=/index.html&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-checkbox-group label="UI Library Preferences:">
+  <plus-checkbox>Responsive Design</plus-checkbox>
+  <plus-checkbox>Customizable Themes</plus-checkbox>
+  <plus-checkbox>Accessibility Features</plus-checkbox>
+</plus-checkbox-group>
+```
+
+```tsx
+import { PlusCheckboxGroup, PlusCheckbox } from '@plusui/react';
+
+export default () => {
+  return (
+    <PlusCheckboxGroup label="UI Library Preferences:">
+      <PlusCheckbox>Responsive Design</PlusCheckbox>
+      <PlusCheckbox>Customizable Themes</PlusCheckbox>
+      <PlusCheckbox>Accessibility Features</PlusCheckbox>
+    </PlusCheckboxGroup>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-checkbox-group label="UI Library Preferences:">
+      <plus-checkbox>Responsive Design</plus-checkbox>
+      <plus-checkbox>Customizable Themes</plus-checkbox>
+      <plus-checkbox>Accessibility Features</plus-checkbox>
+    </plus-checkbox-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox-group label="UI Library Preferences:">
+    <plus-checkbox>Responsive Design</plus-checkbox>
+    <plus-checkbox>Customizable Themes</plus-checkbox>
+    <plus-checkbox>Accessibility Features</plus-checkbox>
+  </plus-checkbox-group>
+</template>
+```
+</code-bubble>
+
+## Layout & Spacing
+
+The layout and spacing of checkbox components play a crucial role in user interface design. Proper alignment and spacing contribute to a visually organized and intuitive form, reducing clutter and enhancing user experience. Consistency in layout ensures that users can quickly identify and interact with checkboxes, creating a cohesive design.
+
+<Image src={layoutSpacing} alt="layout and spacing of checkbox component" />
+
+## Light & Dark Mode
+
+Checkbox components should seamlessly adapt to both light and dark modes to enhance overall user experience. Considerate color choices and contrast adjustments are essential for maintaining visibility and readability in different lighting conditions. Ensuring a harmonious transition between modes allows users to comfortably engage with checkboxes regardless of the interface's overall theme.
+
+<Image src={lightDarkMode} alt="light and dark mode of checkbox component" />
+
+## Accessibility
+
+Accessibility is paramount in checkbox component design, aiming to make them usable for everyone, including individuals with disabilities. This involves providing clear labels, employing proper focus indicators, ensuring keyboard navigation, and utilizing ARIA roles. By prioritizing accessibility, designers contribute to an inclusive digital environment where all users can engage with checkbox components effortlessly.
+
+<table><thead><tr><th>Criteria</th><th width="393">Description</th><th>Status<select><option value="e97a3e7c418846ba82ba0854f38ddd4d" label="✔️ Passed" color="blue"></option><option value="9e9b6ea338a346e4aeeb11bea22d1b6a" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Inline Text Spacing</td><td>Ensure that text spacing set through style attributes can be adjusted with custom stylesheets</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID’s of active elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures links have discernible text</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="9e9b6ea338a346e4aeeb11bea22d1b6a">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API
+
+| Property      | Description                               | Type      | Default |
+| ------------- | ----------------------------------------- | --------- | ------- |
+| label         | Label of the checkbox                     | `string`  | -       |
+| name          | Name of the checkbox                      | `string`  | -       |
+| value         | Value of the checkbox                     | `string`  | -       |
+| required      | Whether the checkbox is required          | `boolean` | `false` |
+| disabled      | Whether the checkbox is disabled          | `boolean` | `false` |
+| readonly      | Whether the checkbox is readonly          | `boolean` | `false` |
+| checked       | Whether the checkbox is checked           | `boolean` | `false` |
+| indeterminate | Whether the checkbox is indeterminate     | `boolean` | `false` |
+| plus-change   | Emitted when the checked property changes | `event`   | -       |

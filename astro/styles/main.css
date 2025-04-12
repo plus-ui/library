@@ -56,9 +56,11 @@ mark {
 
 a:has(mark) {
   color: var(--sl-color-mark);
+
   &:hover {
     color: var(--sl-color-accent);
-    > mark {
+
+    >mark {
       color: var(--sl-color-accent);
     }
   }
@@ -79,4 +81,34 @@ a:has(mark) {
   --sl-color-text: #d1d5db;
   --sl-color-accent: #93c5fd;
   --sl-color-mark: #d8b4fe;
+}
+
+
+.content-panel+.content-panel {
+  padding: 0.5rem var(--sl-content-pad-x);
+}
+
+.content-panel+.content-panel .sl-container .sl-markdown-content {
+  margin-top: 0.5rem;
+}
+
+code-bubble [slot="preview"] .row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+code-bubble [slot="preview"] .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+code-bubble [slot="preview"] {
+  background-color: var(--plus-color-background-surface);
 }
