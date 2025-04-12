@@ -11,3 +11,4 @@ export * from './radio-group';
 export * from './popover';
 export * from './tooltip';
 export * from './input';
+export * from './popconfirm';
