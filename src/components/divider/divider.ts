@@ -1,6 +1,6 @@
-import { html, css } from 'lit';
+import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
-import { baseDividerStyle } from './divider.style';
+import { baseDividerStyle, dividerStyle } from './divider.style';
 import Tailwind from '../base/tailwind-base';
 
 /**
@@ -55,129 +55,7 @@ export default class PlusDivider extends Tailwind {
   @state()
   hasContent = false;
 
-  static override styles = [
-    ...Tailwind.styles,
-    css`
-      :host {
-        --divider-color: var(--plus-color-background-divider);
-        --divider-thickness-thin: 1px;
-        --divider-thickness-medium: 2px;
-        --divider-thickness-thick: 4px;
-        --divider-spacing: 8px;
-        --divider-type: solid;
-      }
-
-      :host([orientation='horizontal']) {
-        width: 100%;
-        display: block;
-        margin: var(--divider-spacing) 0;
-      }
-
-      :host([orientation='vertical']) {
-        height: 100%;
-        margin: 0 var(--divider-spacing);
-        display: inline-block;
-      }
-
-      // .plus-divider {
-      //   position: relative;
-      //   border: 0;
-      //   margin: 0;
-      // }
-
-      :host([orientation='horizontal']) .plus-divider {
-        height: 0;
-        width: 100%;
-      }
-      :host([orientation='horizontal']) .plus-divider-line {
-        height: 0;
-        width: 100%;
-        border-top-width: var(
-          --divider-thickness,
-          var(--divider-thickness-thin)
-        );
-        border-top-style: var(--divider-type, solid);
-        border-color: var(--divider-color);
-      }
-
-      :host([orientation='vertical']) .plus-divider {
-        width: 0;
-        height: 100%;
-      }
-      :host([orientation='vertical']) .plus-divider-line {
-        width: 0;
-        height: 100%;
-        border-left-width: var(
-          --divider-thickness,
-          var(--divider-thickness-thin)
-        );
-        border-left-style: var(--divider-type, solid);
-        border-color: var(--divider-color);
-        display: inline-block;
-      }
-
-      :host([Kind='dashed'][orientation='horizontal']) .plus-divider-line {
-        border-top-style: dashed;
-      }
-
-      :host([Kind='dotted'][orientation='horizontal']) .plus-divider-line {
-        border-top-style: dotted;
-      }
-
-      :host([Kind='dashed'][orientation='vertical']) .plus-divider-line {
-        border-left-style: dashed;
-      }
-
-      :host([Kind='dotted'][orientation='vertical']) .plus-divider-line {
-        border-left-style: dotted;
-      }
-
-      :host([thickness='thin']) {
-        --divider-thickness: var(--divider-thickness-thin);
-      }
-
-      :host([thickness='medium']) {
-        --divider-thickness: var(--divider-thickness-medium);
-      }
-
-      :host([thickness='thick']) {
-        --divider-thickness: var(--divider-thickness-thick);
-      }
-
-      // /* Styles for divider with content */
-      // :host([has-content]) {
-      //   display: flex;
-      //   align-items: center;
-      //   justify-content: center;
-      // }
-
-      // :host([has-content][orientation='vertical']) {
-      //   flex-direction: column;
-      // }
-
-      // :host([has-content][content-position='left']) .divider-content {
-      //   margin-right: auto;
-      // }
-
-      // :host([has-content][content-position='right']) .divider-content {
-      //   margin-left: auto;
-      // }
-
-      // :host([has-content][orientation='horizontal']) .plus-divider {
-      //   flex-grow: 1;
-      // }
-
-      // :host([has-content][orientation='vertical']) .plus-divider {
-      //   flex-grow: 1;
-      // }
-
-      // .divider-content {
-      //   padding: 0 16px;
-      //   font-size: 14px;
-      //   color: var(--plus-color-text-secondary, #6b7280);
-      // }
-    `,
-  ];
+  static override styles = [...Tailwind.styles, dividerStyle];
 
   handleSlotChange(event: Event) {
     const slot = event.target as HTMLSlotElement;
