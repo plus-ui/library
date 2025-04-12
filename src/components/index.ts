@@ -9,3 +9,4 @@ export * from './alert';
 export * from './radio';
 export * from './radio-group';
 export * from './popover';
+export * from './input';
