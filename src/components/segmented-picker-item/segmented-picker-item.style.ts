@@ -1,8 +1,13 @@
 import { tv } from 'tailwind-variants';
 
 export const segmentedPickerItemStyle = tv({
-  base: 'plus-ui-element p-2 min-w-9 max-h-8 flex flex-row gap-2 items-center cursor-pointer justify-center font-semibold relative text-sm text-color-placeholder select-none',
+  base: 'plus-ui-element p-2 min-w-9 flex flex-row gap-2 items-center cursor-pointer justify-center font-medium relative text-sm text-color-placeholder select-none',
   variants: {
+    size: {
+      sm: 'h-78 text-sm',
+      md: 'h-9 text-base',
+      lg: 'h-11 text-lg',
+    },
     status: {
       default: '',
       primary: '',
@@ -13,7 +18,7 @@ export const segmentedPickerItemStyle = tv({
         'hover:bg-color-default-hovered active:bg-color-default-pressed',
     },
     disabled: {
-      true: 'cursor-not-allowed bg-color-disabled text-color-disabled',
+      true: 'cursor-not-allowed text-color-disabled',
       false: '',
     },
     shape: {
@@ -34,8 +39,10 @@ export const segmentedPickerItemStyle = tv({
     },
   ],
   defaultVariants: {
+    size: 'md',
     status: 'default',
     checked: false,
     disabled: false,
+    shape: 'square',
   },
 });

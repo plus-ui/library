@@ -3,23 +3,70 @@ import { Tailwind } from '../base/tailwind-base';
 import { property, state } from 'lit/decorators.js';
 import { segmentedPickerItemStyle } from './segmented-picker-item.style';
 
+/**
+ * @tag plus-segmented-picker-item
+ * @summary An item component for the segmented picker.
+ *
+ * @slot - The content of the item.
+ *
+ * @csspart label - The label element.
+ * @csspart input - The input element.
+ */
 export default class PlusSegmentedPickerItem extends Tailwind {
+  /**
+   * Whether the item is checked.
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   checked = false;
 
-  @property({ type: String })
+  /**
+   * The status of the item.
+   * @type {'default' | 'primary'}
+   * @default 'default'
+   */
+  @property({ type: String, reflect: true })
   status: 'default' | 'primary' = 'default';
 
+  /**
+   * Whether the item is disabled.
+   * @type {boolean}
+   * @default false
+   */
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  @property({ type: String })
+  /**
+   * The shape of the item.
+   * @type {'square' | 'circle'}
+   * @default 'square'
+   */
+  @property({ type: String, reflect: true })
   shape: 'square' | 'circle' = 'square';
 
-  @property({ type: String })
+  /**
+   * The size of the item.
+   * @type {'sm' | 'md' | 'lg'}
+   * @default 'md'
+   */
+  @property({ type: String, reflect: true })
+  size: 'sm' | 'md' | 'lg' = 'md';
+
+  /**
+   * The name of the group this item belongs to.
+   * @type {string}
+   * @default ''
+   */
+  @property({ type: String, reflect: true })
   groupName = '';
 
-  @property({ type: String })
+  /**
+   * The value of the item.
+   * @type {string}
+   * @default ''
+   */
+  @property({ type: String, reflect: true })
   value = '';
 
   @state()
@@ -59,15 +106,20 @@ export default class PlusSegmentedPickerItem extends Tailwind {
         ?checked=${this.checked}
         ?disabled=${this.disabled}
         @click=${this.handleClick}
+        part="input"
       />
       <label
         for=${id}
         aria-checked=${this.checked}
+        aria-disabled=${this.disabled}
+        role="radio"
+        part="label"
         class=${segmentedPickerItemStyle({
           status: this.status,
           checked: this.checked,
           disabled: this.disabled,
           shape: this.shape,
+          size: this.size,
         })}
         ><slot></slot
       ></label>`;
