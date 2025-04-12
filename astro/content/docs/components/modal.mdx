@@ -1,0 +1,306 @@
+---
+title: Modal
+description: Focus with Clarity Your Gateway to Streamlined Interactions With Modal
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/modal/anatomy.png';
+import layoutSpacing from '../../../assets/components/modal/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/modal/light-dark-mode.png';
+
+## Modal
+
+The Modal Component is a dynamic UI element designed to capture user attention by overlaying the main content. It facilitates focused interactions, such as completing tasks or entering information, by temporarily pausing interaction with the background content. This component is essential for guiding users through specific processes without distractions, making it a cornerstone of effective user interface design.
+
+## Anatomy
+
+The anatomy of a Modal Component typically includes a backdrop that dims the underlying content, a central window that displays the primary content or form, a close button to exit the modal, and may also feature headers and footers for additional information or actions. This structured layout focuses the user's attention on the task at hand.
+
+<Image src={anatomy} alt="anatomy of modal component" />
+
+## Properties
+
+The Modal Component is designed with two distinct sizing properties to ensure flexibility and adaptability in various UI contexts:
+
+| Size   | Modal Size |
+| ------ | ---------- |
+| Small  | XSmall     |
+| Medium | Small      |
+| Large  | Medium     |
+|        | Large      |
+|        |            |
+
+### Size (Component Size within the Modal)
+
+* **Small:** Optimized for minimal content or compact displays.
+* **Medium:** Balances detail and space, suitable for most use cases.
+* **Large:** Provides ample space for complex content or detailed interactions.
+
+<EmbedContent url="https://codesandbox.io/embed/68vsfz?hidenavigation=1&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-button id="open-small">Show Small Modal</plus-button>
+<plus-modal id="small-modal" size="sm">
+  <div slot="header">Small Modal Header</div>
+  <div slot="body">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </div>
+  <div slot="footer">
+    <plus-button id="close-small">Close</plus-button>
+  </div>
+</plus-modal>
+```
+
+```tsx
+import { PlusModal, PlusButton } from '@plusui/react';
+import { useRef } from 'react';
+
+export default () => {
+  const modalRef = useRef();
+
+  const openModal = () => {
+    modalRef.current.show();
+  };
+
+  const closeModal = () => {
+    modalRef.current.hide();
+  };
+
+  return (
+    <>
+      <PlusButton onClick={openModal}>Show Small Modal</PlusButton>
+      <PlusModal ref={modalRef} size="sm">
+        <div slot="header">Small Modal Header</div>
+        <div slot="body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+        <div slot="footer">
+          <PlusButton onClick={closeModal}>Close</PlusButton>
+        </div>
+      </PlusModal>
+    </>
+  );
+};
+```
+
+```ts
+import { Component, ViewChild } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-button (plus-click)="openModal()">Show Small Modal</plus-button>
+    <plus-modal #modal size="sm">
+      <div slot="header">Small Modal Header</div>
+      <div slot="body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </div>
+      <div slot="footer">
+        <plus-button (plus-click)="closeModal()">Close</plus-button>
+      </div>
+    </plus-modal>
+  `
+})
+export class AppComponent {
+  @ViewChild('modal') modal;
+
+  openModal() {
+    this.modal.show();
+  }
+
+  closeModal() {
+    this.modal.hide();
+  }
+}
+```
+
+```vue
+<template>
+  <plus-button @plus-click="openModal">Show Small Modal</plus-button>
+  <plus-modal ref="modal" size="sm">
+    <div slot="header">Small Modal Header</div>
+    <div slot="body">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </div>
+    <div slot="footer">
+      <plus-button @plus-click="closeModal">Close</plus-button>
+    </div>
+  </plus-modal>
+</template>
+
+<script>
+export default {
+  methods: {
+    openModal() {
+      this.$refs.modal.show();
+    },
+    closeModal() {
+      this.$refs.modal.hide();
+    }
+  }
+}
+</script>
+```
+</code-bubble>
+
+### Modal Size (Overall Modal Size)
+
+* **XSmall:** Extremely compact, focusing on the most critical content.
+* **Small:** Slightly larger, offering a bit more space while remaining unobtrusive.
+* **Medium:** A versatile size that accommodates a wide range of content without overwhelming the screen.
+* **Large:** Maximizes space for extensive information, complex forms, or interactive content.
+
+<EmbedContent url="https://codesandbox.io/embed/68vsfz?hidenavigation=1&view=preview" />
+
+<code-bubble class="not-content">
+```html
+<plus-button id="open-large">Show Large Modal</plus-button>
+<plus-modal id="large-modal" size="lg">
+  <div slot="header">Large Modal Header</div>
+  <div slot="body">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </div>
+  <div slot="footer">
+    <plus-button id="close-large">Close</plus-button>
+  </div>
+</plus-modal>
+```
+
+```tsx
+import { PlusModal, PlusButton } from '@plusui/react';
+import { useRef } from 'react';
+
+export default () => {
+  const modalRef = useRef();
+
+  const openModal = () => {
+    modalRef.current.show();
+  };
+
+  const closeModal = () => {
+    modalRef.current.hide();
+  };
+
+  return (
+    <>
+      <PlusButton onClick={openModal}>Show Large Modal</PlusButton>
+      <PlusModal ref={modalRef} size="lg">
+        <div slot="header">Large Modal Header</div>
+        <div slot="body">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+        <div slot="footer">
+          <PlusButton onClick={closeModal}>Close</PlusButton>
+        </div>
+      </PlusModal>
+    </>
+  );
+};
+```
+
+```ts
+import { Component, ViewChild } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-button (plus-click)="openModal()">Show Large Modal</plus-button>
+    <plus-modal #modal size="lg">
+      <div slot="header">Large Modal Header</div>
+      <div slot="body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </div>
+      <div slot="footer">
+        <plus-button (plus-click)="closeModal()">Close</plus-button>
+      </div>
+    </plus-modal>
+  `
+})
+export class AppComponent {
+  @ViewChild('modal') modal;
+
+  openModal() {
+    this.modal.show();
+  }
+
+  closeModal() {
+    this.modal.hide();
+  }
+}
+```
+
+```vue
+<template>
+  <plus-button @plus-click="openModal">Show Large Modal</plus-button>
+  <plus-modal ref="modal" size="lg">
+    <div slot="header">Large Modal Header</div>
+    <div slot="body">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </div>
+    <div slot="footer">
+      <plus-button @plus-click="closeModal">Close</plus-button>
+    </div>
+  </plus-modal>
+</template>
+
+<script>
+export default {
+  methods: {
+    openModal() {
+      this.$refs.modal.show();
+    },
+    closeModal() {
+      this.$refs.modal.hide();
+    }
+  }
+}
+</script>
+```
+</code-bubble>
+
+## Layout & Spacing
+
+The layout and spacing within the Modal Component are crucial for readability and user comfort. Adequate spacing between elements within the modal, as well as between the modal and the edges of the screen, ensures that the content is easy to interact with, without overwhelming the user.
+
+<Image src={layoutSpacing} alt="layout and spacing of modal component" />
+
+## Light & Dark Mode
+
+The Modal Component is designed to seamlessly integrate with both light and dark mode preferences, adapting its color scheme to match the user’s or system's settings. This ensures a consistent and strain-free viewing experience regardless of the ambient lighting conditions or user preferences.
+
+<Image src={lightDarkMode} alt="light and dark mode of modal component" />
+
+## Accessibility
+
+Accessibility features in the Modal Component are paramount, including keyboard navigation for interacting with the modal (such as tabbing through form fields), screen reader support to announce the modal's presence and content, and ARIA roles and properties to denote the modal's status and function. These features ensure that all users, regardless of their abilities, can interact with the modal effectively.
+
+<table><thead><tr><th>Criteria</th><th width="457">Description</th><th>Status<select><option value="rcGSPYrHltvq" label="✔️ Passed" color="blue"></option><option value="uaYYrv4jk6PK" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Attributes</td><td>Ensures ARIA attributes are allowed for an element's role</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ARIA Valid Values</td><td>Ensures all ARIA attributes have valid values</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ARIA Valid Names</td><td>Ensures attributes that begin with aria- are valid ARIA attributes</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures buttons have discernible text</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Nested Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readersor can cause focus problems for assistive technologies</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="uaYYrv4jk6PK">✔️ AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API
+
+| Property | Description                              | Type    | Accepted Values        | Default |
+| -------- | ---------------------------------------- | ------- | ---------------------- | ------- |
+| size     | Determines the size of the modal         | String  | xs, sm, md, lg         | md      |
+| is-open  | Indicates if the modal is open or closed | Boolean | true, false            | false   |
+
+| Method | Description      |
+| ------ | ---------------- |
+| show   | Opens the modal  |
+| hide   | Closes the modal |
+
+| Event                  | Description                          |
+| ---------------------- | ------------------------------------ |
+| plus-modal-before-show | Triggered before the modal is opened |
+| plus-modal-show        | Triggered when the modal is opened   |
+| plus-modal-before-hide | Triggered before the modal is closed |
+| plus-modal-hide        | Triggered when the modal is closed   |
+

@@ -1,0 +1,1108 @@
+---
+title: Radio
+description: Make selection easy with our elegant radio buttons that provide a clear and intuitive experience
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/radio/anatomy.png';
+import layoutSpacing from '../../../assets/components/radio/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/radio/light-dark-mode.png';
+
+Our Radio components provide an intuitive and accessible way for users to select a single option from a set of choices. Designed for mutual exclusivity, the Radio component shines when organized within a RadioGroup, allowing for clear, organized selection in forms, settings, and preference controls.
+
+## Anatomy
+
+The Radio component features a circular button with a distinctive selection indicator and clear label, creating a user-friendly and visually appealing interface for option selection.
+
+<Image src={anatomy} alt="anatomy of radio component" />
+
+## Properties
+
+Radio buttons can be customized with various properties to match your interface needs. From size variations to different states, our Radio component offers flexibility while maintaining consistent behavior.
+
+| Checked | State    | Size   | Error   | Radio Group |
+| ------- | -------- | ------ | ------- | ----------- |
+| True    | Default  | Small  | Default | Horizontal  |
+| False   | Readonly | Medium | Error   | Vertical    |
+|         | Disabled | Large  |         |             |
+
+### Checked
+
+The checked state indicates the user's selection within a group of options:
+
+* **Unchecked radio** represents an unselected option, ready for user interaction
+* **Checked radio** shows the currently selected option with a filled circle
+
+<code-bubble class="not-content">
+
+```html
+<plus-radio-group name="fruits">
+  <plus-radio value="apple" text="Apple" checked></plus-radio>
+  <plus-radio value="orange" text="Orange"></plus-radio>
+  <plus-radio value="banana" text="Banana"></plus-radio>
+</plus-radio-group>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+const RadioExample = () => (
+  <PlusRadioGroup name="fruits">
+    <PlusRadio value="apple" text="Apple" checked />
+    <PlusRadio value="orange" text="Orange" />
+    <PlusRadio value="banana" text="Banana" />
+  </PlusRadioGroup>
+);
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-radio-group name="fruits">
+      <plus-radio value="apple" text="Apple" checked></plus-radio>
+      <plus-radio value="orange" text="Orange"></plus-radio>
+      <plus-radio value="banana" text="Banana"></plus-radio>
+    </plus-radio-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <plus-radio-group name="fruits">
+    <plus-radio value="apple" text="Apple" checked />
+    <plus-radio value="orange" text="Orange" />
+    <plus-radio value="banana" text="Banana" />
+  </plus-radio-group>
+</template>
+```
+</code-bubble>
+
+### State
+
+Radio buttons have different states to communicate their interactivity to users:
+
+* **Default state** is interactive and ready for selection
+* **Readonly state** displays a selection that cannot be changed by users
+* **Disabled state** indicates that the option is not available for selection
+
+<code-bubble class="not-content">
+
+```html
+<div>
+  <!-- Default Radio Group -->
+  <plus-radio-group name="payment">
+    <plus-radio value="credit" text="Credit Card"></plus-radio>
+    <plus-radio value="paypal" text="PayPal" checked></plus-radio>
+    <plus-radio value="bank" text="Bank Transfer"></plusradio>
+  </plus-radio-group>
+</div>
+
+<div>
+  <!-- Readonly Radio Group -->
+  <plus-radio-group name="shipping">
+    <plus-radio value="standard" text="Standard" readonly></plus-radio>
+    <plus-radio value="express" text="Express" readonly checked></plus-radio>
+    <plus-radio value="overnight" text="Overnight" readonly></plus-radio>
+  </plus-radio-group>
+</div>
+
+<div>
+  <!-- Disabled Radio Group -->
+  <plus-radio-group name="subscription" disabled>
+    <plus-radio value="monthly" text="Monthly"></plus-radio>
+    <plus-radio value="yearly" text="Yearly" checked></plus-radio>
+    <plus-radio value="lifetime" text="Lifetime"></plus-radio>
+  </plus-radio-group>
+</div>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Default Radio Group
+const DefaultRadioGroup = () => (
+  <PlusRadioGroup name="payment">
+    <PlusRadio value="credit" text="Credit Card" />
+    <PlusRadio value="paypal" text="PayPal" checked />
+    <PlusRadio value="bank" text="Bank Transfer" />
+  </PlusRadioGroup>
+);
+
+// Readonly Radio Group
+const ReadonlyRadioGroup = () => (
+  <PlusRadioGroup name="shipping">
+    <PlusRadio value="standard" text="Standard" readonly />
+    <PlusRadio value="express" text="Express" readonly checked />
+    <PlusRadio value="overnight" text="Overnight" readonly />
+  </PlusRadioGroup>
+);
+
+// Disabled Radio Group
+const DisabledRadioGroup = () => (
+  <PlusRadioGroup name="subscription" disabled>
+    <PlusRadio value="monthly" text="Monthly" />
+    <PlusRadio value="yearly" text="Yearly" checked />
+    <PlusRadio value="lifetime" text="Lifetime" />
+  </PlusRadioGroup>
+);
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <!-- Default Radio Group -->
+    <plus-radio-group name="payment">
+      <plus-radio value="credit" text="Credit Card"></plus-radio>
+      <plus-radio value="paypal" text="PayPal" checked></plus-radio>
+      <plus-radio value="bank" text="Bank Transfer"></plus-radio>
+    </plus-radio-group>
+
+    <!-- Readonly Radio Group -->
+    <plus-radio-group name="shipping">
+      <plus-radio value="standard" text="Standard" readonly></plus-radio>
+      <plus-radio value="express" text="Express" readonly checked></plus-radio>
+      <plus-radio value="overnight" text="Overnight" readonly></plus-radio>
+    </plus-radio-group>
+
+    <!-- Disabled Radio Group -->
+    <plus-radio-group name="subscription" disabled>
+      <plus-radio value="monthly" text="Monthly"></plus-radio>
+      <plus-radio value="yearly" text="Yearly" checked></plus-radio>
+      <plus-radio value="lifetime" text="Lifetime"></plus-radio>
+    </plus-radio-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <!-- Default Radio Group -->
+  <plus-radio-group name="payment">
+    <plus-radio value="credit" text="Credit Card" />
+    <plus-radio value="paypal" text="PayPal" checked />
+    <plus-radio value="bank" text="Bank Transfer" />
+  </plus-radio-group>
+
+  <!-- Readonly Radio Group -->
+  <plus-radio-group name="shipping">
+    <plus-radio value="standard" text="Standard" readonly />
+    <plus-radio value="express" text="Express" readonly checked />
+    <plus-radio value="overnight" text="Overnight" readonly />
+  </plus-radio-group>
+
+  <!-- Disabled Radio Group -->
+  <plus-radio-group name="subscription" disabled>
+    <plus-radio value="monthly" text="Monthly" />
+    <plus-radio value="yearly" text="Yearly" checked />
+    <plus-radio value="lifetime" text="Lifetime" />
+  </plus-radio-group>
+</template>
+```
+</code-bubble>
+
+### Size
+
+Our Radio component offers three size variants to fit your design requirements:
+
+* **Small (sm)** - Compact radio buttons for space-constrained interfaces
+* **Medium (md)** - Standard size for most use cases (default)
+* **Large (lg)** - Larger radio buttons for improved visibility or touch targets
+
+<code-bubble class="not-content">
+
+```html
+<div>
+  <!-- Small Size Radio Group -->
+  <plus-radio-group name="colors" size="sm">
+    <plus-radio value="red" text="Red"></plus-radio>
+    <plus-radio value="green" text="Green" checked></plus-radio>
+    <plus-radio value="blue" text="Blue"></plus-radio>
+  </plus-radio-group>
+</div>
+
+<div>
+  <!-- Medium Size Radio Group -->
+  <plus-radio-group name="gender" size="md">
+    <plus-radio value="male" text="Male"></plus-radio>
+    <plus-radio value="female" text="Female" checked></plus-radio>
+    <plus-radio value="other" text="Other"></plus-radio>
+  </plus-radio-group>
+</div>
+
+<div>
+  <!-- Large Size Radio Group -->
+  <plus-radio-group name="vehicles" size="lg">
+    <plus-radio value="car" text="Car" checked></plus-radio>
+    <plus-radio value="bike" text="Bike"></plus-radio>
+    <plus-radio value="bus" text="Bus"></plus-radio>
+  </plus-radio-group>
+</div>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Small Size Radio Group
+const SmallRadioGroup = () => (
+  <PlusRadioGroup name="colors" size="sm">
+    <PlusRadio value="red" text="Red" />
+    <PlusRadio value="green" text="Green" checked />
+    <PlusRadio value="blue" text="Blue" />
+  </PlusRadioGroup>
+);
+
+// Medium Size Radio Group
+const MediumRadioGroup = () => (
+  <PlusRadioGroup name="gender" size="md">
+    <PlusRadio value="male" text="Male" />
+    <PlusRadio value="female" text="Female" checked />
+    <PlusRadio value="other" text="Other" />
+  </PlusRadioGroup>
+);
+
+// Large Size Radio Group
+const LargeRadioGroup = () => (
+  <PlusRadioGroup name="vehicles" size="lg">
+    <PlusRadio value="car" text="Car" checked />
+    <PlusRadio value="bike" text="Bike" />
+    <PlusRadio value="bus" text="Bus" />
+  </PlusRadioGroup>
+);
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <!-- Small Size Radio Group -->
+    <plus-radio-group name="colors" size="sm">
+      <plus-radio value="red" text="Red"></plus-radio>
+      <plus-radio value="green" text="Green" checked></plus-radio>
+      <plus-radio value="blue" text="Blue"></plus-radio>
+    </plus-radio-group>
+
+    <!-- Medium Size Radio Group -->
+    <plus-radio-group name="gender" size="md">
+      <plus-radio value="male" text="Male"></plus-radio>
+      <plus-radio value="female" text="Female" checked></plus-radio>
+      <plus-radio value="other" text="Other"></plus-radio>
+    </plus-radio-group>
+
+    <!-- Large Size Radio Group -->
+    <plus-radio-group name="vehicles" size="lg">
+      <plus-radio value="car" text="Car" checked></plus-radio>
+      <plus-radio value="bike" text="Bike"></plus-radio>
+      <plus-radio value="bus" text="Bus"></plus-radio>
+    </plus-radio-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <!-- Small Size Radio Group -->
+  <plus-radio-group name="colors" size="sm">
+    <plus-radio value="red" text="Red" />
+    <plus-radio value="green" text="Green" checked />
+    <plus-radio value="blue" text="Blue" />
+  </plus-radio-group>
+
+  <!-- Medium Size Radio Group -->
+  <plus-radio-group name="gender" size="md">
+    <plus-radio value="male" text="Male" />
+    <plus-radio value="female" text="Female" checked />
+    <plus-radio value="other" text="Other" />
+  </plus-radio-group>
+
+  <!-- Large Size Radio Group -->
+  <plus-radio-group name="vehicles" size="lg">
+    <plus-radio value="car" text="Car" checked />
+    <plus-radio value="bike" text="Bike" />
+    <plus-radio value="bus" text="Bus" />
+  </plus-radio-group>
+</template>
+```
+</code-bubble>
+
+### Error State
+
+The error state is useful for form validation to indicate when a selection is required but not made:
+
+* **Default state** shows the radio buttons normally
+* **Error state** highlights the radio buttons with a warning style
+
+<code-bubble class="not-content">
+
+```html
+<!-- Normal Radio Group -->
+<plus-radio-group name="fruits" label="Select a fruit">
+  <plus-radio value="apple" text="Apple"></plus-radio>
+  <plus-radio value="orange" text="Orange"></plus-radio>
+  <plus-radio value="banana" text="Banana"></plus-radio>
+</plus-radio-group>
+
+<!-- Error Radio Group -->
+<plus-radio-group name="required-fruit" label="You must select a fruit" error>
+  <plus-radio value="apple" text="Apple"></plus-radio>
+  <plus-radio value="orange" text="Orange"></plus-radio>
+  <plus-radio value="banana" text="Banana"></plus-radio>
+</plus-radio-group>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Normal Radio Group
+const NormalRadioGroup = () => (
+  <PlusRadioGroup name="fruits" label="Select a fruit">
+    <PlusRadio value="apple" text="Apple" />
+    <PlusRadio value="orange" text="Orange" />
+    <PlusRadio value="banana" text="Banana" />
+  </PlusRadioGroup>
+);
+
+// Error Radio Group
+const ErrorRadioGroup = () => (
+  <PlusRadioGroup name="required-fruit" label="You must select a fruit" error>
+    <PlusRadio value="apple" text="Apple" />
+    <PlusRadio value="orange" text="Orange" />
+    <PlusRadio value="banana" text="Banana" />
+  </PlusRadioGroup>
+);
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <!-- Normal Radio Group -->
+    <plus-radio-group name="fruits" label="Select a fruit">
+      <plus-radio value="apple" text="Apple"></plus-radio>
+      <plus-radio value="orange" text="Orange"></plus-radio>
+      <plus-radio value="banana" text="Banana"></plus-radio>
+    </plus-radio-group>
+
+    <!-- Error Radio Group -->
+    <plus-radio-group name="required-fruit" label="You must select a fruit" error>
+      <plus-radio value="apple" text="Apple"></plus-radio>
+      <plus-radio value="orange" text="Orange"></plus-radio>
+      <plus-radio value="banana" text="Banana"></plus-radio>
+    </plus-radio-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <!-- Normal Radio Group -->
+  <plus-radio-group name="fruits" label="Select a fruit">
+    <plus-radio value="apple" text="Apple" />
+    <plus-radio value="orange" text="Orange" />
+    <plus-radio value="banana" text="Banana" />
+  </plus-radio-group>
+
+  <!-- Error Radio Group -->
+  <plus-radio-group name="required-fruit" label="You must select a fruit" error>
+    <plus-radio value="apple" text="Apple" />
+    <plus-radio value="orange" text="Orange" />
+    <plus-radio value="banana" text="Banana" />
+  </plus-radio-group>
+</template>
+```
+</code-bubble>
+
+## Radio Group
+
+The RadioGroup component is essential for organizing related radio buttons. It manages the selection state, ensuring only one radio button is selected at a time, and provides form integration.
+
+### Orientation
+
+RadioGroup can be arranged horizontally or vertically to suit your layout needs:
+
+* **Horizontal** - Radio buttons appear side by side (default)
+* **Vertical** - Radio buttons stack on top of each other
+
+<code-bubble class="not-content">
+
+```html
+<div>
+  <!-- Horizontal Radio Group -->
+  <plus-radio-group name="horizontal-example" orientation="horizontal" label="Select an option">
+    <plus-radio value="option1" text="Option 1"></plus-radio>
+    <plus-radio value="option2" text="Option 2" checked></plus-radio>
+    <plus-radio value="option3" text="Option 3"></plus-radio>
+  </plus-radio-group>
+</div>
+<div>
+  <!-- Vertical Radio Group -->
+  <plus-radio-group name="vertical-example" orientation="vertical" label="Select an option">
+    <plus-radio value="option1" text="Option 1"></plus-radio>
+    <plus-radio value="option2" text="Option 2" checked></plus-radio>
+    <plus-radio value="option3" text="Option 3"></plus-radio>
+  </plus-radio-group>
+</div>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+// Horizontal Radio Group
+const HorizontalRadioGroup = () => (
+  <PlusRadioGroup name="horizontal-example" orientation="horizontal" label="Select an option">
+    <PlusRadio value="option1" text="Option 1" />
+    <PlusRadio value="option2" text="Option 2" checked />
+    <PlusRadio value="option3" text="Option 3" />
+  </PlusRadioGroup>
+);
+
+// Vertical Radio Group
+const VerticalRadioGroup = () => (
+  <PlusRadioGroup name="vertical-example" orientation="vertical" label="Select an option">
+    <PlusRadio value="option1" text="Option 1" />
+    <PlusRadio value="option2" text="Option 2" checked />
+    <PlusRadio value="option3" text="Option 3" />
+  </PlusRadioGroup>
+);
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <!-- Horizontal Radio Group -->
+    <plus-radio-group name="horizontal-example" orientation="horizontal" label="Select an option">
+      <plus-radio value="option1" text="Option 1"></plus-radio>
+      <plus-radio value="option2" text="Option 2" checked></plus-radio>
+      <plus-radio value="option3" text="Option 3"></plus-radio>
+    </plus-radio-group>
+
+    <!-- Vertical Radio Group -->
+    <plus-radio-group name="vertical-example" orientation="vertical" label="Select an option">
+      <plus-radio value="option1" text="Option 1"></plus-radio>
+      <plus-radio value="option2" text="Option 2" checked></plus-radio>
+      <plus-radio value="option3" text="Option 3"></plus-radio>
+    </plus-radio-group>
+  `
+})
+export class AppComponent {}
+```
+
+```vue
+<template>
+  <!-- Horizontal Radio Group -->
+  <plus-radio-group name="horizontal-example" orientation="horizontal" label="Select an option">
+    <plus-radio value="option1" text="Option 1" />
+    <plus-radio value="option2" text="Option 2" checked />
+    <plus-radio value="option3" text="Option 3" />
+  </plus-radio-group>
+
+  <!-- Vertical Radio Group -->
+  <plus-radio-group name="vertical-example" orientation="vertical" label="Select an option">
+    <plus-radio value="option1" text="Option 1" />
+    <plus-radio value="option2" text="Option 2" checked />
+    <plus-radio value="option3" text="Option 3" />
+  </plus-radio-group>
+</template>
+```
+</code-bubble>
+
+### Form Integration
+
+The RadioGroup component seamlessly integrates with forms, providing automatic value handling for easy form submissions. When a radio option is selected, its value is accessible both for form submission and for dynamic UI updates.
+
+<code-bubble class="not-content">
+
+```html
+<div id="radio-form-example">
+  <form id="preferences-form">
+    <plus-radio-group name="theme" label="Select a theme" required>
+      <plus-radio value="light" text="Light" checked></plus-radio>
+      <plus-radio value="dark" text="Dark"></plus-radio>
+      <plus-radio value="system" text="System"></plus-radio>
+    </plus-radio-group>
+    <div class="result-display">Selected theme: <span id="selected-theme">light</span></div>
+    <button type="button" id="submit-button">Save Preferences</button>
+  </form>
+
+  <div id="submission-result" class="submission-result"></div>
+
+  <script>
+    /* Global function that runs immediately when the script loads */
+    (function() {
+      /* Get DOM elements */
+      const form = document.getElementById('preferences-form');
+      const radioGroup = form.querySelector('plus-radio-group[name="theme"]');
+      const resultDisplay = document.getElementById('selected-theme');
+      const submitButton = document.getElementById('submit-button');
+      const submissionResult = document.getElementById('submission-result');
+      
+      /* Initialize with the default checked value */
+      if (resultDisplay && radioGroup) {
+        resultDisplay.textContent = radioGroup.value || 'light';
+        
+        /* Update the display when selection changes */
+        radioGroup.addEventListener('plus-group-change', (event) => {
+          resultDisplay.textContent = event.detail.value;
+        });
+      }
+      
+      /* Add click event handler to the submit button */
+      if (submitButton) {
+        submitButton.addEventListener('click', () => {
+          /* Get the form data */
+          const formData = new FormData(form);
+          const theme = formData.get('theme');
+          
+          /* Display the submission result */
+          if (submissionResult) {
+            submissionResult.textContent = `Form submitted with theme: ${theme}`;
+            submissionResult.style.display = 'block';
+          }
+          
+          console.log(`Form submitted with theme: ${theme}`);
+        });
+      }
+    })();
+  </script>
+
+  <style>
+    .result-display, .submission-result {
+      margin: 10px 0;
+      padding: 8px;
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .submission-result {
+      background-color: #e6f7e6;
+      display: none;
+    }
+  </style>
+</div>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+import { FormEvent, useState } from 'react';
+
+const PreferencesForm = () => {
+  const [selectedTheme, setSelectedTheme] = useState('light');
+  
+  const handleChange = (event: CustomEvent) => {
+    setSelectedTheme(event.detail.value);
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const theme = formData.get('theme');
+    console.log(`Form submitted with theme: ${theme}`);
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <PlusRadioGroup 
+          name="theme" 
+          label="Select a theme" 
+          required 
+          onPlusGroupChange={handleChange}
+          value={selectedTheme}
+        >
+          <PlusRadio value="light" text="Light" checked />
+          <PlusRadio value="dark" text="Dark" />
+          <PlusRadio value="system" text="System" />
+        </PlusRadioGroup>
+        <div className="result-display">
+          Selected theme: <span>{selectedTheme}</span>
+        </div>
+        <button type="submit">Save Preferences</button>
+      </form>
+    </div>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div>
+      <form (ngSubmit)="onSubmit()" #preferencesForm="ngForm">
+        <plus-radio-group 
+          name="theme" 
+          label="Select a theme" 
+          required
+          (plus-group-change)="handleChange($event)"
+        >
+          <plus-radio value="light" text="Light" checked></plus-radio>
+          <plus-radio value="dark" text="Dark"></plus-radio>
+          <plus-radio value="system" text="System"></plus-radio>
+        </plus-radio-group>
+        <div class="result-display">
+          Selected theme: <span>{{ selectedTheme }}</span>
+        </div>
+        <button type="submit">Save Preferences</button>
+      </form>
+    </div>
+  `
+})
+export class AppComponent {
+  selectedTheme: string = 'light';
+  
+  handleChange(event: CustomEvent) {
+    this.selectedTheme = event.detail.value;
+  }
+  
+  onSubmit() {
+    const formData = new FormData(document.querySelector('form'));
+    const theme = formData.get('theme');
+    console.log(`Form submitted with theme: ${theme}`);
+  }
+}
+```
+
+```vue
+<template>
+  <div>
+    <form @submit.prevent="onSubmit">
+      <plus-radio-group 
+        name="theme" 
+        label="Select a theme" 
+        required
+        @plus-group-change="handleChange"
+      >
+        <plus-radio value="light" text="Light" checked />
+        <plus-radio value="dark" text="Dark" />
+        <plus-radio value="system" text="System" />
+      </plus-radio-group>
+      <div class="result-display">
+        Selected theme: <span>{{ selectedTheme }}</span>
+      </div>
+      <button type="submit">Save Preferences</button>
+    </form>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedTheme: 'light'
+    }
+  },
+  methods: {
+    handleChange(event) {
+      this.selectedTheme = event.detail.value;
+    },
+    onSubmit() {
+      const formData = new FormData(this.$el.querySelector('form'));
+      const theme = formData.get('theme');
+      console.log(`Form submitted with theme: ${theme}`);
+    }
+  }
+}
+</script>
+
+<style>
+.result-display {
+  margin: 10px 0;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  font-family: monospace;
+}
+</style>
+```
+</code-bubble>
+
+In this example:
+
+1. We use a self-executing anonymous function (`(function(){})()`) to avoid polluting the global scope
+2. We select all required DOM elements using proper selectors
+3. The button now has a type="button" to prevent form submission and uses an event listener instead of an inline onclick
+4. We've added null checks for each DOM element to ensure code robustness
+
+This approach creates a more self-contained example that doesn't rely on global functions, making it more likely to work correctly in documentation environments.
+
+### Event Handling
+
+Radio and RadioGroup components emit events when their selection changes:
+
+<code-bubble class="not-content">
+
+```html
+<plus-radio-group id="language-group" name="language" label="Select a programming language">
+  <plus-radio value="javascript" text="JavaScript"></plus-radio>
+  <plus-radio value="python" text="Python"></plus-radio>
+  <plus-radio value="java" text="Java"></plus-radio>
+</plus-radio-group>
+
+<script>
+  const radioGroup = document.getElementById('language-group');
+  radioGroup.addEventListener('plus-group-change', (event) => {
+    /* Log the selected language value from the event detail */
+    console.log(`Selected language: ${event.detail.value}`);
+  });
+</script>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+
+const LanguageSelector = () => {
+  const handleChange = (event: CustomEvent) => {
+    console.log(`Selected language: ${event.detail.value}`);
+  };
+
+  return (
+    <PlusRadioGroup name="language" label="Select a programming language" onPlusGroupChange={handleChange}>
+      <PlusRadio value="javascript" text="JavaScript" />
+      <PlusRadio value="python" text="Python" />
+      <PlusRadio value="java" text="Java" />
+    </PlusRadioGroup>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <plus-radio-group name="language" label="Select a programming language" (plus-group-change)="handleChange($event)">
+      <plus-radio value="javascript" text="JavaScript"></plus-radio>
+      <plus-radio value="python" text="Python"></plus-radio>
+      <plus-radio value="java" text="Java"></plus-radio>
+    </plus-radio-group>
+  `
+})
+export class AppComponent {
+  handleChange(event: CustomEvent) {
+    console.log(`Selected language: ${event.detail.value}`);
+  }
+}
+```
+
+```vue
+<template>
+  <plus-radio-group name="language" label="Select a programming language" @plus-group-change="handleChange">
+    <plus-radio value="javascript" text="JavaScript" />
+    <plus-radio value="python" text="Python" />
+    <plus-radio value="java" text="Java" />
+  </plus-radio-group>
+</template>
+
+<script>
+export default {
+  methods: {
+    handleChange(event) {
+      console.log(`Selected language: ${event.detail.value}`);
+    }
+  }
+}
+</script>
+```
+</code-bubble>
+
+### Required Radio Group
+
+When form validation is important, you can mark a RadioGroup as required:
+
+<code-bubble class="not-content">
+
+```html
+<div id="survey-form-example">
+  <form id="survey-form">
+    <plus-radio-group name="experience" label="Rate your experience" required>
+      <plus-radio value="excellent" text="Excellent"></plus-radio>
+      <plus-radio value="good" text="Good"></plus-radio>
+      <plus-radio value="average" text="Average"></plus-radio>
+      <plus-radio value="poor" text="Poor"></plus-radio>
+    </plus-radio-group>
+    <div id="survey-error" class="error-message" style="display: none;">Please rate your experience</div>
+    <button type="button" id="submit-survey-button">Submit</button>
+  </form>
+  
+  <div id="survey-result" class="survey-result"></div>
+  
+  <script>
+    /* Self-executing function to avoid global scope pollution */
+    (function() {
+      /* Get all needed elements */
+      const form = document.getElementById('survey-form');
+      const radioGroup = form.querySelector('plus-radio-group[name="experience"]');
+      const errorMessage = document.getElementById('survey-error');
+      const submitButton = document.getElementById('submit-survey-button');
+      const resultDisplay = document.getElementById('survey-result');
+      
+      /* Add click handler to submit button */
+      if (submitButton) {
+        submitButton.addEventListener('click', () => {
+          /* Get the form data */
+          const formData = new FormData(form);
+          const experience = formData.get('experience');
+          
+          /* Validate the selection */
+          if (!experience) {
+            if (errorMessage) {
+              errorMessage.style.display = 'block';
+            }
+            if (radioGroup) {
+              radioGroup.error = true;
+            }
+          } else {
+            /* Show success and hide error */
+            if (errorMessage) {
+              errorMessage.style.display = 'none';
+            }
+            if (radioGroup) {
+              radioGroup.error = false;
+            }
+            
+            /* Display the submission result */
+            if (resultDisplay) {
+              resultDisplay.textContent = `Thanks for your feedback! You rated your experience as: ${experience}`;
+              resultDisplay.style.display = 'block';
+            }
+            
+            console.log(`Survey submitted with experience rating: ${experience}`);
+          }
+        });
+      }
+    })();
+  </script>
+  
+  <style>
+    .error-message {
+      color: #d32f2f;
+      margin-top: 8px;
+      font-size: 0.875rem;
+    }
+    .survey-result {
+      margin-top: 16px;
+      padding: 12px;
+      background-color: #e8f5e9;
+      border-radius: 4px;
+      color: #2e7d32;
+      display: none;
+    }
+  </style>
+</div>
+```
+
+```tsx
+import { PlusRadioGroup, PlusRadio } from '@plusui/react';
+import { FormEvent, useState } from 'react';
+
+const SurveyForm = () => {
+  const [error, setError] = useState(false);
+  
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    if (!formData.get('experience')) {
+      setError(true);
+    } else {
+      setError(false);
+      console.log('Form submitted');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <PlusRadioGroup name="experience" label="Rate your experience" required error={error}>
+        <PlusRadio value="excellent" text="Excellent" />
+        <PlusRadio value="good" text="Good" />
+        <PlusRadio value="average" text="Average" />
+        <PlusRadio value="poor" text="Poor" />
+      </PlusRadioGroup>
+      {error && <p className="error-message">Please rate your experience</p>}
+      <button type="submit">Submit</button>
+    </form>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <form (ngSubmit)="onSubmit()" #surveyForm="ngForm">
+      <plus-radio-group name="experience" label="Rate your experience" required [error]="showError">
+        <plus-radio value="excellent" text="Excellent"></plus-radio>
+        <plus-radio value="good" text="Good"></plus-radio>
+        <plus-radio value="average" text="Average"></plus-radio>
+        <plus-radio value="poor" text="Poor"></plus-radio>
+      </plus-radio-group>
+      <p *ngIf="showError" class="error-message">Please rate your experience</p>
+      <button type="submit">Submit</button>
+    </form>
+  `
+})
+export class AppComponent {
+  showError = false;
+  
+  onSubmit() {
+    const formData = new FormData(document.querySelector('form'));
+    if (!formData.get('experience')) {
+      this.showError = true;
+    } else {
+      this.showError = false;
+      console.log('Form submitted');
+    }
+  }
+}
+```
+
+```vue
+<template>
+  <form @submit.prevent="onSubmit">
+    <plus-radio-group name="experience" label="Rate your experience" required :error="showError">
+      <plus-radio value="excellent" text="Excellent" />
+      <plus-radio value="good" text="Good" />
+      <plus-radio value="average" text="Average" />
+      <plus-radio value="poor" text="Poor" />
+    </plus-radio-group>
+    <p v-if="showError" class="error-message">Please rate your experience</p>
+    <button type="submit">Submit</button>
+  </form>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      showError: false
+    }
+  },
+  methods: {
+    onSubmit() {
+      const formData = new FormData(this.$el);
+      const theme = formData.get('theme');
+      console.log(`Selected theme: ${theme}`);
+    }
+  }
+}
+</script>
+```
+</code-bubble>
+
+## Layout & Spacing
+
+Our radio component prioritizes thoughtful layout and spacing, contributing to an organized and visually cohesive form. Consistent alignment ensures an aesthetically pleasing design, enhancing the overall user experience during option selection.
+
+<Image src={layoutSpacing} alt="layout and spacing of radio component" />
+
+## Light & Dark Mode
+
+Seamlessly adapting to both light and dark modes, our radio component ensures optimal visibility and readability in diverse lighting conditions. Careful consideration of color choices and contrast adjustments guarantees a comfortable and stylish user experience, irrespective of the interface theme.
+
+<Image src={lightDarkMode} alt="light and dark mode of radio component" />
+
+## Accessibility
+
+Built with accessibility at the forefront, our radio component incorporates features such as clear labels, logical tab order, keyboard navigation, and appropriate ARIA roles. This commitment to accessibility ensures that the component is usable by all, including those with disabilities, fostering inclusivity in the digital environment.
+
+<table><thead><tr><th width="141">Criteria</th><th width="490">Description</th><th>Status<select><option value="10406b35fd6e4aad840861d3df9eb611" label="Passed" color="blue"></option><option value="9b293fa058a34116b524593358290696" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ID Attribute</td><td>Ensures every id attribute value used in ARIA and in labels is unique</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>ID Attribute Value</td><td>Ensures every id attribute value is unique</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Form fields</td><td>Ensures form field does not have multiple label elements</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Form elements</td><td>Ensures that every form element has a visible label and is not solely labeled using hidden labels,or the title or aria-describedby attributes</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readersor can cause focus problems for assistive technologies</td><td><span data-option="10406b35fd6e4aad840861d3df9eb611">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="9b293fa058a34116b524593358290696">AA ~ AAA</span></td></tr></tbody></table>
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
+
+## API
+
+### Plus-Radio
+
+| Property  | Description                                      | Type     | Accepted Values        | Default   |
+| --------- | ------------------------------------------------ | -------- | ---------------------- | --------- |
+| size      | Sets the size of the radio button                | String   | `sm`, `md`, `lg`       | `md`      |
+| text      | Text label displayed next to the radio           | String   | Any valid string       | `null`    |
+| checked   | Indicates if the radio button is selected        | Boolean  | `true`, `false`        | `false`   |
+| error     | Displays the radio in an error state             | Boolean  | `true`, `false`        | `false`   |
+| disabled  | Makes the radio button non-interactive           | Boolean  | `true`, `false`        | `false`   |
+| readonly  | Makes the radio read-only but still visible      | Boolean  | `true`, `false`        | `false`   |
+| name      | Name attribute used for form submission          | String   | Any valid string       | `''`      |
+| required  | Indicates if the radio is required               | Boolean  | `true`, `false`        | `false`   |
+| value     | Value submitted with forms when selected         | String   | Any valid string       | `''`      |
+
+### Events
+
+| Event         | Description                            | Detail                                      |
+| ------------- | -------------------------------------- | ------------------------------------------- |
+| plus-change   | Emitted when the radio state changes   | `{ checked: boolean, value: string, name: string }` |
+| plus-focus    | Emitted when the radio gains focus     | -                                           |
+| plus-blur     | Emitted when the radio loses focus     | -                                           |
+
+### Slots
+
+| Name      | Description                               |
+| --------- | ----------------------------------------- |
+| default   | Content displayed as the radio label      |
+
+### Plus-Radio-Group
+
+| Property    | Description                                       | Type     | Accepted Values          | Default      |
+| ----------- | ------------------------------------------------- | -------- | ------------------------ | ------------ |
+| orientation | Determines if the group is horizontal or vertical | String   | `horizontal`, `vertical` | `horizontal` |
+| size        | Sets the size of the radio group                  | String   | `sm`, `md`, `lg`         | `md`         |
+| label       | The label for the radio group                     | String   | Any valid string         | `null`       |
+| caption     | Additional text or description for the group      | String   | Any valid string         | `null`       |
+| error       | Indicates if the group has an error               | Boolean  | `true`, `false`          | `false`      |
+| required    | Indicates if the group has required fields        | Boolean  | `true`, `false`          | `false`      |
+| name        | Form input name attribute for the radio group     | String   | Any valid string         | `''`         |
+| value       | Current selected value of the radio group         | String   | Any valid string         | `''`         |
+| disabled    | Disables all radio buttons in the group           | Boolean  | `true`, `false`          | `false`      |
+
+### Events
+
+| Event             | Description                                  | Detail                             |
+| ----------------- | -------------------------------------------- | ---------------------------------- |
+| plus-group-change | Emitted when the radio selection changes     | `{ value: string, name: string }`  |
+
+### CSS Parts
+
+| Name     | Description                                |
+| -------- | ------------------------------------------ |
+| base     | The component's base wrapper               |
+
+### CSS Custom Properties
+
+| Property         | Description                              |
+| ---------------- | ---------------------------------------- |
+| --text-color     | Controls the text color                  |
+| --border-color   | Controls the border color                |
+| --bg-default     | Controls the default background color    |
+| --bg-hovered     | Controls the hovered background color    |
+| --bg-pressed     | Controls the pressed background color    |
+| --bg-focused     | Controls the focused background color    |
+| --bg-checked     | Controls the checked dot color           |
+
+
+
