@@ -8,6 +8,7 @@ export * from './link';
 export * from './alert';
 export * from './radio';
 export * from './radio-group';
+export * from './divider';
 export * from './popover';
 export * from './tooltip';
 export * from './input';

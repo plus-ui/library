@@ -66,6 +66,9 @@ module.exports = {
           surface: 'var(--plus-color-background-surface)',
           disabled: 'var(--plus-color-background-disabled-default)',
           transparent: 'var(--plus-color-background-transparent)',
+          divider: 'var(--plus-color-background-divider)',
+          modal: 'var(--plus-color-background-modal)',
+
           default: {
             default: 'var(--plus-color-background-default-default)',
             hovered: 'var(--plus-color-background-default-hovered)',
