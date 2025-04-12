@@ -2,6 +2,32 @@ import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { html, css } from 'lit';
 import { tagStyle } from './tag.style';
+import { styleMap } from 'lit/directives/style-map.js';
+
+/**
+ * @tag plus-tag
+ * @since 0.0.0
+ * @status experimental
+ *
+ * PlusTag component provides a versatile tag element for displaying status, labels, and categories.
+ * Supports different visual styles, sizes, and states.
+ *
+ * @slot - Default slot for tag content (text, icons, etc.)
+ *
+ * @csspart tag - The component's base wrapper
+ *
+ * @cssproperty --text-color - Controls the text color of the tag
+ * @cssproperty --border-color - Controls the border color of the tag
+ * @cssproperty --bg-default - Controls the default background color
+ */
+const textColorMap = {
+  default: 'default',
+  primary: 'base',
+  success: 'base',
+  warning: 'base',
+  danger: 'base',
+  info: 'base',
+} as const;
 
 /**
  * A versatile tag component for displaying status, labels, and categories
@@ -20,8 +46,6 @@ import { tagStyle } from './tag.style';
  *
  * @attribute {string} aria-label - Accessible label for the tag (falls back to text content)
  * @attribute {string} role - ARIA role (defaults to "status")
- *
- * @slot - Default slot for tag content (text, icons, etc.)
  *
  * @example
  * ```html
@@ -57,18 +81,6 @@ import { tagStyle } from './tag.style';
  */
 
 export default class PlusTag extends Tailwind {
-  @property({ type: String })
-  status: 'success' | 'warning' | 'error' | 'info' | 'default' = 'default';
-
-  @property({ type: String })
-  size: 'sm' | 'md' | 'lg' = 'md';
-
-  @property({ type: Boolean, converter: value => value != 'false' })
-  invert = false;
-
-  @property({ type: String })
-  radius: 'full' | 'medium' | 'none' = 'full';
-
   static override styles = [
     ...Tailwind.styles,
     css`
@@ -77,11 +89,50 @@ export default class PlusTag extends Tailwind {
         position: relative;
         width: fit-content;
         height: fit-content;
-        --tag-bg-color: var(--plus-color-background-neutral-default);
-        --tag-text-color: var(--plus-color-text-default);
       }
     `,
   ];
+
+  /**
+   * Sets the status/color variant of the tag
+   * - default: Neutral color scheme
+   * - primary: Brand color scheme
+   * - success: Green color scheme
+   * - warning: Yellow color scheme
+   * - danger: Red color scheme
+   * - info: Blue color scheme
+   * @default 'default'
+   */
+  @property({ type: String })
+  status: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' =
+    'default';
+
+  /**
+   * Sets the size of the tag
+   * - sm: Small size
+   * - md: Medium size
+   * - lg: Large size
+   * @default 'md'
+   */
+  @property({ type: String })
+  size: 'sm' | 'md' | 'lg' = 'md';
+
+  /**
+   * Toggles between light/dark color themes
+   * @default false
+   */
+  @property({ type: Boolean, converter: (value) => value != 'false' })
+  invert = false;
+
+  /**
+   * Sets the border radius style
+   * - full: Pill shape
+   * - medium: Rounded corners
+   * - none: Square corners
+   * @default 'full'
+   */
+  @property({ type: String })
+  radius: 'full' | 'medium' | 'none' = 'full';
 
   constructor() {
     super();
@@ -92,6 +143,30 @@ export default class PlusTag extends Tailwind {
   }
 
   override render() {
+    const getColorVariables = () => {
+      if (this.invert) {
+        return {
+          '--i-bg-default': `var(--plus-color-background-${this.status}-invert-default)`,
+          '--i-text-color': `var(--plus-color-text-default)`,
+          '--i-border-color': `var(--plus-color-border-${this.status}-invert)`,
+        };
+      }
+
+      return {
+        '--i-bg-default': `var(--plus-color-background-${this.status}-default)`,
+        '--i-text-color': `var(--plus-color-text-${textColorMap[this.status]})`,
+        '--i-border-color': `var(--plus-color-border-${this.status})`,
+      };
+    };
+
+    const commonStyles = getColorVariables();
+
+    const dynamicStyles = {
+      '--d-text': 'var(--text-color,var(--i-text-color))',
+      '--d-border': 'var(--border-color,var(--i-border-color))',
+      '--d-bg-default': 'var(--bg-default,var(--i-bg-default))',
+    };
+
     return html`
       <div
         part="tag"
@@ -101,8 +176,8 @@ export default class PlusTag extends Tailwind {
           size: this.size,
           radius: this.radius,
           status: this.status,
-          invert: this.invert,
         })}
+        style=${styleMap({ ...dynamicStyles, ...commonStyles })}
       >
         <slot></slot>
       </div>
