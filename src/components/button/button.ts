@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, css } from 'lit';
 import { property } from 'lit/decorators.js';
 import Tailwind from '../base/tailwind-base';
 import { baseButtonStyle } from './button.style';
@@ -36,6 +36,22 @@ const textColorMap = {
 } as const;
 
 export default class PlusButton extends Tailwind {
+  static override styles = [
+    ...Tailwind.styles,
+    css`
+      :host {
+        display: inline-block;
+        height: fit-content;
+        width: fit-content;
+      }
+      .plus-button {
+        border-top-left-radius: var(--border-top-left-radius, 0.375rem);
+        border-top-right-radius: var(--border-top-right-radius, 0.375rem);
+        border-bottom-left-radius: var(--border-bottom-left-radius, 0.375rem);
+        border-bottom-right-radius: var(--border-bottom-right-radius, 0.375rem);
+      }
+    `,
+  ];
   /**
    * Determines the visual style of the button
    * - filled: Solid background color
@@ -75,15 +91,31 @@ export default class PlusButton extends Tailwind {
    * Disables the button interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: (value) => (value == 'false' || false ? false : true),
+  })
   disabled = false;
 
   /**
    * Shows loading spinner and disables interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: (value) => (value == 'false' || false ? false : true),
+  })
   loading = false;
+
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: (value) => (value == 'false' || false ? false : true),
+    attribute: 'full-width',
+  })
+  fullWidth = false;
 
   private handleClick() {
     this.emit('plus-click');
@@ -147,6 +179,7 @@ export default class PlusButton extends Tailwind {
       status: this.status,
       disabled: this.disabled || this.loading,
       loading: this.loading,
+      fullWidth: this.fullWidth,
     });
 
     const LoadingTemplate = html`<div
