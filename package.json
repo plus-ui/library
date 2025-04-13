@@ -90,7 +90,7 @@
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-summary": "^3.0.0",
-    "starlight-image-zoom": "^0.10.0",
+    "starlight-image-zoom": "^0.12.0",
     "starlight-links-validator": "^0.14.1",
     "tailwind-variants": "^0.3.0",
     "tailwindcss": "^4.0.0-beta.8",
