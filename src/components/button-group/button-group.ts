@@ -9,15 +9,21 @@ import Tailwind from '../base/tailwind-base';
 export type Orientation = 'horizontal' | 'vertical';
 
 /**
- * Button group component that allows grouping related buttons together.
- * The button group's properties can either override the properties of its child buttons
- * or respect their individual properties based on the override prop.
+ * @tag plus-button-group
+ * @summary Button group component that groups related buttons together.
  *
- * @element plus-button-group
+ * @slot - The default slot for the buttons
  *
- * @slot - The default slot for the buttons.
+ * @cssproperty --button-group-gap - Gap between buttons in the group
  *
- * @cssproperty --button-group-gap - Gap between buttons in the group.
+ * @example
+ * ```html
+ * <plus-button-group orientation="horizontal" override>
+ *   <plus-button>First</plus-button>
+ *   <plus-button>Second</plus-button>
+ *   <plus-button>Third</plus-button>
+ * </plus-button-group>
+ * ```
  */
 export default class PlusButtonGroup extends Tailwind {
   /**
