@@ -42,8 +42,7 @@ export default class PlusDropDownItem extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
-  })
+    converter: (value) => value === 'true',
   disabled: boolean = false;
 
   /**
