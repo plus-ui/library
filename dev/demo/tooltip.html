@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tooltip Component Showcase</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            padding: 2rem;
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            max-width: 800px;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tooltip-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            background: #e0e0e0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="tooltip-wrapper">
+            <plus-tooltip message="Tooltip on Right" orientation="right" trigger="hover">
+                <plus-button>Right</plus-button>
+            </plus-tooltip>
+        </div>
+
+        <div class="tooltip-wrapper">
+            <plus-tooltip message="Tooltip on Left" orientation="left" trigger="hover">
+                <plus-button>Left</plus-button>
+            </plus-tooltip>
+        </div>
+
+        <div class="tooltip-wrapper">
+            <plus-tooltip message="Tooltip on Top" orientation="top" size="lg" trigger="hover">
+                <plus-button>Top</plus-button>
+            </plus-tooltip>
+        </div>
+
+        <div class="tooltip-wrapper">
+            <plus-tooltip message="Tooltip on Bottom" orientation="bottom" size="sm" trigger="hover">
+                <plus-button>Bottom</plus-button>
+            </plus-tooltip>
+        </div>
+    </div>
+</body>
+
+</html>
