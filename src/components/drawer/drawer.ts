@@ -116,7 +116,7 @@ export default class PlusDrawer extends Tailwind {
     setTimeout(() => {
       this.isAnimating = false;
       this.emit('plus-drawer-show');
-    }, 50);
+    }, this.animationDuration);
 
     document.addEventListener('keydown', this.handleKeydown);
   }
