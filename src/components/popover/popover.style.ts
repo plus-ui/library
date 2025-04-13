@@ -2,7 +2,7 @@ import { tv } from 'tailwind-variants';
 
 export const popoverStyle = tv({
   slots: {
-    host: 'plus-ui-element popover absolute z-[1000] shadow-md bg-color-surface rounded-lg flex-col transition-all duration-200 ease-in-out transform opacity-0 scale-95',
+    host: 'plus-ui-element popover fixed z-[1000] shadow-md bg-color-surface rounded-lg flex-col transition-all duration-200 ease-in-out transform opacity-0 scale-95',
     arrow:
       'arrow absolute size-2 rotate-45 bg-inherit',
     headerWrapper:

@@ -2,6 +2,9 @@
   --plus-color-background-surface: var(--plus-color-base-white);
   --plus-color-background-disabled-default: var(--plus-color-neutral-200);
   --plus-color-background-transparent: var(--plus-color-base-transparent);
+  --plus-color-background-divider: var(--plus-color-neutral-400);
+  --plus-color-background-modal: var(--plus-color-base-white);
+  --plus-color-background-overlay: var(--plus-color-neutral-950);
 
   --plus-color-background-default-default: var(--plus-color-neutral-100);
   --plus-color-background-default-hovered: var(--plus-color-neutral-200);

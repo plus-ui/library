@@ -19,38 +19,46 @@ enum PopoverTrigger {
 
 enum PopoverPosition {
   Top = 'top',
+  TopStart = 'top-start',
+  TopEnd = 'top-end',
   Bottom = 'bottom',
+  BottomStart = 'bottom-start',
+  BottomEnd = 'bottom-end',
   Left = 'left',
+  LeftStart = 'left-start',
+  LeftEnd = 'left-end',
   Right = 'right',
+  RightStart = 'right-start',
+  RightEnd = 'right-end',
 }
 /**
  * @tag plus-popover
- * @since 0.0.0
- * @status experimental
+ * @summary Popover component that displays content in a floating panel.
  *
- * A customizable popover component using Floating UI.
+ * @slot - The target element that triggers the popover
+ * @slot icon - Custom icon for the popover
+ * @slot title - The popover title
+ * @slot actions - Actions like close button
+ * @slot content - The main content inside the popover
  *
- * ## Features:
- * - Supports different trigger types (`click`, `hover`).
- * - Dynamically positioned using Floating UI.
- * - Customizable size, status, and header text.
- * - Dismissable and supports status icons.
+ * @csspart popover - The popover container element
+ * @csspart arrow - The popover arrow indicator
+ * @csspart title - The popover title
+ * @csspart close - The close button area
+ * @csspart content - The main content inside the popover
  *
- * @slot - The default slot to place the target element that triggers the popover.
- * @slot icon - Custom slot for a popover icon.
- * @slot title - Custom slot for the popover title.
- * @slot actions - Slot for actions like a close button.
- * @slot content - Slot for the main content inside the popover.
+ * @event plus-popover-open - Emitted when the popover is opened
+ * @event plus-popover-close - Emitted when the popover is closed
+ * @event plus-popover-dismiss - Emitted when the popover is dismissed via close button
  *
- * @event plus-popover-open - Fired when the popover is opened.
- * @event plus-popover-close - Fired when the popover is closed.
- * @event plus-popover-dismiss - Fired when the popover is dismissed via close button.
- *
- * @csspart popover - The popover container element.
- * @csspart arrow - The popover arrow indicator.
- * @csspart title - The popover title.
- * @csspart close - The close button area.
- * @csspart content - The main content inside the popover.
+ * @example
+ * ```html
+ * <plus-popover>
+ *   <plus-button>Click me</plus-button>
+ *   <div slot="title">Popover Title</div>
+ *   <div slot="content">Popover content goes here</div>
+ * </plus-popover>
+ * ```
  */
 export default class PlusPopover extends Tailwind {
   @queryAssignedElements({ flatten: true })
@@ -74,12 +82,20 @@ export default class PlusPopover extends Tailwind {
    *
    * Available options:
    * - `top` (default)
+   * - `top-start`
+   * - `top-end`
    * - `bottom`
+   * - `bottom-start`
+   * - `bottom-end`
    * - `left`
+   * - `left-start`
+   * - `left-end`
    * - `right`
+   * - `right-start`
+   * - `right-end`
    *
-   * @type {'top' | 'bottom' | 'left' | 'right'}
-   * @default 'top'
+   * @type {PopoverPosition}
+   * @default PopoverPosition.Top
    */
   @property({ type: String })
   orientation: PopoverPosition = PopoverPosition.Top;
@@ -146,7 +162,7 @@ export default class PlusPopover extends Tailwind {
    * @default true
    */
   @property({ type: Boolean, converter: (value) => value !== 'false' })
-  dissmissable = true;
+  dismissable = true;
 
   /**
    * Determines whether a status icon should be displayed in the popover.
@@ -159,6 +175,18 @@ export default class PlusPopover extends Tailwind {
    */
   @property({ type: Boolean, converter: (value) => value !== 'false' })
   statusIcon = true;
+
+  /**
+   * Determines whether the arrow should be displayed.
+   *
+   * - `true` (default) - Arrow will be displayed.
+   * - `false` - Arrow will be hidden.
+   *
+   * @type {boolean}
+   * @default true
+   */
+  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  showArrow = true;
 
   /**
    * Controls the visibility of the popover.
@@ -182,33 +210,67 @@ export default class PlusPopover extends Tailwind {
     const popover = this.getPopover();
     if (!popover || !this.targetElement) return;
 
+    // Ensure the popover is visible before computing position
+    if (!this.isVisible) return;
+
+    // Reset any existing styles
+    Object.assign(popover.style, {
+      left: '',
+      top: '',
+      right: '',
+      bottom: '',
+    });
+
     computePosition(this.targetElement, popover, {
       placement: this.orientation as Placement,
       middleware: [
         offset(10),
         flip({
-          fallbackPlacements: ['top', 'bottom', 'left', 'right'],
+          fallbackPlacements: [
+            'top',
+            'top-start',
+            'top-end',
+            'bottom',
+            'bottom-start',
+            'bottom-end',
+            'left',
+            'left-start',
+            'left-end',
+            'right',
+            'right-start',
+            'right-end',
+          ],
           padding: 8,
         }),
         shift({ padding: 8 }),
-        arrow({ element: this.arrowElement!, padding: 4 }),
-      ],
+        this.showArrow
+          ? arrow({ element: this.arrowElement!, padding: 4 })
+          : undefined,
+      ].filter(Boolean),
     }).then(({ x, y, middlewareData, placement }) => {
-      Object.assign(popover.style, { left: `${x}px`, top: `${y}px` });
-
-      const { x: arrowX, y: arrowY } = middlewareData.arrow || {};
-      const staticSide = {
-        top: 'bottom',
-        right: 'left',
-        bottom: 'top',
-        left: 'right',
-      }[placement.split('-')[0]];
-
-      Object.assign(this.arrowElement!.style, {
-        left: arrowX != null ? `${arrowX}px` : '',
-        top: arrowY != null ? `${arrowY}px` : '',
-        [staticSide!]: '-4px',
+      // Apply the computed position
+      Object.assign(popover.style, {
+        position: 'absolute',
+        left: `${x}px`,
+        top: `${y}px`,
       });
+
+      // Update arrow position if needed
+      if (this.showArrow && this.arrowElement) {
+        const { x: arrowX, y: arrowY } = middlewareData.arrow || {};
+        const staticSide = {
+          top: 'bottom',
+          right: 'left',
+          bottom: 'top',
+          left: 'right',
+        }[placement.split('-')[0]];
+
+        Object.assign(this.arrowElement.style, {
+          left: arrowX != null ? `${arrowX}px` : '',
+          top: arrowY != null ? `${arrowY}px` : '',
+          [staticSide!]: '-4px',
+        });
+      }
     });
   };
 
@@ -356,6 +418,8 @@ export default class PlusPopover extends Tailwind {
         part="popover"
         role="dialog"
         aria-hidden=${!this.isVisible}
+        aria-labelledby="popover-title"
+        aria-describedby="popover-content"
       >
         <header class="${headerWrapper()}">
           <div class=${headerLeft()}>
@@ -366,25 +430,30 @@ export default class PlusPopover extends Tailwind {
                   ></plus-svg-icon>`
                 : nothing}
             </slot>
-            <div class="${title()}" part="title">
+            <div class="${title()}" part="title" id="popover-title">
               <slot name="title"><span>${this.headerText}</span></slot>
             </div>
           </div>
 
           <div class=${headerRight()} part="close">
             <slot name="actions">
-              ${this.dissmissable &&
+              ${this.dismissable &&
               html`<plus-svg-icon
                 iconName="xmark"
                 @click=${() => this.closePopover(true)}
+                role="button"
+                tabindex="0"
+                aria-label="Close popover"
               ></plus-svg-icon>`}
             </slot>
           </div>
         </header>
-        <main class="${content()}" part="content">
+        <main class="${content()}" part="content" id="popover-content">
           <slot name="content">${this.text}</slot>
         </main>
-        <div class=${arrow()} part="arrow"></div>
+        ${this.showArrow
+          ? html`<div class=${arrow()} part="arrow"></div>`
+          : nothing}
       </div>
     `;
   }
