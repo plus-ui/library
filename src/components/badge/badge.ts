@@ -7,20 +7,24 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * @tag plus-badge
- * @since 0.0.0
- * @status experimental
+ * @summary Badge component that displays a small status indicator.
  *
- * PlusBadge component provides a small status indicator that can be attached to other components.
- * Supports different visual styles, sizes, and states.
- *
- * @slot - Default slot for the content that the badge will be attached to
- * @slot badge-content - Slot for the badge content (text, number, etc.)
+ * @slot - The content that the badge will be attached to
+ * @slot badge-content - The badge content (text, number, etc.)
  *
  * @csspart badge - The component's base wrapper
  *
  * @cssproperty --text-color - Controls the text color of the badge
  * @cssproperty --border-color - Controls the border color of the badge
  * @cssproperty --bg-default - Controls the default background color
+ *
+ * @example
+ * ```html
+ * <plus-badge status="success">
+ *   <span>Notifications</span>
+ *   <span slot="badge-content">3</span>
+ * </plus-badge>
+ * ```
  */
 const textColorMap = {
   default: 'default',

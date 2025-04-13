@@ -34,36 +34,35 @@ enum PopconfirmPosition {
 
 /**
  * @tag plus-popconfirm
- * @since 0.0.0
- * @status experimental
+ * @summary Popconfirm component that displays a confirmation dialog in a floating panel.
  *
- * A customizable popconfirm component using Floating UI.
+ * @slot - The target element that triggers the popconfirm
+ * @slot icon - Custom icon for the popconfirm
+ * @slot title - The popconfirm title
+ * @slot header - The entire header section
+ * @slot footer - The footer section with action buttons
+ * @slot content - The main content inside the popconfirm
  *
- * ## Features:
- * - Supports different trigger types (`click`, `hover`).
- * - Dynamically positioned using Floating UI.
- * - Customizable size, status, and header text.
- * - Dismissable and supports status icons.
- * - Customizable footer with action buttons.
+ * @csspart popconfirm - The popconfirm container element
+ * @csspart arrow - The popconfirm arrow indicator
+ * @csspart header - The popconfirm header section
+ * @csspart title - The popconfirm title
+ * @csspart content - The main content inside the popconfirm
+ * @csspart footer - The footer section with action buttons
  *
- * @slot - The default slot to place the target element that triggers the popconfirm.
- * @slot icon - Custom slot for a popconfirm icon.
- * @slot title - Custom slot for the popconfirm title.
- * @slot header - Custom slot for the entire header section.
- * @slot footer - Custom slot for the footer section with action buttons.
- * @slot content - Slot for the main content inside the popconfirm.
+ * @event plus-popconfirm-open - Emitted when the popconfirm is opened
+ * @event plus-popconfirm-close - Emitted when the popconfirm is closed
+ * @event plus-popconfirm-confirm - Emitted when the confirm button is clicked
+ * @event plus-popconfirm-cancel - Emitted when the cancel button is clicked
  *
- * @event plus-popconfirm-open - Fired when the popconfirm is opened.
- * @event plus-popconfirm-close - Fired when the popconfirm is closed.
- * @event plus-popconfirm-confirm - Fired when the confirm button is clicked.
- * @event plus-popconfirm-cancel - Fired when the cancel button is clicked.
- *
- * @csspart popconfirm - The popconfirm container element.
- * @csspart arrow - The popconfirm arrow indicator.
- * @csspart header - The popconfirm header section.
- * @csspart title - The popconfirm title.
- * @csspart content - The main content inside the popconfirm.
- * @csspart footer - The footer section with action buttons.
+ * @example
+ * ```html
+ * <plus-popconfirm>
+ *   <plus-button>Delete</plus-button>
+ *   <div slot="title">Are you sure?</div>
+ *   <div slot="content">This action cannot be undone.</div>
+ * </plus-popconfirm>
+ * ```
  */
 export default class PlusPopconfirm extends Tailwind {
   @queryAssignedElements({ flatten: true })

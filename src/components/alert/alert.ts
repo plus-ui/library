@@ -6,13 +6,31 @@ import { alertStyle } from './alert.style';
 import { styleMap } from 'lit/directives/style-map.js';
 
 /**
- * Add a description here
- *
  * @tag plus-alert
- * @since 0.0.0
- * @status experimental
+ * @summary Alert component that displays important messages to users.
  *
- **/
+ * @slot message - The main message content
+ * @slot description - Additional descriptive content
+ * @slot prefix - Custom status icon
+ * @slot dismiss - Custom dismiss button
+ *
+ * @csspart base - The main container element
+ * @csspart status-icon - The status icon container
+ * @csspart content - The content container
+ * @csspart message - The message container
+ * @csspart description - The description container
+ * @csspart dismiss - The dismiss button container
+ *
+ * @event plus-dismiss - Emitted when the alert is dismissed
+ *
+ * @example
+ * ```html
+ * <plus-alert status="success" dismissible>
+ *   <div slot="message">Success!</div>
+ *   <div slot="description">Your changes have been saved.</div>
+ * </plus-alert>
+ * ```
+ */
 export default class PlusAlert extends Tailwind {
   /**
    * Determines the visual style of the alert

@@ -6,15 +6,11 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * @tag plus-button
- * @since 0.0.0
- * @status experimental
- *
- * PlusButton component provides a clickable button element with various styles and states.
- * Supports different visual styles, sizes, and interactive states.
+ * @summary Button component that provides a clickable element with various styles and states.
  *
  * @slot - The default slot for button content
- * @slot prefix - Slot for content to be placed before the button content
- * @slot suffix - Slot for content to be placed after the button content
+ * @slot prefix - Content to be placed before the button content
+ * @slot suffix - Content to be placed after the button content
  *
  * @csspart button - The component's base wrapper
  *
@@ -24,6 +20,13 @@ import { styleMap } from 'lit/directives/style-map.js';
  * @cssproperty --bg-hovered - Controls the background color when hovered
  * @cssproperty --bg-pressed - Controls the background color when pressed
  * @cssproperty --bg-focused - Controls the background color when focused
+ *
+ * @example
+ * ```html
+ * <plus-button kind="filled" status="primary" size="md">
+ *   Click me
+ * </plus-button>
+ * ```
  */
 const textColorMap = {
   default: 'default',
