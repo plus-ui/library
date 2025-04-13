@@ -33,32 +33,32 @@ enum PopoverPosition {
 }
 /**
  * @tag plus-popover
- * @since 0.0.0
- * @status experimental
+ * @summary Popover component that displays content in a floating panel.
  *
- * A customizable popover component using Floating UI.
+ * @slot - The target element that triggers the popover
+ * @slot icon - Custom icon for the popover
+ * @slot title - The popover title
+ * @slot actions - Actions like close button
+ * @slot content - The main content inside the popover
  *
- * ## Features:
- * - Supports different trigger types (`click`, `hover`).
- * - Dynamically positioned using Floating UI.
- * - Customizable size, status, and header text.
- * - Dismissable and supports status icons.
+ * @csspart popover - The popover container element
+ * @csspart arrow - The popover arrow indicator
+ * @csspart title - The popover title
+ * @csspart close - The close button area
+ * @csspart content - The main content inside the popover
  *
- * @slot - The default slot to place the target element that triggers the popover.
- * @slot icon - Custom slot for a popover icon.
- * @slot title - Custom slot for the popover title.
- * @slot actions - Slot for actions like a close button.
- * @slot content - Slot for the main content inside the popover.
+ * @event plus-popover-open - Emitted when the popover is opened
+ * @event plus-popover-close - Emitted when the popover is closed
+ * @event plus-popover-dismiss - Emitted when the popover is dismissed via close button
  *
- * @event plus-popover-open - Fired when the popover is opened.
- * @event plus-popover-close - Fired when the popover is closed.
- * @event plus-popover-dismiss - Fired when the popover is dismissed via close button.
- *
- * @csspart popover - The popover container element.
- * @csspart arrow - The popover arrow indicator.
- * @csspart title - The popover title.
- * @csspart close - The close button area.
- * @csspart content - The main content inside the popover.
+ * @example
+ * ```html
+ * <plus-popover>
+ *   <plus-button>Click me</plus-button>
+ *   <div slot="title">Popover Title</div>
+ *   <div slot="content">Popover content goes here</div>
+ * </plus-popover>
+ * ```
  */
 export default class PlusPopover extends Tailwind {
   @queryAssignedElements({ flatten: true })

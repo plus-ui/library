@@ -6,19 +6,22 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * @tag plus-tag
- * @since 0.0.0
- * @status experimental
+ * @summary Tag component for displaying status, labels, and categories.
  *
- * PlusTag component provides a versatile tag element for displaying status, labels, and categories.
- * Supports different visual styles, sizes, and states.
- *
- * @slot - Default slot for tag content (text, icons, etc.)
+ * @slot - The tag content (text, icons, etc.)
  *
  * @csspart tag - The component's base wrapper
  *
  * @cssproperty --text-color - Controls the text color of the tag
  * @cssproperty --border-color - Controls the border color of the tag
  * @cssproperty --bg-default - Controls the default background color
+ *
+ * @example
+ * ```html
+ * <plus-tag status="success">Completed</plus-tag>
+ * <plus-tag status="warning">Pending</plus-tag>
+ * <plus-tag status="danger">Error</plus-tag>
+ * ```
  */
 const textColorMap = {
   default: 'default',

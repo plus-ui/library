@@ -5,10 +5,10 @@ import Tailwind from '../base/tailwind-base';
 
 /**
  * @tag plus-drawer
- * @summary A sliding panel component that appears from the edge of the screen.
+ * @summary Sliding panel component that appears from the edge of the screen.
  *
- * @slot default - The main content of the drawer
  * @slot header - The header content of the drawer
+ * @slot body - The main content of the drawer
  * @slot footer - The footer content of the drawer
  * @slot close - Custom close button (defaults to an X icon)
  *
@@ -85,6 +85,7 @@ export default class PlusDrawer extends Tailwind {
 
   /**
    * Hides the drawer with animation
+   * @returns {void}
    */
   hide() {
     if (this.isAnimating) return;
@@ -103,6 +104,7 @@ export default class PlusDrawer extends Tailwind {
 
   /**
    * Shows the drawer with animation
+   * @returns {void}
    */
   show() {
     if (this.isAnimating) return;

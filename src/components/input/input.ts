@@ -9,11 +9,7 @@ import { captionStyle } from '../caption/caption.style';
 
 /**
  * @tag plus-input
- * @since 0.0.0
- * @status experimental
- *
- * PlusInput is a modern and customizable form input component.
- * It provides various input types, validation, accessibility, and styling features.
+ * @summary Form input component that provides various input types, validation, and styling features.
  *
  * @slot prefix - Content to be placed before the input
  * @slot suffix - Content to be placed after the input

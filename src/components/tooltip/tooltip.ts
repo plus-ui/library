@@ -13,16 +13,22 @@ import { tooltipStyle } from './tooltip.style';
 
 /**
  * @tag plus-tooltip
- * @since 0.0.0
- * @status experimental
+ * @summary Tooltip component that displays additional information on hover or click.
  *
- * PlusTooltip is a customizable tooltip component that enhances accessibility and usability.
- * Supports different sizes and various trigger types such as hover and click.
- *
- * @slot - Default slot to place the target element that triggers the tooltip
+ * @slot - The target element that triggers the tooltip
  *
  * @csspart tooltip - The tooltip container element
  * @csspart arrow - The tooltip arrow indicator
+ *
+ * @event plus-tooltip-show - Emitted when the tooltip is shown
+ * @event plus-tooltip-hide - Emitted when the tooltip is hidden
+ *
+ * @example
+ * ```html
+ * <plus-tooltip content="This is a tooltip">
+ *   <plus-button>Hover me</plus-button>
+ * </plus-tooltip>
+ * ```
  */
 enum TooltipTrigger {
   Hover = 'hover',
