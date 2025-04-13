@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Component Test Page</title>
@@ -9,90 +8,183 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            padding: 2rem;
-            font-family: 'Inter', sans-serif;
-        }
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
 
-        .col {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-            justify-content: center;
-        }
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .row {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <plus-list-box-item size="lg">Test</plus-list-box-item>
+      <div class="col">
+        <h2>Size Examples</h2>
+        <div class="row">
+          <plus-dropdown size="sm">
+            Small Dropdown
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
 
-        <plus-dropdown size="sm">
-            Test
-            <plus-dropdown-item disabled>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-        </plus-dropdown>
+          <plus-dropdown size="md">
+            Medium Dropdown
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
 
-        <plus-dropdown size="md">
-            Test
-            <plus-dropdown-item disabled>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-        </plus-dropdown>
+          <plus-dropdown size="lg">
+            Large Dropdown
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+        </div>
+      </div>
 
+      <div class="col">
+        <h2>Status Examples</h2>
+        <div class="row">
+          <plus-dropdown status="default">
+            Default
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
 
-        <plus-dropdown size="lg">
-            Test
-            <plus-dropdown-item disabled>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-            <plus-dropdown-item>Test</plus-dropdown-item>
-        </plus-dropdown>
+          <plus-dropdown status="primary">
+            Primary
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown status="success">
+            Success
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown status="warning">
+            Warning
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown status="danger">
+            Danger
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown status="info">
+            Info
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+        </div>
+      </div>
+
+      <div class="col">
+        <h2>Kind Examples</h2>
+        <div class="row">
+          <plus-dropdown kind="filled">
+            Filled
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown kind="outlined">
+            Outlined
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown kind="dashed">
+            Dashed
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown kind="text">
+            Text
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+        </div>
+      </div>
+
+      <div class="col">
+        <h2>Disabled Examples</h2>
+        <div class="row">
+          <plus-dropdown disabled>
+            Disabled Dropdown
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+
+          <plus-dropdown>
+            With Disabled Items
+            <plus-dropdown-item>Enabled Option</plus-dropdown-item>
+            <plus-dropdown-item disabled>Disabled Option</plus-dropdown-item>
+            <plus-dropdown-item>Enabled Option</plus-dropdown-item>
+          </plus-dropdown>
+        </div>
+      </div>
+
+      <div class="col">
+        <h2>With Suffix Example</h2>
+        <div class="row">
+          <plus-dropdown>
+            Dropdown with Suffix
+            <span slot="suffix">🔔</span>
+            <plus-dropdown-item>Option 1</plus-dropdown-item>
+            <plus-dropdown-item>Option 2</plus-dropdown-item>
+            <plus-dropdown-item>Option 3</plus-dropdown-item>
+          </plus-dropdown>
+        </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>

@@ -14,11 +14,9 @@ import { PlusDropDownItem } from '../dropdown-item';
 
 /**
  * @tag plus-dropdown
- * @since 0.0.0
- * @status experimental
  *
- * PlusDropdown provides a collapsible menu that displays a list of selectable options.
- * It uses Floating UI for intelligent positioning that adjusts based on available space.
+ * Dropdown component that provides a collapsible menu with selectable options.
+ * Uses Floating UI for intelligent positioning.
  *
  * @slot - The default slot for the dropdown trigger button content
  * @slot suffix - Slot for adding content to the right side of the trigger button
@@ -137,14 +135,17 @@ export default class PlusDropdown extends Tailwind {
     if (!this.dropdownBox || !this.targetElement) return;
 
     computePosition(this.targetElement, this.dropdownBox, {
-      placement: 'bottom' as Placement,
+      placement: 'bottom-start' as Placement,
       middleware: [
         offset(4),
+        shift({
+          padding: 4,
+          boundary: document.documentElement,
+        }),
         flip({
-          fallbackPlacements: ['top', 'bottom', 'left', 'right'],
+          fallbackPlacements: ['top-start', 'bottom-start'],
           padding: 4,
         }),
-        shift({ padding: 4 }),
       ],
     }).then(({ x, y }) => {
       Object.assign(this.dropdownBox!.style, { left: `${x}px`, top: `${y}px` });
@@ -156,6 +157,8 @@ export default class PlusDropdown extends Tailwind {
    * @private
    */
   private handleClick = () => {
+    if (this.disabled) return;
+
     this.isVisible = !this.isVisible;
     if (this.isVisible) {
       if (!this.targetElement || !this.dropdownBox) {
@@ -173,6 +176,49 @@ export default class PlusDropdown extends Tailwind {
       this.cleanupAutoUpdate();
       this.emit('plus-dropdown-close');
     }
+  };
+
+  /**
+   * Handles keyboard navigation for dropdown items
+   * @param event The keyboard event
+   * @private
+   */
+  private handleKeyDown = (event: KeyboardEvent) => {
+    if (this.disabled) return;
+
+    const items = this.slots.filter((item) => !item.disabled);
+    const currentIndex = items.indexOf(this.selectedItem as PlusDropDownItem);
+    let newIndex = currentIndex;
+
+    switch (event.key) {
+      case 'ArrowDown':
+        newIndex = (currentIndex + 1) % items.length;
+        break;
+      case 'ArrowUp':
+        newIndex = (currentIndex - 1 + items.length) % items.length;
+        break;
+      case 'Enter':
+      case ' ':
+        if (this.selectedItem) {
+          this.handleItemClick(new Event('click'));
+        }
+        break;
+      case 'Escape':
+        this.isVisible = false;
+        this.cleanupAutoUpdate();
+        break;
+      default:
+        return;
+    }
+
+    if (newIndex !== currentIndex) {
+      this.selectedItem = items[newIndex];
+      this.slots.forEach((item) => {
+        item.selected = item === this.selectedItem;
+      });
+    }
+
+    event.preventDefault();
   };
 
   /**
@@ -212,6 +258,7 @@ export default class PlusDropdown extends Tailwind {
 
     if (this.targetElement) {
       this.targetElement.addEventListener('click', this.handleClick);
+      this.targetElement.addEventListener('keydown', this.handleKeyDown);
     } else {
       console.error('Target element (plus-button) not found');
     }
@@ -219,7 +266,6 @@ export default class PlusDropdown extends Tailwind {
       console.error('Dropdown box not found');
     }
     document.addEventListener('click', this.handleOutsideClick, true);
-    this.addEventListener('click', this.handleItemClick);
   }
 
   /**
@@ -260,9 +306,9 @@ export default class PlusDropdown extends Tailwind {
     this.cleanupAutoUpdate();
     if (this.targetElement) {
       this.targetElement.removeEventListener('click', this.handleClick);
+      this.targetElement.removeEventListener('keydown', this.handleKeyDown);
     }
     document.removeEventListener('click', this.handleOutsideClick, true);
-    this.removeEventListener('click', this.handleItemClick);
   }
 
   /**
@@ -272,7 +318,7 @@ export default class PlusDropdown extends Tailwind {
   override render() {
     return html`
       <plus-button
-        .disabled=${this.disabled}
+        ?disabled=${this.disabled}
         kind=${this.kind}
         status=${this.status}
         size=${this.size}
@@ -293,8 +339,8 @@ export default class PlusDropdown extends Tailwind {
         id=${this.dropdownId}
         class=${dropdownStyle({ isOpen: this.isVisible })}
         role="listbox"
-        aria-hidden=${!this.isVisible}
-        aria-orientation="vertical"
+        aria-label="Dropdown options"
+        ?hidden=${!this.isVisible}
         part="dropdown-box"
       >
         <slot name="dropdown-item"></slot>

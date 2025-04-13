@@ -6,11 +6,9 @@ import { listBoxItemStyle } from './list-box-item.style';
 
 /**
  * @tag plus-list-box-item
- * @since 0.0.0
- * @status experimental
  *
- * PlusListBoxItem is a selectable item component designed for use within list-based containers.
- * It provides a consistent styling and behavior for interactive list items.
+ * List box item component that provides a selectable item for list-based containers.
+ * Offers consistent styling and behavior for interactive list items.
  *
  * @slot - The default slot for the list box item content
  *
@@ -43,7 +41,7 @@ export default class PlusListBoxItem extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: (value) => value === 'true',
   })
   disabled = false;
 

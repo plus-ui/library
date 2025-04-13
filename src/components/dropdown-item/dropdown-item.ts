@@ -6,11 +6,9 @@ import { live } from 'lit/directives/live.js';
 
 /**
  * @tag plus-dropdown-item
- * @since 0.0.0
- * @status experimental
  *
- * PlusDropDownItem represents a selectable option within a PlusDropdown menu.
- * It automatically registers itself as a dropdown-item slot.
+ * Dropdown item component that represents a selectable option within a dropdown menu.
+ * Automatically registers itself as a dropdown-item slot.
  *
  * @slot - The default slot for dropdown item content
  *
@@ -95,6 +93,7 @@ export default class PlusDropDownItem extends Tailwind {
       ?disabled=${this.disabled}
       .selected=${live(this.selected)}
       part="item"
+      tabindex=${this.disabled ? '-1' : '0'}
       ><slot></slot
     ></plus-list-box-item>`;
   }
