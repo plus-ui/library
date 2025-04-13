@@ -68,6 +68,7 @@ module.exports = {
           transparent: 'var(--plus-color-background-transparent)',
           divider: 'var(--plus-color-background-divider)',
           modal: 'var(--plus-color-background-modal)',
+          overlay: 'var(--plus-color-background-overlay)',
 
           default: {
             default: 'var(--plus-color-background-default-default)',
