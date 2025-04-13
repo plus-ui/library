@@ -61,6 +61,23 @@ export default class PlusAccordionGroup extends Tailwind {
   // @state()
   // private hasAccordions = false;
 
+  private toggleListener = (event: Event) => {
+    const customEvent = event as CustomEvent;
+    if (!this.multi && customEvent.detail?.expand) {
+      const accordions = this.accordions.filter(
+        (el) =>
+          el instanceof HTMLElement &&
+          el.tagName.toLowerCase() === 'plus-accordion'
+      ) as HTMLElement[];
+
+      accordions.forEach((el) => {
+        if (el !== event.target) {
+          el.setAttribute('expand', 'false');
+        }
+      });
+    }
+  };
+
   static override styles = [
     ...Tailwind.styles,
     css`
@@ -134,17 +151,31 @@ export default class PlusAccordionGroup extends Tailwind {
       }
       accordion.setAttribute('size', this.size);
 
-      accordion.addEventListener('plus-accordion-toggle', (event: Event) => {
-        const customEvent = event as CustomEvent;
-        if (!this.multi && customEvent.detail?.expand) {
-          accordions.forEach((el) => {
-            if (el !== event.target) {
-              el.setAttribute('expand', 'false');
-            }
-          });
-        }
-      });
+      // Remove existing listeners before adding new ones
+      accordion.removeEventListener(
+        'plus-accordion-toggle',
+        this.toggleListener
+      );
+      accordion.addEventListener('plus-accordion-toggle', this.toggleListener);
     });
+  }
+
+  override disconnectedCallback(): void {
+    // Clean up event listeners when component is removed
+    const accordions = this.accordions.filter(
+      (el) =>
+        el instanceof HTMLElement &&
+        el.tagName.toLowerCase() === 'plus-accordion'
+    ) as HTMLElement[];
+
+    accordions.forEach((accordion) => {
+      accordion.removeEventListener(
+        'plus-accordion-toggle',
+        this.toggleListener
+      );
+    });
+
+    super.disconnectedCallback();
   }
 
   override render() {
