@@ -1,10 +1,13 @@
 import { tv } from 'tailwind-variants';
 
+/**
+ * Style configuration for the accordion component
+ */
 export const accordionStyle = tv({
   slots: {
-    base: 'font-sans antialiased border border-color-default',
+    base: 'accordion-base font-sans antialiased border border-color-default rounded bg-color-surface ',
     header:
-      'header flex cursor-pointer flex-row items-center justify-between bg-color-surface font-medium text-color-default',
+      'header flex cursor-pointer flex-row items-center justify-between font-medium text-color-default',
     panel: '',
     icon: 'text-base text-center',
     helper: 'text-color-caption font-normal',
@@ -43,7 +46,7 @@ export const accordionStyle = tv({
     },
     isGrouped: {
       true: {
-        base: 'border-t-0 border-l-0 border-r-0 rounded-b-0 rounded-b-none',
+        base: 'border-t-0 border-l-0 border-r-0 rounded-b-0',
       },
       false: {
         base: '',
@@ -57,6 +60,14 @@ export const accordionStyle = tv({
         base: 'border-b',
       },
     },
+    isFirst: {
+      true: {
+        base: '',
+      },
+      false: {
+        base: '',
+      },
+    },
     disabled: {
       true: {
         base: 'cursor-not-allowed',
@@ -65,35 +76,19 @@ export const accordionStyle = tv({
         panel: 'bg-color-disabled',
       },
     },
+    // hasHelper: {
+    //   true: {
+    //     headerContainer: 'justify-between',
+    //   },
+    //   false: {
+    //     headerContainer: 'justify-end',
+    //   },
+    // },
   },
-  compoundVariants: [
-    // {
-    //   isGrouped: true,
-    //   isLast: true,
-    //   expand: false,
-    //   class: {
-    //     header: "rounded-t-none rounded-b-md",
-    //   },
-    // },
-    // {
-    //   isGrouped: true,
-    //   isLast: true,
-    //   expand: true,
-    //   class: {
-    //     header: "rounded-t-none rounded-b-none",
-    //   },
-    // },
-    // {
-    //   isGrouped: true,
-    //   isLast: false,
-    //   expand: true,
-    //   class: {
-    //     header: "rounded-t-none",
-    //   },
-    // },
-  ],
   defaultVariants: {
     expand: false,
     disabled: false,
+    isFirst: false,
+    hasHelper: false,
   },
 });
