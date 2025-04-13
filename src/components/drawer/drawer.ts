@@ -1,16 +1,77 @@
 import { html } from 'lit';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { drawerStyle } from './drawer.style';
 import Tailwind from '../base/tailwind-base';
 
+/**
+ * @tag plus-drawer
+ * @summary A sliding panel component that appears from the edge of the screen.
+ *
+ * @slot default - The main content of the drawer
+ * @slot header - The header content of the drawer
+ * @slot footer - The footer content of the drawer
+ * @slot close - Custom close button (defaults to an X icon)
+ *
+ * @csspart container - The main container element
+ * @csspart overlay - The overlay element
+ * @csspart drawer - The drawer element
+ * @csspart header - The header element
+ * @csspart body - The body element
+ * @csspart footer - The footer element
+ * @csspart close-button - The close button element
+ *
+ * @example
+ * ```html
+ * <plus-drawer>
+ *   <div slot="header">Drawer Title</div>
+ *   <div slot="body">Drawer Content</div>
+ *   <div slot="footer">
+ *     <button>Save</button>
+ *   </div>
+ * </plus-drawer>
+ * ```
+ */
 export default class PlusDrawer extends Tailwind {
-  @property() size: 'sm' | 'md' | 'lg' = 'md';
-  @property({ type: Boolean }) isOpen: boolean = false;
-  @property({ type: String }) orientation: 'left' | 'right' | 'top' | 'bottom' =
-    'right';
-  @property({ type: Number }) animationDuration: number = 300; // Animation duration in ms
+  /**
+   * The size of the drawer
+   * @type {'sm' | 'md' | 'lg'}
+   * @default 'md'
+   * @attr size
+   */
+  @property({ type: String, reflect: true })
+  size: 'sm' | 'md' | 'lg' = 'md';
 
-  private drawerElement: HTMLElement | null = null;
+  /**
+   * Whether the drawer is open
+   * @type {boolean}
+   * @default false
+   * @attr is-open
+   */
+  @property({ type: Boolean, reflect: true, attribute: 'is-open' })
+  isOpen = false;
+
+  /**
+   * The position of the drawer
+   * @type {'left' | 'right' | 'top' | 'bottom'}
+   * @default 'right'
+   * @attr orientation
+   */
+  @property({ type: String, reflect: true })
+  orientation: 'left' | 'right' | 'top' | 'bottom' = 'right';
+
+  /**
+   * The duration of the animation in milliseconds
+   * @type {number}
+   * @default 300
+   * @attr animation-duration
+   */
+  @property({ type: Number, reflect: true, attribute: 'animation-duration' })
+  animationDuration = 300;
+
+  @state()
+  private isAnimating = false;
+
+  // private drawerElement: HTMLElement | null = null;
 
   constructor() {
     super();
@@ -18,54 +79,63 @@ export default class PlusDrawer extends Tailwind {
 
   override connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('plus-drawer-before-show', this.drawerShow);
-    this.addEventListener('plus-drawer-before-hide', this.drawerHide);
+    this.addEventListener('plus-drawer-before-show', this.handleBeforeShow);
+    this.addEventListener('plus-drawer-before-hide', this.handleBeforeHide);
   }
 
-  // First call this to wait for animation before fully hiding
+  /**
+   * Hides the drawer with animation
+   */
   hide() {
+    if (this.isAnimating) return;
     this.emit('plus-drawer-before-hide');
   }
 
-  private drawerHide() {
-    // Set isOpen to false which triggers the CSS animation
+  private handleBeforeHide() {
+    this.isAnimating = true;
     this.isOpen = false;
 
-    // Wait for animation to complete before emitting the final event
     setTimeout(() => {
+      this.isAnimating = false;
       this.emit('plus-drawer-hide');
     }, this.animationDuration);
   }
 
+  /**
+   * Shows the drawer with animation
+   */
   show() {
+    if (this.isAnimating) return;
     this.emit('plus-drawer-before-show');
   }
 
-  private drawerShow() {
+  private handleBeforeShow() {
+    this.isAnimating = true;
     this.isOpen = true;
 
     setTimeout(() => {
+      this.isAnimating = false;
       this.emit('plus-drawer-show');
-    }, 50); // Small delay to ensure classes are applied before animation starts
+    }, 50);
 
-    document.addEventListener('keydown', this.keydownHandler);
+    document.addEventListener('keydown', this.handleKeydown);
   }
 
-  override firstUpdated() {
-    this.drawerElement = this.shadowRoot?.querySelector(
-      '.drawer'
-    ) as HTMLElement;
-  }
+  // override firstUpdated() {
+  //   this.drawerElement = this.shadowRoot?.querySelector(
+  //     '.drawer'
+  //   ) as HTMLElement;
+  // }
 
   override disconnectedCallback() {
     super.disconnectedCallback();
-    this.removeEventListener('plus-drawer-before-show', this.drawerShow);
-    this.removeEventListener('plus-drawer-before-hide', this.drawerHide);
-    document.removeEventListener('keydown', this.keydownHandler);
+    this.removeEventListener('plus-drawer-before-show', this.handleBeforeShow);
+    this.removeEventListener('plus-drawer-before-hide', this.handleBeforeHide);
+    document.removeEventListener('keydown', this.handleKeydown);
   }
 
-  keydownHandler = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') {
+  private handleKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && this.isOpen) {
       this.hide();
     }
   };
@@ -83,32 +153,46 @@ export default class PlusDrawer extends Tailwind {
       drawerCloseButtonClass,
     } = drawerStyle({ size, isOpen, orientation });
 
-    return html`<div class=${base()}>
-      <div class=${drawerOverlay()} @click=${() => this.hide()}></div>
-      <div class=${drawerClass()}>
-        <div class=${drawerContainer()}>
-          <slot name="close">
-            <button
-              class=${drawerCloseButtonClass()}
-              aria-label="Close"
-              @click=${() => this.hide()}
-            >
-              <i class="fas fa-xmark"></i>
-            </button>
-          </slot>
-          <div class=${drawerHeader()}>
-            <slot name="header"></slot>
-          </div>
-          <div class=${drawerBody()}>
-            <slot name="body"></slot>
-            <slot></slot>
-          </div>
-          <div class=${drawerFooter()}>
-            <slot name="footer"></slot>
+    return html`
+      <div
+        class=${base()}
+        part="container"
+        role="dialog"
+        aria-modal="true"
+        aria-hidden=${!isOpen}
+        aria-label="Drawer"
+      >
+        <div
+          class=${drawerOverlay()}
+          part="overlay"
+          @click=${() => this.hide()}
+        ></div>
+        <div class=${drawerClass()} part="drawer">
+          <div class=${drawerContainer()}>
+            <div class=${drawerHeader()} part="header">
+              <slot name="header"></slot>
+              <slot name="close">
+                <button
+                  class=${drawerCloseButtonClass()}
+                  part="close-button"
+                  aria-label="Close drawer"
+                  @click=${() => this.hide()}
+                >
+                  <plus-svg-icon iconName="xmark"></plus-svg-icon>
+                </button>
+              </slot>
+            </div>
+            <div class=${drawerBody()} part="body">
+              <slot name="body"></slot>
+              <slot></slot>
+            </div>
+            <div class=${drawerFooter()} part="footer">
+              <slot name="footer"></slot>
+            </div>
           </div>
         </div>
       </div>
-    </div> `;
+    `;
   }
 }
 

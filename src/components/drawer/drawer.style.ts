@@ -4,45 +4,62 @@ export const drawerStyle = tv({
   slots: {
     base: ['plus-drawer font-sans antialiased'],
     drawerOverlay: [
-      'drawer-overlay fixed inset-0 z-40 bg-black/50',
+      'drawer-overlay fixed inset-0 z-40',
+      'bg-color-overlay/50',
       'transition-opacity duration-300 ease-in-out',
     ],
     drawerClass: [
       'drawer fixed z-50 h-full overflow-y-auto',
       'transition-all duration-300 ease-in-out',
+      // 'max-w-96 w-full',
     ],
     drawerContainer: [
-      'drawer-container relative w-full h-full bg-color-surface shadow-xl text-base flex flex-col justify-between',
+      'drawer-container relative w-full h-full',
+      'bg-color-surface',
+      'shadow-elevation-lg',
+      'text-color-default',
+      'flex flex-col justify-between',
     ],
     drawerHeader: [
-      'drawer-header flex justify-between items-center py-3 px-4 bg-color-base font-semibold text-lg rounded-t-lg border-b border-color-default',
+      'drawer-header flex justify-between items-center',
+      'py-3 px-4',
+      'bg-color-base',
+      'font-semibold',
+      'rounded-t-lg',
+      'border-b border-color-default',
     ],
-    drawerBody: ['drawer-body flex-1 p-4'],
+    drawerBody: [
+      'drawer-body flex-1 p-4',
+      'overflow-y-auto',
+    ],
     drawerFooter: [
-      'drawer-footer flex justify-end items-center py-3 px-4 gap-2 rounded-b-lg',
+      'drawer-footer flex justify-end items-center',
+      'py-3 px-4 gap-2',
+      'rounded-b-lg',
+      'border-t border-color-default',
     ],
     drawerCloseButtonClass: [
-      'drawer-close-button absolute top-0 right-0 p-3 text-color-default',
-      'hover:text-color-primary transition-colors duration-200 ease-in-out',
+      'drawer-close-button absolute top-0 right-0 p-3',
+      'text-color-default',
+      'cursor-pointer',
+      'hover:text-color-primary',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-color-primary',
+      'transition-colors duration-200 ease-in-out',
     ],
   },
   variants: {
     size: {
-      xs: {
-        base: [],
-        drawerContainer: [],
-      },
       sm: {
-        base: [],
-        drawerContainer: [],
+        drawerHeader: ['text-sm'],
+        // drawerClass: ['max-w-sm'],
       },
       md: {
-        base: [],
-        drawerContainer: [],
+        drawerHeader: ['text-base'],
+        // drawerClass: ['max-w-md'],
       },
       lg: {
-        base: [],
-        drawerContainer: [],
+        drawerHeader: ['text-lg'],
+        // drawerClass: ['max-w-lg'],
       },
     },
     isOpen: {
@@ -62,36 +79,31 @@ export const drawerStyle = tv({
     orientation: {
       left: {
         drawerClass: [
-          'h-full max-w-lg inset-y-0 left-0',
+          'h-full w-96 inset-y-0 left-0',
           'transform transition-transform duration-300 ease-in-out',
         ],
-        drawerContainer: 'overflow-y-auto',
       },
       right: {
         drawerClass: [
-          'h-full max-w-lg inset-y-0 right-0',
+          'h-full w-96 inset-y-0 right-0',
           'transform transition-transform duration-300 ease-in-out',
         ],
-        drawerContainer: 'overflow-y-auto',
       },
       top: {
         drawerClass: [
           'h-96 w-full inset-x-0 top-0',
           'transform transition-transform duration-300 ease-in-out',
         ],
-        drawerContainer: 'overflow-x-auto',
       },
       bottom: {
         drawerClass: [
-          'bottom-0 h-96 w-full inset-x-0',
+          'h-96 w-full inset-x-0 bottom-0',
           'transform transition-transform duration-300 ease-in-out',
         ],
-        drawerContainer: 'overflow-x-auto',
       },
     },
   },
   compoundVariants: [
-    // Açık/kapalı ve yönlendirme kombinasyonları için özel animasyonlar
     {
       isOpen: true,
       orientation: 'left',
