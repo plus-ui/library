@@ -54,13 +54,14 @@ export default class PlusListBoxItem extends Tailwind {
     type: Boolean,
     reflect: true,
     converter: (value) => value === 'true',
+  })
   selected = false;
 
   /**
    * Sets the text content of the list box item
    * If provided, this will be used as the item's content when no slot content is present
    */
-  @property()
+  @property({ attribute: 'text' })
   text?: string;
 
   /**

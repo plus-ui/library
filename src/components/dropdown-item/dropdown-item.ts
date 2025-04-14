@@ -43,6 +43,7 @@ export default class PlusDropDownItem extends Tailwind {
     type: Boolean,
     reflect: true,
     converter: (value) => value === 'true',
+  })
   disabled: boolean = false;
 
   /**
@@ -54,6 +55,7 @@ export default class PlusDropDownItem extends Tailwind {
     type: Boolean,
     reflect: true,
     converter: (value) => value === 'true',
+  })
   selected: boolean = false;
 
   /**
@@ -61,7 +63,7 @@ export default class PlusDropDownItem extends Tailwind {
    * If provided, this will be used as the item's content,
    * and also as the aria-label for accessibility
    */
-  @property()
+  @property({ attribute: 'text' })
   text?: string;
 
   /**
