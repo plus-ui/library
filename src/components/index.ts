@@ -25,3 +25,4 @@ export * from './dropdown-item';
 export * from './tooltip';
 export * from './input';
 export * from './popconfirm';
+export * from './text';
