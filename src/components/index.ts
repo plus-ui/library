@@ -22,3 +22,4 @@ export * from './popover';
 export * from './tooltip';
 export * from './input';
 export * from './popconfirm';
+export * from './text';
