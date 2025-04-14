@@ -4,6 +4,7 @@ export const linkStyle = tv({
   base: [
     'link plus-ui-element',
     'font-normal appearance-none',
+    'flex items-center gap-1',
   ],
   variants: {
     size: {
