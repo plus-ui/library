@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- START: Input Examples -->
+    <h2>Input Examples</h2>
+    <div class="container">
+      <h3>Basic Inputs</h3>
+      <div class="col">
+        <plus-input
+          label="Default Input"
+          placeholder="Enter text here"
+        ></plus-input>
+        <plus-input
+          label="Disabled Input"
+          disabled
+          placeholder="Disabled input"
+        ></plus-input>
+        <plus-input
+          label="Readonly Input"
+          readonly
+          value="Readonly value"
+        ></plus-input>
+        <plus-input
+          label="Required Input"
+          required
+          placeholder="Required field"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input Sizes</h3>
+      <div class="col">
+        <plus-input
+          label="Small Input"
+          size="sm"
+          placeholder="Small size"
+        ></plus-input>
+        <plus-input
+          label="Medium Input"
+          size="md"
+          placeholder="Medium size"
+        ></plus-input>
+        <plus-input
+          label="Large Input"
+          size="lg"
+          placeholder="Large size"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input Types</h3>
+      <div class="col">
+        <plus-input
+          label="Email Input"
+          type="email"
+          placeholder="Enter email"
+        ></plus-input>
+        <plus-input
+          label="Password Input"
+          type="password"
+          placeholder="Enter password"
+        ></plus-input>
+        <plus-input
+          label="Number Input"
+          type="number"
+          placeholder="Enter number"
+        ></plus-input>
+        <plus-input
+          label="Search Input"
+          type="search"
+          placeholder="Search..."
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input with Icons</h3>
+      <div class="col">
+        <plus-input
+          label="Input with Prefix Icon"
+          prefix-icon="fa-solid fa-user"
+          placeholder="Username"
+        ></plus-input>
+        <plus-input
+          label="Input with Suffix Icon"
+          suffix-icon="fa-solid fa-lock"
+          placeholder="Password"
+        ></plus-input>
+        <plus-input
+          label="Input with Both Icons"
+          prefix-icon="fa-solid fa-envelope"
+          suffix-icon="fa-solid fa-check"
+          placeholder="Email"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Input States</h3>
+      <div class="col">
+        <plus-input
+          label="Error Input"
+          error
+          caption="This field has an error"
+          placeholder="Error state"
+        ></plus-input>
+        <plus-input
+          label="Input with Caption"
+          caption="This is a helpful caption"
+          placeholder="With caption"
+        ></plus-input>
+        <plus-input
+          label="Clearable Input"
+          clearable
+          placeholder="Type and clear"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Full Width Input</h3>
+      <div class="col">
+        <plus-input
+          label="Full Width Input"
+          full-width
+          placeholder="This input takes full width"
+        ></plus-input>
+      </div>
+    </div>
+
+    <div class="container">
+      <h3>Form Integration Examples</h3>
+      <form id="loginForm" class="col">
+        <plus-input
+          label="Email"
+          type="email"
+          name="email"
+          required
+          placeholder="Enter your email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        ></plus-input>
+        <plus-input
+          label="Password"
+          type="password"
+          name="password"
+          required
+          password-toggle
+          placeholder="Enter your password"
+          minlength="8"
+        ></plus-input>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+        >
+          Login
+        </button>
+      </form>
+
+      <form id="registrationForm" class="col mt-4">
+        <plus-input
+          label="Full Name"
+          name="fullName"
+          required
+          placeholder="Enter your full name"
+          minlength="3"
+        ></plus-input>
+        <plus-input
+          label="Phone Number"
+          type="tel"
+          name="phone"
+          pattern="[0-9]{10}"
+          placeholder="Enter your phone number"
+        ></plus-input>
+        <plus-input
+          label="Age"
+          type="number"
+          name="age"
+          min="18"
+          max="100"
+          placeholder="Enter your age"
+        ></plus-input>
+        <button
+          type="submit"
+          class="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+    <!-- END: Input Examples -->
+
+    <!-- START: Textarea Examples -->
+    <div class="container">
+      <h2>Textarea Examples</h2>
+      <div class="col">
+        <plus-textarea
+          label="Default Textarea"
+          placeholder="Enter text here"
+          rows="3"
+        ></plus-textarea>
+        <plus-textarea
+          label="Required Textarea"
+          required
+          placeholder="Please provide details"
+          rows="4"
+          minlength="10"
+        ></plus-textarea>
+        <plus-textarea
+          label="Disabled Textarea"
+          disabled
+          value="This cannot be edited"
+          rows="2"
+        ></plus-textarea>
+        <plus-textarea
+          label="Readonly Textarea"
+          readonly
+          value="This is read-only content"
+          rows="3"
+        ></plus-textarea>
+        <plus-textarea
+          label="Textarea with Caption"
+          caption="Provide a detailed description."
+          rows="5"
+        ></plus-textarea>
+        <plus-textarea
+          label="Error Textarea"
+          error
+          error-message="This field has an error"
+          value="Some initial text"
+          rows="3"
+        ></plus-textarea>
+        <plus-textarea
+          label="Textarea No Resize"
+          resize="none"
+          placeholder="Cannot be resized"
+          rows="2"
+        ></plus-textarea>
+      </div>
+    </div>
+    <!-- END: Textarea Examples -->
+
+    <script>
+      // Input event handlers
+      document.addEventListener('DOMContentLoaded', () => {
+        const allInputs = document.querySelectorAll(
+          'plus-input, plus-textarea'
+        ); // Select both
+        allInputs.forEach((input) => {
+          input.addEventListener('plus-input', (e) => {
+            console.log('Input/Textarea changed:', {
+              value: e.target.value,
+              name: e.target.name,
+              label: e.target.label,
+            });
+          });
+
+          input.addEventListener('plus-focus', () => {
+            console.log('Input/Textarea focused:', input.label);
+          });
+
+          input.addEventListener('plus-blur', () => {
+            console.log('Input/Textarea blurred:', input.label);
+          });
+
+          // Add handlers for events specific to plus-input if needed
+          if (input.tagName.toLowerCase() === 'plus-input') {
+            input.addEventListener('plus-clear', () => {
+              console.log('Input cleared:', input.label);
+            });
+            input.addEventListener('plus-password-toggle', (e) => {
+              console.log('Password visibility toggled:', e.detail.visible);
+            });
+          }
+
+          input.addEventListener('plus-invalid', (e) => {
+            console.log('Input/Textarea invalid:', e.detail, input.label);
+          });
+        });
+
+        // Reusable form submission handler
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          const form = event.target;
+          const data = {};
+          let isFormValid = true;
+          let firstInvalidInput = null; // Keep track of the first invalid element
+
+          // Get all plus-input and plus-textarea elements in the form
+          const formElements = form.querySelectorAll(
+            'plus-input, plus-textarea'
+          );
+          formElements.forEach((input) => {
+            if (input.name) {
+              data[input.name] = input.value;
+
+              // Validate the input using its own method
+              if (!input.reportValidity()) {
+                isFormValid = false;
+                // Store the first invalid input found
+                if (!firstInvalidInput) {
+                  firstInvalidInput = input;
+                }
+              }
+            }
+          });
+
+          console.log(`Form #${form.id} validity:`, isFormValid);
+
+          if (isFormValid) {
+            console.log(`Form #${form.id} submitted with data:`, data);
+            // Optional: Add logic here to actually submit data (e.g., using fetch)
+          } else {
+            console.log(`Form #${form.id} validation failed.`);
+            // Focus the first invalid input after checking all inputs
+            firstInvalidInput?.focus();
+          }
+        }
+
+        // Attach the handler to existing forms
+        document
+          .getElementById('loginForm')
+          .addEventListener('submit', handleFormSubmit);
+        document
+          .getElementById('registrationForm')
+          .addEventListener('submit', handleFormSubmit);
+
+        // Optional: Add a form around the textarea examples if you want to test submission
+        // Example: Give the container div an id="textareaForm"
+        // const textareaForm = document.getElementById('textareaForm');
+        // if (textareaForm && textareaForm.tagName === 'FORM') { // Ensure it's a form
+        //     textareaForm.addEventListener('submit', handleFormSubmit);
+        // }
+      });
+    </script>
+  </body>
+</html>
