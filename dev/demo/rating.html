@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem; /* Added gap between main sections */
+      }
+      .container h2 {
+        margin-bottom: 1rem;
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        max-width: 400px; /* Limit width for examples */
+      }
+      label {
+        display: block;
+        margin-bottom: 0.25rem;
+        font-weight: 500;
+      }
+      button {
+        /* Simple button style */
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 0.375rem; /* rounded-md */
+        cursor: pointer;
+        background-color: #3b82f6; /* bg-blue-500 */
+        color: white;
+        transition: background-color 0.15s ease-in-out;
+        margin-top: 0.5rem;
+      }
+      button:hover {
+        background-color: #2563eb; /* bg-blue-600 */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Rating Examples</h2>
+      <div class="col">
+        <plus-rating
+          label="Default Rating"
+          value="3"
+          name="standalone_rating"
+        ></plus-rating>
+        <plus-rating
+          label="Small Size"
+          size="sm"
+          value="2.5"
+          precision="0.5"
+        ></plus-rating>
+        <plus-rating
+          label="Large Size with Caption"
+          size="lg"
+          value="4"
+          caption="This is a large rating."
+        ></plus-rating>
+        <plus-rating
+          label="Readonly"
+          value="3.7"
+          precision="0.1"
+          readonly
+          caption="Cannot be changed"
+        ></plus-rating>
+        <plus-rating label="Disabled" value="2" disabled></plus-rating>
+        <plus-rating label="Max 10 Stars" max="10" value="7"></plus-rating>
+      </div>
+    </div>
+
+    <div class="container">
+      <h2>Form Example</h2>
+      <form id="feedbackForm" class="col">
+        <plus-input
+          label="Your Name"
+          name="userName"
+          required
+          placeholder="Enter your name"
+        ></plus-input>
+        <plus-rating
+          label="Your Rating"
+          name="userRating"
+          value="0"
+          required
+          caption="Please provide your rating."
+        ></plus-rating>
+        <button type="submit">Submit Feedback</button>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // --- Generic Event Loggers ---
+        const componentsToLog = document.querySelectorAll(
+          'plus-input, plus-rating'
+        );
+        componentsToLog.forEach((component) => {
+          component.addEventListener('plus-change', (e) => {
+            console.log(`${component.tagName} changed:`, {
+              value: e.target.value,
+              name: e.target.name,
+            });
+          });
+          component.addEventListener('plus-focus', () => {
+            console.log(
+              `${component.tagName} focused:`,
+              component.label || component.getAttribute('name')
+            );
+          });
+          component.addEventListener('plus-blur', () => {
+            console.log(
+              `${component.tagName} blurred:`,
+              component.label || component.getAttribute('name')
+            );
+          });
+          // Specific loggers if needed
+          if (component.tagName.toLowerCase() === 'plus-rating') {
+            component.addEventListener('plus-hover', (e) => {
+              console.log('Rating hover:', e.detail);
+            });
+          }
+          if (component.tagName.toLowerCase() === 'plus-input') {
+            component.addEventListener('plus-invalid', (e) => {
+              console.log('Input invalid:', e.detail);
+            });
+          }
+        });
+
+        // --- Form Submission Handler ---
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          const form = event.target;
+          const data = {};
+          let isFormValid = true;
+          let firstInvalidElement = null;
+
+          const formElements = form.querySelectorAll('plus-input, plus-rating');
+
+          formElements.forEach((element) => {
+            const el = element;
+            if (el.name) {
+              data[el.name] = el.value;
+
+              // Call reportValidity for ALL elements that support it
+              if (typeof el.reportValidity === 'function') {
+                if (!el.reportValidity()) {
+                  isFormValid = false;
+                  if (!firstInvalidElement) {
+                    firstInvalidElement = el;
+                  }
+                }
+              }
+              // Remove the manual check and rating-error class logic
+              /*
+              // Basic check for rating required
+              else if (el.tagName.toLowerCase() === 'plus-rating' && el.hasAttribute('required') && (!el.value || el.value <= 0)) {
+                  console.log('Rating is required but has no value:', el.name);
+                  isFormValid = false;
+                  if (!firstInvalidElement) {
+                      firstInvalidElement = el;
+                  }
+                  el.classList.add('rating-error');
+              } 
+              // Remove potential error class from rating
+              if(el.tagName.toLowerCase() === 'plus-rating') {
+                  el.classList.remove('rating-error'); 
+              }
+              */
+            }
+          });
+
+          console.log(`Form #${form.id} validity:`, isFormValid);
+
+          if (isFormValid) {
+            console.log(`Form #${form.id} submitted with data:`, data);
+            form.reset();
+          } else {
+            console.log(`Form #${form.id} validation failed.`);
+            firstInvalidElement?.focus();
+          }
+        }
+
+        // Attach handler to the new form
+        document
+          .getElementById('feedbackForm')
+          ?.addEventListener('submit', handleFormSubmit);
+      });
+    </script>
+  </body>
+</html>

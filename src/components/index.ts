@@ -31,3 +31,4 @@ export * from './breadcrumb-item';
 export * from './checkbox';
 export * from './checkbox-group';
 export * from './textarea';
+export * from './rating';
