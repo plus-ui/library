@@ -3,6 +3,7 @@ import { tv } from 'tailwind-variants';
 export const ratingStyle = tv({
   slots: {
     host: [
+      'plus-ui-element',
       'inline-flex',
       'items-center',
       'gap-1',
