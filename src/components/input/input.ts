@@ -311,43 +311,40 @@ export default class PlusInput extends Tailwind {
    */
   @property({ type: String, attribute: 'suffix-icon' }) suffixIcon?: string;
 
-  /**
-   * Checks if the input is valid
-   * @returns {boolean} True if the input is valid, false otherwise
-   */
-  public checkValidity(): boolean {
-    return this.input.validity.valid;
+  constructor() {
+    super();
   }
 
   /**
-   * Reports the validity of the input to the user
-   * @returns {boolean} True if the input is valid, false otherwise
+   * Checks the validity of the input against constraints.
+   * @returns {boolean} True if the input is valid, false otherwise.
+   */
+  public checkValidity(): boolean {
+    return this.input.checkValidity();
+  }
+
+  /**
+   * Reports the validity of the input. If the input is invalid,
+   * it dispatches an 'invalid' event and focuses the input.
+   * @returns {boolean} True if the input is valid, false otherwise.
    */
   public reportValidity(): boolean {
     const isValid = this.checkValidity();
-    if (!isValid) {
-      this.validate();
-    }
+    this.validationMessage = this.getValidationMessage();
+
+    this.error = !isValid;
+
     return isValid;
   }
 
   /**
-   * Sets a custom validation message
-   * @param {string} message The validation message
+   * Sets a custom validation message for the input.
+   * @param {string} message - The custom validation message.
    */
   public setCustomValidity(message: string): void {
     this.input.setCustomValidity(message);
-    if (message) {
-      this.error = true;
-      this.caption = message;
-      this.validationMessage = message;
-    } else {
-      this.error = false;
-      if (this.caption === this.validationMessage) {
-        this.caption = '';
-      }
-      this.validationMessage = '';
-    }
+    this.validationMessage = message;
+    this.error = message !== '';
   }
 
   /**
@@ -356,8 +353,8 @@ export default class PlusInput extends Tailwind {
    */
   private handleBlur() {
     this.hasFocus = false;
-    this.emit('plus-blur');
     this.validate();
+    this.emit('plus-blur');
   }
 
   /**
@@ -414,9 +411,12 @@ export default class PlusInput extends Tailwind {
    */
   private handleInput() {
     this.value = this.input.value;
+    // If the input is already in an error state, re-validate on input
+    // to provide immediate feedback as the user corrects the value.
+    if (this.error) {
+      this.validate();
+    }
     this.emit('plus-input');
-    this.error = false;
-    this.validationMessage = '';
   }
 
   /**
@@ -471,28 +471,12 @@ export default class PlusInput extends Tailwind {
    * @private
    */
   private validate() {
-    const isValid = this.input.validity.valid;
+    const isValid = this.input.checkValidity();
+    const validationMessage = this.getValidationMessage();
 
-    if (isValid) {
-      this.error = false;
-      this.validationMessage = '';
-      // Only clear caption if it was set by validation
-      if (this.caption === this.validationMessage) {
-        this.caption = '';
-      }
-      return;
-    }
+    this.validationMessage = validationMessage;
 
-    this.error = true;
-    this.validationMessage = this.getValidationMessage();
-    this.caption = this.validationMessage;
-
-    this.emit('plus-invalid', {
-      detail: {
-        message: this.validationMessage,
-        validity: this.input.validity,
-      },
-    });
+    this.error = !isValid;
   }
 
   /**
@@ -501,8 +485,21 @@ export default class PlusInput extends Tailwind {
    * @private
    */
   private handleInvalid(event: Event) {
+    // Prevent the browser's default validation UI
     event.preventDefault();
-    this.validate();
+
+    // Get validity state and message directly from the native input
+    const isValid = this.input.validity.valid;
+    const validationMessage = this.getValidationMessage();
+
+    // Update component state
+    this.validationMessage = validationMessage;
+    this.error = !isValid;
+
+    // Emit the custom invalid event if the input is truly invalid
+    if (!isValid) {
+      this.emit('plus-invalid', { detail: { validationMessage } });
+    }
   }
 
   /**
@@ -595,14 +592,20 @@ export default class PlusInput extends Tailwind {
             >${label}</label
           >`
         : nothing;
-    const CaptionTemplate = () =>
-      html`<div class=${captionStyle({ error, size })} id="help-text">
-        ${validationMessage || caption}
-      </div>`;
+    const CaptionTemplate = () => {
+      const textToShow =
+        error && validationMessage ? validationMessage : caption;
+
+      return textToShow
+        ? html`<div class=${captionStyle({ error, size })} id="help-text">
+            ${textToShow}
+          </div>`
+        : nothing;
+    };
     const ClearTemplate = () =>
       clearable && value
         ? html`<div
-            class=${clearButton() + suffix()}
+            class=${clearButton() + ' ' + suffix()}
             @click=${this.handleClearClick}
             role="button"
             aria-label="Clear input"
@@ -615,7 +618,7 @@ export default class PlusInput extends Tailwind {
     const PasswordToggleTemplate = () =>
       passwordToggle && this.type === 'password'
         ? html`<div
-            class=${passwordToggleButton() + suffix()}
+            class=${passwordToggleButton() + ' ' + suffix()}
             @click=${this.handlePasswordToggle}
             role="button"
             aria-label=${passwordVisible ? 'Hide password' : 'Show password'}
