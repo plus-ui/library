@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Component Test Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
     <script type="module" src="../cdn/components/index.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -104,22 +108,20 @@
     <div class="container">
       <h3>Input with Icons</h3>
       <div class="col">
-        <plus-input
-          label="Input with Prefix Icon"
-          prefix-icon="fa-solid fa-user"
-          placeholder="Username"
-        ></plus-input>
-        <plus-input
-          label="Input with Suffix Icon"
-          suffix-icon="fa-solid fa-lock"
-          placeholder="Password"
-        ></plus-input>
-        <plus-input
-          label="Input with Both Icons"
-          prefix-icon="fa-solid fa-envelope"
-          suffix-icon="fa-solid fa-check"
-          placeholder="Email"
-        ></plus-input>
+        <plus-input label="Input with Prefix Icon" placeholder="Username">
+          <i slot="prefix" class="fa-solid fa-user"></i>
+        </plus-input>
+        <plus-input label="Input with Suffix Icon" placeholder="Password">
+          <i slot="suffix" class="fa-solid fa-lock"></i>
+        </plus-input>
+        <plus-input label="Input with Both Icons" placeholder="Email">
+          <i slot="prefix" class="fa-solid fa-envelope"></i>
+          <i slot="suffix" class="fa-solid fa-check"></i>
+        </plus-input>
+        <plus-input label="Input with Both Icons" placeholder="Email" clearable>
+          <i slot="prefix" class="fa-solid fa-envelope"></i>
+          <i slot="suffix" class="fa-solid fa-check"></i>
+        </plus-input>
       </div>
     </div>
 
@@ -249,12 +251,12 @@
           });
         });
 
-        // Form submission handlers
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-          e.preventDefault();
-          const form = e.target;
+        // Reusable form submission handler
+        function handleFormSubmit(event) {
+          event.preventDefault();
+          const form = event.target;
           const data = {};
-          let isValid = true;
+          let isFormValid = true;
 
           // Get all plus-input elements in the form
           const inputs = form.querySelectorAll('plus-input');
@@ -262,51 +264,30 @@
             if (input.name) {
               data[input.name] = input.value;
 
-              // Use the new reportValidity method to validate
+              // Validate the input using its own method
               if (!input.reportValidity()) {
-                isValid = false;
+                isFormValid = false;
               }
             }
           });
 
-          console.log('Form is valid:', isValid);
+          console.log(`Form #${form.id} validity:`, isFormValid);
 
-          if (isValid) {
-            console.log('Login form submitted:', data);
+          if (isFormValid) {
+            console.log(`Form #${form.id} submitted with data:`, data);
+            // Optional: Add logic here to actually submit data (e.g., using fetch)
           } else {
-            console.log('Form validation failed');
+            console.log(`Form #${form.id} validation failed.`);
           }
-        });
+        }
 
+        // Attach the handler to both forms
+        document
+          .getElementById('loginForm')
+          .addEventListener('submit', handleFormSubmit);
         document
           .getElementById('registrationForm')
-          .addEventListener('submit', (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const data = {};
-            let isValid = true;
-
-            // Get all plus-input elements in the form
-            const inputs = form.querySelectorAll('plus-input');
-            inputs.forEach((input) => {
-              if (input.name) {
-                data[input.name] = input.value;
-
-                // Use the new reportValidity method to validate
-                if (!input.reportValidity()) {
-                  isValid = false;
-                }
-              }
-            });
-
-            console.log('Form is valid:', isValid);
-
-            if (isValid) {
-              console.log('Registration form submitted:', data);
-            } else {
-              console.log('Form validation failed');
-            }
-          });
+          .addEventListener('submit', handleFormSubmit);
       });
     </script>
   </body>
