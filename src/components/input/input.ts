@@ -410,7 +410,11 @@ export default class PlusInput extends Tailwind {
    */
   private handleInput() {
     this.value = this.input.value;
-    this.validate();
+    // If the input is already in an error state, re-validate on input
+    // to provide immediate feedback as the user corrects the value.
+    if (this.error) {
+      this.validate();
+    }
     this.emit('plus-input');
   }
 
