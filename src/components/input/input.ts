@@ -344,6 +344,7 @@ export default class PlusInput extends Tailwind {
   public setCustomValidity(message: string): void {
     this.input.setCustomValidity(message);
     this.validationMessage = message;
+    this.error = message !== '';
   }
 
   /**
