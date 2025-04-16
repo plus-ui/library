@@ -363,8 +363,8 @@ export default class PlusInput extends Tailwind {
    */
   private handleChange() {
     this.value = this.input.value;
-    this.validate();
     this.emit('plus-change');
+    this.validate();
   }
 
   /**
