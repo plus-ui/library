@@ -6,15 +6,19 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * @tag plus-radio
- * @since 0.0.0
- * @status experimental
+ * @summary Radio button component that allows single selection from a group of options.
  *
- * PlusRadio component provides a radio button element with customizable styles and states.
- * Supports different sizes and interactive states such as checked, disabled, readonly, and error.
- *
- * @slot - The default slot for radio button label content
+ * @slot - The radio button label content
  *
  * @csspart radio - The component's radio input element
+ *
+ * @event plus-change - Emitted when the radio button's checked state changes
+ *
+ * @example
+ * ```html
+ * <plus-radio name="gender" value="male">Male</plus-radio>
+ * <plus-radio name="gender" value="female">Female</plus-radio>
+ * ```
  */
 export default class PlusRadio extends Tailwind {
   @query('input[type="radio"]')

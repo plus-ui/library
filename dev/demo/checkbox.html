@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <!-- Font Awesome needed if using i tags for icons in slots -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem; /* Add gap between example sections */
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        /* margin-bottom: 1rem; Remove bottom margin if using body gap */
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap; /* Allow wrapping for smaller screens */
+        gap: 1.5rem; /* Increase gap for better spacing */
+        align-items: center;
+      }
+
+      h2 {
+        margin: 0 0 0.5rem 0; /* Add bottom margin to headers */
+        font-size: 1.25rem;
+        font-weight: 600;
+        border-bottom: 1px solid #eee; /* Add a light separator */
+        padding-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Checkbox Examples -->
+    <div class="col">
+      <h2>Checkbox Examples</h2>
+      <div class="row">
+        <plus-checkbox error>Error State</plus-checkbox>
+        <plus-checkbox error checked>Error State Checked</plus-checkbox>
+        <plus-checkbox>Default</plus-checkbox>
+        <plus-checkbox checked>Checked</plus-checkbox>
+        <plus-checkbox indeterminate>Indeterminate</plus-checkbox>
+        <plus-checkbox disabled>Disabled</plus-checkbox>
+        <plus-checkbox disabled checked>Disabled Checked</plus-checkbox>
+        <plus-checkbox disabled indeterminate
+          >Disabled Indeterminate</plus-checkbox
+        >
+      </div>
+      <div class="row">
+        <plus-checkbox size="sm">Small</plus-checkbox>
+        <plus-checkbox size="md">Medium</plus-checkbox>
+        <plus-checkbox size="lg">Large</plus-checkbox>
+      </div>
+    </div>
+
+    <!-- Checkbox Group Examples -->
+    <div class="col">
+      <h2>Checkbox Group Examples</h2>
+
+      <div class="col">
+        <h3>Horizontal (Default)</h3>
+        <plus-checkbox-group id="group1">
+          <plus-checkbox value="apple">Apple</plus-checkbox>
+          <plus-checkbox value="banana">Banana</plus-checkbox>
+          <plus-checkbox value="orange">Orange</plus-checkbox>
+          <plus-checkbox value="grape" disabled>Grape (Disabled)</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group1-value">[]</span></pre>
+      </div>
+
+      <div class="col">
+        <h3>Vertical</h3>
+        <plus-checkbox-group id="group2" vertical size="lg">
+          <plus-checkbox value="red">Red</plus-checkbox>
+          <plus-checkbox value="green">Green</plus-checkbox>
+          <plus-checkbox value="blue">Blue</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group2-value">[]</span></pre>
+      </div>
+
+      <div class="col">
+        <h3>With Initial Value</h3>
+        <plus-checkbox-group id="group3" value='["email", "sms"]'>
+          <plus-checkbox value="email">Email</plus-checkbox>
+          <plus-checkbox value="sms">SMS</plus-checkbox>
+          <plus-checkbox value="push">Push Notification</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group3-value">["email", "sms"]</span></pre>
+      </div>
+
+      <div class="col">
+        <h3>Disabled Group</h3>
+        <plus-checkbox-group id="group4" disabled>
+          <plus-checkbox value="option1">Option 1</plus-checkbox>
+          <plus-checkbox value="option2" checked
+            >Option 2 (Checked)</plus-checkbox
+          >
+          <plus-checkbox value="option3">Option 3</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group4-value">[]</span></pre>
+      </div>
+    </div>
+
+    <script>
+      // Helper to display group values
+      function setupGroupListener(groupId) {
+        const group = document.getElementById(groupId);
+        const valueSpan = document.getElementById(`${groupId}-value`);
+        if (group && valueSpan) {
+          // Initial value display for groups with pre-set value
+          if (group.value && group.value.length > 0) {
+            valueSpan.textContent = JSON.stringify(group.value);
+          }
+          group.addEventListener('plus-change', (event) => {
+            valueSpan.textContent = JSON.stringify(event.detail.value);
+          });
+        }
+      }
+
+      setupGroupListener('group1');
+      setupGroupListener('group2');
+      setupGroupListener('group3');
+      setupGroupListener('group4');
+    </script>
+  </body>
+</html>

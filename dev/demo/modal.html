@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .row {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Modal Examples</h1>
+
+    <div class="col">
+      <h2>Basic Usage</h2>
+      <plus-button onclick="document.querySelector('#basic-modal').show()"
+        >Open Basic Modal</plus-button
+      >
+      <plus-modal id="basic-modal">
+        <div slot="header">Modal Title</div>
+        <div slot="body">
+          <plus-text>This is the content of the modal.</plus-text>
+          <plus-text>You can put any content here.</plus-text>
+        </div>
+        <div slot="footer">
+          <plus-button>Save</plus-button>
+        </div>
+      </plus-modal>
+    </div>
+
+    <div class="col">
+      <h2>Different Sizes</h2>
+      <div class="row">
+        <plus-button onclick="document.querySelector('#small-modal').show()"
+          >Open Small Modal</plus-button
+        >
+        <plus-button onclick="document.querySelector('#medium-modal').show()"
+          >Open Medium Modal</plus-button
+        >
+        <plus-button onclick="document.querySelector('#large-modal').show()"
+          >Open Large Modal</plus-button
+        >
+        <plus-button onclick="document.querySelector('#xl-modal').show()"
+          >Open XL Modal</plus-button
+        >
+        <plus-button onclick="document.querySelector('#xxl-modal').show()"
+          >Open 2XL Modal</plus-button
+        >
+      </div>
+      <plus-modal id="small-modal" size="sm">
+        <div slot="header">Small Modal</div>
+        <div slot="body">
+          <plus-text>Small modal content</plus-text>
+        </div>
+      </plus-modal>
+      <plus-modal id="medium-modal" size="md">
+        <div slot="header">Medium Modal</div>
+        <div slot="body">
+          <plus-text>Medium modal content</plus-text>
+        </div>
+      </plus-modal>
+      <plus-modal id="large-modal" size="lg">
+        <div slot="header">Large Modal</div>
+        <div slot="body">
+          <plus-text>Large modal content</plus-text>
+        </div>
+      </plus-modal>
+      <plus-modal id="xl-modal" size="xl">
+        <div slot="header">XL Modal</div>
+        <div slot="body">
+          <plus-text>XL modal content</plus-text>
+        </div>
+      </plus-modal>
+      <plus-modal id="xxl-modal" size="2xl">
+        <div slot="header">2XL Modal</div>
+        <div slot="body">
+          <plus-text>2XL modal content</plus-text>
+        </div>
+      </plus-modal>
+    </div>
+
+    <div class="col">
+      <h2>Full Width Modal</h2>
+      <plus-button onclick="document.querySelector('#full-width-modal').show()"
+        >Open Full Width Modal</plus-button
+      >
+      <plus-modal id="full-width-modal" full-width>
+        <div slot="header">Full Width Modal</div>
+        <div slot="body">
+          <plus-text
+            >This modal takes the full width of the screen (minus
+            margins)</plus-text
+          >
+        </div>
+      </plus-modal>
+    </div>
+
+    <div class="col">
+      <h2>Modal with Custom Close Button</h2>
+      <plus-button
+        onclick="document.querySelector('#custom-close-modal').show()"
+        >Open Modal with Custom Close</plus-button
+      >
+      <plus-modal id="custom-close-modal">
+        <plus-button slot="close" variant="ghost" size="sm">
+          Close
+        </plus-button>
+        <div slot="header">Custom Close Button</div>
+        <div slot="body">
+          <plus-text>Modal with custom close button</plus-text>
+        </div>
+      </plus-modal>
+    </div>
+
+    <div class="col">
+      <h2>Modal with Disabled Backdrop Click</h2>
+      <plus-button onclick="document.querySelector('#no-backdrop-modal').show()"
+        >Open Modal (No Backdrop Close)</plus-button
+      >
+      <plus-modal id="no-backdrop-modal" close-on-backdrop="false">
+        <div slot="header">No Backdrop Close</div>
+        <div slot="body">
+          <plus-text
+            >This modal won't close when clicking the backdrop</plus-text
+          >
+        </div>
+      </plus-modal>
+    </div>
+
+    <div class="col">
+      <h2>Modal with Disabled Escape Key</h2>
+      <plus-button onclick="document.querySelector('#no-escape-modal').show()"
+        >Open Modal (No Escape Close)</plus-button
+      >
+      <plus-modal id="no-escape-modal" close-on-esc="false">
+        <div slot="header">No Escape Close</div>
+        <div slot="body">
+          <plus-text
+            >This modal won't close when pressing the Escape key</plus-text
+          >
+        </div>
+      </plus-modal>
+    </div>
+  </body>
+</html>

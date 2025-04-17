@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+      .example-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+      }
+      .example-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+      }
+      .example-description {
+        color: #6b7280;
+      }
+      .example-container {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .divider-example {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+      }
+      .divider-content {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Divider Examples</h1>
+
+    <!-- Basic Divider -->
+    <div class="example-section">
+      <h2 class="example-title">Basic Divider</h2>
+      <p class="example-description">Simple divider with default settings</p>
+      <div class="example-container">
+        <div class="divider-example">
+          <div>Content above</div>
+          <plus-divider></plus-divider>
+          <div>Content below</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Different Kinds -->
+    <div class="example-section">
+      <h2 class="example-title">Different Kinds</h2>
+      <p class="example-description">
+        Divider with solid, dashed and dotted styles
+      </p>
+      <div class="example-container">
+        <div class="divider-example">
+          <div>Solid Divider</div>
+          <plus-divider kind="solid"></plus-divider>
+          <div>Content</div>
+        </div>
+
+        <div class="divider-example">
+          <div>Dashed Divider</div>
+          <plus-divider kind="dashed"></plus-divider>
+          <div>Content</div>
+        </div>
+
+        <div class="divider-example">
+          <div>Dotted Divider</div>
+          <plus-divider kind="dotted"></plus-divider>
+          <div>Content</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Different Thickness -->
+    <div class="example-section">
+      <h2 class="example-title">Different Thickness</h2>
+      <p class="example-description">
+        Divider with thin, medium and thick styles
+      </p>
+      <div class="example-container">
+        <div class="divider-example">
+          <div>Thin Divider</div>
+          <plus-divider thickness="thin"></plus-divider>
+          <div>Content</div>
+        </div>
+
+        <div class="divider-example">
+          <div>Medium Divider</div>
+          <plus-divider thickness="medium"></plus-divider>
+          <div>Content</div>
+        </div>
+
+        <div class="divider-example">
+          <div>Thick Divider</div>
+          <plus-divider thickness="thick"></plus-divider>
+          <div>Content</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- With Text and Different Positions -->
+    <div class="example-section">
+      <h2 class="example-title">With Text and Different Positions</h2>
+      <p class="example-description">
+        Divider with text in different positions
+      </p>
+      <div class="example-container">
+        <div class="divider-example">
+          <div>Content above</div>
+          <plus-divider contentPosition="left">Left Text</plus-divider>
+          <div>Content below</div>
+        </div>
+
+        <div class="divider-example">
+          <div>Content above</div>
+          <plus-divider contentPosition="center">Center Text</plus-divider>
+          <div>Content below</div>
+        </div>
+
+        <div class="divider-example">
+          <div>Content above</div>
+          <plus-divider contentPosition="right">Right Text</plus-divider>
+          <div>Content below</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Different Orientations -->
+    <div class="example-section">
+      <h2 class="example-title">Different Orientations</h2>
+      <p class="example-description">
+        Divider in horizontal and vertical orientations
+      </p>
+      <div class="example-container">
+        <div class="divider-example">
+          <div class="divider-content">
+            <div>Left Content</div>
+            <plus-divider orientation="vertical"></plus-divider>
+            <div>Right Content</div>
+          </div>
+        </div>
+
+        <div class="divider-example">
+          <div>Top Content</div>
+          <plus-divider orientation="horizontal"></plus-divider>
+          <div>Bottom Content</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Style -->
+    <div class="example-section">
+      <h2 class="example-title">Custom Style</h2>
+      <p class="example-description">Divider with custom styling</p>
+      <div class="example-container">
+        <div class="divider-example">
+          <div>Content above</div>
+          <plus-divider
+            style="
+              --divider-color: #8b5cf6;
+              --divider-thickness: 2px;
+              --divider-spacing: 2rem;
+            "
+            >Custom Style</plus-divider
+          >
+          <div>Content below</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- In Different Contexts -->
+    <div class="example-section">
+      <h2 class="example-title">In Different Contexts</h2>
+      <p class="example-description">Divider used in various contexts</p>
+      <div class="example-container">
+        <div class="divider-example">
+          <h3>Section 1</h3>
+          <p>Content for section 1</p>
+          <plus-divider kind="dashed"></plus-divider>
+          <h3>Section 2</h3>
+          <p>Content for section 2</p>
+          <plus-divider kind="dotted"></plus-divider>
+          <h3>Section 3</h3>
+          <p>Content for section 3</p>
+        </div>
+
+        <div class="divider-example">
+          <div class="divider-content">
+            <div>Menu Item 1</div>
+            <plus-divider
+              orientation="vertical"
+              thickness="medium"
+            ></plus-divider>
+            <div>Menu Item 2</div>
+            <plus-divider
+              orientation="vertical"
+              thickness="medium"
+            ></plus-divider>
+            <div>Menu Item 3</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
