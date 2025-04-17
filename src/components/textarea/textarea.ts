@@ -50,7 +50,7 @@ export class PlusTextarea extends Tailwind {
   @query('textarea')
   textarea!: HTMLTextAreaElement;
 
-  @state() private hasFocus = false;
+  // @state() private hasFocus = false;
   @state() private validationMessage = '';
 
   /** The textarea's name attribute. */
@@ -137,7 +137,7 @@ export class PlusTextarea extends Tailwind {
   }
 
   private handleBlur() {
-    this.hasFocus = false;
+    // this.hasFocus = false;
     this.validate();
     this.emit('plus-blur');
   }
@@ -149,7 +149,7 @@ export class PlusTextarea extends Tailwind {
   }
 
   private handleFocus() {
-    this.hasFocus = true;
+    // this.hasFocus = true;
     this.emit('plus-focus');
   }
 

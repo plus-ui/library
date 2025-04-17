@@ -122,9 +122,9 @@ export class PlusCheckbox extends Tailwind {
     this.emit('plus-blur');
   }
 
-  private handleClick() {
-    // No direct action needed here, handled by input change
-  }
+  // private handleClick() {
+  //   // No direct action needed here, handled by input change
+  // }
 
   private handleChange(event: Event) {
     const target = event.target as HTMLInputElement;
