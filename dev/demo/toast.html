@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast Component Test</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <script type="module">
+      import { ToastService } from '../cdn/services/toast.service.js';
+      window.ToastService = ToastService;
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .example-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        border: 1px solid #eee;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+
+      h3 {
+        width: 100%;
+        margin: 0 0 0.5rem 0;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Toast Examples</h1>
+
+    <!-- Service component renders all necessary containers -->
+    <plus-service></plus-service>
+
+    <div class="example-group">
+      <h3>Statuses (Default Kind)</h3>
+      <plus-button
+        onclick="ToastService.show({ message: 'Default information message.' })"
+        >Default</plus-button
+      >
+      <plus-button
+        status="info"
+        onclick="ToastService.show({ message: 'This is an informational message.', status: 'info' })"
+        >Info</plus-button
+      >
+      <plus-button
+        status="success"
+        onclick="ToastService.show({ message: 'Operation completed successfully!', status: 'success', header: 'Success' })"
+        >Success</plus-button
+      >
+      <plus-button
+        status="warning"
+        onclick="ToastService.show({ message: 'Please check the details.', status: 'warning', header: 'Warning' })"
+        >Warning</plus-button
+      >
+      <plus-button
+        status="danger"
+        onclick="ToastService.show({ message: 'An error occurred.', status: 'danger', header: 'Error' })"
+        >Danger</plus-button
+      >
+    </div>
+
+    <div class="example-group">
+      <h3>Kinds (Success Status)</h3>
+      <plus-button
+        status="success"
+        onclick="ToastService.show({ message: 'Default (Filled) Kind', status: 'success', kind: 'default' })"
+        >Default (Filled)</plus-button
+      >
+      <plus-button
+        status="success"
+        onclick="ToastService.show({ message: 'Outlined Kind', status: 'success', kind: 'outlined' })"
+        >Outlined</plus-button
+      >
+      <plus-button
+        status="success"
+        onclick="ToastService.show({ message: 'Dashed Kind', status: 'success', kind: 'dashed' })"
+        >Dashed</plus-button
+      >
+      <h3>Kinds (Danger Status)</h3>
+      <plus-button
+        status="danger"
+        onclick="ToastService.show({ message: 'Default (Filled) Kind', status: 'danger', kind: 'default' })"
+        >Default (Filled)</plus-button
+      >
+      <plus-button
+        status="danger"
+        onclick="ToastService.show({ message: 'Outlined Kind', status: 'danger', kind: 'outlined' })"
+        >Outlined</plus-button
+      >
+      <plus-button
+        status="danger"
+        onclick="ToastService.show({ message: 'Dashed Kind', status: 'danger', kind: 'dashed' })"
+        >Dashed</plus-button
+      >
+    </div>
+
+    <div class="example-group">
+      <h3>Positions</h3>
+      <plus-button
+        onclick="ToastService.show({ message: 'Top Left', position: 'top-left' })"
+        >Top Left</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Top Right (Default)', position: 'top-right' })"
+        >Top Right</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Bottom Left', position: 'bottom-left' })"
+        >Bottom Left</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Bottom Right', position: 'bottom-right' })"
+        >Bottom Right</plus-button
+      >
+    </div>
+
+    <div class="example-group">
+      <h3>Sizes</h3>
+      <plus-button
+        size="sm"
+        onclick="ToastService.show({ message: 'Small toast message.', size: 'sm', kind: 'outlined' })"
+        >Small (Outlined)</plus-button
+      >
+      <plus-button
+        size="md"
+        onclick="ToastService.show({ message: 'Medium toast message (Default).', size: 'md' })"
+        >Medium</plus-button
+      >
+      <plus-button
+        size="lg"
+        onclick="ToastService.show({ message: 'Large toast message.', size: 'lg', kind: 'dashed' })"
+        >Large (Dashed)</plus-button
+      >
+    </div>
+
+    <div class="example-group">
+      <h3>Durations</h3>
+      <plus-button
+        onclick="ToastService.show({ message: 'Default duration (5s).', status: 'info' })"
+        >Default (5s)</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Short duration (2s).', status: 'info', duration: 2000 })"
+        >2 Seconds</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Long duration (10s).', status: 'info', duration: 10000 })"
+        >10 Seconds</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Indefinite duration (Click X to close).', status: 'info', duration: Infinity })"
+        >Indefinite (duration: Infinity)</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Indefinite duration (Click X to close).', status: 'info', duration: 0 })"
+        >Indefinite (duration: 0)</plus-button
+      >
+    </div>
+
+    <div class="example-group">
+      <h3>Content & Options</h3>
+      <plus-button
+        onclick="ToastService.show({ message: 'Message without header.' })"
+        >Message Only</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Message with a header.', header: 'Header Text' })"
+        >With Header</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'No status icon.', status: 'success', statusIcon: false })"
+        >No Status Icon</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Custom icon (assuming shield-check exists).', icon: 'shield-check' })"
+        >Custom Icon</plus-button
+      >
+      <plus-button
+        onclick="ToastService.show({ message: 'Not dismissible (no X button).', dismiss: false, duration: 3000 })"
+        >Not Dismissible</plus-button
+      >
+      <plus-button status="danger" onclick="ToastService.closeAll()"
+        >Close All Toasts</plus-button
+      >
+    </div>
+  </body>
+</html>
