@@ -35,3 +35,5 @@ export * from './rating';
 export * from './toast';
 export * from './toast-container';
 export * from './service';
+export * from './select';
+export * from './select-item';
