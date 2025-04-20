@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>PlusToggle Examples</h1>
+
+    <div class="col">
+      <h2>Basic Toggles</h2>
+      <plus-toggle text="Default Toggle"></plus-toggle>
+      <plus-toggle text="Checked Toggle" checked></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Sizes</h2>
+      <plus-toggle size="sm" text="Small"></plus-toggle>
+      <plus-toggle size="md" text="Medium (Default)"></plus-toggle>
+      <plus-toggle size="lg" text="Large" checked></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Labels and Captions</h2>
+      <plus-toggle
+        label="Enable Notifications"
+        text="Receive updates via email"
+      ></plus-toggle>
+      <plus-toggle
+        label="Dark Mode"
+        caption="Switch to dark theme"
+      ></plus-toggle>
+      <plus-toggle
+        label="Required Field"
+        required
+        caption="This toggle is mandatory"
+      ></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Text Position</h2>
+      <plus-toggle
+        text="Text Right (Default)"
+        text-position="right"
+      ></plus-toggle>
+      <plus-toggle text="Text Left" text-position="left" checked></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>States</h2>
+      <plus-toggle text="Disabled Unchecked" disabled></plus-toggle>
+      <plus-toggle text="Disabled Checked" disabled checked></plus-toggle>
+      <plus-toggle text="Readonly Unchecked" readonly></plus-toggle>
+      <plus-toggle text="Readonly Checked" readonly checked></plus-toggle>
+      <plus-toggle
+        text="Error State"
+        error
+        caption="Something went wrong"
+      ></plus-toggle>
+      <plus-toggle text="Error Checked" error checked></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Validation</h2>
+      <plus-toggle
+        text="Required Toggle"
+        required
+        error-message="This field is required"
+      ></plus-toggle>
+      <plus-toggle
+        label="Terms and Conditions"
+        text="I agree to terms"
+        required
+        error-message="You must agree to the terms"
+      ></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Animation Types</h2>
+      <plus-toggle text="Default Animation" animation="default"></plus-toggle>
+      <plus-toggle text="Bounce Animation" animation="bounce"></plus-toggle>
+      <plus-toggle text="Smooth Animation" animation="smooth"></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Icons (Requires icon font/library like Font Awesome)</h2>
+      <plus-toggle
+        text="With Icons"
+        toggle-icon="xmark"
+        toggle-active-icon="check"
+        toggle-inactive-icon="xmark"
+      ></plus-toggle>
+      <plus-toggle
+        text="Larger Icon Size"
+        toggle-icon="heart"
+        toggle-active-icon="heart-fill"
+        icon-size="12"
+        checked
+      ></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Accessibility</h2>
+      <plus-toggle
+        text="Custom ARIA Label"
+        custom-aria-label="Toggle dark mode"
+      ></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Full Width</h2>
+      <plus-toggle text="Default Width"></plus-toggle>
+      <plus-toggle text="Full Width Toggle" full-width></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Custom Styling with CSS Variables</h2>
+      <plus-toggle
+        text="Custom Colors"
+        style="
+          --switch-bg: #6366f1;
+          --switch-bg-hover: #4f46e5;
+          --switch-bg-active: #4338ca;
+          --dot-bg: white;
+          --text-color: #4f46e5;
+        "
+      ></plus-toggle>
+
+      <plus-toggle
+        text="Custom Success"
+        checked
+        style="
+          --switch-bg: #10b981;
+          --switch-bg-hover: #059669;
+          --switch-bg-active: #047857;
+          --dot-bg: white;
+          --border-color: #047857;
+        "
+      ></plus-toggle>
+
+      <plus-toggle
+        text="Custom Warning"
+        style="
+          --switch-bg: #f59e0b;
+          --switch-bg-hover: #d97706;
+          --switch-bg-active: #b45309;
+          --dot-bg: #fef3c7;
+          --dot-text: #92400e;
+          --text-color: #92400e;
+        "
+      ></plus-toggle>
+
+      <plus-toggle
+        text="Custom Error"
+        style="
+          --switch-bg: #ef4444;
+          --switch-bg-hover: #dc2626;
+          --switch-bg-active: #b91c1c;
+          --dot-bg: white;
+          --border-color: #b91c1c;
+          --text-color: #b91c1c;
+        "
+      ></plus-toggle>
+    </div>
+
+    <div class="col">
+      <h2>Brand Colors Example</h2>
+      <plus-toggle
+        text="Branded Toggle"
+        style="
+          --switch-bg: #8b5cf6;
+          --switch-bg-hover: #7c3aed;
+          --switch-bg-active: #6d28d9;
+          --dot-bg: white;
+          --text-color: #6d28d9;
+        "
+        toggle-icon="star"
+        toggle-active-icon="star-fill"
+      ></plus-toggle>
+    </div>
+  </body>
+</html>
