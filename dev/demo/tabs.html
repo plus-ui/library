@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .demo-section {
+        margin-bottom: 3rem;
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .tab-content {
+        padding: 1rem;
+        background-color: #f9f9f9;
+        border-radius: 0.5rem;
+        min-height: 100px;
+      }
+
+      .comparison {
+        display: flex;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .comparison > div {
+        flex: 1;
+        min-width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tab Bileşeni Örnekleri</h1>
+
+    <!-- Temel Tab Örneği -->
+    <section class="demo-section">
+      <h2>Temel Tab Kullanımı</h2>
+      <plus-tab-group>
+        <plus-tab value="tab1" slot="tablist">Ana Sayfa</plus-tab>
+        <plus-tab value="tab2" slot="tablist">Ürünler</plus-tab>
+        <plus-tab value="tab3" slot="tablist">Hakkımızda</plus-tab>
+        <plus-tab value="tab4" slot="tablist">İletişim</plus-tab>
+
+        <plus-tab-panel value="tab1" slot="panels">
+          <div class="tab-content">
+            <h3>Ana Sayfa İçeriği</h3>
+            <p>
+              Burası ana sayfa içeriğidir. Web sitesine genel bir bakış sağlar.
+            </p>
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab2" slot="panels">
+          <div class="tab-content">
+            <h3>Ürünler İçeriği</h3>
+            <p>Tüm ürünlerimizin listelendiği sayfa burasıdır.</p>
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab3" slot="panels">
+          <div class="tab-content">
+            <h3>Hakkımızda İçeriği</h3>
+            <p>Şirket bilgileri ve tarihçesi burada gösterilir.</p>
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab4" slot="panels">
+          <div class="tab-content">
+            <h3>İletişim İçeriği</h3>
+            <p>İletişim bilgileri ve iletişim formu burada bulunur.</p>
+          </div>
+        </plus-tab-panel>
+      </plus-tab-group>
+    </section>
+
+    <!-- Animasyonlu vs Animasyonsuz Tablar -->
+    <section class="demo-section">
+      <h2>Animasyonlu vs Animasyonsuz Tablar</h2>
+      <div class="comparison">
+        <div>
+          <h3>Standart Tablar (Border)</h3>
+          <plus-tab-group>
+            <plus-tab value="tab1" slot="tablist">Tab 1</plus-tab>
+            <plus-tab value="tab2" slot="tablist">Tab 2</plus-tab>
+            <plus-tab value="tab3" slot="tablist">Tab 3</plus-tab>
+
+            <plus-tab-panel value="tab1" slot="panels">
+              <div class="tab-content">Tab 1 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab2" slot="panels">
+              <div class="tab-content">Tab 2 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab3" slot="panels">
+              <div class="tab-content">Tab 3 İçeriği</div>
+            </plus-tab-panel>
+          </plus-tab-group>
+        </div>
+
+        <div>
+          <h3>Animasyonlu Tablar (Kayan Çizgi)</h3>
+          <plus-tab-group animated>
+            <plus-tab value="tab1" slot="tablist">Tab 1</plus-tab>
+            <plus-tab value="tab2" slot="tablist">Tab 2</plus-tab>
+            <plus-tab value="tab3" slot="tablist">Tab 3</plus-tab>
+
+            <plus-tab-panel value="tab1" slot="panels">
+              <div class="tab-content">Tab 1 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab2" slot="panels">
+              <div class="tab-content">Tab 2 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab3" slot="panels">
+              <div class="tab-content">Tab 3 İçeriği</div>
+            </plus-tab-panel>
+          </plus-tab-group>
+        </div>
+      </div>
+    </section>
+
+    <!-- Animasyonlu Dikey Tablar -->
+    <section class="demo-section">
+      <h2>Animasyonlu Dikey Tablar</h2>
+      <div class="comparison">
+        <div>
+          <h3>Standart Dikey Tablar (Border)</h3>
+          <plus-tab-group orientation="vertical">
+            <plus-tab value="tab1" slot="tablist">Dikey Tab 1</plus-tab>
+            <plus-tab value="tab2" slot="tablist">Dikey Tab 2</plus-tab>
+            <plus-tab value="tab3" slot="tablist">Dikey Tab 3</plus-tab>
+
+            <plus-tab-panel value="tab1" slot="panels">
+              <div class="tab-content">Dikey Tab 1 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab2" slot="panels">
+              <div class="tab-content">Dikey Tab 2 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab3" slot="panels">
+              <div class="tab-content">Dikey Tab 3 İçeriği</div>
+            </plus-tab-panel>
+          </plus-tab-group>
+        </div>
+
+        <div>
+          <h3>Animasyonlu Dikey Tablar (Kayan Çizgi)</h3>
+          <plus-tab-group orientation="vertical" animated>
+            <plus-tab value="tab1" slot="tablist">Dikey Tab 1</plus-tab>
+            <plus-tab value="tab2" slot="tablist">Dikey Tab 2</plus-tab>
+            <plus-tab value="tab3" slot="tablist">Dikey Tab 3</plus-tab>
+
+            <plus-tab-panel value="tab1" slot="panels">
+              <div class="tab-content">Dikey Tab 1 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab2" slot="panels">
+              <div class="tab-content">Dikey Tab 2 İçeriği</div>
+            </plus-tab-panel>
+            <plus-tab-panel value="tab3" slot="panels">
+              <div class="tab-content">Dikey Tab 3 İçeriği</div>
+            </plus-tab-panel>
+          </plus-tab-group>
+        </div>
+      </div>
+    </section>
+
+    <!-- Farklı Boyutlardaki Tablar -->
+    <section class="demo-section">
+      <h2>Farklı Boyutlardaki Tablar</h2>
+
+      <div class="col">
+        <h3>Küçük (sm)</h3>
+        <plus-tab-group size="sm">
+          <plus-tab value="tab1" slot="tablist">Küçük Tab 1</plus-tab>
+          <plus-tab value="tab2" slot="tablist">Küçük Tab 2</plus-tab>
+
+          <plus-tab-panel value="tab1" slot="panels">
+            <div class="tab-content">Bu küçük boyutlu tab'ın içeriğidir.</div>
+          </plus-tab-panel>
+          <plus-tab-panel value="tab2" slot="panels">
+            <div class="tab-content">
+              Bu küçük boyutlu tab'ın ikinci içeriğidir.
+            </div>
+          </plus-tab-panel>
+        </plus-tab-group>
+      </div>
+
+      <div class="col">
+        <h3>Orta (md - varsayılan)</h3>
+        <plus-tab-group size="md">
+          <plus-tab value="tab1" slot="tablist">Orta Tab 1</plus-tab>
+          <plus-tab value="tab2" slot="tablist">Orta Tab 2</plus-tab>
+
+          <plus-tab-panel value="tab1" slot="panels">
+            <div class="tab-content">Bu orta boyutlu tab'ın içeriğidir.</div>
+          </plus-tab-panel>
+          <plus-tab-panel value="tab2" slot="panels">
+            <div class="tab-content">
+              Bu orta boyutlu tab'ın ikinci içeriğidir.
+            </div>
+          </plus-tab-panel>
+        </plus-tab-group>
+      </div>
+
+      <div class="col">
+        <h3>Büyük (lg)</h3>
+        <plus-tab-group size="lg">
+          <plus-tab value="tab1" slot="tablist">Büyük Tab 1</plus-tab>
+          <plus-tab value="tab2" slot="tablist">Büyük Tab 2</plus-tab>
+
+          <plus-tab-panel value="tab1" slot="panels">
+            <div class="tab-content">Bu büyük boyutlu tab'ın içeriğidir.</div>
+          </plus-tab-panel>
+          <plus-tab-panel value="tab2" slot="panels">
+            <div class="tab-content">
+              Bu büyük boyutlu tab'ın ikinci içeriğidir.
+            </div>
+          </plus-tab-panel>
+        </plus-tab-group>
+      </div>
+    </section>
+
+    <!-- Dikey Tab Örneği -->
+    <section class="demo-section">
+      <h2>Dikey (Vertical) Tablar</h2>
+      <plus-tab-group orientation="vertical">
+        <plus-tab value="tab1" slot="tablist">Dikey Tab 1</plus-tab>
+        <plus-tab value="tab2" slot="tablist">Dikey Tab 2</plus-tab>
+        <plus-tab value="tab3" slot="tablist">Dikey Tab 3</plus-tab>
+
+        <plus-tab-panel value="tab1" slot="panels">
+          <div class="tab-content">
+            <h3>Dikey Tab İçerik 1</h3>
+            <p>
+              Bu içerik, dikey konumlandırılmış tablar için gösterilmektedir.
+            </p>
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab2" slot="panels">
+          <div class="tab-content">
+            <h3>Dikey Tab İçerik 2</h3>
+            <p>
+              Bu içerik, dikey konumlandırılmış tabların ikinci sekme
+              içeriğidir.
+            </p>
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab3" slot="panels">
+          <div class="tab-content">
+            <h3>Dikey Tab İçerik 3</h3>
+            <p>
+              Bu içerik, dikey konumlandırılmış tabların üçüncü sekme
+              içeriğidir.
+            </p>
+          </div>
+        </plus-tab-panel>
+      </plus-tab-group>
+    </section>
+
+    <!-- İkonlu Tablar -->
+    <section class="demo-section">
+      <h2>İkonlu Tablar</h2>
+      <plus-tab-group>
+        <plus-tab value="tab1" slot="tablist" prefix-icon="fas fa-home"
+          >Ana Sayfa</plus-tab
+        >
+        <plus-tab value="tab2" slot="tablist" prefix-icon="fas fa-shopping-cart"
+          >Ürünler</plus-tab
+        >
+        <plus-tab value="tab3" slot="tablist" prefix-icon="fas fa-info-circle"
+          >Hakkımızda</plus-tab
+        >
+        <plus-tab value="tab4" slot="tablist" prefix-icon="fas fa-envelope"
+          >İletişim</plus-tab
+        >
+
+        <plus-tab-panel value="tab1" slot="panels">
+          <div class="tab-content">Ana sayfa içeriği burada gösterilir.</div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab2" slot="panels">
+          <div class="tab-content">Ürünler listesi burada gösterilir.</div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab3" slot="panels">
+          <div class="tab-content">Şirket bilgileri burada gösterilir.</div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab4" slot="panels">
+          <div class="tab-content">İletişim bilgileri burada gösterilir.</div>
+        </plus-tab-panel>
+      </plus-tab-group>
+    </section>
+
+    <!-- Kapatılabilir Tablar -->
+    <section class="demo-section">
+      <h2>Kapatılabilir (Dismissible) Tablar</h2>
+      <plus-tab-group dismissible>
+        <plus-tab value="tab1" slot="tablist">Sekme 1</plus-tab>
+        <plus-tab value="tab2" slot="tablist">Sekme 2</plus-tab>
+        <plus-tab value="tab3" slot="tablist">Sekme 3</plus-tab>
+        <plus-tab value="tab4" slot="tablist">Sekme 4</plus-tab>
+
+        <plus-tab-panel value="tab1" slot="panels">
+          <div class="tab-content">
+            Sekme 1 içeriği burada gösterilir. Sekmeler kapatılabilir
+            özelliktedir.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab2" slot="panels">
+          <div class="tab-content">
+            Sekme 2 içeriği burada gösterilir. Sağ üstteki X ikonuna tıklayarak
+            sekmeyi kapatabilirsiniz.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab3" slot="panels">
+          <div class="tab-content">
+            Sekme 3 içeriği burada gösterilir. Kapatılan sekmeler otomatik
+            olarak kaybolur.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab4" slot="panels">
+          <div class="tab-content">
+            Sekme 4 içeriği burada gösterilir. Aktif sekme kapatılırsa, bir
+            sonraki sekme aktif olur.
+          </div>
+        </plus-tab-panel>
+      </plus-tab-group>
+    </section>
+
+    <!-- Animasyonlu Kapatılabilir Tablar -->
+    <section class="demo-section">
+      <h2>Animasyonlu + Kapatılabilir Tablar</h2>
+      <plus-tab-group dismissible animated>
+        <plus-tab value="tab1" slot="tablist">Sekme 1</plus-tab>
+        <plus-tab value="tab2" slot="tablist">Sekme 2</plus-tab>
+        <plus-tab value="tab3" slot="tablist">Sekme 3</plus-tab>
+        <plus-tab value="tab4" slot="tablist">Sekme 4</plus-tab>
+
+        <plus-tab-panel value="tab1" slot="panels">
+          <div class="tab-content">
+            Sekme 1 içeriği burada gösterilir. Sekmeler hem animasyonlu hem de
+            kapatılabilir özelliktedir.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab2" slot="panels">
+          <div class="tab-content">
+            Sekme 2 içeriği burada gösterilir. Sağ üstteki X ikonuna tıklayarak
+            sekmeyi kapatabilirsiniz.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab3" slot="panels">
+          <div class="tab-content">
+            Sekme 3 içeriği burada gösterilir. Kapatılan sekmeler otomatik
+            olarak kaybolur ve indikatör yeni sekmeye kayar.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab4" slot="panels">
+          <div class="tab-content">
+            Sekme 4 içeriği burada gösterilir. Aktif sekme kapatılırsa, bir
+            sonraki sekme aktif olur.
+          </div>
+        </plus-tab-panel>
+      </plus-tab-group>
+    </section>
+
+    <!-- Devre Dışı Bırakılmış Tablar -->
+    <section class="demo-section">
+      <h2>Devre Dışı Bırakılmış Tab Örneği</h2>
+      <plus-tab-group>
+        <plus-tab value="tab1" slot="tablist">Etkin Sekme</plus-tab>
+        <plus-tab value="tab2" slot="tablist" disabled
+          >Devre Dışı Sekme</plus-tab
+        >
+        <plus-tab value="tab3" slot="tablist">Başka Bir Sekme</plus-tab>
+
+        <plus-tab-panel value="tab1" slot="panels">
+          <div class="tab-content">Bu normal bir sekme içeriğidir.</div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab2" slot="panels">
+          <div class="tab-content">
+            Bu sekme devre dışı olduğu için normalde görünmeyecektir.
+          </div>
+        </plus-tab-panel>
+        <plus-tab-panel value="tab3" slot="panels">
+          <div class="tab-content">Bu normal başka bir sekme içeriğidir.</div>
+        </plus-tab-panel>
+      </plus-tab-group>
+    </section>
+  </body>
+</html>

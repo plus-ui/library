@@ -36,3 +36,6 @@ export * from './toast';
 export * from './toast-container';
 export * from './service';
 export * from './toggle';
+export * from './tab';
+export * from './tab-panel';
+export * from './tab-group';
