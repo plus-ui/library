@@ -252,6 +252,10 @@ export default class PlusDropdown extends Tailwind {
     this.targetElement = this.shadowRoot?.querySelector('plus-button') || null;
     this.dropdownBox = this.shadowRoot?.querySelector('.dropdown-box') || null;
 
+    if (this.dropdownBox) {
+      this.dropdownBox.addEventListener('click', this.handleItemClick);
+    }
+
     this.slots.forEach((item) => {
       item.size = this.size;
     });
@@ -307,6 +311,9 @@ export default class PlusDropdown extends Tailwind {
     if (this.targetElement) {
       this.targetElement.removeEventListener('click', this.handleClick);
       this.targetElement.removeEventListener('keydown', this.handleKeyDown);
+    }
+    if (this.dropdownBox) {
+      this.dropdownBox.removeEventListener('click', this.handleItemClick);
     }
     document.removeEventListener('click', this.handleOutsideClick, true);
   }
