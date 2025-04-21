@@ -253,9 +253,7 @@ export default class PlusDropdown extends Tailwind {
     this.dropdownBox = this.shadowRoot?.querySelector('.dropdown-box') || null;
 
     if (this.dropdownBox) {
-      this.dropdownBox.addEventListener('click', (event) => {
-        this.handleItemClick(event);
-      });
+      this.dropdownBox.addEventListener('click', this.handleItemClick);
     }
 
     this.slots.forEach((item) => {
