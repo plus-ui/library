@@ -38,11 +38,7 @@ export default class PlusListBoxItem extends Tailwind {
    * When disabled, the item cannot be clicked or selected
    * @default false
    */
-  @property({
-    type: Boolean,
-    reflect: true,
-    converter: (value) => value === 'true',
-  })
+  @property({ type: Boolean, converter: (value) => value != 'false' })
   disabled = false;
 
   /**
@@ -50,11 +46,7 @@ export default class PlusListBoxItem extends Tailwind {
    * When selected, the item will display with a highlighted background
    * @default false
    */
-  @property({
-    type: Boolean,
-    reflect: true,
-    converter: (value) => value === 'true',
-  })
+  @property({ type: Boolean, converter: (value) => value != 'false' })
   selected = false;
 
   /**

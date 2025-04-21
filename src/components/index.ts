@@ -35,6 +35,8 @@ export * from './rating';
 export * from './toast';
 export * from './toast-container';
 export * from './service';
+export * from './select';
+export * from './select-item';
 export * from './toggle';
 export * from './tab';
 export * from './tab-panel';
