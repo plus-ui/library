@@ -131,7 +131,7 @@ export default class PlusPopover extends Tailwind {
    * @type {string}
    * @default 'Title'
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'header-text' })
   headerText?: string = 'Title';
 
   /**

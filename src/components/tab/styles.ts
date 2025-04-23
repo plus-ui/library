@@ -68,6 +68,7 @@ export const tabStyle = tv({
         tabPanel: ['block'],
       },
       false: {
+        tab: ['text-color-default', 'border-color-default'],
         tabPanel: ['hidden'],
       },
     },

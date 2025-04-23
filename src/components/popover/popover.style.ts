@@ -20,17 +20,17 @@ export const popoverStyle = tv({
       sm: {
         host: 'w-60 p-3 gap-3',
         headerLeft: 'text-md gap-1.5',
-        headerRight: 'text-md',
+        headerRight: 'text-md ml-1.5',
       },
       md: {
         host: 'w-64 p-4 gap-4',
         headerLeft: 'text-lg gap-2',
-        headerRight: 'text-lg',
+        headerRight: 'text-lg ml-2',
       },
       lg: {
         host: 'w-72 p-6 gap-6',
         headerLeft: 'text-xl gap-3',
-        headerRight: 'text-xl',
+        headerRight: 'text-xl ml-3',
       },
     },
     isVisible: {

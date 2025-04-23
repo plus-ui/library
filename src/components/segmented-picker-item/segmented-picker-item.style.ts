@@ -4,7 +4,7 @@ export const segmentedPickerItemStyle = tv({
   base: 'plus-ui-element p-2 min-w-9 flex flex-row gap-2 items-center cursor-pointer justify-center font-medium relative text-sm text-color-placeholder select-none',
   variants: {
     size: {
-      sm: 'h-78 text-sm',
+      sm: 'h-7 text-sm',
       md: 'h-9 text-base',
       lg: 'h-11 text-lg',
     },

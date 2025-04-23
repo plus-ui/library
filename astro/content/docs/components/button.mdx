@@ -1,307 +1,83 @@
 ---
 title: Button
-description: Buttons simplify user interactions with a single tap, enhancing the user experience and aiding those with mobility issues.
+description: Allows users to trigger actions with a single click or tap. Supports various styles, sizes, and states.
 ---
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/button/anatomy.png';
 import layoutSpacing from '../../../assets/components/button/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/button/light-dark-mode.png';
 
-The Button component is a flexible user interface element that allows users to interact with your application and trigger different actions and operations. Other than prebuilt **120 variants**, we provide many customization options to accommodate various design preferences and use cases. Buttons are commonly placed throughout your user interface, such as in&#x20;
-
-* modal windows
-* forms
-* cards
-* toolbars
+The Button component enables users to perform actions and make choices with a single tap. It's a fundamental interactive element used throughout applications.
 
 ## Anatomy
 
-The anatomy of a button component consists of essential elements such as the button label, container, prefix/suffix icon, and optional properties for customization, enabling user interaction and engagement within your application.
+<Image src={anatomy} alt="Button - anatomy" />
 
-<Image src={anatomy} alt="anatomy of button component" />
+## Usage
 
-## Properties
+### Basic Example
 
-With our variants and variable structure, you have the creative freedom to tailor your buttons to precisely match your design preferences. All variable and variants identified exactly same on both our design system and our multi-framework component library.
-
-| Kinds | Status | States | Icons | Size | Kinds | States | Size | Icons |
-| ----- | ------ | ------ | ----- | ---- | ----- | ------ | ---- | ----- |
-| Filled | Default | Default | No icon | Small | Filled | Default | Small | |
-| Outlined | Primary | Hovered | Prefix icon | Medium | Outlined | Hovered | Medium | |
-| Dashed | Info | Pressed | Suffix icon | Large | Dashed | Pressed | Large | |
-| Text | Danger | Disabled | Icon only | | Text | Disabled | | |
-| | Warning | Loading | | | | | | |
-| | Success | | | | | | | |
-| | Invert | | | | | | | |
-
-### Kind
-
-* **Filled button** are used to indicate the main action or the primary path a user should take. They have a strong visual indicator, encouraging users to complete their intended journey. Its a solid-colored button.
-* **Outlined button** are typically placed alongside primary buttons and indicate that there are multiple avenues or alternative actions users can take.
-* **Dashed button** have a dashed border. They are used to draw attention without being too visually dominant.
-* **Text button** are used for less prominent actions to maintain focus on the primary content. They have minimal visual weight and its perfect for text links and unobtrusive calls to action.
-
-<code-bubble class="not-content">
-
-```html
-<plus-button kind="filled">Filled Button</plus-button>
-<plus-button kind="outlined">Outlined Button</plus-button>
-<plus-button kind="dashed">Dashed Button</plus-button>
-<plus-button kind="text">Text Button</plus-button>
-```
-
-```tsx
-import { PlusButton } from '@plusui/library/react';
-
-export const ButtonComponent = () => (
-  <div>
-    <PlusButton kind="filled">Filled Button</PlusButton>
-    <PlusButton kind="outlined">Outlined Button</PlusButton>
-    <PlusButton kind="dashed">Dashed Button</PlusButton>
-    <PlusButton kind="text">Text Button</PlusButton>
-  </div>
-);
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-button kind="filled">Filled Button</plus-button>
-    <plus-button kind="outlined">Outlined Button</plus-button>
-    <plus-button kind="dashed">Dashed Button</plus-button>
-    <plus-button kind="text">Text Button</plus-button>
-  </div>`
-})
-export class AppComponent {
-}
-```
-
-```vue
-<template>
-  <div>
-    <plus-button kind="filled">Filled Button</plus-button>
-    <plus-button kind="outlined">Outlined Button</plus-button>
-    <plus-button kind="dashed">Dashed Button</plus-button>
-    <plus-button kind="text">Text Button</plus-button>
-  </div>
-</template>
-```
-</code-bubble>
-
-<Aside type="note">
-Add note here if needed.
-</Aside>
-
-### Status
-
-The Button Component comes with various statuses, each designed to convey a specific message or action to the user:
-
-* **Default:** This status is the button's standard state, always ready for action and serving as the reliable foundation of your user interface.
-* **Primary:** A special status that highlights the button's importance. It acts as the main call to action, designed to stand out and grab user attention.
-* **Info:** Indicates that the button will provide additional information when clicked.
-* **Danger:** Signifies an action that could lead to destructive or irreversible changes.
-* **Warning:** Warns the user of a potential risk or something that requires caution.
-* **Success:** Denotes that an action has been successfully completed or will lead to a positive outcome.
-
-<code-bubble class="not-content">
-
-```html
-<plus-button status="default">Default Button</plus-button>
-<plus-button status="primary">Primary Button</plus-button>
-<plus-button status="info">Info Button</plus-button>
-<plus-button status="danger">Danger Button</plus-button>
-<plus-button status="warning">Warning Button</plus-button>
-<plus-button status="success">Success Button</plus-button>
-```
-
-```tsx
-import { PlusButton } from '@plusui/library/react';
-
-export const ButtonComponent = () => (
-  <div>
-    <PlusButton status="default">Default Button</PlusButton>
-    <PlusButton status="primary">Primary Button</PlusButton>
-    <PlusButton status="info">Info Button</PlusButton>
-    <PlusButton status="danger">Danger Button</PlusButton>
-    <PlusButton status="warning">Warning Button</PlusButton>
-    <PlusButton status="success">Success Button</PlusButton>
-  </div>
-);
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-button status="default">Default Button</plus-button>
-    <plus-button status="primary">Primary Button</plus-button>
-    <plus-button status="info">Info Button</plus-button>
-    <plus-button status="danger">Danger Button</plus-button>
-    <plus-button status="warning">Warning Button</plus-button>
-    <plus-button status="success">Success Button</plus-button>
-  </div>`
-})
-export class AppComponent {
-}
-```
-
-```vue
-<template>
-  <div>
-    <plus-button status="default">Default Button</plus-button>
-    <plus-button status="primary">Primary Button</plus-button>
-    <plus-button status="info">Info Button</plus-button>
-    <plus-button status="danger">Danger Button</plus-button>
-    <plus-button status="warning">Warning Button</plus-button>
-    <plus-button status="success">Success Button</plus-button>
-  </div>
-</template>
-```
-</code-bubble>
-
-### States
-
-The button component also has different states to communicate interactivity and feedback to users.
-
-* **Default state** when it is available for interaction but not being interacted with.
-* **Hovered state** when the cursor hovers over it, indicating potential interactivity.
-* **Pressed state** appears when the button is clicked, giving visual feedback that the action has been triggered.
-* **Disabled state** is used when a button cannot be interacted when a particular action is unavailable.&#x20;
-* **Loading state** is displayed when the button triggers a time-consuming operation, like submitting a form or fetching data.
+A standard button using default settings.
 
 <code-bubble class="not-content">
 
 ```html
 <plus-button>Default Button</plus-button>
-<plus-button disabled>Disabled Button</plus-button>
-<plus-button loading>Loading Button</plus-button>
 ```
 
 ```tsx
 import { PlusButton } from '@plusui/library/react';
 
-export const ButtonComponent = () => (
-  <div>
-    <PlusButton>Default Button</PlusButton>
-    <PlusButton disabled>Disabled Button</PlusButton>
-    <PlusButton loading>Loading Button</PlusButton>
-  </div>
-);
+export default () => {
+  return <PlusButton>Default Button</PlusButton>;
+};
 ```
 
 ```ts
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-button>Default Button</plus-button>
-    <plus-button disabled>Disabled Button</plus-button>
-    <plus-button loading>Loading Button</plus-button>
-  </div>`
+  selector: 'app-button-basic',
+  template: ` <plus-button>Default Button</plus-button> `
 })
-export class AppComponent {
-}
+export class ButtonBasicComponent {}
 ```
 
 ```vue
 <template>
-  <div>
-    <plus-button>Default Button</plus-button>
-    <plus-button disabled>Disabled Button</plus-button>
-    <plus-button loading>Loading Button</plus-button>
-  </div>
+  <plus-button>Default Button</plus-button>
 </template>
 ```
+
 </code-bubble>
 
-### Size
+### Kind
 
-The Button component supports different sizes such as small, medium, large to fit various design requirements.
+The `kind` prop defines the button's visual style.
 
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 
 ```html
-<plus-button size="sm">Small Button</plus-button>
-<plus-button size="md">Medium Button</plus-button>
-<plus-button size="lg">Large Button</plus-button>
+<plus-button kind="filled">Filled</plus-button>
+<plus-button kind="outlined">Outlined</plus-button>
+<plus-button kind="dashed">Dashed</plus-button>
+<plus-button kind="text">Text</plus-button>
 ```
 
 ```tsx
 import { PlusButton } from '@plusui/library/react';
 
-export const ButtonComponent = () => (
-  <div>
-    <PlusButton size="sm">Small Button</PlusButton>
-    <PlusButton size="md">Medium Button</PlusButton>
-    <PlusButton size="lg">Large Button</PlusButton>
-  </div>
-);
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-button size="sm">Small Button</plus-button>
-    <plus-button size="md">Medium Button</plus-button>
-    <plus-button size="lg">Large Button</plus-button>
-  </div>`
-})
-
-export class AppComponent {
-}
-```
-
-```vue
-<template>
-  <div>
-    <plus-button size="sm">Small Button</plus-button>
-    <plus-button size="md">Medium Button</plus-button>
-    <plus-button size="lg">Large Button</plus-button>
-  </div>
-</template>
-```
-</code-bubble>
-
-### Button Event Handling
-
-Button events are used to perform specific actions when a button is clicked. With the Plus-Button component, you can use the "plus-click" event to capture button click events and trigger functions accordingly.
-
-<code-bubble class="not-content">
-
-```html
-<plus-button id="button">Click Me</plus-button>
-
-<script>
-  const button = document.getElementById('button');
-  button.addEventListener('plus-click', () => {
-    console.log('Button clicked');
-  });
-</script>
-```
-
-```tsx
-import { PlusButton } from '@plusui/library/react';
-
-export const ButtonComponent = () => {
-  const handleClick = () => {
-    console.log('Button clicked');
-  };
-
+export default () => {
   return (
-    <PlusButton onClick={handleClick}>Click Me</PlusButton>
+    <>
+      <PlusButton kind="filled">Filled</PlusButton>
+      <PlusButton kind="outlined">Outlined</PlusButton>
+      <PlusButton kind="dashed">Dashed</PlusButton>
+      <PlusButton kind="text">Text</PlusButton>
+    </>
   );
 };
 ```
@@ -310,12 +86,415 @@ export const ButtonComponent = () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<plus-button (plus-click)="handleClick()">Click Me</plus-button>`
+  selector: 'app-button-kind',
+  template: `
+    <plus-button kind="filled">Filled</plus-button>
+    <plus-button kind="outlined">Outlined</plus-button>
+    <plus-button kind="dashed">Dashed</plus-button>
+    <plus-button kind="text">Text</plus-button>
+  `
 })
-export class AppComponent {
+export class ButtonKindComponent {}
+```
+
+```vue
+<template>
+  <plus-button kind="filled">Filled</plus-button>
+  <plus-button kind="outlined">Outlined</plus-button>
+  <plus-button kind="dashed">Dashed</plus-button>
+  <plus-button kind="text">Text</plus-button>
+</template>
+```
+
+</code-bubble>
+
+### Status
+
+The `status` prop sets the button's color scheme to convey semantic meaning.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-button status="default">Default</plus-button>
+<plus-button status="primary">Primary</plus-button>
+<plus-button status="success">Success</plus-button>
+<plus-button status="warning">Warning</plus-button>
+<plus-button status="danger">Danger</plus-button>
+<plus-button status="info">Info</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusButton status="default">Default</PlusButton>
+      <PlusButton status="primary">Primary</PlusButton>
+      <PlusButton status="success">Success</PlusButton>
+      <PlusButton status="warning">Warning</PlusButton>
+      <PlusButton status="danger">Danger</PlusButton>
+      <PlusButton status="info">Info</PlusButton>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-status',
+  template: `
+    <plus-button status="default">Default</plus-button>
+    <plus-button status="primary">Primary</plus-button>
+    <plus-button status="success">Success</plus-button>
+    <plus-button status="warning">Warning</plus-button>
+    <plus-button status="danger">Danger</plus-button>
+    <plus-button status="info">Info</plus-button>
+  `
+})
+export class ButtonStatusComponent {}
+```
+
+```vue
+<template>
+  <plus-button status="default">Default</plus-button>
+  <plus-button status="primary">Primary</plus-button>
+  <plus-button status="success">Success</plus-button>
+  <plus-button status="warning">Warning</plus-button>
+  <plus-button status="danger">Danger</plus-button>
+  <plus-button status="info">Info</plus-button>
+</template>
+```
+
+</code-bubble>
+
+### Size
+
+The `size` prop controls the button's dimensions.
+
+<code-bubble class="not-content horizontal items-center">
+
+```html
+<plus-button size="sm">Small</plus-button>
+<plus-button size="md">Medium</plus-button>
+<plus-button size="lg">Large</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusButton size="sm">Small</PlusButton>
+      <PlusButton size="md">Medium</PlusButton>
+      <PlusButton size="lg">Large</PlusButton>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-size',
+  template: `
+    <plus-button size="sm">Small</plus-button>
+    <plus-button size="md">Medium</plus-button>
+    <plus-button size="lg">Large</plus-button>
+  `
+})
+export class ButtonSizeComponent {}
+```
+
+```vue
+<template>
+  <plus-button size="sm">Small</plus-button>
+  <plus-button size="md">Medium</plus-button>
+  <plus-button size="lg">Large</plus-button>
+</template>
+```
+
+</code-bubble>
+
+### Disabled State
+
+Set the `disabled` attribute or prop to prevent user interaction.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-button disabled>Disabled Filled</plus-button>
+<plus-button kind="outlined" disabled>Disabled Outlined</plus-button>
+<plus-button kind="text" disabled>Disabled Text</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusButton disabled>Disabled Filled</PlusButton>
+      <PlusButton kind="outlined" disabled>Disabled Outlined</PlusButton>
+      <PlusButton kind="text" disabled>Disabled Text</PlusButton>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-disabled',
+  template: `
+    <plus-button disabled>Disabled Filled</plus-button>
+    <plus-button kind="outlined" disabled>Disabled Outlined</plus-button>
+    <plus-button kind="text" disabled>Disabled Text</plus-button>
+  `
+})
+export class ButtonDisabledComponent {}
+```
+
+```vue
+<template>
+  <plus-button disabled>Disabled Filled</plus-button>
+  <plus-button kind="outlined" disabled>Disabled Outlined</plus-button>
+  <plus-button kind="text" disabled>Disabled Text</plus-button>
+</template>
+```
+
+</code-bubble>
+
+### Loading State
+
+Set the `loading` attribute or prop to indicate an ongoing background process. This also disables the button.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-button loading>Loading Filled</plus-button>
+<plus-button kind="outlined" loading>Loading Outlined</plus-button>
+<plus-button kind="text" loading>Loading Text</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusButton loading>Loading Filled</PlusButton>
+      <PlusButton kind="outlined" loading>Loading Outlined</PlusButton>
+      <PlusButton kind="text" loading>Loading Text</PlusButton>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-loading',
+  template: `
+    <plus-button loading>Loading Filled</plus-button>
+    <plus-button kind="outlined" loading>Loading Outlined</plus-button>
+    <plus-button kind="text" loading>Loading Text</plus-button>
+  `
+})
+export class ButtonLoadingComponent {}
+```
+
+```vue
+<template>
+  <plus-button loading>Loading Filled</plus-button>
+  <plus-button kind="outlined" loading>Loading Outlined</plus-button>
+  <plus-button kind="text" loading>Loading Text</plus-button>
+</template>
+```
+
+</code-bubble>
+
+### Full Width
+
+Set the `full-width` attribute or `fullWidth` prop to make the button span the full width of its container.
+
+<code-bubble class="not-content">
+
+```html
+<plus-button full-width>Full Width Button</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return <PlusButton fullWidth>Full Width Button</PlusButton>;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-full-width',
+  template: ` <plus-button full-width>Full Width Button</plus-button> `
+})
+export class ButtonFullWidthComponent {}
+```
+
+```vue
+<template>
+  <plus-button full-width>Full Width Button</plus-button>
+</template>
+```
+
+</code-bubble>
+
+### With Icons
+
+Use the `prefix` and `suffix` slots to add icons or other elements alongside the button text.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-button>
+  <i class="fa-solid fa-download" slot="prefix"></i>
+  Download
+</plus-button>
+<plus-button>
+  Upload
+  <i class="fa-solid fa-upload" slot="suffix"></i>
+</plus-button>
+<plus-button>
+  <i class="fa-solid fa-cog" slot="prefix"></i>
+  Settings
+  <i class="fa-solid fa-chevron-down" slot="suffix"></i>
+</plus-button>
+<plus-button aria-label="Search">
+  <i class="fa-solid fa-search"></i>
+</plus-button>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusButton>
+        <i className="fa-solid fa-download" slot="prefix"></i>
+        Download
+      </PlusButton>
+      <PlusButton>
+        Upload
+        <i className="fa-solid fa-upload" slot="suffix"></i>
+      </PlusButton>
+      <PlusButton>
+        <i className="fa-solid fa-cog" slot="prefix"></i>
+        Settings
+        <i className="fa-solid fa-chevron-down" slot="suffix"></i>
+      </PlusButton>
+      <PlusButton aria-label="Search">
+        <i className="fa-solid fa-search"></i>
+      </PlusButton>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-icons',
+  template: `
+    <plus-button>
+      <i class="fa-solid fa-download" slot="prefix"></i>
+      Download
+    </plus-button>
+    <plus-button>
+      Upload
+      <i class="fa-solid fa-upload" slot="suffix"></i>
+    </plus-button>
+    <plus-button>
+      <i class="fa-solid fa-cog" slot="prefix"></i>
+      Settings
+      <i className="fa-solid fa-chevron-down" slot="suffix"></i>
+    </plus-button>
+    <plus-button aria-label="Search">
+      <i className="fa-solid fa-search"></i>
+    </plus-button>
+  `
+})
+export class ButtonIconsComponent {}
+```
+
+```vue
+<template>
+  <plus-button>
+    <i class="fa-solid fa-download" slot="prefix"></i>
+    Download
+  </plus-button>
+  <plus-button>
+    Upload
+    <i class="fa-solid fa-upload" slot="suffix"></i>
+  </plus-button>
+  <plus-button>
+    <i class="fa-solid fa-cog" slot="prefix"></i>
+    Settings
+    <i className="fa-solid fa-chevron-down" slot="suffix"></i>
+  </plus-button>
+  <plus-button aria-label="Search">
+    <i className="fa-solid fa-search"></i>
+  </plus-button>
+</template>
+```
+
+</code-bubble>
+
+### Handling Clicks
+
+Listen for the `plus-click` event to trigger actions when the button is clicked.
+
+<code-bubble class="not-content">
+
+```html
+<plus-button id="my-button">Click Me</plus-button>
+
+<script>
+  document.getElementById('my-button').addEventListener('plus-click', () => {
+    alert('Button clicked!');
+  });
+</script>
+```
+
+```tsx
+import { PlusButton } from '@plusui/library/react';
+
+export default () => {
+  const handleClick = () => {
+    alert('Button clicked!');
+  };
+  return <PlusButton onPlusClick={handleClick}>Click Me</PlusButton>;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-click',
+  template: ` <plus-button (plus-click)="handleClick()">Click Me</plus-button> `
+})
+export class ButtonClickComponent {
   handleClick() {
-    console.log('Button clicked');
+    alert('Button clicked!');
   }
 }
 ```
@@ -325,188 +504,86 @@ export class AppComponent {
   <plus-button @plus-click="handleClick">Click Me</plus-button>
 </template>
 
-<script>
-export default {
-  methods: {
-    handleClick() {
-      console.log('Button clicked');
-    }
-  }
-}
+<script setup>
+const handleClick = () => {
+  alert('Button clicked!');
+};
 </script>
 ```
+
 </code-bubble>
 
-### Icons and Slots
+## Visual Sections
 
-The Button component provides prefix and suffix slots that allow you to add icons or other content before or after the button text.
+### Layout & Spacing
 
-<code-bubble class="not-content">
+<Image src={layoutSpacing} alt="Button - layout spacing" />
 
-```html
-<plus-button>
-  <i class="fa-solid fa-home" slot="prefix"></i>
-  Home
-  <i class="fa-solid fa-arrow-right" slot="suffix"></i>
-</plus-button>
+### Light & Dark Mode
 
-<plus-button kind="outlined">
-  <i class="fa-solid fa-download" slot="prefix"></i>
-  Download
-</plus-button>
+<Image src={lightDarkMode} alt="Button - light & dark mode" />
 
-<plus-button kind="text">
-  More
-  <i class="fa-solid fa-chevron-down" slot="suffix"></i>
-</plus-button>
-```
+## Accessibility (a11y)
 
-```tsx
-import { PlusButton } from '@plusui/library/react';
-
-export const ButtonComponent = () => (
-  <div>
-    <PlusButton>
-      <i className="fa-solid fa-home" slot="prefix" />
-      Home
-      <i className="fa-solid fa-arrow-right" slot="suffix" />
-    </PlusButton>
-
-    <PlusButton kind="outlined">
-      <i className="fa-solid fa-download" slot="prefix" />
-      Download
-    </PlusButton>
-
-    <PlusButton kind="text">
-      More
-      <i className="fa-solid fa-chevron-down" slot="suffix" />
-    </PlusButton>
-  </div>
-);
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <plus-button>
-      <i class="fa-solid fa-home" slot="prefix"></i>
-      Home
-      <i class="fa-solid fa-arrow-right" slot="suffix"></i>
-    </plus-button>
-
-    <plus-button kind="outlined">
-      <i class="fa-solid fa-download" slot="prefix"></i>
-      Download
-    </plus-button>
-
-    <plus-button kind="text">
-      More
-      <i class="fa-solid fa-chevron-down" slot="suffix"></i>
-    </plus-button>
-  `
-})
-export class AppComponent {}
-```
-
-```vue
-<template>
-  <plus-button>
-    <i class="fa-solid fa-home" slot="prefix"></i>
-    Home
-    <i class="fa-solid fa-arrow-right" slot="suffix"></i>
-  </plus-button>
-
-  <plus-button kind="outlined">
-    <i class="fa-solid fa-download" slot="prefix"></i>
-    Download
-  </plus-button>
-
-  <plus-button kind="text">
-    More
-    <i class="fa-solid fa-chevron-down" slot="suffix"></i>
-  </plus-button>
-</template>
-```
-</code-bubble>
-
-## Layout & Spacing
-
-Layout and spacing for buttons in user interfaces are crucial for usability, aesthetics, and accessibility. By paying attention to the placement and spacing of buttons, designers can create interfaces that are both visually appealing and user-friendly, ultimately enhancing the overall user experience.
-
-<Image src={layoutSpacing} alt="layout and spacing of button component" />
-
-## Light & Dark Mode
-
-Providing both light and dark modes for buttons in user interfaces enhances user comfort, choice, accessibility, and energy efficiency. It also aligns with contemporary design trends and accommodates a variety of user preferences and needs.
-
-<Image src={lightDarkMode} alt="dark and light mode of button component" />
-
-<Aside type="note">
-We structured the design system simply switch from the light mode to the dark mode within the **Layer > Color** section.
-</Aside>
-
-## Accessibility
-
-Accessibility is not only a moral and legal imperative but also a valuable design principle. Ensuring that buttons in a design system are accessible not only benefits users with disabilities but also leads to a more inclusive, user-friendly, and successful digital product.
-
-| Criteria | Description | Status |
-| -------- | ----------- | ------ |
-| Discernible Text | Ensures buttons have discernible text | ✔️ Passed |
-| ID Attribute | Ensures every id attribute value is unique | ✔️ Passed |
-| Interactive Controls | Ensures interactive controls aren’t nested as they are not always announced by screen readers or can cause focus problems for assistive technologies | ✔️ Passed |
-| Tabindex Attribute | Ensures tabindex attribute values are not greater than 0 | ✔️ Passed |
-| Color Contrast | Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds. | ✔️ AA ~ AAA |
-
-To learn more about Plus UI's accessibility criteria, please visit Accessibility.
+*   **Keyboard Behavior:**
+    *   Buttons are focusable via the `Tab` key.
+    *   Buttons can be activated using `Enter` or `Space` keys when focused.
+*   **Screen Reader:**
+    *   The component uses the native `<button>` element, which has an implicit `role="button"`.
+    *   The text content provided within the button (default slot) serves as the accessible name.
+    *   If the button contains only an icon, provide a descriptive `aria-label` attribute on the `plus-button` element itself.
+*   **Required Developer Actions:**
+    *   Ensure button text clearly indicates the action that will occur upon activation.
+    *   For icon-only buttons, **always** provide an `aria-label` attribute to describe the button's purpose (e.g., `<plus-button aria-label="Settings"><i class="fas fa-cog"></i></plus-button>`).
+    *   Ensure sufficient color contrast between the button's text/icon and its background, especially when customizing colors with CSS properties.
 
 ## Design System
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
 
-## API
+## API Reference
 
 ### Properties
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| kind | Determines the visual style of the button | `'filled' \| 'outlined' \| 'dashed' \| 'text'` | `'filled'` |
-| status | Sets the status/color variant of the button | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` |
-| size | Sets the size of the button | `'sm' \| 'md' \| 'lg'` | `'md'` |
-| disabled | Disables the button interaction | `boolean` | `false` |
-| loading | Shows loading spinner and disables interaction | `boolean` | `false` |
+| Name      | Type                                                              | Default     | Description                                     | Required |
+|-----------|-------------------------------------------------------------------|-------------|-------------------------------------------------|----------|
+| `kind`    | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                      | `'filled'`  | Visual style of the button.                     | No       |
+| `status`  | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Status/color variant of the button.             | No       |
+| `size`    | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Size of the button.                             | No       |
+| `disabled`| `boolean`                                                         | `false`     | Disables button interaction.                    | No       |
+| `loading` | `boolean`                                                         | `false`     | Shows loading spinner and disables interaction. | No       |
+| `fullWidth` | `boolean`                                                       | `false`     | Makes the button span the full width.           | No       |
 
 ### Events
 
-| Event | Description | Type |
-| ----- | ----------- | ---- |
-| plus-click | Emitted when the button is clicked | `CustomEvent<void>` |
-| plus-focus | Emitted when the button receives focus | `CustomEvent<void>` |
-| plus-blur | Emitted when the button loses focus | `CustomEvent<void>` |
+| Name         | Payload Type        | Description                            |
+|--------------|---------------------|----------------------------------------|
+| `plus-click` | `CustomEvent<void>` | Fired when the button is clicked.      |
+| `plus-focus` | `CustomEvent<void>` | Fired when the button receives focus.  |
+| `plus-blur`  | `CustomEvent<void>` | Fired when the button loses focus.     |
 
 ### Slots
 
-| Name | Description |
-| ---- | ----------- |
-| `default` | The default slot for button content |
-| `prefix` | Slot for content to be placed before the button content |
-| `suffix` | Slot for content to be placed after the button content |
+| Name              | Description                                      |
+|-------------------|--------------------------------------------------|
+| `default` (unnamed) | The main content of the button (text, etc.). |
+| `prefix`          | Content placed before the default slot content.  |
+| `suffix`          | Content placed after the default slot content.   |
 
-### CSS Properties
+### CSS Custom Properties
 
-| Property | Description |
-| -------- | ----------- |
-| --text-color | Controls the text color of the button |
-| --border-color | Controls the border color of the button |
-| --bg-default | Controls the default background color |
-| --bg-hovered | Controls the background color when hovered |
-| --bg-pressed | Controls the background color when pressed |
-| --bg-focused | Controls the background color when focused |
+| Name           | Description                          |
+|----------------|--------------------------------------|
+| `--text-color` | Controls the text color.             |
+| `--border-color` | Controls the border color.           |
+| `--bg-default` | Controls the default background color. |
+| `--bg-hovered` | Controls the background on hover.    |
+| `--bg-pressed` | Controls the background when pressed. |
+| `--bg-focused` | Controls the background when focused. |
+| `--bg-loading` | Controls the background when loading. |
 
-### CSS Parts 
+### CSS Shadow Parts
 
-| Name | Description |
-| ---- | ----------- |
-| button | The component's base wrapper |
+| Part     | Description                |
+|----------|----------------------------|
+| `button` | The main button container. |

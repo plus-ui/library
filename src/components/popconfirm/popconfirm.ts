@@ -133,7 +133,7 @@ export default class PlusPopconfirm extends Tailwind {
    * @type {string}
    * @default 'Confirm'
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'confirm-text' })
   confirmText = 'Confirm';
 
   /**
@@ -142,7 +142,7 @@ export default class PlusPopconfirm extends Tailwind {
    * @type {string}
    * @default 'Cancel'
    */
-  @property({ type: String })
+  @property({ type: String, attribute: 'cancel-text' })
   cancelText = 'Cancel';
 
   /**
@@ -172,7 +172,11 @@ export default class PlusPopconfirm extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: (value) => value !== 'false',
+    attribute: 'status-icon',
+  })
   statusIcon = true;
 
   /**
@@ -184,7 +188,11 @@ export default class PlusPopconfirm extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: (value) => value !== 'false',
+    attribute: 'show-arrow',
+  })
   showArrow = true;
 
   /**
@@ -483,7 +491,7 @@ export default class PlusPopconfirm extends Tailwind {
                 variant="outline"
                 @click=${this.handleCancel}
                 tabindex="0"
-                ?disabled=${!this.isVisible}
+                .disabled=${!this.isVisible}
               >
                 ${this.cancelText}
               </plus-button>
@@ -492,7 +500,7 @@ export default class PlusPopconfirm extends Tailwind {
                 status=${this.status}
                 @click=${this.handleConfirm}
                 tabindex="0"
-                ?disabled=${!this.isVisible}
+                .disabled=${!this.isVisible}
               >
                 ${this.confirmText}
               </plus-button>

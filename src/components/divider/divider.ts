@@ -38,7 +38,7 @@ export default class PlusDivider extends Tailwind {
    * The position of the text content (only applicable with hasContent=true)
    * @default 'center'
    */
-  @property({ type: String, reflect: true })
+  @property({ type: String, reflect: true, attribute: 'content-position' })
   contentPosition: 'left' | 'center' | 'right' = 'center';
 
   /**
