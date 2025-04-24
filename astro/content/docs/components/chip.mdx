@@ -1,60 +1,38 @@
 ---
 title: Chip
-description: Use our Chip component to represent tags, categories, or simple selections
+description: Represents tags, categories, attributes, or simple selections in a compact format.
 ---
-
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/chip/anatomy.png';
 import layoutSpacing from '../../../assets/components/chip/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/chip/light-dark-mode.png';
 
-The Chip component is a versatile UI element that can display various types of information in a compact, interactive format. It's commonly used to represent tags, categories, or simple selections. This documentation provides an overview of the Chip component and its different variants, along with usage examples.
+The Chip component displays information such as tags, categories, attributes, or selections in a compact and optionally interactive format. It supports various styles, sizes, and statuses.
 
 ## Anatomy
 
-The anatomy of a Chip component within Plus UI is comprised of several integral elements that collectively define its functionality and appearance. It includes the chip label, container, and optional prefix/suffix icons. These elements collectively create a versatile component for displaying essential information or context in a visually appealing manner. Customizable properties further enhance the Chip component's user interaction and engagement capabilities within your application.
+<Image src={anatomy} alt="Chip - anatomy" />
 
-<Image src={anatomy} alt="anatomy of chip component" />
+## Usage
 
-## Properties
+### Basic Example
 
-Our chip component offers consistent design properties across our system and component library, giving you the creative freedom to customize and match your design preferences. With customizable variants and a unified structure, you can effortlessly create chips that seamlessly integrate with your application's design.
-
-| Kinds    | State   | Status  | Size   | Invert | Disabled |
-| -------- | ------- | ------- | ------ | ------ | -------- |
-| Filled   | Default | Default | Small  | True   | True     |
-| Outlined | Hovered | Info    | Medium | False  | False    |
-|          | Pressed | Success | Large  |        |          |
-|          |         | Warning |        |        |          |
-|          |         | Danger   |        |        |          |
-
-### Kinds
-
-* **Filled chip** type provides a simple, solid-colored chip without any specific styling.
-* **Outlined chip** type features a transparent background with a border. It's suitable for scenarios where you want a chip that doesn't stand out too much.
-
-<EmbedContent url="https://codesandbox.io/embed/c9p6pv?hidenavigation=1&module=/index.html&view=preview" />
+A standard chip using default settings.
 
 <code-bubble class="not-content">
+
 ```html
-<plus-chip kind="filled">Filled Chip</plus-chip>
-<plus-chip kind="outlined">Outlined Chip</plus-chip>
+<plus-chip>Default Chip</plus-chip>
 ```
 
 ```tsx
-import { PlusChip } from '@plusui/react';
+import { PlusChip } from '@plusui/library/react';
 
 export default () => {
-  return (
-    <>
-      <PlusChip kind="filled">Filled Chip</PlusChip>
-      <PlusChip kind="outlined">Outlined Chip</PlusChip>
-    </>
-  );
+  return <PlusChip>Default Chip</PlusChip>;
 };
 ```
 
@@ -62,46 +40,39 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <plus-chip kind="filled">Filled Chip</plus-chip>
-    <plus-chip kind="outlined">Outlined Chip</plus-chip>
-  `
+  selector: 'app-chip-basic',
+  template: ` <plus-chip>Default Chip</plus-chip> `
 })
-export class AppComponent {}
+export class ChipBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-chip kind="filled">Filled Chip</plus-chip>
-  <plus-chip kind="outlined">Outlined Chip</plus-chip>
+  <plus-chip>Default Chip</plus-chip>
 </template>
 ```
+
 </code-bubble>
 
-### State
+### Kind
 
-* **Default chip** represents the normal state of a chip, with no specific interactions or changes.
-* **Hover chip** represents a chip that the user's mouse pointer is currently hovering over. It can provide visual feedback to indicate interactivity.
-* **Press chip** signifies a chip in its activated state, typically triggered when the user clicks or presses it. This state communicates user interaction and engagement with the chip's content or functionality.
-* **Disabled chip**
+The `kind` prop defines the chip's visual style: `filled` (solid background) or `outlined` (transparent with border).
 
-<EmbedContent url="https://codesandbox.io/embed/zzydp2?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content horizontal">
 
-<code-bubble class="not-content">
 ```html
-<plus-chip>Normal Chip</plus-chip>
-<plus-chip disabled>Disabled Chip</plus-chip>
+<plus-chip kind="filled">Filled</plus-chip>
+<plus-chip kind="outlined">Outlined</plus-chip>
 ```
 
 ```tsx
-import { PlusChip } from '@plusui/react';
+import { PlusChip } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusChip>Normal Chip</PlusChip>
-      <PlusChip disabled>Disabled Chip</PlusChip>
+      <PlusChip kind="filled">Filled</PlusChip>
+      <PlusChip kind="outlined">Outlined</PlusChip>
     </>
   );
 };
@@ -111,55 +82,49 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-chip-kind',
   template: `
-    <plus-chip>Normal Chip</plus-chip>
-    <plus-chip disabled>Disabled Chip</plus-chip>
+    <plus-chip kind="filled">Filled</plus-chip>
+    <plus-chip kind="outlined">Outlined</plus-chip>
   `
 })
-export class AppComponent {}
+export class ChipKindComponent {}
 ```
 
 ```vue
 <template>
-  <plus-chip>Normal Chip</plus-chip>
-  <plus-chip disabled>Disabled Chip</plus-chip>
+  <plus-chip kind="filled">Filled</plus-chip>
+  <plus-chip kind="outlined">Outlined</plus-chip>
 </template>
 ```
+
 </code-bubble>
 
 ### Status
 
-The Chip component can display different statuses using predefined colors.
+The `status` prop sets the chip's color scheme to convey semantic meaning.
 
-* **Default chip** displays the information without any specific status color.
-* **In progress chip** is typically used to indicate that a task or process is currently ongoing. It uses a distinct color to grab the user's attention.
-* **Success chip** is used to signify that a task or action has been completed successfully. It typically uses a green color.
-* **Warning chip** is used to highlight potential issues or warnings. It typically uses a yellow or orange color.
-* **Danger** **chip** is used to indicate dangers or critical issues. It typically uses a red color to alert the user.
+<code-bubble class="not-content horizontal">
 
-<EmbedContent url="https://codesandbox.io/embed/wshcx9?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
 ```html
-<plus-chip status="default">Default Chip</plus-chip>
-<plus-chip status="info">Info Chip</plus-chip>
-<plus-chip status="success">Success Chip</plus-chip>
-<plus-chip status="danger">Danger Chip</plus-chip>
-<plus-chip status="warning">Warning Chip</plus-chip>
+<plus-chip status="default">Default</plus-chip>
+<plus-chip status="info">Info</plus-chip>
+<plus-chip status="success">Success</plus-chip>
+<plus-chip status="warning">Warning</plus-chip>
+<plus-chip status="danger">Danger</plus-chip>
 ```
 
 ```tsx
-import { PlusChip } from '@plusui/react';
+import { PlusChip } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusChip status="default">Default Chip</PlusChip>
-      <PlusChip status="info">Info Chip</PlusChip>
-      <PlusChip status="success">Success Chip</PlusChip>
-      <PlusChip status="danger">Danger Chip</PlusChip>
-      <PlusChip status="warning">Warning Chip</PlusChip>
+      <PlusChip status="default">Default</PlusChip>
+      <PlusChip status="info">Info</PlusChip>
+      <PlusChip status="success">Success</PlusChip>
+      <PlusChip status="warning">Warning</PlusChip>
+      <PlusChip status="danger">Danger</PlusChip>
     </>
   );
 };
@@ -169,55 +134,51 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-chip-status',
   template: `
-    <plus-chip status="default">Default Chip</plus-chip>
-    <plus-chip status="info">Info Chip</plus-chip>
-    <plus-chip status="success">Success Chip</plus-chip>
-    <plus-chip status="danger">Danger Chip</plus-chip>
-    <plus-chip status="warning">Warning Chip</plus-chip>
+    <plus-chip status="default">Default</plus-chip>
+    <plus-chip status="info">Info</plus-chip>
+    <plus-chip status="success">Success</plus-chip>
+    <plus-chip status="warning">Warning</plus-chip>
+    <plus-chip status="danger">Danger</plus-chip>
   `
 })
-export class AppComponent {}
+export class ChipStatusComponent {}
 ```
 
 ```vue
 <template>
-  <plus-chip status="default">Default Chip</plus-chip>
-  <plus-chip status="info">Info Chip</plus-chip>
-  <plus-chip status="success">Success Chip</plus-chip>
-  <plus-chip status="danger">Danger Chip</plus-chip>
-  <plus-chip status="warning">Warning Chip</plus-chip>
+  <plus-chip status="default">Default</plus-chip>
+  <plus-chip status="info">Info</plus-chip>
+  <plus-chip status="success">Success</plus-chip>
+  <plus-chip status="warning">Warning</plus-chip>
+  <plus-chip status="danger">Danger</plus-chip>
 </template>
 ```
+
 </code-bubble>
 
 ### Size
 
-Chips come in different sizes to accommodate various design needs.
+The `size` prop controls the chip's dimensions.
 
-* **Small**
-* **Medium (Default)**
-* **Large**
+<code-bubble class="not-content horizontal items-center">
 
-<EmbedContent url="https://codesandbox.io/embed/kfpm6k?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
 ```html
-<plus-chip size="sm">Small Chip</plus-chip>
-<plus-chip size="md">Medium Chip</plus-chip>
-<plus-chip size="lg">Large Chip</plus-chip>
+<plus-chip size="sm">Small</plus-chip>
+<plus-chip size="md">Medium</plus-chip>
+<plus-chip size="lg">Large</plus-chip>
 ```
 
 ```tsx
-import { PlusChip } from '@plusui/react';
+import { PlusChip } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusChip size="sm">Small Chip</PlusChip>
-      <PlusChip size="md">Medium Chip</PlusChip>
-      <PlusChip size="lg">Large Chip</PlusChip>
+      <PlusChip size="sm">Small</PlusChip>
+      <PlusChip size="md">Medium</PlusChip>
+      <PlusChip size="lg">Large</PlusChip>
     </>
   );
 };
@@ -227,51 +188,177 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-chip-size',
   template: `
-    <plus-chip size="sm">Small Chip</plus-chip>
-    <plus-chip size="md">Medium Chip</plus-chip>
-    <plus-chip size="lg">Large Chip</plus-chip>
+    <plus-chip size="sm">Small</plus-chip>
+    <plus-chip size="md">Medium</plus-chip>
+    <plus-chip size="lg">Large</plus-chip>
   `
 })
-export class AppComponent {}
+export class ChipSizeComponent {}
 ```
 
 ```vue
 <template>
-  <plus-chip size="sm">Small Chip</plus-chip>
-  <plus-chip size="md">Medium Chip</plus-chip>
-  <plus-chip size="lg">Large Chip</plus-chip>
+  <plus-chip size="sm">Small</plus-chip>
+  <plus-chip size="md">Medium</plus-chip>
+  <plus-chip size="lg">Large</plus-chip>
 </template>
 ```
+
+</code-bubble>
+
+### Shape
+
+The `shape` prop controls the border radius: `full` (pill shape) or `rounded` (slightly rounded corners).
+
+<code-bubble class="not-content horizontal items-center">
+
+```html
+<plus-chip shape="full">Full (Default)</plus-chip>
+<plus-chip shape="rounded">Rounded</plus-chip>
+```
+
+```tsx
+import { PlusChip } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusChip shape="full">Full (Default)</PlusChip>
+      <PlusChip shape="rounded">Rounded</PlusChip>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-chip-shape',
+  template: `
+    <plus-chip shape="full">Full (Default)</plus-chip>
+    <plus-chip shape="rounded">Rounded</plus-chip>
+  `
+})
+export class ChipShapeComponent {}
+```
+
+```vue
+<template>
+  <plus-chip shape="full">Full (Default)</plus-chip>
+  <plus-chip shape="rounded">Rounded</plus-chip>
+</template>
+```
+
 </code-bubble>
 
 ### Invert
 
-The "invert" property for the chip component is a versatile attribute that empowers developers to easily toggle between the default and inverted appearance of the chip. This feature allows for greater design flexibility, enabling you to create eye-catching interfaces and customize the chip's look to match your application's style. Whether you're highlighting specific selections or adding emphasis to certain chips, the "invert" property provides a straightforward way to achieve a dynamic and engaging user interface.
+Set the `invert` prop to use an inverted color scheme, typically for display on darker backgrounds.
 
-<EmbedContent url="https://codesandbox.io/embed/v4dk59?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content horizontal">
 
-<code-bubble class="not-content">
 ```html
-<plus-chip status="default" invert>Default Chip</plus-chip>
-<plus-chip status="info" invert>Info Chip</plus-chip>
-<plus-chip status="success" invert>Success Chip</plus-chip>
-<plus-chip status="danger" invert>Danger Chip</plus-chip>
-<plus-chip status="warning" invert>Warning Chip</plus-chip>
+<div style="background-color: var(--plus-color-background-base); padding: 1rem; display: flex; gap: 0.5rem;">
+  <plus-chip status="default" invert>Default</plus-chip>
+  <plus-chip status="info" invert>Info</plus-chip>
+  <plus-chip status="success" invert>Success</plus-chip>
+  <plus-chip status="warning" invert>Warning</plus-chip>
+  <plus-chip status="danger" invert>Danger</plus-chip>
+</div>
 ```
 
 ```tsx
-import { PlusChip } from '@plusui/react';
+import { PlusChip } from '@plusui/library/react';
 
 export default () => {
   return (
+    <div style={{ backgroundColor: 'var(--plus-color-background-base)', padding: '1rem', display: 'flex', gap: '0.5rem' }}>
+      <PlusChip status="default" invert>Default</PlusChip>
+      <PlusChip status="info" invert>Info</PlusChip>
+      <PlusChip status="success" invert>Success</PlusChip>
+      <PlusChip status="warning" invert>Warning</PlusChip>
+      <PlusChip status="danger" invert>Danger</PlusChip>
+    </div>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-chip-invert',
+  styles: [`
+    .dark-bg {
+      background-color: var(--plus-color-background-base);
+      padding: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+  `],
+  template: `
+    <div class="dark-bg">
+      <plus-chip status="default" invert>Default</plus-chip>
+      <plus-chip status="info" invert>Info</plus-chip>
+      <plus-chip status="success" invert>Success</plus-chip>
+      <plus-chip status="warning" invert>Warning</plus-chip>
+      <plus-chip status="danger" invert>Danger</plus-chip>
+    </div>
+  `
+})
+export class ChipInvertComponent {}
+```
+
+```vue
+<template>
+  <div style="background-color: var(--plus-color-background-base); padding: 1rem; display: flex; gap: 0.5rem;">
+    <plus-chip status="default" invert>Default</plus-chip>
+    <plus-chip status="info" invert>Info</plus-chip>
+    <plus-chip status="success" invert>Success</plus-chip>
+    <plus-chip status="warning" invert>Warning</plus-chip>
+    <plus-chip status="danger" invert>Danger</plus-chip>
+  </div>
+</template>
+```
+
+</code-bubble>
+
+### Dismissible
+
+Set the `dismiss` prop to add a close button. Clicking it fires the `dismiss` event.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-chip dismiss>Dismissible</plus-chip>
+<plus-chip dismiss kind="outlined">Outlined Dismiss</plus-chip>
+
+<script>
+  document.querySelectorAll('plus-chip[dismiss]').forEach(chip => {
+    chip.addEventListener('dismiss', () => {
+      console.log('Chip dismissed!');
+      chip.style.display = 'none'; // Example: hide the chip
+    });
+  });
+</script>
+```
+
+```tsx
+import { PlusChip } from '@plusui/library/react';
+
+export default () => {
+  const handleDismiss = (event) => {
+    console.log('Chip dismissed!');
+    event.target.style.display = 'none'; // Example: hide the chip
+  };
+
+  return (
     <>
-      <PlusChip status="default" invert>Default Chip</PlusChip>
-      <PlusChip status="info" invert>Info Chip</PlusChip>
-      <PlusChip status="success" invert>Success Chip</PlusChip>
-      <PlusChip status="danger" invert>Danger Chip</PlusChip>
-      <PlusChip status="warning" invert>Warning Chip</PlusChip>
+      <PlusChip dismiss onDismiss={handleDismiss}>Dismissible</PlusChip>
+      <PlusChip dismiss kind="outlined" onDismiss={handleDismiss}>Outlined Dismiss</PlusChip>
     </>
   );
 };
@@ -281,66 +368,161 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-chip-dismiss',
   template: `
-    <plus-chip status="default" invert>Default Chip</plus-chip>
-    <plus-chip status="info" invert>Info Chip</plus-chip>
-    <plus-chip status="success" invert>Success Chip</plus-chip>
-    <plus-chip status="danger" invert>Danger Chip</plus-chip>
-    <plus-chip status="warning" invert>Warning Chip</plus-chip>
+    <plus-chip dismiss (dismiss)="handleDismiss($event)">Dismissible</plus-chip>
+    <plus-chip dismiss kind="outlined" (dismiss)="handleDismiss($event)">Outlined Dismiss</plus-chip>
   `
 })
-export class AppComponent {}
+export class ChipDismissComponent {
+  handleDismiss(event: Event) {
+    console.log('Chip dismissed!');
+    (event.target as HTMLElement).style.display = 'none'; // Example: hide the chip
+  }
+}
 ```
 
 ```vue
 <template>
-  <plus-chip status="default" invert>Default Chip</plus-chip>
-  <plus-chip status="info" invert>Info Chip</plus-chip>
-  <plus-chip status="success" invert>Success Chip</plus-chip>
-  <plus-chip status="danger" invert>Danger Chip</plus-chip>
-  <plus-chip status="warning" invert>Warning Chip</plus-chip>
+  <plus-chip dismiss @dismiss="handleDismiss">Dismissible</plus-chip>
+  <plus-chip dismiss kind="outlined" @dismiss="handleDismiss">Outlined Dismiss</plus-chip>
 </template>
+
+<script setup>
+const handleDismiss = (event) => {
+  console.log('Chip dismissed!');
+  event.target.style.display = 'none'; // Example: hide the chip
+};
+</script>
 ```
+
 </code-bubble>
 
-## Layout & Spacing
+### Disabled State
 
-The placement and spacing of chip elements significantly impact the overall aesthetics and usability of your design. Well-considered spacing between chips, as well as their arrangement, enhances the user experience, making it easier for users to interact with and comprehend the content. Careful spacing and layout contribute to an intuitive and engaging interface, ensuring that your chip components serve their purpose effectively.
+Set the `disabled` prop to prevent user interaction, including dismissing.
 
-<Image src={layoutSpacing} alt="layout and spacing of chip component" />
+<code-bubble class="not-content horizontal">
 
-## Light & Dark Mode
+```html
+<plus-chip disabled>Disabled</plus-chip>
+<plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
+<plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
+```
 
-Offering light and dark mode options for chip components in user interfaces enhances user experience by catering to their comfort, preference, and accessibility. This design approach aligns with current trends and supports a range of user needs and choices. Additionally, it contributes to energy efficiency and a more sustainable user interaction.
+```tsx
+import { PlusChip } from '@plusui/library/react';
 
-<Image src={lightDarkMode} alt="light and dark mode of chip component" />
+export default () => {
+  return (
+    <>
+      <PlusChip disabled>Disabled</PlusChip>
+      <PlusChip kind="outlined" disabled>Disabled Outlined</PlusChip>
+      <PlusChip dismiss disabled>Disabled Dismissible</PlusChip>
+    </>
+  );
+};
+```
 
-## Accessibility
+```ts
+import { Component } from '@angular/core';
 
-Ensuring that chip components meet all accessibility criteria is of paramount importance. Accessible chips enable a wide range of users, including those with disabilities, to interact with the interface effectively. By adhering to these criteria, the chips provide equal access to information and functionality, promoting inclusivity and a positive user experience for everyone.
+@Component({
+  selector: 'app-chip-disabled',
+  template: `
+    <plus-chip disabled>Disabled</plus-chip>
+    <plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
+    <plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
+  `
+})
+export class ChipDisabledComponent {}
+```
 
-<table><thead><tr><th>Criteria</th><th width="397.3333333333333">Description</th><th>Status<select><option value="f8d51c31cf0241779e5ec22e891b5e55" label="Passed" color="blue"></option><option value="1e653c31532d49828ba5d3b6b7660ce7" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>IDs of Active Elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>ID Elements</td><td>Ensures every id attribute value is unique</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>Tabindex Attributes</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="f8d51c31cf0241779e5ec22e891b5e55">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="1e653c31532d49828ba5d3b6b7660ce7">AA ~ AAA</span></td></tr></tbody></table>
+```vue
+<template>
+  <plus-chip disabled>Disabled</plus-chip>
+  <plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
+  <plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
+</template>
+```
 
-To learn more about Plus UI's accessibility criteria, please visit Accessibility.
+</code-bubble>
+
+<Aside type="note">
+<p>The `type="avatar"` prop is available but its specific usage and styling require integration with the Avatar component or custom styling. Examples are omitted here as they depend on external components or custom CSS.</p>
+</Aside>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Chip - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Chip - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Chips are focusable via the `Tab` key if not disabled.
+    *   If a chip is `dismiss`ible, the dismiss button (`plus-icon`) is focusable and can be activated with `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component has `role="status"` and `aria-live="polite"`.
+    *   `aria-label` is set based on the `status` prop (e.g., "success chip"). Consider providing more specific context if needed, potentially via an `aria-labelledby` attribute pointing to associated text.
+    *   `aria-disabled` is set based on the `disabled` prop.
+    *   The dismiss button has an `aria-label="Remove"`.
+*   **Required Developer Actions:**
+    *   Ensure the chip's content (passed via the default slot) is meaningful and understandable.
+    *   If chips represent interactive elements (like filters), consider using a more appropriate role (e.g., `button` or `checkbox`) depending on the interaction model, potentially by wrapping the `plus-chip` or using a different component.
+    *   Ensure sufficient color contrast between the chip's text/icon and its background, especially when using `status` colors or customizing with CSS properties.
 
 ## Design System
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
 
-## API
+## API Reference
 
-#### Props
+### Properties
 
-| Property | Description | Type   | Accepted Values         | Default |
-| -------- | ----------- | ------ | ----------------------- | ------- |
-| size     | Chip size   | string | sm, md, lg              | md      |
-| kind     | Chip kind   | string | filled, outline         | filled  |
-| status   | Chip status | string | success, danger, warning | -       |
+| Name       | Type                                                              | Default     | Description                                                 | Required |
+|------------|-------------------------------------------------------------------|-------------|-------------------------------------------------------------|----------|
+| `kind`     | `'filled' \| 'outlined'`                                        | `'filled'`  | Visual style of the chip.                                   | No       |
+| `size`     | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Size of the chip.                                           | No       |
+| `type`     | `'default' \| 'avatar'`                                        | `'default'` | Type of chip, affecting potential internal layout (e.g., for avatar). | No       |
+| `status`   | `'default' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Status/color variant of the chip.                         | No       |
+| `shape`    | `'full' \| 'rounded'`                                         | `'full'`    | Controls the border radius style.                           | No       |
+| `invert`   | `boolean`                                                         | `false`     | Toggles the inverted color scheme.                          | No       |
+| `dismiss`  | `boolean`                                                         | `false`     | Shows a dismiss button.                                     | No       |
+| `disabled` | `boolean`                                                         | `false`     | Disables chip interaction, including the dismiss button.    | No       |
 
-#### Slots
+### Events
 
-| Name    | Description  |
-| ------- | ------------ |
-| default | Chip content |
+| Name      | Payload Type        | Description                                      |
+|-----------|---------------------|--------------------------------------------------|
+| `dismiss` | `CustomEvent<void>` | Fired when the dismiss button is clicked.        |
+
+### Slots
+
+| Name              | Description                      |
+|-------------------|----------------------------------|
+| `default` (unnamed) | The main content of the chip.    |
+
+### CSS Shadow Parts
+
+| Part   | Description                             |
+|--------|-----------------------------------------|
+| `base` | The main chip container element (`div`). |
+| `icon` | The dismiss icon container (`plus-icon`). |
+
+### CSS Custom Properties
+
+| Name           | Description                          |
+|----------------|--------------------------------------|
+| `--text-color` | Controls the text color.             |
+| `--border-color` | Controls the border color.           |
+| `--bg-default` | Controls the default background color. |
+| `--bg-hovered` | Controls the background on hover.    |
+| `--bg-pressed` | Controls the background when pressed. |
+| `--bg-focused` | Controls the background when focused. |
 

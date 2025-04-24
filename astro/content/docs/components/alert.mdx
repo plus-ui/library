@@ -1,63 +1,103 @@
 ---
 title: Alert
-description: Instantly Capture Attention, Seamlessly Convey Messages
+description: Displays important messages or notifications to users in a prominent way.
 ---
 import { Image } from 'astro:assets';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 
 import anatomy from '../../../assets/components/alert/anatomy.png';
 import layoutSpacing from '../../../assets/components/alert/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/alert/light-dark-mode.png';
 
-The alert component provides contextual feedback messages for typical user actions. It supports various styles, states and customization options to effectively communicate different types of information.
+The Alert component is used to convey important information to users, such as success messages, warnings, errors, or general information. It typically includes a status icon, a message, an optional description, and a dismiss button.
 
 ## Anatomy
 
-The alert component consists of several key elements:
-- Status icon (optional)
-- Message content
-- Description (optional) 
-- Dismiss button (optional)
-
-<Image src={anatomy} alt="anatomy of alert component" />
+<Image src={anatomy} alt="Alert - anatomy" />
 
 ## Usage
 
-### Basic Alert
+### Basic Example
 
-The most basic usage of the alert component with different status types.
+A basic alert displays a message with a default status icon.
 
 <code-bubble class="not-content">
 
-<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
-  <plus-alert message="Default Alert"></plus-alert>
-  <plus-alert status="success" message="Success Alert"></plus-alert>
-  <plus-alert status="warning" message="Warning Alert"></plus-alert>
-  <plus-alert status="danger" message="Danger Alert"></plus-alert>
-  <plus-alert status="info" message="Info Alert"></plus-alert>
-</div>
-
 ```html
-<plus-alert message="Default Alert"></plus-alert>
-<plus-alert status="success" message="Success Alert"></plus-alert>
-<plus-alert status="warning" message="Warning Alert"></plus-alert>
-<plus-alert status="danger" message="Danger Alert"></plus-alert>
-<plus-alert status="info" message="Info Alert"></plus-alert>
+<plus-alert status="info">
+  <div slot="message">This is an informational alert.</div>
+</plus-alert>
 ```
 
 ```tsx
-import { PlusAlert } from '@plusui/react';
+import { PlusAlert } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <PlusAlert status="info">
+      <div slot="message">This is an informational alert.</div>
+    </PlusAlert>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-alert-basic',
+  template: `
+    <plus-alert status="info">
+      <div slot="message">This is an informational alert.</div>
+    </plus-alert>
+  `
+})
+export class AlertBasicComponent {}
+```
+
+```vue
+<template>
+  <plus-alert status="info">
+    <div slot="message">This is an informational alert.</div>
+  </plus-alert>
+</template>
+```
+</code-bubble>
+
+### Status
+
+Use the `status` prop to indicate the type of message: `info` (default), `success`, `warning`, or `danger`. This affects the color scheme and the default icon.
+
+<code-bubble class="not-content">
+
+```html
+<plus-alert status="success">
+  <div slot="message">Operation successful!</div>
+</plus-alert>
+<plus-alert status="warning">
+  <div slot="message">Warning: Please check your input.</div>
+</plus-alert>
+<plus-alert status="danger">
+  <div slot="message">Error: Could not complete the request.</div>
+</plus-alert>
+```
+
+```tsx
+import { PlusAlert } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusAlert message="Default Alert" />
-      <PlusAlert status="success" message="Success Alert" />
-      <PlusAlert status="warning" message="Warning Alert" />
-      <PlusAlert status="danger" message="Danger Alert" />
-      <PlusAlert status="info" message="Info Alert" />
+      <PlusAlert status="success">
+        <div slot="message">Operation successful!</div>
+      </PlusAlert>
+      <PlusAlert status="warning">
+        <div slot="message">Warning: Please check your input.</div>
+      </PlusAlert>
+      <PlusAlert status="danger">
+        <div slot="message">Error: Could not complete the request.</div>
+      </PlusAlert>
     </>
   );
 };
@@ -67,58 +107,69 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-alert-status',
   template: `
-    <plus-alert message="Default Alert"></plus-alert>
-    <plus-alert status="success" message="Success Alert"></plus-alert>
-    <plus-alert status="warning" message="Warning Alert"></plus-alert>
-    <plus-alert status="danger" message="Danger Alert"></plus-alert>
-    <plus-alert status="info" message="Info Alert"></plus-alert>
+    <plus-alert status="success">
+      <div slot="message">Operation successful!</div>
+    </plus-alert>
+    <plus-alert status="warning">
+      <div slot="message">Warning: Please check your input.</div>
+    </plus-alert>
+    <plus-alert status="danger">
+      <div slot="message">Error: Could not complete the request.</div>
+    </plus-alert>
   `
 })
-export class AppComponent {}
+export class AlertStatusComponent {}
 ```
 
 ```vue
 <template>
-  <plus-alert message="Default Alert"></plus-alert>
-  <plus-alert status="success" message="Success Alert"></plus-alert>
-  <plus-alert status="warning" message="Warning Alert"></plus-alert>
-  <plus-alert status="danger" message="Danger Alert"></plus-alert>
-  <plus-alert status="info" message="Info Alert"></plus-alert>
+  <plus-alert status="success">
+    <div slot="message">Operation successful!</div>
+  </plus-alert>
+  <plus-alert status="warning">
+    <div slot="message">Warning: Please check your input.</div>
+  </plus-alert>
+  <plus-alert status="danger">
+    <div slot="message">Error: Could not complete the request.</div>
+  </plus-alert>
 </template>
 ```
 </code-bubble>
 
-### Alert Kinds
+### Kind
 
-Alerts come in three visual styles: `filled`, `outlined`, and `dashed`.
+The `kind` prop controls the visual appearance: `filled` (default), `outlined`, or `dashed`.
 
 <code-bubble class="not-content">
 
-<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
-  <plus-alert kind="filled" message="Filled Alert"></plus-alert>
-  <plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
-  <plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
-</div>
-
-
 ```html
-<plus-alert kind="filled" message="Filled Alert"></plus-alert>
-<plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
-<plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
+<plus-alert status="info" kind="filled">
+  <div slot="message">Filled (Default)</div>
+</plus-alert>
+<plus-alert status="info" kind="outlined">
+  <div slot="message">Outlined</div>
+</plus-alert>
+<plus-alert status="info" kind="dashed">
+  <div slot="message">Dashed</div>
+</plus-alert>
 ```
 
 ```tsx
-import { PlusAlert } from '@plusui/react';
+import { PlusAlert } from '@plusui/library/react';
 
 export default () => {
   return (
-    <>
-      <PlusAlert kind="filled" message="Filled Alert" />
-      <PlusAlert kind="outlined" message="Outlined Alert" />
-      <PlusAlert kind="dashed" message="Dashed Alert" />
-    </>
+    <><PlusAlert status="info" kind="filled">
+      <div slot="message">Filled (Default)</div>
+    </PlusAlert>
+    <PlusAlert status="info" kind="outlined">
+      <div slot="message">Outlined</div>
+    </PlusAlert>
+    <PlusAlert status="info" kind="dashed">
+      <div slot="message">Dashed</div>
+    </PlusAlert></>
   );
 };
 ```
@@ -127,53 +178,69 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-alert-kind',
   template: `
-    <plus-alert kind="filled" message="Filled Alert"></plus-alert>
-    <plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
-    <plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
+    <plus-alert status="info" kind="filled">
+      <div slot="message">Filled (Default)</div>
+    </plus-alert>
+    <plus-alert status="info" kind="outlined">
+      <div slot="message">Outlined</div>
+    </plus-alert>
+    <plus-alert status="info" kind="dashed">
+      <div slot="message">Dashed</div>
+    </plus-alert>
   `
 })
-export class AppComponent {}
+export class AlertKindComponent {}
 ```
 
 ```vue
 <template>
-  <plus-alert kind="filled" message="Filled Alert"></plus-alert>
-  <plus-alert kind="outlined" message="Outlined Alert"></plus-alert>
-  <plus-alert kind="dashed" message="Dashed Alert"></plus-alert>
+  <plus-alert status="info" kind="filled">
+    <div slot="message">Filled (Default)</div>
+  </plus-alert>
+  <plus-alert status="info" kind="outlined">
+    <div slot="message">Outlined</div>
+  </plus-alert>
+  <plus-alert status="info" kind="dashed">
+    <div slot="message">Dashed</div>
+  </plus-alert>
 </template>
 ```
 </code-bubble>
 
-### Alert Sizes
+### Closable
 
-Available in three sizes: `sm`, `md`, and `lg`.
+Set the `dismissible` attribute (or `dismissible={true}`) to add a close button. The alert fires a `plus-dismiss` event when closed.
 
 <code-bubble class="not-content">
 
-<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
-  <plus-alert size="sm" message="Small Alert"></plus-alert>
-  <plus-alert size="md" message="Medium Alert"></plus-alert>
-  <plus-alert size="lg" message="Large Alert"></plus-alert>
-</div>
-
 ```html
-<plus-alert size="sm" message="Small Alert"></plus-alert>
-<plus-alert size="md" message="Medium Alert"></plus-alert>
-<plus-alert size="lg" message="Large Alert"></plus-alert>
+<plus-alert status="warning" dismissible>
+  <div slot="message">This alert can be closed.</div>
+  <div slot="description">Click the X button to dismiss.</div>
+</plus-alert>
+
+<script>
+  document.querySelector('plus-alert[dismissible]').addEventListener('plus-dismiss', () => {
+    console.log('Alert dismissed!');
+  });
+</script>
 ```
 
 ```tsx
-import { PlusAlert } from '@plusui/react';
+import { PlusAlert } from '@plusui/library/react';
 
 export default () => {
+  const handleDismiss = () => {
+    console.log('Alert dismissed!');
+  };
+
   return (
-    <>
-      <PlusAlert size="sm" message="Small Alert" />
-      <PlusAlert size="md" message="Medium Alert" />
-      <PlusAlert size="lg" message="Large Alert" />
-    </>
+    <PlusAlert status="warning" dismissible onPlusDismiss={handleDismiss}>
+      <div slot="message">This alert can be closed.</div>
+      <div slot="description">Click the X button to dismiss.</div>
+    </PlusAlert>
   );
 };
 ```
@@ -182,170 +249,100 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-alert-closable',
   template: `
-    <plus-alert size="sm" message="Small Alert"></plus-alert>
-    <plus-alert size="md" message="Medium Alert"></plus-alert>
-    <plus-alert size="lg" message="Large Alert"></plus-alert>
+    <plus-alert status="warning" dismissible (plus-dismiss)="handleDismiss()">
+      <div slot="message">This alert can be closed.</div>
+      <div slot="description">Click the X button to dismiss.</div>
+    </plus-alert>
   `
 })
-export class AppComponent {}
+export class AlertClosableComponent {
+  handleDismiss() {
+    console.log('Alert dismissed!');
+  }
+}
 ```
 
 ```vue
 <template>
-  <plus-alert size="sm" message="Small Alert"></plus-alert>
-  <plus-alert size="md" message="Medium Alert"></plus-alert>
-  <plus-alert size="lg" message="Large Alert"></plus-alert>
+  <plus-alert status="warning" dismissible @plus-dismiss="handleDismiss">
+    <div slot="message">This alert can be closed.</div>
+    <div slot="description">Click the X button to dismiss.</div>
+  </plus-alert>
 </template>
-```
-</code-bubble>
 
-### With Description
-
-Alerts can include additional descriptive text.
-
-<code-bubble class="not-content">
-
-<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
-  <plus-alert 
-    message="Alert with Description" 
-    description="This alert includes additional details to provide more context."
-  ></plus-alert>
-</div>
-
-```html
-<plus-alert 
-  message="Alert with Description" 
-  description="This alert includes additional details to provide more context."
-></plus-alert>
-```
-
-```tsx
-import { PlusAlert } from '@plusui/react';
-
-export default () => {
-  return (
-    <PlusAlert 
-      message="Alert with Description"
-      description="This alert includes additional details to provide more context."
-    />
-  );
+<script setup>
+const handleDismiss = () => {
+  console.log('Alert dismissed!');
 };
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <plus-alert 
-      message="Alert with Description"
-      description="This alert includes additional details to provide more context."
-    ></plus-alert>
-  `
-})
-export class AppComponent {}
-```
-
-```vue
-<template>
-  <plus-alert 
-    message="Alert with Description"
-    description="This alert includes additional details to provide more context."
-  ></plus-alert>
-</template>
+</script>
 ```
 </code-bubble>
 
-### Inverted Style
+## Visual Sections
 
-Use the `invert` property for a contrasting color scheme.
+### Layout & Spacing
 
-<code-bubble class="not-content">
+<Image src={layoutSpacing} alt="Alert - layout spacing" />
 
-<div slot="preview" style="display: flex; flex-direction: column; gap: 8px;"> 
-  <plus-alert invert message="Inverted Alert"></plus-alert>
-  <plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
-</div>
+### Light & Dark Mode
 
-```html
-<plus-alert invert message="Inverted Alert"></plus-alert>
-<plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
-```
+<Image src={lightDarkMode} alt="Alert - light & dark mode" />
 
-```tsx
-import { PlusAlert } from '@plusui/react';
+## Accessibility (a11y)
 
-export default () => {
-  return (
-    <>
-      <PlusAlert invert message="Inverted Alert" />
-      <PlusAlert invert status="success" message="Inverted Success Alert" />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <plus-alert invert message="Inverted Alert"></plus-alert>
-    <plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
-  `
-})
-export class AppComponent {}
-```
-
-```vue
-<template>
-  <plus-alert invert message="Inverted Alert"></plus-alert>
-  <plus-alert invert status="success" message="Inverted Success Alert"></plus-alert>
-</template>
-```
-</code-bubble>
-
-## Layout & Spacing
-
-The alert component maintains consistent spacing and can adapt to different container widths. Use the `full-width` property to make it span the full width of its container.
-
-<Image src={layoutSpacing} alt="layout and spacing of alert component" />
-
-## Light & Dark Mode
-
-Alerts automatically adjust their appearance based on the system theme while maintaining proper contrast and visibility.
-
-<Image src={lightDarkMode} alt="light and dark mode of alert component" />
+*   **Keyboard Behavior:**
+    *   If the alert is `dismissible`, the close button is focusable and can be activated using `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component uses `role="alert"` to announce its presence and content automatically to screen reader users.
+    *   `aria-live="polite"` ensures that updates are announced without interrupting the user, though critical alerts might warrant `aria-live="assertive"` if implemented via JavaScript.
+    *   The dismiss button should have an appropriate `aria-label` (e.g., "Close alert").
+*   **Required Developer Actions:**
+    *   Ensure the content provided in the `message` and `description` slots is clear and concise.
+    *   If using custom icons via the `prefix` slot, ensure they have appropriate alternative text or are marked as decorative (`aria-hidden="true"`) if the status prop already conveys the meaning.
 
 ## API Reference
 
 ### Properties
 
-| Property     | Description               | Type     | Values                                     | Default  |
-|-------------|---------------------------|----------|-------------------------------------------|----------|
-| kind        | Visual style              | string   | 'filled', 'outlined', 'dashed'            | 'filled' |
-| status      | Alert type                | string   | 'default', 'success', 'warning', 'danger', 'info' | 'default' |
-| size        | Component size            | string   | 'sm', 'md', 'lg'                          | 'md'     |
-| message     | Main alert text           | string   | -                                         | ''       |
-| description | Additional details        | string   | -                                         | ''       |
-| invert      | Inverted color scheme     | boolean  | true, false                               | false    |
-| dismissible | Show close button         | boolean  | true, false                               | true     |
-| statusIcon  | Custom status icon        | string   | -                                         | ''       |
-| dismissIcon | Custom dismiss icon       | string   | -                                         | ''       |
-| fullWidth   | Full width display        | boolean  | true, false                               | false    |
+| Name             | Type                                                         | Default     | Description                                                            | Required |
+|------------------|--------------------------------------------------------------|-------------|------------------------------------------------------------------------|----------|
+| `kind`           | `'filled' | 'outlined' | 'dashed'`                     | `'filled'`  | Visual style of the alert.                                             | No       |
+| `size`           | `'sm' | 'md' | 'lg'`                                  | `'md'`      | Size of the alert.                                                    | No       |
+| `status`         | `'default' | 'success' | 'warning' | 'danger' | 'info'` | `'default'` | Status/color variant. Affects color and default icon.                 | No       |
+| `invert`         | `boolean`                                                    | `false`     | Use inverted color scheme.                                             | No       |
+| `dismissible`    | `boolean`                                                    | `true`      | Show dismiss button.                                                   | No       |
+| `message`        | `string`                                                     | `''`        | Main message content (can also be provided via slot).                   | No       |
+| `description`    | `string`                                                     | `''`        | Additional description (can also be provided via slot).                 | No       |
+| `statusIcon`     | `string`                                                     | `undefined` | Name of the SVG icon to use for status (overrides default).            | No       |
+| `dismissIcon`    | `string`                                                     | `undefined` | Name of the SVG icon to use for the dismiss button (overrides default). | No       |
+| `fullWidth`      | `boolean`                                                    | `false`     | Make the alert span the full width of its container.                    | No       |
 
 ### Events
 
-| Event Name    | Description            | Detail                |
-|--------------|------------------------|----------------------|
-| plus-dismiss | Fired when dismissed   | `{ status: string }` |
+| Name           | Payload Type                  | Description                       |
+|----------------|-------------------------------|-----------------------------------|
+| `plus-dismiss` | `CustomEvent<{ status: string }>` | Fired when the alert is dismissed. |
 
-## Design System
+### Slots
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
+| Name          | Description                                |
+|---------------|--------------------------------------------|
+| `message`     | The main message content.                    |
+| `description` | Additional descriptive content.              |
+| `prefix`      | Custom status icon content.                |
+| `dismiss`     | Custom dismiss button content.             |
+
+### CSS Shadow Parts
+
+| Part          | Description                         |
+|---------------|-------------------------------------|
+| `base`        | The main container element.         |
+| `status-icon` | The status icon container.        |
+| `content`     | The content container.              |
+| `message`     | The message container.              |
+| `description` | The description container.          |
+| `dismiss`     | The dismiss button container.       |
 
 

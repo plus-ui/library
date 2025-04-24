@@ -1,72 +1,81 @@
 ---
 title: Drawer
-description: The Drawer Component Revolutionizes Your UI Space With Content Organization
+description: A sliding panel that appears from the edge of the screen to display content.
 ---
-
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/drawer/anatomy.png';
 import layoutSpacing from '../../../assets/components/drawer/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/drawer/light-dark-mode.png';
 
-The Drawer Component introduces a versatile, space-efficient way to enhance user navigation and content organization. Perfect for housing menus, filters, or additional information, this side-panel slides in and out of view on command, offering a sleek solution to manage extra content without overcrowding the main interface.
+The Drawer component provides a flexible way to display navigation, forms, details, or other supplementary content in a panel that slides in from the edge of the viewport. It helps manage screen real estate effectively.
 
 ## Anatomy
 
-At its core, the Drawer Component consists of a slide-out panel, typically anchored to the side of the screen. It includes a handle or button for opening and closing, a content area for navigation links, tools, or information, and an optional overlay that dims the main content when the drawer is active, focusing user attention on the drawer's contents.
+<Image src={anatomy} alt="Drawer - anatomy" />
 
-<Image src={anatomy} alt="anatomy of drawer component" />
+## Usage
 
-## Properties
+### Basic Example & Controlling State
 
-The Drawer Component is customizable through various properties, allowing it to cater to different design needs and user preferences:
-
-| Size   | Orientation |
-| ------ | ----------- |
-| Small  | Bottom      |
-| Medium | Top         |
-| Large  | Right       |
-|        | Left        |
-
-### Size
-
-* **Small drawer component** offers a compact space, ideal for minimal content or limited screen real estate.
-* **Medium drawer component** provides a balanced space for standard content, the most commonly used size.
-* **Large drawer component** grants ample space for extensive content or complex navigation structures.
-
-<EmbedContent url="https://codesandbox.io/embed/y2cn7n?hidenavigation=1&view=preview" />
+Use the `show()` and `hide()` methods to programmatically open and close the drawer. The `isOpen` property reflects the current state.
 
 <code-bubble class="not-content">
+
 ```html
-<plus-button id="open-small">Open Small Drawer</plus-button>
-<plus-drawer id="small-drawer" size="sm">
-  <div slot="header">Drawer Header</div>
-  <div slot="body">This is a small drawer's body content.</div>
-  <div slot="footer">Drawer Footer</div>
+<plus-button id="open-button">Open Drawer</plus-button>
+
+<plus-drawer id="my-drawer">
+  <div slot="header">Drawer Title</div>
+  <div slot="body">
+    <p>This is the main content of the drawer.</p>
+    <plus-button id="close-button">Close Drawer</plus-button>
+  </div>
+  <div slot="footer">Footer Content</div>
 </plus-drawer>
+
+<script>
+  const drawer = document.getElementById('my-drawer');
+  const openButton = document.getElementById('open-button');
+  const closeButton = document.getElementById('close-button');
+
+  openButton.addEventListener('plus-click', () => drawer.show());
+  closeButton.addEventListener('plus-click', () => drawer.hide());
+
+  drawer.addEventListener('plus-drawer-show', () => console.log('Drawer shown'));
+  drawer.addEventListener('plus-drawer-hide', () => console.log('Drawer hidden'));
+</script>
 ```
 
 ```tsx
-import { PlusDrawer, PlusButton } from '@plusui/react';
+import { PlusDrawer, PlusButton } from '@plusui/library/react';
 import { useRef } from 'react';
 
 export default () => {
-  const drawerRef = useRef();
+  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
 
-  const openDrawer = () => {
-    drawerRef.current.show();
-  };
+  const showDrawer = () => drawerRef.current?.show();
+  const hideDrawer = () => drawerRef.current?.hide();
+
+  const handleShow = () => console.log('Drawer shown');
+  const handleHide = () => console.log('Drawer hidden');
 
   return (
     <>
-      <PlusButton onClick={openDrawer}>Open Small Drawer</PlusButton>
-      <PlusDrawer ref={drawerRef} size="sm">
-        <div slot="header">Drawer Header</div>
-        <div slot="body">This is a small drawer's body content.</div>
-        <div slot="footer">Drawer Footer</div>
+      <PlusButton onClick={showDrawer}>Open Drawer</PlusButton>
+      <PlusDrawer
+        ref={drawerRef}
+        onPlusDrawerShow={handleShow}
+        onPlusDrawerHide={handleHide}
+      >
+        <div slot="header">Drawer Title</div>
+        <div slot="body">
+          <p>This is the main content of the drawer.</p>
+          <PlusButton onClick={hideDrawer}>Close Drawer</PlusButton>
+        </div>
+        <div slot="footer">Footer Content</div>
       </PlusDrawer>
     </>
   );
@@ -74,93 +83,136 @@ export default () => {
 ```
 
 ```ts
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-drawer-basic',
   template: `
-    <plus-button (plus-click)="openDrawer()">Open Small Drawer</plus-button>
-    <plus-drawer #drawer size="sm">
-      <div slot="header">Drawer Header</div>
-      <div slot="body">This is a small drawer's body content.</div>
-      <div slot="footer">Drawer Footer</div>
+    <plus-button (plus-click)="showDrawer()">Open Drawer</plus-button>
+
+    <plus-drawer #drawer (plus-drawer-show)="handleShow()" (plus-drawer-hide)="handleHide()">
+      <div slot="header">Drawer Title</div>
+      <div slot="body">
+        <p>This is the main content of the drawer.</p>
+        <plus-button (plus-click)="hideDrawer()">Close Drawer</plus-button>
+      </div>
+      <div slot="footer">Footer Content</div>
     </plus-drawer>
   `
 })
-export class AppComponent {
-  @ViewChild('drawer') drawer;
+export class DrawerBasicComponent {
+  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
 
-  openDrawer() {
-    this.drawer.show();
+  showDrawer() {
+    this.drawerRef.nativeElement.show();
+  }
+
+  hideDrawer() {
+    this.drawerRef.nativeElement.hide();
+  }
+
+  handleShow() {
+    console.log('Drawer shown');
+  }
+
+  handleHide() {
+    console.log('Drawer hidden');
   }
 }
 ```
 
 ```vue
 <template>
-  <plus-button @plus-click="openDrawer">Open Small Drawer</plus-button>
-  <plus-drawer ref="drawer" size="sm">
-    <div slot="header">Drawer Header</div>
-    <div slot="body">This is a small drawer's body content.</div>
-    <div slot="footer">Drawer Footer</div>
+  <plus-button @plus-click="showDrawer">Open Drawer</plus-button>
+
+  <plus-drawer ref="drawerRef" @plus-drawer-show="handleShow" @plus-drawer-hide="handleHide">
+    <div slot="header">Drawer Title</div>
+    <div slot="body">
+      <p>This is the main content of the drawer.</p>
+      <plus-button @plus-click="hideDrawer">Close Drawer</plus-button>
+    </div>
+    <div slot="footer">Footer Content</div>
   </plus-drawer>
 </template>
 
-<script>
-export default {
-  methods: {
-    openDrawer() {
-      this.$refs.drawer.show();
-    }
-  }
-}
+<script setup>
+import { ref } from 'vue';
+
+const drawerRef = ref(null);
+
+const showDrawer = () => drawerRef.value?.show();
+const hideDrawer = () => drawerRef.value?.hide();
+
+const handleShow = () => console.log('Drawer shown');
+const handleHide = () => console.log('Drawer hidden');
 </script>
 ```
+
 </code-bubble>
 
 ### Orientation
 
-Orientation property of the component allows it to be positioned on the screen from the bottom, top, left, or right, seamlessly integrated over a transparent background. This transparent background can enhance the visual harmony of the application by ensuring that the Drawer Component doesn't visually clash with the underlying content.
+The `orientation` prop determines which edge the drawer slides in from.
 
-<EmbedContent url="https://codesandbox.io/embed/gfkvvp?hidenavigation=1&view=preview" />
+<code-bubble class="not-content horizontal">
 
-<code-bubble class="not-content">
 ```html
-<plus-button id="open-drawer-left">Open Drawer (Left)</plus-button>
-<plus-button id="open-drawer-right">Open Drawer (Right)</plus-button>
-<plus-button id="open-drawer-top">Open Drawer (Top)</plus-button>
-<plus-button id="open-drawer-bottom">Open Drawer (Bottom)</plus-button>
+<plus-button id="open-left">Left</plus-button>
+<plus-button id="open-right">Right (Default)</plus-button>
+<plus-button id="open-top">Top</plus-button>
+<plus-button id="open-bottom">Bottom</plus-button>
 
-<plus-drawer id="drawer">
-  <div slot="header">Drawer Header</div>
-  <div slot="body">This is the body content of the drawer.</div>
-  <div slot="footer">Drawer Footer</div>
+<plus-drawer id="drawer-orientation">
+  <div slot="header">Orientation Example</div>
+  <div slot="body">Content</div>
 </plus-drawer>
+
+<script>
+  const drawerO = document.getElementById('drawer-orientation');
+  document.getElementById('open-left').addEventListener('plus-click', () => {
+    drawerO.orientation = 'left';
+    drawerO.show();
+  });
+  document.getElementById('open-right').addEventListener('plus-click', () => {
+    drawerO.orientation = 'right';
+    drawerO.show();
+  });
+  document.getElementById('open-top').addEventListener('plus-click', () => {
+    drawerO.orientation = 'top';
+    drawerO.show();
+  });
+  document.getElementById('open-bottom').addEventListener('plus-click', () => {
+    drawerO.orientation = 'bottom';
+    drawerO.show();
+  });
+</script>
 ```
 
 ```tsx
-import { PlusDrawer, PlusButton } from '@plusui/react';
-import { useRef } from 'react';
+import { PlusDrawer, PlusButton } from '@plusui/library/react';
+import { useRef, useState } from 'react';
 
 export default () => {
-  const drawerRef = useRef();
+  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
+  const [orientation, setOrientation] = useState('right');
 
-  const openDrawer = (orientation) => {
-    drawerRef.current.orientation = orientation;
-    drawerRef.current.show();
+  const openDrawer = (orient: string) => {
+    setOrientation(orient);
+    // Setting state might not be instant, ensure drawer exists before showing
+    requestAnimationFrame(() => drawerRef.current?.show());
   };
 
   return (
     <>
-      <PlusButton onClick={() => openDrawer("left")}>Open Drawer (Left)</PlusButton>
-      <PlusButton onClick={() => openDrawer("right")}>Open Drawer (Right)</PlusButton>
-      <PlusButton onClick={() => openDrawer("top")}>Open Drawer (Top)</PlusButton>
-      <PlusButton onClick={() => openDrawer("bottom")}>Open Drawer (Bottom)</PlusButton>
+      <PlusButton onClick={() => openDrawer('left')}>Left</PlusButton>
+      <PlusButton onClick={() => openDrawer('right')}>Right (Default)</PlusButton>
+      <PlusButton onClick={() => openDrawer('top')}>Top</PlusButton>
+      <PlusButton onClick={() => openDrawer('bottom')}>Bottom</PlusButton>
 
-      <PlusDrawer ref={drawerRef}>
-        <div slot="header">Drawer Header</div>
-        <div slot="body">This is the body content of the drawer.</div>
-        <div slot="footer">Drawer Footer</div>
+      <PlusDrawer ref={drawerRef} orientation={orientation}>
+        <div slot="header">Orientation Example</div>
+        <div slot="body">Content</div>
       </PlusDrawer>
     </>
   );
@@ -168,86 +220,398 @@ export default () => {
 ```
 
 ```ts
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-drawer-orientation',
   template: `
-    <plus-button (plus-click)="openDrawer('left')">Open Drawer (Left)</plus-button>
-    <plus-button (plus-click)="openDrawer('right')">Open Drawer (Right)</plus-button>
-    <plus-button (plus-click)="openDrawer('top')">Open Drawer (Top)</plus-button>
-    <plus-button (plus-click)="openDrawer('bottom')">Open Drawer (Bottom)</plus-button>
+    <plus-button (plus-click)="openDrawer('left')">Left</plus-button>
+    <plus-button (plus-click)="openDrawer('right')">Right (Default)</plus-button>
+    <plus-button (plus-click)="openDrawer('top')">Top</plus-button>
+    <plus-button (plus-click)="openDrawer('bottom')">Bottom</plus-button>
 
     <plus-drawer #drawer>
-      <div slot="header">Drawer Header</div>
-      <div slot="body">This is the body content of the drawer.</div>
-      <div slot="footer">Drawer Footer</div>
+      <div slot="header">Orientation Example</div>
+      <div slot="body">Content</div>
     </plus-drawer>
   `
 })
-export class AppComponent {
-  @ViewChild('drawer') drawer;
+export class DrawerOrientationComponent {
+  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
 
-  openDrawer(orientation) {
-    this.drawer.orientation = orientation;
-    this.drawer.show();
+  openDrawer(orientation: 'left' | 'right' | 'top' | 'bottom') {
+    if (this.drawerRef.nativeElement) {
+      this.drawerRef.nativeElement.orientation = orientation;
+      this.drawerRef.nativeElement.show();
+    }
   }
 }
 ```
 
 ```vue
 <template>
-  <plus-button @plus-click="openDrawer('left')">Open Drawer (Left)</plus-button>
-  <plus-button @plus-click="openDrawer('right')">Open Drawer (Right)</plus-button>
-  <plus-button @plus-click="openDrawer('top')">Open Drawer (Top)</plus-button>
-  <plus-button @plus-click="openDrawer('bottom')">Open Drawer (Bottom)</plus-button>
+  <plus-button @plus-click="openDrawer('left')">Left</plus-button>
+  <plus-button @plus-click="openDrawer('right')">Right (Default)</plus-button>
+  <plus-button @plus-click="openDrawer('top')">Top</plus-button>
+  <plus-button @plus-click="openDrawer('bottom')">Bottom</plus-button>
 
-  <plus-drawer ref="drawer">
-    <div slot="header">Drawer Header</div>
-    <div slot="body">This is the body content of the drawer.</div>
-    <div slot="footer">Drawer Footer</div>
+  <plus-drawer ref="drawerRef" :orientation="currentOrientation">
+    <div slot="header">Orientation Example</div>
+    <div slot="body">Content</div>
   </plus-drawer>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+
+const drawerRef = ref(null);
+const currentOrientation = ref('right');
+
+const openDrawer = (orientation) => {
+  currentOrientation.value = orientation;
+  // Use nextTick to ensure orientation is updated before showing
+  nextTick(() => {
+      drawerRef.value?.show();
+  });
+};
+</script>
+```
+
+</code-bubble>
+
+### Size
+
+The `size` prop controls the width (for left/right) or height (for top/bottom) of the drawer.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-button id="open-sm">Small</plus-button>
+<plus-button id="open-md">Medium (Default)</plus-button>
+<plus-button id="open-lg">Large</plus-button>
+
+<plus-drawer id="drawer-size">
+  <div slot="header">Size Example</div>
+  <div slot="body">Content</div>
+</plus-drawer>
+
 <script>
-export default {
-  methods: {
-    openDrawer(orientation) {
-      this.$refs.drawer.orientation = orientation;
-      this.$refs.drawer.show();
+  const drawerS = document.getElementById('drawer-size');
+  document.getElementById('open-sm').addEventListener('plus-click', () => {
+    drawerS.size = 'sm';
+    drawerS.show();
+  });
+  document.getElementById('open-md').addEventListener('plus-click', () => {
+    drawerS.size = 'md';
+    drawerS.show();
+  });
+  document.getElementById('open-lg').addEventListener('plus-click', () => {
+    drawerS.size = 'lg';
+    drawerS.show();
+  });
+</script>
+```
+
+```tsx
+import { PlusDrawer, PlusButton } from '@plusui/library/react';
+import { useRef, useState } from 'react';
+
+export default () => {
+  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
+  const [size, setSize] = useState('md');
+
+  const openDrawer = (sz: string) => {
+    setSize(sz);
+    requestAnimationFrame(() => drawerRef.current?.show());
+  };
+
+  return (
+    <>
+      <PlusButton onClick={() => openDrawer('sm')}>Small</PlusButton>
+      <PlusButton onClick={() => openDrawer('md')}>Medium (Default)</PlusButton>
+      <PlusButton onClick={() => openDrawer('lg')}>Large</PlusButton>
+
+      <PlusDrawer ref={drawerRef} size={size}>
+        <div slot="header">Size Example</div>
+        <div slot="body">Content</div>
+      </PlusDrawer>
+    </>
+  );
+};
+```
+
+```ts
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
+
+@Component({
+  selector: 'app-drawer-size',
+  template: `
+    <plus-button (plus-click)="openDrawer('sm')">Small</plus-button>
+    <plus-button (plus-click)="openDrawer('md')">Medium (Default)</plus-button>
+    <plus-button (plus-click)="openDrawer('lg')">Large</plus-button>
+
+    <plus-drawer #drawer>
+      <div slot="header">Size Example</div>
+      <div slot="body">Content</div>
+    </plus-drawer>
+  `
+})
+export class DrawerSizeComponent {
+  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
+
+  openDrawer(size: 'sm' | 'md' | 'lg') {
+    if (this.drawerRef.nativeElement) {
+      this.drawerRef.nativeElement.size = size;
+      this.drawerRef.nativeElement.show();
     }
   }
 }
+```
+
+```vue
+<template>
+  <plus-button @plus-click="openDrawer('sm')">Small</plus-button>
+  <plus-button @plus-click="openDrawer('md')">Medium (Default)</plus-button>
+  <plus-button @plus-click="openDrawer('lg')">Large</plus-button>
+
+  <plus-drawer ref="drawerRef" :size="currentSize">
+    <div slot="header">Size Example</div>
+    <div slot="body">Content</div>
+  </plus-drawer>
+</template>
+
+<script setup>
+import { ref, nextTick } from 'vue';
+
+const drawerRef = ref(null);
+const currentSize = ref('md');
+
+const openDrawer = (size) => {
+  currentSize.value = size;
+  nextTick(() => {
+    drawerRef.value?.show();
+  });
+};
 </script>
 ```
+
 </code-bubble>
 
-## Layout & Spacing
+### Customizing Content (Slots)
 
-The Drawer Component is designed with a focus on efficient layout and spacing, ensuring the content within is easily navigable and visually appealing. Proper spacing prevents clutter, enhancing readability and user interaction, while its layout is thoughtfully designed to complement the main content area without interference.
+Use the `header`, `body`, and `footer` slots to structure the drawer content. The default close button can be replaced using the `close` slot.
 
-<Image src={layoutSpacing} alt="layout & spacing of drawer component" />
+<code-bubble class="not-content">
 
-## Light & Dark Mode
+```html
+<plus-button id="open-slots">Open Custom Drawer</plus-button>
 
-This component is equipped to seamlessly integrate into both light and dark mode settings, adapting its color scheme to match the overall aesthetic of the application or the user's system preferences, ensuring a consistent and strain-free viewing experience.
+<plus-drawer id="drawer-slots">
+  <span slot="header"><strong>Custom Header</strong></span>
+  <div slot="body">
+    This is the <em>body</em> slot content.
+    <p>Put any HTML here.</p>
+  </div>
+  <div slot="footer">
+    <plus-button kind="text" id="close-slots">Close</plus-button>
+    <plus-button>Save</plus-button>
+  </div>
+  <plus-button slot="close" kind="text" aria-label="Close">
+    <plus-icon iconName="xmark-large"></plus-icon>
+  </plus-button>
+</plus-drawer>
 
-<Image src={lightDarkMode} alt="light & dark mode of drawer component" />
+<script>
+  const drawerSlots = document.getElementById('drawer-slots');
+  document.getElementById('open-slots').addEventListener('plus-click', () => drawerSlots.show());
+  document.getElementById('close-slots').addEventListener('plus-click', () => drawerSlots.hide());
 
-## Accessibility
+  drawerSlots.querySelector('[slot="close"]').addEventListener('plus-click', () => drawerSlots.hide());
+</script>
+```
 
-Accessibility features of the Drawer Component include keyboard navigability, focus management, and screen reader support. ARIA attributes are utilized to articulate the drawer's state and role in the interface, ensuring that all users, regardless of their method of interaction, can efficiently use the drawer component.
+```tsx
+import { PlusDrawer, PlusButton, PlusIcon } from '@plusui/library/react';
+import { useRef } from 'react';
 
-<table><thead><tr><th width="152">Criteria</th><th width="496">Description</th><th>Status<select><option value="4udZ5xj3PDao" label="✔️ Passed" color="blue"></option><option value="oJxTqXxd8Yor" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Attributes</td><td>Ensures ARIA attributes are allowed for an element's role</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>ARIA Valid Values</td><td>Ensures all ARIA attributes have valid values</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>ARIA Valid Names</td><td>Ensures attributes that begin with aria- are valid ARIA attributes</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures buttons have discernible text</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>Nested Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="4udZ5xj3PDao">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="oJxTqXxd8Yor">✔️ AA ~ AAA</span></td></tr></tbody></table>
+export default () => {
+  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
+
+  const showDrawer = () => drawerRef.current?.show();
+  const hideDrawer = () => drawerRef.current?.hide();
+
+  return (
+    <>
+      <PlusButton onClick={showDrawer}>Open Custom Drawer</PlusButton>
+
+      <PlusDrawer ref={drawerRef}>
+        <span slot="header"><strong>Custom Header</strong></span>
+        <div slot="body">
+          This is the <em>body</em> slot content.
+          <p>Put any HTML here.</p>
+        </div>
+        <div slot="footer">
+          <PlusButton kind="text" onClick={hideDrawer}>Close</PlusButton>
+          <PlusButton>Save</PlusButton>
+        </div>
+        <PlusButton slot="close" kind="text" aria-label="Close" onClick={hideDrawer}>
+          <PlusIcon iconName="xmark-large" />
+        </PlusButton>
+      </PlusDrawer>
+    </>
+  );
+};
+```
+
+```ts
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
+
+@Component({
+  selector: 'app-drawer-slots',
+  template: `
+    <plus-button (plus-click)="showDrawer()">Open Custom Drawer</plus-button>
+
+    <plus-drawer #drawer>
+      <span slot="header"><strong>Custom Header</strong></span>
+      <div slot="body">
+        This is the <em>body</em> slot content.
+        <p>Put any HTML here.</p>
+      </div>
+      <div slot="footer">
+        <plus-button kind="text" (plus-click)="hideDrawer()">Close</plus-button>
+        <plus-button>Save</plus-button>
+      </div>
+      <plus-button slot="close" kind="text" aria-label="Close" (plus-click)="hideDrawer()">
+        <plus-icon iconName="xmark-large"></plus-icon>
+      </plus-button>
+    </plus-drawer>
+  `
+})
+export class DrawerSlotsComponent {
+  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
+
+  showDrawer() {
+    this.drawerRef.nativeElement.show();
+  }
+  hideDrawer() {
+    this.drawerRef.nativeElement.hide();
+  }
+}
+```
+
+```vue
+<template>
+  <plus-button @plus-click="showDrawer">Open Custom Drawer</plus-button>
+
+  <plus-drawer ref="drawerRef">
+    <span slot="header"><strong>Custom Header</strong></span>
+    <div slot="body">
+      This is the <em>body</em> slot content.
+      <p>Put any HTML here.</p>
+    </div>
+    <div slot="footer">
+      <plus-button kind="text" @plus-click="hideDrawer">Close</plus-button>
+      <plus-button>Save</plus-button>
+    </div>
+    <plus-button slot="close" kind="text" aria-label="Close" @plus-click="hideDrawer">
+      <plus-icon iconName="xmark-large"></plus-icon>
+    </plus-button>
+  </plus-drawer>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const drawerRef = ref(null);
+
+const showDrawer = () => drawerRef.value?.show();
+const hideDrawer = () => drawerRef.value?.hide();
+</script>
+```
+
+</code-bubble>
+
+<Aside type="tip">
+<p>The `animationDuration` prop (default: 300ms) controls the speed of the slide animation. You can adjust it if needed: `<plus-drawer animation-duration="500">...</plus-drawer>`.</p>
+</Aside>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Drawer - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Drawer - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   When the drawer is open, pressing `Escape` will close it.
+    *   Focus is typically managed within the drawer. When opened, focus should ideally move to the first focusable element inside the drawer or the close button. When closed, focus should return to the element that triggered the drawer.
+*   **Screen Reader:**
+    *   The component uses `role="dialog"` and `aria-modal="true"` to indicate its purpose and that interaction should be limited to the drawer when open.
+    *   `aria-hidden` is toggled based on the `isOpen` state.
+    *   An `aria-label="Drawer"` is provided by default. It's recommended to provide a more specific label via `aria-labelledby` pointing to the header content if possible, or by setting `aria-label` directly on the `plus-drawer` element if the header slot is not used or needs overriding.
+    *   The close button has an `aria-label="Close drawer"`.
+*   **Required Developer Actions:**
+    *   Ensure the drawer has a clear focus management strategy. While the component handles basic Esc key closing, managing focus trapping and return focus might require additional application-level logic, especially in complex scenarios.
+    *   Provide meaningful content within the `header`, `body`, and `footer` slots.
+    *   If the default `aria-label="Drawer"` is not descriptive enough for the specific use case, provide a more informative label using `aria-label` or `aria-labelledby` on the `plus-drawer` element.
 
 ## Design System
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
 
-## API
+## API Reference
 
-| Property    | Description                         | Type    | Accepted Values	         | Default |
-| ----------- | ----------------------------------- | ------- | ------------------------ | ------- |
-| orientation | Sets the drawer's opening direction | String  | left, right, top, bottom | right   |
-| size        | Sets the drawer's size              | String  | sm, md, lg               | md      |
-| is-open     | Determines if the drawer is open    | Boolean | true, false              | false   |
+### Properties
+
+| Name                | Type                                       | Default    | Description                                                        | Required |
+|---------------------|--------------------------------------------|------------|--------------------------------------------------------------------|----------|
+| `size`              | `'sm' \| 'md' \| 'lg'`                     | `'md'`     | Controls the width (left/right) or height (top/bottom) of the drawer. | No       |
+| `isOpen`            | `boolean`                                  | `false`    | Whether the drawer is currently open. Use `show()`/`hide()` methods. | No       |
+| `orientation`       | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'`  | The edge from which the drawer slides in.                           | No       |
+| `animationDuration` | `number`                                   | `300`      | The duration of the open/close animation in milliseconds.          | No       |
+
+### Methods
+
+| Name     | Parameters | Returns | Description               |
+|----------|------------|---------|---------------------------|
+| `show()` | —          | `void`  | Opens the drawer.         |
+| `hide()` | —          | `void`  | Closes the drawer.        |
+
+### Events
+
+| Name                      | Payload Type        | Description                                   |
+|---------------------------|---------------------|-----------------------------------------------|
+| `plus-drawer-before-show` | `CustomEvent<void>` | Fired just before the show animation starts.  |
+| `plus-drawer-show`        | `CustomEvent<void>` | Fired after the show animation completes.     |
+| `plus-drawer-before-hide` | `CustomEvent<void>` | Fired just before the hide animation starts.  |
+| `plus-drawer-hide`        | `CustomEvent<void>` | Fired after the hide animation completes.     |
+
+### Slots
+
+| Name              | Description                                                  |
+|-------------------|--------------------------------------------------------------|
+| `header`          | Content for the drawer's header area.                       |
+| `body`            | The main content area of the drawer.                         |
+| `footer`          | Content for the drawer's footer area.                       |
+| `close`           | Custom content for the close button (replaces default icon). |
+| `default` (unnamed) | Alternative slot for the main content (appended after `body`). |
+
+### CSS Shadow Parts
+
+| Part           | Description                                 |
+|----------------|---------------------------------------------|
+| `container`    | The main container element (host + overlay). |
+| `overlay`      | The backdrop overlay element.               |
+| `drawer`       | The sliding drawer panel itself.            |
+| `header`       | The header section of the drawer.           |
+| `body`         | The main content body of the drawer.        |
+| `footer`       | The footer section of the drawer.           |
+| `close-button` | The close button element.                   |

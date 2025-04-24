@@ -1,55 +1,45 @@
 ---
 title: Button Group
-description: The button group component can be used to group related buttons.
+description: Displays a set of related buttons in a horizontal or vertical arrangement.
 ---
-
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/button-group/anatomy.png';
 import layoutSpacing from '../../../assets/components/button-group/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/button-group/light-dark-mode.png';
 
-## Button Group
-
-A button group component is a user interface element that allows the grouping of multiple buttons or related actions in a cohesive and visually organized manner. It serves to enhance user interaction and streamline the accessibility and use of various functions within an application by presenting them as a unified set. Button groups are a versatile tool for creating clear and efficient navigation, selection, or action-taking options, improving the overall user experience.
+The Button Group component organizes multiple related buttons into a single cohesive unit, providing a clear visual relationship between similar actions. This component is useful for creating segmented controls, toolbars, and pagination interfaces.
 
 ## Anatomy
 
-The button group's anatomy consists of essential elements: a "label" for identification, a "container" for defining boundaries, and optional "suffix" and "prefix icons" for added context. This organized layout streamlines user interaction and enhances the group's usability in your application.
+<Image src={anatomy} alt="Button Group - anatomy" />
 
-<Image src={anatomy} alt="anatomy of button group component" />
+## Usage
 
-## Properties
+### Basic Example
 
-Button group component properties enable customization of appearance and behavior. They include options for layout, styling, spacing, button variants, and selection behavior. These properties allow tailored design and interaction, ensuring a user-friendly experience in your application.
+Create a button group by wrapping multiple `plus-button` components within a `plus-button-group`.
 
-The Button Group component comprises items derived from Plus UI's [button component.](/library/components/button) Each item inherits the properties of the button component. For more details on the properties specific to button components, please refer to the [button documentation](/library/components/button). To customize the Button Group component, you can tailor the properties of its underlying button components.
-
-### Vertical
-
-<EmbedContent url="https://codesandbox.io/embed/5fhpj3?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
 <plus-button-group>
-  <plus-button>Button 1</plus-button>
-  <plus-button>Button 2</plus-button>
-  <plus-button>Button 3</plus-button>
+  <plus-button kind="filled" status="primary">Left</plus-button>
+  <plus-button kind="filled" status="primary">Middle</plus-button>
+  <plus-button kind="filled" status="primary">Right</plus-button>
 </plus-button-group>
 ```
 
 ```tsx
-import { PlusButtonGroup, PlusButton } from '@plusui/react';
+import { PlusButtonGroup, PlusButton } from '@plusui/library/react';
 
 export default () => {
   return (
     <PlusButtonGroup>
-      <PlusButton>Button 1</PlusButton>
-      <PlusButton>Button 2</PlusButton>
-      <PlusButton>Button 3</PlusButton>
+      <PlusButton kind="filled" status="primary">Left</PlusButton>
+      <PlusButton kind="filled" status="primary">Middle</PlusButton>
+      <PlusButton kind="filled" status="primary">Right</PlusButton>
     </PlusButtonGroup>
   );
 };
@@ -59,58 +49,598 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-button-group-basic',
   template: `
     <plus-button-group>
-      <plus-button>Button 1</plus-button>
-      <plus-button>Button 2</plus-button>
-      <plus-button>Button 3</plus-button>
+      <plus-button kind="filled" status="primary">Left</plus-button>
+      <plus-button kind="filled" status="primary">Middle</plus-button>
+      <plus-button kind="filled" status="primary">Right</plus-button>
     </plus-button-group>
   `
 })
-export class AppComponent {}
+export class ButtonGroupBasicComponent {}
 ```
 
 ```vue
 <template>
   <plus-button-group>
-    <plus-button>Button 1</plus-button>
-    <plus-button>Button 2</plus-button>
-    <plus-button>Button 3</plus-button>
+    <plus-button kind="filled" status="primary">Left</plus-button>
+    <plus-button kind="filled" status="primary">Middle</plus-button>
+    <plus-button kind="filled" status="primary">Right</plus-button>
   </plus-button-group>
 </template>
 ```
 </code-bubble>
 
-## Layout & Spacing
+### Override Properties
 
-Achieve precision in design with our Button Group Component's flexible layout and spacing options. Define the arrangement and spacing between buttons to create a visually balanced and cohesive presentation. Whether integrated into navigation bars or content sections, the layout adapts seamlessly to diverse design structures.
+Use the `override` property to make all buttons in the group inherit the properties defined on the button group. This ensures visual consistency between all buttons.
 
-<Image src={layoutSpacing} alt="layout & spacing of button group component" />
+<code-bubble class="not-content horizontal">
+```html
+<!-- With override (default) -->
+<plus-button-group override kind="outlined" status="success" size="md">
+  <plus-button>Save</plus-button>
+  <plus-button>Cancel</plus-button>
+  <plus-button>Reset</plus-button>
+</plus-button-group>
 
-## Light & Dark Mode
+<!-- Without override -->
+<plus-button-group override="false">
+  <plus-button kind="filled" status="primary">Primary</plus-button>
+  <plus-button kind="outlined" status="danger">Danger</plus-button>
+  <plus-button kind="dashed" status="warning">Warning</plus-button>
+</plus-button-group>
+```
 
-Effortlessly adapt to user preferences with our Button Group Component's built-in support for both light and dark modes. Enhance visibility and aesthetics by seamlessly transitioning between these modes, ensuring a consistent and visually pleasing experience across different environmental settings.
+```tsx
+import { PlusButtonGroup, PlusButton } from '@plusui/library/react';
 
-<Image src={lightDarkMode} alt="light and dark mode of button group component" />
+export default () => {
+  return (
+    <>
+      {/* With override (default) */}
+      <PlusButtonGroup override kind="outlined" status="success" size="md">
+        <PlusButton>Save</PlusButton>
+        <PlusButton>Cancel</PlusButton>
+        <PlusButton>Reset</PlusButton>
+      </PlusButtonGroup>
 
-## Accessibility
+      <br />
+      <br />
 
-Engineered with industry-leading standards, it ensures a user-friendly experience for all individuals, including those with disabilities. Screen reader compatibility, keyboard navigation, and high contrast options make our Button Group Component accessible and intuitive for a diverse user base.
+      {/* Without override */}
+      <PlusButtonGroup override={false}>
+        <PlusButton kind="filled" status="primary">Primary</PlusButton>
+        <PlusButton kind="outlined" status="danger">Danger</PlusButton>
+        <PlusButton kind="dashed" status="warning">Warning</PlusButton>
+      </PlusButtonGroup>
+    </>
+  );
+};
+```
 
-<table><thead><tr><th width="182">Criteria</th><th width="434">Description</th><th>Status<select><option value="c0f7fb0404f244c9a8779e10a0d86f08" label="✔️ Passed" color="blue"></option><option value="12c4f63b77854193a55b06e8874cc181" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>Discernible text</td><td>Ensures buttons have discernible text</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>Tabindex</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>Nested Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies</td><td><span data-option="c0f7fb0404f244c9a8779e10a0d86f08">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="12c4f63b77854193a55b06e8874cc181">✔️ AA ~ AAA</span></td></tr></tbody></table>
+```ts
+import { Component } from '@angular/core';
 
-## Design System
+@Component({
+  selector: 'app-button-group-override',
+  template: `
+    <!-- With override (default) -->
+    <plus-button-group override kind="outlined" status="success" size="md">
+      <plus-button>Save</plus-button>
+      <plus-button>Cancel</plus-button>
+      <plus-button>Reset</plus-button>
+    </plus-button-group>
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+    <br />
+    <br />
 
-## API
+    <!-- Without override -->
+    <plus-button-group override="false">
+      <plus-button kind="filled" status="primary">Primary</plus-button>
+      <plus-button kind="outlined" status="danger">Danger</plus-button>
+      <plus-button kind="dashed" status="warning">Warning</plus-button>
+    </plus-button-group>
+  `
+})
+export class ButtonGroupOverrideComponent {}
+```
 
-#### Props
+```vue
+<template>
+  <!-- With override (default) -->
+  <plus-button-group override kind="outlined" status="success" size="md">
+    <plus-button>Save</plus-button>
+    <plus-button>Cancel</plus-button>
+    <plus-button>Reset</plus-button>
+  </plus-button-group>
 
-#### Slots
+  <br />
+  <br />
 
-| Name    | Description          |
-| ------- | -------------------- |
-| default | Button group content |
+  <!-- Without override -->
+  <plus-button-group :override="false">
+    <plus-button kind="filled" status="primary">Primary</plus-button>
+    <plus-button kind="outlined" status="danger">Danger</plus-button>
+    <plus-button kind="dashed" status="warning">Warning</plus-button>
+  </plus-button-group>
+</template>
+```
+</code-bubble>
+
+### Orientation
+
+Use the `orientation` property to arrange buttons horizontally (default) or vertically.
+
+<code-bubble class="not-content horizontal">
+```html
+<!-- Horizontal button group (default) -->
+<plus-button-group>
+  <plus-button kind="filled" status="primary">Day</plus-button>
+  <plus-button kind="filled" status="primary">Week</plus-button>
+  <plus-button kind="filled" status="primary">Month</plus-button>
+</plus-button-group>
+
+<!-- Vertical button group -->
+<plus-button-group orientation="vertical">
+  <plus-button kind="filled" status="primary">Top</plus-button>
+  <plus-button kind="filled" status="primary">Middle</plus-button>
+  <plus-button kind="filled" status="primary">Bottom</plus-button>
+</plus-button-group>
+```
+
+```tsx
+import { PlusButtonGroup, PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      {/* Horizontal button group (default) */}
+      <PlusButtonGroup>
+        <PlusButton kind="filled" status="primary">Day</PlusButton>
+        <PlusButton kind="filled" status="primary">Week</PlusButton>
+        <PlusButton kind="filled" status="primary">Month</PlusButton>
+      </PlusButtonGroup>
+
+      <br />
+      <br />
+
+      {/* Vertical button group */}
+      <PlusButtonGroup orientation="vertical">
+        <PlusButton kind="filled" status="primary">Top</PlusButton>
+        <PlusButton kind="filled" status="primary">Middle</PlusButton>
+        <PlusButton kind="filled" status="primary">Bottom</PlusButton>
+      </PlusButtonGroup>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-group-orientation',
+  template: `
+    <!-- Horizontal button group (default) -->
+    <plus-button-group>
+      <plus-button kind="filled" status="primary">Day</plus-button>
+      <plus-button kind="filled" status="primary">Week</plus-button>
+      <plus-button kind="filled" status="primary">Month</plus-button>
+    </plus-button-group>
+
+    <br />
+    <br />
+
+    <!-- Vertical button group -->
+    <plus-button-group orientation="vertical">
+      <plus-button kind="filled" status="primary">Top</plus-button>
+      <plus-button kind="filled" status="primary">Middle</plus-button>
+      <plus-button kind="filled" status="primary">Bottom</plus-button>
+    </plus-button-group>
+  `
+})
+export class ButtonGroupOrientationComponent {}
+```
+
+```vue
+<template>
+  <!-- Horizontal button group (default) -->
+  <plus-button-group>
+    <plus-button kind="filled" status="primary">Day</plus-button>
+    <plus-button kind="filled" status="primary">Week</plus-button>
+    <plus-button kind="filled" status="primary">Month</plus-button>
+  </plus-button-group>
+
+  <br />
+  <br />
+
+  <!-- Vertical button group -->
+  <plus-button-group orientation="vertical">
+    <plus-button kind="filled" status="primary">Top</plus-button>
+    <plus-button kind="filled" status="primary">Middle</plus-button>
+    <plus-button kind="filled" status="primary">Bottom</plus-button>
+  </plus-button-group>
+</template>
+```
+</code-bubble>
+
+### Button Styles (kind and status)
+
+Button group can control the visual style and color of all its buttons when using the `override` property.
+
+<code-bubble class="not-content horizontal">
+```html
+<!-- Outlined style -->
+<plus-button-group kind="outlined" status="primary">
+  <plus-button>Cut</plus-button>
+  <plus-button>Copy</plus-button>
+  <plus-button>Paste</plus-button>
+</plus-button-group>
+
+<!-- Dashed style -->
+<plus-button-group kind="dashed" status="warning">
+  <plus-button>Edit</plus-button>
+  <plus-button>Delete</plus-button>
+</plus-button-group>
+
+<!-- Text style -->
+<plus-button-group kind="text" status="default">
+  <plus-button>Previous</plus-button>
+  <plus-button>Next</plus-button>
+</plus-button-group>
+```
+
+```tsx
+import { PlusButtonGroup, PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      {/* Outlined style */}
+      <PlusButtonGroup kind="outlined" status="primary">
+        <PlusButton>Cut</PlusButton>
+        <PlusButton>Copy</PlusButton>
+        <PlusButton>Paste</PlusButton>
+      </PlusButtonGroup>
+
+      <br />
+      <br />
+
+      {/* Dashed style */}
+      <PlusButtonGroup kind="dashed" status="warning">
+        <PlusButton>Edit</PlusButton>
+        <PlusButton>Delete</PlusButton>
+      </PlusButtonGroup>
+
+      <br />
+      <br />
+
+      {/* Text style */}
+      <PlusButtonGroup kind="text" status="default">
+        <PlusButton>Previous</PlusButton>
+        <PlusButton>Next</PlusButton>
+      </PlusButtonGroup>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-group-styles',
+  template: `
+    <!-- Outlined style -->
+    <plus-button-group kind="outlined" status="primary">
+      <plus-button>Cut</plus-button>
+      <plus-button>Copy</plus-button>
+      <plus-button>Paste</plus-button>
+    </plus-button-group>
+
+    <br />
+    <br />
+
+    <!-- Dashed style -->
+    <plus-button-group kind="dashed" status="warning">
+      <plus-button>Edit</plus-button>
+      <plus-button>Delete</plus-button>
+    </plus-button-group>
+
+    <br />
+    <br />
+
+    <!-- Text style -->
+    <plus-button-group kind="text" status="default">
+      <plus-button>Previous</plus-button>
+      <plus-button>Next</plus-button>
+    </plus-button-group>
+  `
+})
+export class ButtonGroupStylesComponent {}
+```
+
+```vue
+<template>
+  <!-- Outlined style -->
+  <plus-button-group kind="outlined" status="primary">
+    <plus-button>Cut</plus-button>
+    <plus-button>Copy</plus-button>
+    <plus-button>Paste</plus-button>
+  </plus-button-group>
+
+  <br />
+  <br />
+
+  <!-- Dashed style -->
+  <plus-button-group kind="dashed" status="warning">
+    <plus-button>Edit</plus-button>
+    <plus-button>Delete</plus-button>
+  </plus-button-group>
+
+  <br />
+  <br />
+
+  <!-- Text style -->
+  <plus-button-group kind="text" status="default">
+    <plus-button>Previous</plus-button>
+    <plus-button>Next</plus-button>
+  </plus-button-group>
+</template>
+```
+</code-bubble>
+
+### Size
+
+Control the size of all buttons within the group using the `size` property. This ensures consistent sizing across the entire group.
+
+<code-bubble class="not-content horizontal">
+```html
+<plus-button-group size="sm" override>
+  <plus-button>Small</plus-button>
+  <plus-button>Buttons</plus-button>
+</plus-button-group>
+
+<plus-button-group size="md" override>
+  <plus-button>Medium</plus-button>
+  <plus-button>Buttons</plus-button>
+</plus-button-group>
+
+<plus-button-group size="lg" override>
+  <plus-button>Large</plus-button>
+  <plus-button>Buttons</plus-button>
+</plus-button-group>
+```
+
+```tsx
+import { PlusButtonGroup, PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusButtonGroup size="sm" override>
+        <PlusButton>Small</PlusButton>
+        <PlusButton>Buttons</PlusButton>
+      </PlusButtonGroup>
+
+      <br />
+      <br />
+
+      <PlusButtonGroup size="md" override>
+        <PlusButton>Medium</PlusButton>
+        <PlusButton>Buttons</PlusButton>
+      </PlusButtonGroup>
+
+      <br />
+      <br />
+
+      <PlusButtonGroup size="lg" override>
+        <PlusButton>Large</PlusButton>
+        <PlusButton>Buttons</PlusButton>
+      </PlusButtonGroup>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-group-size',
+  template: `
+    <plus-button-group size="sm" override>
+      <plus-button>Small</plus-button>
+      <plus-button>Buttons</plus-button>
+    </plus-button-group>
+
+    <br />
+    <br />
+
+    <plus-button-group size="md" override>
+      <plus-button>Medium</plus-button>
+      <plus-button>Buttons</plus-button>
+    </plus-button-group>
+
+    <br />
+    <br />
+
+    <plus-button-group size="lg" override>
+      <plus-button>Large</plus-button>
+      <plus-button>Buttons</plus-button>
+    </plus-button-group>
+  `
+})
+export class ButtonGroupSizeComponent {}
+```
+
+```vue
+<template>
+  <plus-button-group size="sm" override>
+    <plus-button>Small</plus-button>
+    <plus-button>Buttons</plus-button>
+  </plus-button-group>
+
+  <br />
+  <br />
+
+  <plus-button-group size="md" override>
+    <plus-button>Medium</plus-button>
+    <plus-button>Buttons</plus-button>
+  </plus-button-group>
+
+  <br />
+  <br />
+
+  <plus-button-group size="lg" override>
+    <plus-button>Large</plus-button>
+    <plus-button>Buttons</plus-button>
+  </plus-button-group>
+</template>
+```
+</code-bubble>
+
+### Disabled and Loading State
+
+Control the state of all buttons in the group with the `disabled` and `loading` properties.
+
+<code-bubble class="not-content horizontal">
+```html
+<!-- Disabled button group -->
+<plus-button-group disabled override>
+  <plus-button>Disabled</plus-button>
+  <plus-button>Buttons</plus-button>
+</plus-button-group>
+
+<!-- Loading button group -->
+<plus-button-group loading override>
+  <plus-button>Loading</plus-button>
+  <plus-button>Buttons</plus-button>
+</plus-button-group>
+```
+
+```tsx
+import { PlusButtonGroup, PlusButton } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      {/* Disabled button group */}
+      <PlusButtonGroup disabled override>
+        <PlusButton>Disabled</PlusButton>
+        <PlusButton>Buttons</PlusButton>
+      </PlusButtonGroup>
+
+      <br />
+      <br />
+
+      {/* Loading button group */}
+      <PlusButtonGroup loading override>
+        <PlusButton>Loading</PlusButton>
+        <PlusButton>Buttons</PlusButton>
+      </PlusButtonGroup>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-group-state',
+  template: `
+    <!-- Disabled button group -->
+    <plus-button-group disabled override>
+      <plus-button>Disabled</plus-button>
+      <plus-button>Buttons</plus-button>
+    </plus-button-group>
+
+    <br />
+    <br />
+
+    <!-- Loading button group -->
+    <plus-button-group loading override>
+      <plus-button>Loading</plus-button>
+      <plus-button>Buttons</plus-button>
+    </plus-button-group>
+  `
+})
+export class ButtonGroupStateComponent {}
+```
+
+```vue
+<template>
+  <!-- Disabled button group -->
+  <plus-button-group disabled override>
+    <plus-button>Disabled</plus-button>
+    <plus-button>Buttons</plus-button>
+  </plus-button-group>
+
+  <br />
+  <br />
+
+  <!-- Loading button group -->
+  <plus-button-group loading override>
+    <plus-button>Loading</plus-button>
+    <plus-button>Buttons</plus-button>
+  </plus-button-group>
+</template>
+```
+</code-bubble>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Button Group - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Button Group - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Users can navigate between buttons using the `Tab` key.
+    *   Each button can be activated using `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The button group has `role="group"` to indicate to assistive technologies that these buttons are related.
+*   **Required Developer Actions:**
+    *   Ensure that button text is descriptive and clearly indicates its action.
+    *   Consider adding an additional `aria-label` attribute to the button group if the purpose of the group is not clear from button text alone.
+
+## API Reference
+
+### Properties
+
+| Name          | Type                                                              | Default      | Description                                                           | Required |
+|---------------|-------------------------------------------------------------------|--------------|-----------------------------------------------------------------------|----------|
+| `orientation` | `'horizontal' \| 'vertical'`                                       | `'horizontal'` | The orientation of the button group.                                  | No       |
+| `override`    | `boolean`                                                         | `true`       | When true, button group properties override child button properties.  | No       |
+| `kind`        | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                     | `'filled'`   | The visual style of buttons when override is true.                    | No       |
+| `status`      | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'`  | The color variant of buttons when override is true.                   | No       |
+| `size`        | `'sm' \| 'md' \| 'lg'`                                             | `'md'`       | Size of all buttons in the group when override is true.               | No       |
+| `disabled`    | `boolean`                                                         | `false`      | Disables all buttons in the group when override is true.              | No       |
+| `loading`     | `boolean`                                                         | `false`      | Shows loading state for all buttons when override is true.            | No       |
+
+### Slots
+
+| Name      | Description                           |
+|-----------|---------------------------------------|
+| (default) | Container for button elements.        |
+
+### CSS Shadow Parts
+
+| Part         | Description                        |
+|--------------|------------------------------------|
+| `base`       | The component's base wrapper.      |
+
+### CSS Custom Properties
+
+| Name                     | Description                      |
+|--------------------------|----------------------------------|
+| `--button-group-gap`     | Gap between buttons in the group (default is 0). |
 

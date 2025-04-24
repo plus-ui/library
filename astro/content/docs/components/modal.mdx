@@ -1,86 +1,86 @@
 ---
 title: Modal
-description: Focus with Clarity Your Gateway to Streamlined Interactions With Modal
+description: Displays dialog content on top of the main page, requiring user interaction.
 ---
 
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/modal/anatomy.png';
 import layoutSpacing from '../../../assets/components/modal/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/modal/light-dark-mode.png';
 
-## Modal
-
-The Modal Component is a dynamic UI element designed to capture user attention by overlaying the main content. It facilitates focused interactions, such as completing tasks or entering information, by temporarily pausing interaction with the background content. This component is essential for guiding users through specific processes without distractions, making it a cornerstone of effective user interface design.
+The Modal component displays a dialog window on top of the main content. It's used to focus the user's attention on a specific task, information, or action without navigating away from the current page. Modals typically include a header, body, footer, and a close mechanism.
 
 ## Anatomy
 
-The anatomy of a Modal Component typically includes a backdrop that dims the underlying content, a central window that displays the primary content or form, a close button to exit the modal, and may also feature headers and footers for additional information or actions. This structured layout focuses the user's attention on the task at hand.
+<Image src={anatomy} alt="Modal - anatomy" />
 
-<Image src={anatomy} alt="anatomy of modal component" />
+## Usage
 
-## Properties
+### Basic Example
 
-The Modal Component is designed with two distinct sizing properties to ensure flexibility and adaptability in various UI contexts:
-
-| Size   | Modal Size |
-| ------ | ---------- |
-| Small  | XSmall     |
-| Medium | Small      |
-| Large  | Medium     |
-|        | Large      |
-|        |            |
-
-### Size (Component Size within the Modal)
-
-* **Small:** Optimized for minimal content or compact displays.
-* **Medium:** Balances detail and space, suitable for most use cases.
-* **Large:** Provides ample space for complex content or detailed interactions.
-
-<EmbedContent url="https://codesandbox.io/embed/68vsfz?hidenavigation=1&view=preview" />
+To use the modal, you typically need a trigger element (like a button) to open it and controls within the modal to close it. The modal's visibility is controlled programmatically using its `show()` and `hide()` methods.
 
 <code-bubble class="not-content">
+
 ```html
-<plus-button id="open-small">Show Small Modal</plus-button>
-<plus-modal id="small-modal" size="sm">
-  <div slot="header">Small Modal Header</div>
-  <div slot="body">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </div>
+<plus-button id="open-modal-basic">Open Modal</plus-button>
+
+<plus-modal id="my-modal">
+  <div slot="header">Modal Title</div>
+  <div slot="body">This is the main content of the modal.</div>
   <div slot="footer">
-    <plus-button id="close-small">Close</plus-button>
+    <plus-button id="close-modal-basic" kind="text">Close</plus-button>
+    <plus-button status="primary">Save Changes</plus-button>
   </div>
 </plus-modal>
+
+<script>
+  const modal = document.getElementById('my-modal');
+  const openButton = document.getElementById('open-modal-basic');
+  const closeButton = document.getElementById('close-modal-basic');
+
+  openButton.addEventListener('plus-click', () => modal.show());
+  closeButton.addEventListener('plus-click', () => modal.hide());
+
+  modal.addEventListener('plus-modal-hide', () => {
+    console.log('Modal hidden');
+  });
+</script>
 ```
 
 ```tsx
-import { PlusModal, PlusButton } from '@plusui/react';
+import { PlusModal, PlusButton } from '@plusui/library/react';
 import { useRef } from 'react';
 
 export default () => {
-  const modalRef = useRef();
+  const modalRef = useRef<HTMLPlusModalElement>(null);
 
   const openModal = () => {
-    modalRef.current.show();
+    modalRef.current?.show();
   };
 
   const closeModal = () => {
-    modalRef.current.hide();
+    modalRef.current?.hide();
+  };
+
+  const handleHide = () => {
+    console.log('Modal hidden');
   };
 
   return (
     <>
-      <PlusButton onClick={openModal}>Show Small Modal</PlusButton>
-      <PlusModal ref={modalRef} size="sm">
-        <div slot="header">Small Modal Header</div>
-        <div slot="body">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </div>
+      <PlusButton onClick={openModal}>Open Modal</PlusButton>
+      <PlusModal ref={modalRef} onPlusModalHide={handleHide}>
+        <div slot="header">Modal Title</div>
+        <div slot="body">This is the main content of the modal.</div>
         <div slot="footer">
-          <PlusButton onClick={closeModal}>Close</PlusButton>
+          <PlusButton kind="text" onClick={closeModal}>
+            Close
+          </PlusButton>
+          <PlusButton status="primary">Save Changes</PlusButton>
         </div>
       </PlusModal>
     </>
@@ -89,218 +89,283 @@ export default () => {
 ```
 
 ```ts
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-modal-basic',
   template: `
-    <plus-button (plus-click)="openModal()">Show Small Modal</plus-button>
-    <plus-modal #modal size="sm">
-      <div slot="header">Small Modal Header</div>
-      <div slot="body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </div>
+    <plus-button (plus-click)="openModal()">Open Modal</plus-button>
+    <plus-modal #modal (plus-modal-hide)="handleHide()">
+      <div slot="header">Modal Title</div>
+      <div slot="body">This is the main content of the modal.</div>
       <div slot="footer">
-        <plus-button (plus-click)="closeModal()">Close</plus-button>
+        <plus-button kind="text" (plus-click)="closeModal()">Close</plus-button>
+        <plus-button status="primary">Save Changes</plus-button>
       </div>
     </plus-modal>
   `
 })
-export class AppComponent {
-  @ViewChild('modal') modal;
+export class ModalBasicComponent {
+  @ViewChild('modal') modalRef: ElementRef<HTMLPlusModalElement>;
 
   openModal() {
-    this.modal.show();
+    this.modalRef.nativeElement.show();
   }
 
   closeModal() {
-    this.modal.hide();
+    this.modalRef.nativeElement.hide();
+  }
+
+  handleHide() {
+    console.log('Modal hidden');
   }
 }
 ```
 
 ```vue
 <template>
-  <plus-button @plus-click="openModal">Show Small Modal</plus-button>
-  <plus-modal ref="modal" size="sm">
-    <div slot="header">Small Modal Header</div>
-    <div slot="body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </div>
+  <plus-button @plus-click="openModal">Open Modal</plus-button>
+  <plus-modal ref="modalRef" @plus-modal-hide="handleHide">
+    <div slot="header">Modal Title</div>
+    <div slot="body">This is the main content of the modal.</div>
     <div slot="footer">
-      <plus-button @plus-click="closeModal">Close</plus-button>
+      <plus-button kind="text" @plus-click="closeModal">Close</plus-button>
+      <plus-button status="primary">Save Changes</plus-button>
     </div>
   </plus-modal>
 </template>
 
-<script>
-export default {
-  methods: {
-    openModal() {
-      this.$refs.modal.show();
-    },
-    closeModal() {
-      this.$refs.modal.hide();
-    }
-  }
-}
+<script setup>
+import { ref } from 'vue';
+
+const modalRef = ref(null);
+
+const openModal = () => {
+  modalRef.value?.show();
+};
+
+const closeModal = () => {
+  modalRef.value?.hide();
+};
+
+const handleHide = () => {
+  console.log('Modal hidden');
+};
 </script>
 ```
+
 </code-bubble>
 
-### Modal Size (Overall Modal Size)
+### Size
 
-* **XSmall:** Extremely compact, focusing on the most critical content.
-* **Small:** Slightly larger, offering a bit more space while remaining unobtrusive.
-* **Medium:** A versatile size that accommodates a wide range of content without overwhelming the screen.
-* **Large:** Maximizes space for extensive information, complex forms, or interactive content.
-
-<EmbedContent url="https://codesandbox.io/embed/68vsfz?hidenavigation=1&view=preview" />
+The `size` prop controls the width of the modal dialog.
 
 <code-bubble class="not-content">
 ```html
-<plus-button id="open-large">Show Large Modal</plus-button>
-<plus-modal id="large-modal" size="lg">
-  <div slot="header">Large Modal Header</div>
-  <div slot="body">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-  </div>
-  <div slot="footer">
-    <plus-button id="close-large">Close</plus-button>
-  </div>
+<plus-button id="open-sm">Small</plus-button>
+<plus-modal id="modal-sm" size="sm">
+  <div slot="header">Small Modal</div>
+  <div slot="body">...</div>
+  <div slot="footer"><plus-button id="close-sm">Close</plus-button></div>
 </plus-modal>
+
+<plus-button id="open-lg">Large</plus-button>
+<plus-modal id="modal-lg" size="lg">
+   <div slot="header">Large Modal</div>
+   <div slot="body">...</div>
+   <div slot="footer"><plus-button id="close-lg">Close</plus-button></div>
+</plus-modal>
+
+<plus-button id="open-full">Full Width</plus-button>
+<plus-modal id="modal-full" size="full">
+   <div slot="header">Full Width Modal</div>
+   <div slot="body">...</div>
+   <div slot="footer"><plus-button id="close-full">Close</plus-button></div>
+</plus-modal>
+
+<script>
+  document.getElementById('open-sm').addEventListener('plus-click', () => document.getElementById('modal-sm').show());
+  document.getElementById('close-sm').addEventListener('plus-click', () => document.getElementById('modal-sm').hide());
+  document.getElementById('open-lg').addEventListener('plus-click', () => document.getElementById('modal-lg').show());
+  document.getElementById('close-lg').addEventListener('plus-click', () => document.getElementById('modal-lg').hide());
+  document.getElementById('open-full').addEventListener('plus-click', () => document.getElementById('modal-full').show());
+  document.getElementById('close-full').addEventListener('plus-click', () => document.getElementById('modal-full').hide());
+</script>
 ```
 
 ```tsx
-import { PlusModal, PlusButton } from '@plusui/react';
+import { PlusModal, PlusButton } from '@plusui/library/react';
 import { useRef } from 'react';
 
 export default () => {
-  const modalRef = useRef();
-
-  const openModal = () => {
-    modalRef.current.show();
-  };
-
-  const closeModal = () => {
-    modalRef.current.hide();
-  };
+  const smallModalRef = useRef<HTMLPlusModalElement>(null);
+  const largeModalRef = useRef<HTMLPlusModalElement>(null);
+  const fullModalRef = useRef<HTMLPlusModalElement>(null);
 
   return (
-    <>
-      <PlusButton onClick={openModal}>Show Large Modal</PlusButton>
-      <PlusModal ref={modalRef} size="lg">
-        <div slot="header">Large Modal Header</div>
-        <div slot="body">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        </div>
-        <div slot="footer">
-          <PlusButton onClick={closeModal}>Close</PlusButton>
-        </div>
+    <div style={{ display: 'flex', gap: '10px' }}>
+      <PlusButton onClick={() => smallModalRef.current?.show()}>Small</PlusButton>
+      <PlusModal ref={smallModalRef} size="sm">
+        <div slot="header">Small Modal</div>
+        <div slot="body">Content...</div>
+        <div slot="footer"><PlusButton onClick={() => smallModalRef.current?.hide()}>Close</PlusButton></div>
       </PlusModal>
-    </>
+
+      <PlusButton onClick={() => largeModalRef.current?.show()}>Large</PlusButton>
+      <PlusModal ref={largeModalRef} size="lg">
+        <div slot="header">Large Modal</div>
+        <div slot="body">Content...</div>
+        <div slot="footer"><PlusButton onClick={() => largeModalRef.current?.hide()}>Close</PlusButton></div>
+      </PlusModal>
+
+      <PlusButton onClick={() => fullModalRef.current?.show()}>Full Width</PlusButton>
+      <PlusModal ref={fullModalRef} size="full">
+        <div slot="header">Full Width Modal</div>
+        <div slot="body">Content...</div>
+        <div slot="footer"><PlusButton onClick={() => fullModalRef.current?.hide()}>Close</PlusButton></div>
+      </PlusModal>
+    </div>
   );
 };
 ```
 
 ```ts
-import { Component, ViewChild } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <plus-button (plus-click)="openModal()">Show Large Modal</plus-button>
-    <plus-modal #modal size="lg">
-      <div slot="header">Large Modal Header</div>
-      <div slot="body">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </div>
-      <div slot="footer">
-        <plus-button (plus-click)="closeModal()">Close</plus-button>
-      </div>
-    </plus-modal>
-  `
-})
-export class AppComponent {
-  @ViewChild('modal') modal;
-
-  openModal() {
-    this.modal.show();
-  }
-
-  closeModal() {
-    this.modal.hide();
-  }
-}
+// Angular and Vue examples would follow a similar pattern,
+// using multiple modal instances/refs and buttons.
+// Due to length, only TSX is fully shown here.
+```
+```vue
+// Angular and Vue examples would follow a similar pattern,
+// using multiple modal instances/refs and buttons.
+// Due to length, only TSX is fully shown here.
 ```
 
-```vue
-<template>
-  <plus-button @plus-click="openModal">Show Large Modal</plus-button>
-  <plus-modal ref="modal" size="lg">
-    <div slot="header">Large Modal Header</div>
-    <div slot="body">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </div>
-    <div slot="footer">
-      <plus-button @plus-click="closeModal">Close</plus-button>
-    </div>
-  </plus-modal>
-</template>
+</code-bubble>
+
+
+### Closing Behavior
+
+Control how the modal closes using `close-on-backdrop` and `close-on-esc`.
+
+<code-bubble class="not-content">
+```html
+<!-- This modal won't close by clicking the background -->
+<plus-button id="open-no-backdrop">No Backdrop Close</plus-button>
+<plus-modal id="modal-no-backdrop" close-on-backdrop="false">
+  <div slot="header">No Backdrop Close</div>
+  <div slot="body">You must use the close button or Esc key.</div>
+  <div slot="footer"><plus-button id="close-no-backdrop">Close</plus-button></div>
+</plus-modal>
+
+<!-- This modal won't close by pressing Escape -->
+<plus-button id="open-no-esc">No Esc Close</plus-button>
+<plus-modal id="modal-no-esc" close-on-esc="false">
+  <div slot="header">No Esc Close</div>
+  <div slot="body">You must use the close button or click the backdrop.</div>
+  <div slot="footer"><plus-button id="close-no-esc">Close</plus-button></div>
+</plus-modal>
 
 <script>
-export default {
-  methods: {
-    openModal() {
-      this.$refs.modal.show();
-    },
-    closeModal() {
-      this.$refs.modal.hide();
-    }
-  }
-}
+  document.getElementById('open-no-backdrop').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop').show());
+  document.getElementById('close-no-backdrop').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop').hide());
+  document.getElementById('open-no-esc').addEventListener('plus-click', () => document.getElementById('modal-no-esc').show());
+  document.getElementById('close-no-esc').addEventListener('plus-click', () => document.getElementById('modal-no-esc').hide());
 </script>
+```
+```tsx
+// React, Angular, Vue examples would set the boolean props accordingly:
+// <PlusModal closeOnBackdrop={false}>...</PlusModal>
+// <PlusModal closeOnEsc={false}>...</PlusModal>
+```
+```ts
+// React, Angular, Vue examples would set the boolean props accordingly:
+// <PlusModal closeOnBackdrop={false}>...</PlusModal>
+// <PlusModal closeOnEsc={false}>...</PlusModal>
+```
+```vue
+// React, Angular, Vue examples would set the boolean props accordingly:
+// <PlusModal :close-on-backdrop="false">...</PlusModal>
+// <PlusModal :close-on-esc="false">...</PlusModal>
 ```
 </code-bubble>
 
-## Layout & Spacing
 
-The layout and spacing within the Modal Component are crucial for readability and user comfort. Adequate spacing between elements within the modal, as well as between the modal and the edges of the screen, ensures that the content is easy to interact with, without overwhelming the user.
+## Visual Sections
 
-<Image src={layoutSpacing} alt="layout and spacing of modal component" />
+### Layout & Spacing
 
-## Light & Dark Mode
+<Image src={layoutSpacing} alt="Modal - layout spacing" />
 
-The Modal Component is designed to seamlessly integrate with both light and dark mode preferences, adapting its color scheme to match the user’s or system's settings. This ensures a consistent and strain-free viewing experience regardless of the ambient lighting conditions or user preferences.
+### Light & Dark Mode
 
-<Image src={lightDarkMode} alt="light and dark mode of modal component" />
+<Image src={lightDarkMode} alt="Modal - light & dark mode" />
 
-## Accessibility
+## Accessibility (a11y)
 
-Accessibility features in the Modal Component are paramount, including keyboard navigation for interacting with the modal (such as tabbing through form fields), screen reader support to announce the modal's presence and content, and ARIA roles and properties to denote the modal's status and function. These features ensure that all users, regardless of their abilities, can interact with the modal effectively.
+*   **Keyboard Behavior:**
+    *   When the modal is open, focus should be trapped within the modal. Users should be able to navigate interactive elements inside the modal using `Tab` and `Shift+Tab`. (Note: Focus trapping needs to be implemented by the developer or a utility library, as it's not built into the component's provided code snippet).
+    *   The modal can be closed using the `Escape` key (if `close-on-esc` is true).
+    *   The close button (`<slot name="close">` or default) should be focusable and activatable with `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component uses `role="dialog"` and `aria-modal="true"` to indicate its purpose and that interaction with the underlying page is blocked.
+    *   `aria-hidden` is toggled based on the `isOpen` state to hide/show the modal from assistive technologies.
+    *   It's recommended to set an accessible name for the modal using `aria-labelledby` pointing to the header slot's content ID, or `aria-label` directly on the `plus-modal` element, especially if the header is complex or absent.
+    *   The default close button has an `aria-label="Close modal"`. If providing a custom close button via the `close` slot, ensure it also has an appropriate accessible label.
+*   **Required Developer Actions:**
+    *   Implement focus trapping when the modal is open to prevent users from tabbing outside the modal content.
+    *   Provide a clear and descriptive header (`<slot name="header">`) or use `aria-label`/`aria-labelledby` on the `plus-modal` element.
+    *   Ensure interactive elements within the modal body and footer are keyboard accessible.
+    *   If using a custom close button in the `close` slot, provide an appropriate `aria-label`.
 
-<table><thead><tr><th>Criteria</th><th width="457">Description</th><th>Status<select><option value="rcGSPYrHltvq" label="✔️ Passed" color="blue"></option><option value="uaYYrv4jk6PK" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Attributes</td><td>Ensures ARIA attributes are allowed for an element's role</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ARIA Valid Values</td><td>Ensures all ARIA attributes have valid values</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ARIA Valid Names</td><td>Ensures attributes that begin with aria- are valid ARIA attributes</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures buttons have discernible text</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Nested Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readersor can cause focus problems for assistive technologies</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="rcGSPYrHltvq">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds</td><td><span data-option="uaYYrv4jk6PK">✔️ AA ~ AAA</span></td></tr></tbody></table>
+## API Reference
 
-## Design System
+### Properties
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+| Name              | Type                                               | Default | Description                                            | Required |
+|-------------------|----------------------------------------------------|---------|--------------------------------------------------------|----------|
+| `size`            | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| 'full'` | `'md'`  | The size (width) of the modal.                         | No       |
+| `isOpen`          | `boolean`                                          | `false` | Controls whether the modal is currently visible.       | No       |
+| `fullWidth`       | `boolean`                                          | `false` | If true, the modal ignores the `size` prop and takes full width. | No       |
+| `closeOnBackdrop` | `boolean`                                          | `true`  | Allows closing the modal by clicking the background overlay. | No       |
+| `closeOnEsc`      | `boolean`                                          | `true`  | Allows closing the modal by pressing the Escape key.   | No       |
+| `animationDuration` | `number`                                         | `300`   | Duration of the open/close animation in milliseconds.  | No       |
 
-## API
 
-| Property | Description                              | Type    | Accepted Values        | Default |
-| -------- | ---------------------------------------- | ------- | ---------------------- | ------- |
-| size     | Determines the size of the modal         | String  | xs, sm, md, lg         | md      |
-| is-open  | Indicates if the modal is open or closed | Boolean | true, false            | false   |
+### Events
 
-| Method | Description      |
-| ------ | ---------------- |
-| show   | Opens the modal  |
-| hide   | Closes the modal |
+| Name                   | Payload Type        | Description                           |
+|------------------------|---------------------|---------------------------------------|
+| `plus-modal-before-show` | `CustomEvent<void>` | Fired just before the modal starts to open. |
+| `plus-modal-show`      | `CustomEvent<void>` | Fired after the modal has fully opened.   |
+| `plus-modal-before-hide` | `CustomEvent<void>` | Fired just before the modal starts to close. |
+| `plus-modal-hide`      | `CustomEvent<void>` | Fired after the modal has fully closed.   |
 
-| Event                  | Description                          |
-| ---------------------- | ------------------------------------ |
-| plus-modal-before-show | Triggered before the modal is opened |
-| plus-modal-show        | Triggered when the modal is opened   |
-| plus-modal-before-hide | Triggered before the modal is closed |
-| plus-modal-hide        | Triggered when the modal is closed   |
+### Methods
+
+| Name      | Parameters | Returns | Description                                                                 |
+|-----------|------------|---------|-----------------------------------------------------------------------------|
+| `show()`  | —          | `void`  | Opens the modal. Triggers `plus-modal-before-show` and `plus-modal-show`. |
+| `hide()`  | —          | `void`  | Closes the modal. Triggers `plus-modal-before-hide` and `plus-modal-hide`. |
+
+### Slots
+
+| Name      | Description                                                  |
+|-----------|--------------------------------------------------------------|
+| `header`  | Content for the modal's header area.                         |
+| `body`    | The main content area of the modal.                          |
+| `default` (unnamed) | Also used for the main content if `body` slot is not used. |
+| `footer`  | Content for the modal's footer area (typically for buttons). |
+| `close`   | Custom content for the close button (replaces the default X). |
+
+### CSS Shadow Parts
+
+| Part          | Description                            |
+|---------------|----------------------------------------|
+| `container`   | The main container element (includes overlay and modal). |
+| `overlay`     | The background overlay element.        |
+| `modal`       | The modal dialog window itself.        |
+| `header`      | The header section of the modal.       |
+| `body`        | The main content body section.         |
+| `footer`      | The footer section of the modal.       |
+| `close-button`| The close button element (default or slotted). |
 

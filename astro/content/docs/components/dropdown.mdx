@@ -1,70 +1,48 @@
 ---
 title: Dropdown
-description: Easily Navigate Your Choices with Dropdown Component
+description: Provides a button that toggles a list of selectable options (dropdown items).
 ---
-
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/dropdown/anatomy.png';
 import layoutSpacing from '../../../assets/components/dropdown/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/dropdown/light-dark-mode.png';
 
-
-The Dropdown Component is an essential UI element designed to offer users a compact and efficient way to select one or more options from a list. Perfect for conserving screen real estate while maintaining an intuitive and accessible selection process, the dropdown is ideal for forms, filters, and anywhere user choice is needed. Its seamless integration and customization options make it a versatile tool for any application.
+The Dropdown component consists of a trigger button (`plus-button`) and a panel (`dropdown-box`) containing a list of options (`plus-dropdown-item`). Clicking the button toggles the visibility of the panel.
 
 ## Anatomy
 
-The anatomy of the Dropdown Component consists of a trigger element, often displayed as a button or field, that users interact with to reveal the options list. This list is dynamically populated and can support various item types, including text, icons, or even custom templates. Optional elements like search fields or section dividers further enhance usability and organization within the dropdown.
+<Image src={anatomy} alt="Dropdown - anatomy" />
 
-<Image src={anatomy} alt="anatomy of dropdown component" />
+## Usage
 
-## Properties
+### Basic Example
 
-The Plus UI Dropdown Component offers customizable properties to fit various design and functionality needs, categorized into kinds, size, and orientation.
-
-| Kind         | Size   | Orientation |
-| ------------ | ------ | ----------- |
-| Button       | Small  | Right       |
-| Button Group | Medium | Middle      |
-| Avatar       | Large  | Left        |
-
-### Kinds
-
-* **Button Dropdown Component** integrates a dropdown with a button, ideal for actions or options.
-* **Button Group Dropdown Component is** a group of buttons, for cohesive multiple actions.
-* **Avatar Dropdown Component** is attached to an avatar, perfect for user profile or settings options
-
-<EmbedContent url="https://codesandbox.io/embed/cg2k7q?hidenavigation=1&view=preview" />
+A dropdown requires a trigger (implicitly a `plus-button`) and `plus-dropdown-item` elements placed within the `dropdown-item` slot.
 
 <code-bubble class="not-content">
+
 ```html
-<plus-dropdown text="Select an Option">
-  <plus-dropdown-menu>
-    <plus-dropdown-item>Profile Settings</plus-dropdown-item>
-    <plus-dropdown-item>Account Information</plus-dropdown-item>
-    <plus-dropdown-item>Security & Privacy</plus-dropdown-item>
-    <plus-dropdown-item>Billing & Subscription</plus-dropdown-item>
-    <plus-dropdown-item>Log Out</plus-dropdown-item>
-  </plus-dropdown-menu>
+<plus-dropdown>
+  Select Option
+  <plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
+  <plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
+  <plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
 </plus-dropdown>
 ```
 
 ```tsx
-import { PlusDropdown, PlusDropdownMenu, PlusDropdownItem } from '@plusui/react';
+import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
 
 export default () => {
   return (
-    <PlusDropdown text="Select an Option">
-      <PlusDropdownMenu>
-        <PlusDropdownItem>Profile Settings</PlusDropdownItem>
-        <PlusDropdownItem>Account Information</PlusDropdownItem>
-        <PlusDropdownItem>Security & Privacy</PlusDropdownItem>
-        <PlusDropdownItem>Billing & Subscription</PlusDropdownItem>
-        <PlusDropdownItem>Log Out</PlusDropdownItem>
-      </PlusDropdownMenu>
+    <PlusDropdown>
+      Select Option
+      <PlusDropdownItem text="Option 1">Option 1</PlusDropdownItem>
+      <PlusDropdownItem text="Option 2">Option 2</PlusDropdownItem>
+      <PlusDropdownItem text="Option 3">Option 3</PlusDropdownItem>
     </PlusDropdown>
   );
 };
@@ -72,102 +50,87 @@ export default () => {
 
 ```ts
 import { Component } from '@angular/core';
+// Ensure PlusDropdown and PlusDropdownItem are available
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-dropdown-basic',
   template: `
-    <plus-dropdown text="Select an Option">
-      <plus-dropdown-menu>
-        <plus-dropdown-item>Profile Settings</plus-dropdown-item>
-        <plus-dropdown-item>Account Information</plus-dropdown-item>
-        <plus-dropdown-item>Security & Privacy</plus-dropdown-item>
-        <plus-dropdown-item>Billing & Subscription</plus-dropdown-item>
-        <plus-dropdown-item>Log Out</plus-dropdown-item>
-      </plus-dropdown-menu>
+    <plus-dropdown>
+      Select Option
+      <plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
+      <plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
+      <plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
     </plus-dropdown>
   `
 })
-export class AppComponent {}
+export class DropdownBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-dropdown text="Select an Option">
-    <plus-dropdown-menu>
-      <plus-dropdown-item>Profile Settings</plus-dropdown-item>
-      <plus-dropdown-item>Account Information</plus-dropdown-item>
-      <plus-dropdown-item>Security & Privacy</plus-dropdown-item>
-      <plus-dropdown-item>Billing & Subscription</plus-dropdown-item>
-      <plus-dropdown-item>Log Out</plus-dropdown-item>
-    </plus-dropdown-menu>
+  <plus-dropdown>
+    Select Option
+    <plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
+    <plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
+    <plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
   </plus-dropdown>
 </template>
+
+<script setup>
+// Ensure components are registered
+</script>
 ```
+
 </code-bubble>
 
-### Size
+### Trigger Button Appearance (`kind`, `status`, `size`)
 
-* **Small Dropdown Component** is compact, for limited spaces or minimalist designs.
-* **Medium Dropdown Component** is the standard size, suitable for most applications.
-* **Large Dropdown Component** offers more space for options, enhancing readability.
+Customize the appearance of the trigger button using the `kind`, `status`, and `size` props. These props are passed down to the internal `plus-button`.
 
-<EmbedContent url="https://codesandbox.io/embed/qqz38z?hidenavigation=1&view=preview" />
+<code-bubble class="not-content horizontal">
 
-<code-bubble class="not-content">
 ```html
-<plus-dropdown text="Small Dropdown" size="sm">
-  <plus-dropdown-menu>
-    <plus-dropdown-item>Item 1</plus-dropdown-item>
-    <plus-dropdown-item>Item 2</plus-dropdown-item>
-  </plus-dropdown-menu>
+<plus-dropdown kind="outlined" status="primary" size="sm">
+  Outlined Primary SM
+  <plus-dropdown-item>Item A</plus-dropdown-item>
+  <plus-dropdown-item>Item B</plus-dropdown-item>
 </plus-dropdown>
 
-<plus-dropdown text="Medium Dropdown" size="md">
-  <plus-dropdown-menu>
-    <plus-dropdown-item>Item 1</plus-dropdown-item>
-    <plus-dropdown-item>Item 2</plus-dropdown-item>
-    <plus-dropdown-item>Item 3</plus-dropdown-item>
-  </plus-dropdown-menu>
+<plus-dropdown kind="dashed" status="success" size="md">
+  Dashed Success MD
+  <plus-dropdown-item>Item A</plus-dropdown-item>
+  <plus-dropdown-item>Item B</plus-dropdown-item>
 </plus-dropdown>
 
-<plus-dropdown text="Large Dropdown" size="lg">
-  <plus-dropdown-menu>
-    <plus-dropdown-item>Item 1</plus-dropdown-item>
-    <plus-dropdown-item>Item 2</plus-dropdown-item>
-    <plus-dropdown-item>Item 3</plus-dropdown-item>
-    <plus-dropdown-item>Item 4</plus-dropdown-item>
-  </plus-dropdown-menu>
+<plus-dropdown kind="text" status="danger" size="lg">
+  Text Danger LG
+  <plus-dropdown-item>Item A</plus-dropdown-item>
+  <plus-dropdown-item>Item B</plus-dropdown-item>
 </plus-dropdown>
 ```
 
 ```tsx
-import { PlusDropdown, PlusDropdownMenu, PlusDropdownItem } from '@plusui/react';
+import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusDropdown text="Small Dropdown" size="sm">
-        <PlusDropdownMenu>
-          <PlusDropdownItem>Item 1</PlusDropdownItem>
-          <PlusDropdownItem>Item 2</PlusDropdownItem>
-        </PlusDropdownMenu>
+      <PlusDropdown kind="outlined" status="primary" size="sm">
+        Outlined Primary SM
+        <PlusDropdownItem>Item A</PlusDropdownItem>
+        <PlusDropdownItem>Item B</PlusDropdownItem>
       </PlusDropdown>
 
-      <PlusDropdown text="Medium Dropdown" size="md">
-        <PlusDropdownMenu>
-          <PlusDropdownItem>Item 1</PlusDropdownItem>
-          <PlusDropdownItem>Item 2</PlusDropdownItem>
-          <PlusDropdownItem>Item 3</PlusDropdownItem>
-        </PlusDropdownMenu>
+      <PlusDropdown kind="dashed" status="success" size="md">
+        Dashed Success MD
+        <PlusDropdownItem>Item A</PlusDropdownItem>
+        <PlusDropdownItem>Item B</PlusDropdownItem>
       </PlusDropdown>
 
-      <PlusDropdown text="Large Dropdown" size="lg">
-        <PlusDropdownMenu>
-          <PlusDropdownItem>Item 1</PlusDropdownItem>
-          <PlusDropdownItem>Item 2</PlusDropdownItem>
-          <PlusDropdownItem>Item 3</PlusDropdownItem>
-          <PlusDropdownItem>Item 4</PlusDropdownItem>
-        </PlusDropdownMenu>
+      <PlusDropdown kind="text" status="danger" size="lg">
+        Text Danger LG
+        <PlusDropdownItem>Item A</PlusDropdownItem>
+        <PlusDropdownItem>Item B</PlusDropdownItem>
       </PlusDropdown>
     </>
   );
@@ -178,96 +141,92 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-dropdown-appearance',
   template: `
-    <plus-dropdown text="Small Dropdown" size="sm">
-      <plus-dropdown-menu>
-        <plus-dropdown-item>Item 1</plus-dropdown-item>
-        <plus-dropdown-item>Item 2</plus-dropdown-item>
-      </plus-dropdown-menu>
+    <plus-dropdown kind="outlined" status="primary" size="sm">
+      Outlined Primary SM
+      <plus-dropdown-item>Item A</plus-dropdown-item>
+      <plus-dropdown-item>Item B</plus-dropdown-item>
     </plus-dropdown>
 
-    <plus-dropdown text="Medium Dropdown" size="md">
-      <plus-dropdown-menu>
-        <plus-dropdown-item>Item 1</plus-dropdown-item>
-        <plus-dropdown-item>Item 2</plus-dropdown-item>
-        <plus-dropdown-item>Item 3</plus-dropdown-item>
-      </plus-dropdown-menu>
+    <plus-dropdown kind="dashed" status="success" size="md">
+      Dashed Success MD
+      <plus-dropdown-item>Item A</plus-dropdown-item>
+      <plus-dropdown-item>Item B</plus-dropdown-item>
     </plus-dropdown>
 
-    <plus-dropdown text="Large Dropdown" size="lg">
-      <plus-dropdown-menu>
-        <plus-dropdown-item>Item 1</plus-dropdown-item>
-        <plus-dropdown-item>Item 2</plus-dropdown-item>
-        <plus-dropdown-item>Item 3</plus-dropdown-item>
-        <plus-dropdown-item>Item 4</plus-dropdown-item>
-      </plus-dropdown-menu>
+    <plus-dropdown kind="text" status="danger" size="lg">
+      Text Danger LG
+      <plus-dropdown-item>Item A</plus-dropdown-item>
+      <plus-dropdown-item>Item B</plus-dropdown-item>
     </plus-dropdown>
   `
 })
-export class AppComponent {}
+export class DropdownAppearanceComponent {}
 ```
 
 ```vue
 <template>
-  <plus-dropdown text="Small Dropdown" size="sm">
-    <plus-dropdown-menu>
-      <plus-dropdown-item>Item 1</plus-dropdown-item>
-      <plus-dropdown-item>Item 2</plus-dropdown-item>
-    </plus-dropdown-menu>
+  <plus-dropdown kind="outlined" status="primary" size="sm">
+    Outlined Primary SM
+    <plus-dropdown-item>Item A</plus-dropdown-item>
+    <plus-dropdown-item>Item B</plus-dropdown-item>
   </plus-dropdown>
 
-  <plus-dropdown text="Medium Dropdown" size="md">
-    <plus-dropdown-menu>
-      <plus-dropdown-item>Item 1</plus-dropdown-item>
-      <plus-dropdown-item>Item 2</plus-dropdown-item>
-      <plus-dropdown-item>Item 3</plus-dropdown-item>
-    </plus-dropdown-menu>
+  <plus-dropdown kind="dashed" status="success" size="md">
+    Dashed Success MD
+    <plus-dropdown-item>Item A</plus-dropdown-item>
+    <plus-dropdown-item>Item B</plus-dropdown-item>
   </plus-dropdown>
 
-  <plus-dropdown text="Large Dropdown" size="lg">
-    <plus-dropdown-menu>
-      <plus-dropdown-item>Item 1</plus-dropdown-item>
-      <plus-dropdown-item>Item 2</plus-dropdown-item>
-      <plus-dropdown-item>Item 3</plus-dropdown-item>
-      <plus-dropdown-item>Item 4</plus-dropdown-item>
-    </plus-dropdown-menu>
+  <plus-dropdown kind="text" status="danger" size="lg">
+    Text Danger LG
+    <plus-dropdown-item>Item A</plus-dropdown-item>
+    <plus-dropdown-item>Item B</plus-dropdown-item>
   </plus-dropdown>
 </template>
 ```
+
 </code-bubble>
 
-### Orientation
+### Disabled States
 
-* **Right-Oriented Dropdown Component** aligns to the right, useful for right-aligned interfaces.
-* **Middle-Orientated Dropdown Component** centers the dropdown, ideal for balanced designs.
-* **Left-Orientated Dropdown Component** aligns the dropdown to the left, supporting left-aligned layouts.
+The entire dropdown can be disabled using the `disabled` prop on `plus-dropdown`. Individual items can be disabled using the `disabled` prop on `plus-dropdown-item`.
 
-<EmbedContent url="https://codesandbox.io/embed/qzjlrq?hidenavigation=1&view=preview" />
+<code-bubble class="not-content horizontal">
 
-<code-bubble class="not-content">
 ```html
-<plus-dropdown text="Select an Option" orientation="bottom-start">
-  <plus-dropdown-menu>
-    <plus-dropdown-item>Item 1</plus-dropdown-item>
-    <plus-dropdown-item>Item 2</plus-dropdown-item>
-    <plus-dropdown-item>Item 3</plus-dropdown-item>
-  </plus-dropdown-menu>
+<plus-dropdown disabled>
+  Disabled Dropdown
+  <plus-dropdown-item>Cannot select</plus-dropdown-item>
+</plus-dropdown>
+
+<plus-dropdown>
+  Dropdown with Disabled Item
+  <plus-dropdown-item>Option 1</plus-dropdown-item>
+  <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
+  <plus-dropdown-item>Option 3</plus-dropdown-item>
 </plus-dropdown>
 ```
 
 ```tsx
-import { PlusDropdown, PlusDropdownMenu, PlusDropdownItem } from '@plusui/react';
+import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
 
 export default () => {
   return (
-    <PlusDropdown text="Select an Option" orientation="bottom-start">
-      <PlusDropdownMenu>
-        <PlusDropdownItem>Item 1</PlusDropdownItem>
-        <PlusDropdownItem>Item 2</PlusDropdownItem>
-        <PlusDropdownItem>Item 3</PlusDropdownItem>
-      </PlusDropdownMenu>
-    </PlusDropdown>
+    <>
+      <PlusDropdown disabled>
+        Disabled Dropdown
+        <PlusDropdownItem>Cannot select</PlusDropdownItem>
+      </PlusDropdown>
+
+      <PlusDropdown>
+        Dropdown with Disabled Item
+        <PlusDropdownItem>Option 1</PlusDropdownItem>
+        <PlusDropdownItem disabled>Option 2 (Disabled)</PlusDropdownItem>
+        <PlusDropdownItem>Option 3</PlusDropdownItem>
+      </PlusDropdown>
+    </>
   );
 };
 ```
@@ -276,62 +235,338 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-dropdown-disabled',
   template: `
-    <plus-dropdown text="Select an Option" orientation="bottom-start">
-      <plus-dropdown-menu>
-        <plus-dropdown-item>Item 1</plus-dropdown-item>
-        <plus-dropdown-item>Item 2</plus-dropdown-item>
-        <plus-dropdown-item>Item 3</plus-dropdown-item>
-      </plus-dropdown-menu>
+    <plus-dropdown disabled>
+      Disabled Dropdown
+      <plus-dropdown-item>Cannot select</plus-dropdown-item>
+    </plus-dropdown>
+
+    <plus-dropdown>
+      Dropdown with Disabled Item
+      <plus-dropdown-item>Option 1</plus-dropdown-item>
+      <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
+      <plus-dropdown-item>Option 3</plus-dropdown-item>
     </plus-dropdown>
   `
 })
-export class AppComponent {}
+export class DropdownDisabledComponent {}
 ```
 
 ```vue
 <template>
-  <plus-dropdown text="Select an Option" orientation="bottom-start">
-    <plus-dropdown-menu>
-      <plus-dropdown-item>Item 1</plus-dropdown-item>
-      <plus-dropdown-item>Item 2</plus-dropdown-item>
-      <plus-dropdown-item>Item 3</plus-dropdown-item>
-    </plus-dropdown-menu>
+  <plus-dropdown disabled>
+    Disabled Dropdown
+    <plus-dropdown-item>Cannot select</plus-dropdown-item>
+  </plus-dropdown>
+
+  <plus-dropdown>
+    Dropdown with Disabled Item
+    <plus-dropdown-item>Option 1</plus-dropdown-item>
+    <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
+    <plus-dropdown-item>Option 3</plus-dropdown-item>
   </plus-dropdown>
 </template>
 ```
+
 </code-bubble>
 
-## Layout & Spacing
+### Trigger Content (Slots & Prop)
 
-The Plus UI Dropdown Component is crafted with meticulous attention to layout and spacing, ensuring that each element is perfectly positioned for optimal readability and accessibility. The spacing between options is carefully calibrated to prevent accidental selections, while the overall layout is designed to be fluid and adaptable to any screen size, maintaining its aesthetic integrity and functionality across devices.
+Customize the trigger button's content using the default slot. Use the `suffix` slot for content on the right (like an additional icon). The `text` prop can be used as an alternative to the default slot.
 
-<Image src={layoutSpacing} alt="layout and spacing of dropdown component" />
+<code-bubble class="not-content horizontal">
 
-## Light & Dark Mode
+```html
+<plus-dropdown>
+  <plus-icon iconName="user" slot="prefix"></plus-icon> <!-- Note: prefix not directly supported, use default slot -->
+  My Account
+  <plus-icon iconName="cog" slot="suffix"></plus-icon>
+  <plus-dropdown-item>Profile</plus-dropdown-item>
+  <plus-dropdown-item>Settings</plus-dropdown-item>
+</plus-dropdown>
 
-Designed to flawlessly integrate with any design aesthetic, the Plus UI Dropdown Component offers full support for light and dark modes. It automatically adjusts its colors based on the user's system preferences or application settings, providing a visually cohesive experience that reduces eye strain and enhances usability in varying lighting conditions.
+<plus-dropdown>
+  Options via Slot
+  <plus-dropdown-item>Action 1</plus-dropdown-item>
+</plus-dropdown>
+```
 
-<Image src={lightDarkMode} alt="light and dark mode of dropdown component" />
+```tsx
+import { PlusDropdown, PlusDropdownItem, PlusIcon } from '@plusui/library/react';
 
-## Accessibility
+export default () => {
+  return (
+    <>
+      <PlusDropdown>
+         {/* Place prefix icon within default slot */}
+        <PlusIcon iconName="user" style={{marginRight: '0.5em'}} />
+        My Account
+        <PlusIcon slot="suffix" iconName="cog" />
+        <PlusDropdownItem>Profile</PlusDropdownItem>
+        <PlusDropdownItem>Settings</PlusDropdownItem>
+      </PlusDropdown>
 
-Accessibility is paramount in the design of the Plus UI Dropdown Component. It is fully compliant with modern web accessibility standards, including keyboard navigation and screen reader support. ARIA roles and attributes are thoughtfully applied to ensure that all users can navigate and select options with ease, making the dropdown component a model of inclusivity and user-centric design.
+      <PlusDropdown>
+        Options via Slot
+        <PlusDropdownItem>Action 1</PlusDropdownItem>
+      </PlusDropdown>
+    </>
+  );
+};
+```
 
-<table><thead><tr><th width="168">Criteria</th><th width="481">Description</th><th>Status<select><option value="ptGuVmLOGtZQ" label="✔️ Passed" color="blue"></option><option value="x7Mo4hoRdMAg" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Attributes</td><td>Ensures ARIA attributes are allowed for an element's role</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensure the autocomplete attribute is correct and suitable for the form field</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ARIA Valid Values</td><td>Ensures all ARIA attributes have valid values</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ARIA Valid Names</td><td>Ensures attributes that begin with aria- are valid ARIA attributes</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures buttons have discernible text</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>ID Attributes</td><td>Ensures every id attribute value is unique</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Interactive Controls</td><td>Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="ptGuVmLOGtZQ">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="x7Mo4hoRdMAg">✔️ AA ~ AAA</span></td></tr></tbody></table>
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dropdown-trigger',
+  template: `
+    <plus-dropdown>
+      <plus-icon iconName="user" style="margin-right: 0.5em"></plus-icon> 
+      My Account
+      <plus-icon iconName="cog" slot="suffix"></plus-icon>
+      <plus-dropdown-item>Profile</plus-dropdown-item>
+      <plus-dropdown-item>Settings</plus-dropdown-item>
+    </plus-dropdown>
+
+    <plus-dropdown>
+      Options via Slot
+      <plus-dropdown-item>Action 1</plus-dropdown-item>
+    </plus-dropdown>
+  `
+})
+export class DropdownTriggerComponent {}
+```
+
+```vue
+<template>
+  <plus-dropdown>
+    <plus-icon iconName="user" style="margin-right: 0.5em"></plus-icon>
+    My Account
+    <plus-icon iconName="cog" slot="suffix"></plus-icon>
+    <plus-dropdown-item>Profile</plus-dropdown-item>
+    <plus-dropdown-item>Settings</plus-dropdown-item>
+  </plus-dropdown>
+
+  <plus-dropdown>
+    Options via Slot
+    <plus-dropdown-item>Action 1</plus-dropdown-item>
+  </plus-dropdown>
+</template>
+```
+
+</code-bubble>
+
+
+### Handling Selection
+
+Listen for the `plus-dropdown-selected-item` event to get the selected `plus-dropdown-item` element when an option is chosen.
+
+<code-bubble class="not-content">
+
+```html
+<plus-dropdown id="selection-dropdown">
+  Choose Color
+  <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+  <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+  <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+</plus-dropdown>
+<p>Selected: <span id="selected-color">None</span></p>
+
+<script>
+  const dropdown = document.getElementById('selection-dropdown');
+  const display = document.getElementById('selected-color');
+  dropdown.addEventListener('plus-dropdown-selected-item', (event) => {
+    display.textContent = event.detail.selectedItem.text || event.detail.selectedItem.textContent;
+  });
+</script>
+```
+
+```tsx
+import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
+import { useState } from 'react';
+
+export default () => {
+  const [selectedColor, setSelectedColor] = useState('None');
+
+  const handleSelect = (event) => {
+    const selectedItem = event.detail.selectedItem;
+    setSelectedColor(selectedItem.text || selectedItem.textContent);
+  };
+
+  return (
+    <>
+      <PlusDropdown onPlusDropdownSelectedItem={handleSelect}>
+        Choose Color
+        <PlusDropdownItem text="Red">Red</PlusDropdownItem>
+        <PlusDropdownItem text="Green">Green</PlusDropdownItem>
+        <PlusDropdownItem text="Blue">Blue</PlusDropdownItem>
+      </PlusDropdown>
+      <p>Selected: {selectedColor}</p>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dropdown-selection',
+  template: `
+    <plus-dropdown (plus-dropdown-selected-item)="handleSelect($event)">
+      Choose Color
+      <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+      <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+      <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+    </plus-dropdown>
+    <p>Selected: {{selectedColor}}</p>
+  `
+})
+export class DropdownSelectionComponent {
+  selectedColor = 'None';
+
+  handleSelect(event: CustomEvent) {
+    const selectedItem = event.detail.selectedItem;
+    this.selectedColor = selectedItem.text || selectedItem.textContent;
+  }
+}
+```
+
+```vue
+<template>
+  <plus-dropdown @plus-dropdown-selected-item="handleSelect">
+    Choose Color
+    <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+    <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+    <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+  </plus-dropdown>
+  <p>Selected: {{selectedColor}}</p>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const selectedColor = ref('None');
+
+const handleSelect = (event) => {
+  const selectedItem = event.detail.selectedItem;
+  selectedColor.value = selectedItem.text || selectedItem.textContent;
+};
+</script>
+```
+
+</code-bubble>
+
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Dropdown - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Dropdown - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   The trigger button is focusable (`Tab`).
+    *   Pressing `Enter` or `Space` on the button opens/closes the dropdown.
+    *   When the dropdown is open:
+        *   `ArrowDown` / `ArrowUp` navigates through focusable items.
+        *   `Enter` or `Space` selects the focused item and closes the dropdown.
+        *   `Escape` closes the dropdown without selection.
+        *   Typing letters generally focuses the next item starting with that letter (browser implementation may vary).
+*   **Screen Reader:**
+    *   The trigger button uses `role="button"`, `aria-haspopup="listbox"`, and `aria-expanded` to indicate its function and state.
+    *   `aria-controls` links the button to the dropdown panel (`role="listbox"`).
+    *   Dropdown items use `role="option"`, `aria-selected`, and `aria-disabled`.
+    *   Ensure items have meaningful text content either via the slot or the `text` prop.
+*   **Required Developer Actions:**
+    *   Provide clear and concise text for the trigger button (via slot or `text` prop).
+    *   Ensure each `plus-dropdown-item` has meaningful content.
+    *   If using custom content within items, ensure it's accessible.
 
 ## Design System
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
 
-## API
+## API Reference
 
-| Property    | Description                         | Type    | Accepted Values	         | Default |
-| ----------- | ----------------------------------- | ------- | ------------------------ | ------- |
-| text        | The displayed text of the dropdown button | String  | Any valid string         | null    |
-| orientation | Determines the dropdown's opening direction | String  | top, top-start, top-end, bottom, bottom-start, bottom-end, left, left-start, left-end, right, right-start, right-end | bottom  |
-| size        | Sets the size of the dropdown       | String  | sm, md, lg               | md      |
-| kind        | Sets the style of the dropdown button | String  | default, primary         | default |
-| disabled    | Disables the dropdown button        | Boolean | true, false              | false   |
+<Aside type="note">
+This section covers the API for both `plus-dropdown` and `plus-dropdown-item`.
+</Aside>
+
+### Properties (`plus-dropdown`)
+
+| Name       | Type                                                              | Default     | Description                                                               | Required |
+|------------|-------------------------------------------------------------------|-------------|---------------------------------------------------------------------------|----------|
+| `size`     | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Sets the size of the trigger button and influences item size.           | No       |
+| `status`   | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Sets the status/color variant of the trigger button.                      | No       |
+| `kind`     | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                      | `'filled'`  | Sets the visual style of the trigger button.                             | No       |
+| `disabled` | `boolean`                                                         | `false`     | Disables the dropdown interaction (trigger button).                       | No       |
+| `text`     | `string`                                                          | `undefined` | Sets the text content of the trigger button (alternative to default slot). | No       |
+
+### Properties (`plus-dropdown-item`)
+
+| Name       | Type                  | Default     | Description                                                               | Required |
+|------------|-----------------------|-------------|---------------------------------------------------------------------------|----------|
+| `size`     | `'sm' \| 'md' \| 'lg'`  | `'md'`      | Sets the size of the dropdown item (usually matches dropdown size).      | No       |
+| `disabled` | `boolean`             | `false`     | Disables the item, making it non-selectable.                              | No       |
+| `selected` | `boolean`             | `false`     | Indicates if the item is currently selected (managed by parent dropdown). | No       |
+| `text`     | `string`              | `undefined` | Text content for the item (alternative to slot), used for `aria-label`.   | No       |
+
+### Events (`plus-dropdown`)
+
+| Name                          | Payload Type                                 | Description                                                   |
+|-------------------------------|----------------------------------------------|---------------------------------------------------------------|
+| `plus-dropdown-open`          | `CustomEvent<void>`                          | Fired when the dropdown panel opens.                            |
+| `plus-dropdown-close`         | `CustomEvent<void>`                          | Fired when the dropdown panel closes.                           |
+| `plus-dropdown-selected-item` | `CustomEvent<{ selectedItem: HTMLElement }>` | Fired when an item is selected. `detail.selectedItem` is the selected `plus-dropdown-item` element. | 
+
+### Slots (`plus-dropdown`)
+
+| Name              | Description                                                |
+|-------------------|------------------------------------------------------------|
+| `default` (unnamed) | Content for the trigger button (overrides `text` prop).      |
+| `suffix`          | Content placed to the right of the trigger button content. |
+| `dropdown-item`   | Container for `plus-dropdown-item` elements.             |
+
+### Slots (`plus-dropdown-item`)
+
+| Name              | Description                                      |
+|-------------------|--------------------------------------------------|
+| `default` (unnamed) | The main content displayed within the item.      |
+
+### CSS Shadow Parts (`plus-dropdown`)
+
+| Part           | Description                       |
+|----------------|-----------------------------------|
+| `base`         | The main wrapper element.         |
+| `button`       | The trigger button (`plus-button`). |
+| `dropdown-box` | The dropdown panel container (`div`). |
+
+### CSS Shadow Parts (`plus-dropdown-item`)
+
+| Part   | Description                                  |
+|--------|----------------------------------------------|
+| `base` | The base wrapper of the item (`div` or host). |
+| `item` | The listbox item element (`plus-list-box-item`). |
+
+### CSS Custom Properties (`plus-dropdown-item`)
+
+| Name                | Description                             |
+|---------------------|-----------------------------------------|
+| `--i-bg-default`    | Default background color.               |
+| `--i-bg-hovered`    | Background color on hover.              |
+| `--i-bg-pressed`    | Background color when pressed/active.   |
+| `--i-text-color`    | Text color.                             |
+| `--i-selected-bg`   | Background color when selected.         |
+
+<Aside type="note">
+`plus-dropdown` itself does not expose specific CSS custom properties. Styling is primarily controlled through the trigger button (`plus-button`) and the items (`plus-dropdown-item`).
+</Aside>
 

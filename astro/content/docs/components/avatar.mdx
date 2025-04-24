@@ -1,11 +1,11 @@
 ---
 title: Avatar
-description: Avatars are an essential element found in a wide range of applications, from tables to dialog menus.
+description: Displays a user or entity image with a fallback option.
 ---
-import { Image } from 'astro:assets';
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/avatar/anatomy.png';
 import layoutSpacing1 from '../../../assets/components/avatar/layout-spacing-1.png';
@@ -13,104 +13,63 @@ import layoutSpacing2 from '../../../assets/components/avatar/layout-spacing-2.p
 import layoutSpacing3 from '../../../assets/components/avatar/layout-spacing-3.png';
 import lightDarkMode from '../../../assets/components/avatar/light-dark-mode.png';
 
-The Avatar component is used to represent users, providing a visual representation such as text initials, profile images, or icons. It comes with 60 variants and different customization options to fit various design requirements.
+The `Avatar` component displays an image representing a user or entity. It supports images, icons, or initials as fallback content when an image isn't available or fails to load.
 
 ## Anatomy
 
-The anatomy of avatar component comprises key elements, including the avatar image, container, and optional customization properties. These elements enhance user interaction and engagement in your application.
+<Image src={anatomy} alt="Avatar - anatomy" />
 
-<Image src={anatomy} alt="anatomy of avatar component" />
+## Usage
 
-## Properties
+### Basic Example
 
-With our properties and component structure, you have the creative freedom to tailor your avatar to precisely match your design preferences. All variable and variants identified exactly same on both our design system and our multi-framework component library.
-
-### Kind
-
-The Avatar component supports different types to represent users in various ways.
-
-* **Text type** avatar displays initials representing the user's name. When text is provided, it automatically generates initials from the given text.
-* **Image type** avatar displays a user's profile image. If image loading fails, it falls back to the specified fallback strategy.
-* **Icon type** avatar displays a custom icon to represent the user. You can customize the icon using the `icon` property with any Font Awesome icon class.
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 
 ```html
-  <plus-avatar></plus-avatar>
-  <plus-avatar text="John Doe"></plus-avatar>
-  <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-  <plus-avatar icon="fa-solid fa-star"></plus-avatar>
-``` 
+<plus-avatar image="https://i.pravatar.cc/50" alt="User Name"></plus-avatar>
+```
 
 ```tsx
 import { PlusAvatar } from '@plusui/library/react';
 
 export default () => {
-  return <>
-    <PlusAvatar />
-    <PlusAvatar text="John Doe" />
-    <PlusAvatar image="https://i.pravatar.cc/50?u=4" />
-    <PlusAvatar icon="fa-solid fa-star" />
-  </>;
+  return <PlusAvatar image="https://i.pravatar.cc/50" alt="User Name" />;
 };
 ```
 
 ```ts
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-avatar></plus-avatar>
-    <plus-avatar text={{text}}></plus-avatar>
-    <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-    <plus-avatar icon="fa-solid fa-star"></plus-avatar>
-  </div>`
+  selector: 'app-avatar-basic',
+  template: `
+    <plus-avatar image="https://i.pravatar.cc/50" alt="User Name"></plus-avatar>
+  `
 })
-export class AppComponent {
-  @Input() text= 'John Doe';
-}
+export class AvatarBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-avatar></plus-avatar>
-  <plus-avatar text="John Doe"></plus-avatar>
-  <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-  <plus-avatar icon="fa-solid fa-star"></plus-avatar>
+  <plus-avatar image="https://i.pravatar.cc/50" alt="User Name"></plus-avatar>
 </template>
 ```
 </code-bubble>
 
-<Aside type="note">
-When no avatar image is available, the system uses the initials of the user's first and last name, capitalizing them. In the absence of user information, it substitutes with an icon.
-</Aside>
-
-<Aside type="caution">
-* A text avatar acquires the capitalized initials of both the user's first name and last name. However, for XS-sized avatars, it uses only the capitalized initial of the user's first name.
-* When both the first name and last name consist of more than two words, the text avatar will solely utilize the capital initials of the first and last names.
-</Aside>
-
 ### Size
 
-The Avatar component supports different size variants such as extra small (24px), small (32px), medium (40px) and large (48px) to fit various design requirements.
+The `size` prop controls the dimensions of the avatar. It accepts predefined values (`xs`, `sm`, `md`, `lg`, `xl`) or any valid CSS size unit.
 
-You can also customize the size of the avatar component by providing any valid CSS size value (e.g., px, rem, em) to the size property. For example:
+<code-bubble class="not-content horizontal">
 
 ```html
-<plus-avatar size="54px"></plus-avatar>
-<plus-avatar size="3rem"></plus-avatar>
+<plus-avatar size="xs"></plus-avatar>
+<plus-avatar size="sm"></plus-avatar>
+<plus-avatar size="md"></plus-avatar>
+<plus-avatar size="lg"></plus-avatar>
+<plus-avatar size="xl"></plus-avatar>
+<plus-avatar size="60px"></plus-avatar>
 ```
-
-<code-bubble class="not-content">
-
-```html
-  <plus-avatar size="xs"></plus-avatar>
-  <plus-avatar size="sm"></plus-avatar>
-  <plus-avatar size="md"></plus-avatar>
-  <plus-avatar size="lg"></plus-avatar>
-  <plus-avatar size="54px"></plus-avatar>
-``` 
 
 ```tsx
 import { PlusAvatar } from '@plusui/library/react';
@@ -121,26 +80,27 @@ export default () => {
     <PlusAvatar size="sm" />
     <PlusAvatar size="md" />
     <PlusAvatar size="lg" />
-    <PlusAvatar size="54px" />
+    <PlusAvatar size="xl" />
+    <PlusAvatar size="60px" />
   </>;
 };
 ```
 
 ```ts
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<div>
+  selector: 'app-avatar-sizes',
+  template: `
     <plus-avatar size="xs"></plus-avatar>
     <plus-avatar size="sm"></plus-avatar>
     <plus-avatar size="md"></plus-avatar>
     <plus-avatar size="lg"></plus-avatar>
-    <plus-avatar size="54px"></plus-avatar>
-  </div>`
+    <plus-avatar size="xl"></plus-avatar>
+    <plus-avatar size="60px"></plus-avatar>
+  `
 })
-
-export class AppComponent {}
+export class AvatarSizesComponent {}
 ```
 
 ```vue
@@ -149,208 +109,178 @@ export class AppComponent {}
   <plus-avatar size="sm"></plus-avatar>
   <plus-avatar size="md"></plus-avatar>
   <plus-avatar size="lg"></plus-avatar>
-  <plus-avatar size="54px"></plus-avatar>
-</template>
-```
-</code-bubble>
-
-### Invert
-
-The invert property provides the option to invert the color scheme of the avatar. This can be particularly useful for highlighting specific avatars or indicating a change in status or mode. By inverting the colors, you can draw attention to certain avatars and create a visually distinct user experience.
-
-
-<code-bubble class="not-content">
-
-<div slot="preview">
-  <div class="container">
-    <div class="row">
-      <plus-avatar></plus-avatar>
-      <plus-avatar invert></plus-avatar>
-    </div>
-    <div class="row">
-      <plus-avatar text="John Doe"></plus-avatar>
-      <plus-avatar invert text="John Doe"></plus-avatar>
-    </div>
-    <div class="row">
-      <plus-avatar image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-      <plus-avatar invert image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-    </div>
-  </div>
-</div>
-
-
-```html
-  <plus-avatar></plus-avatar>
-  <plus-avatar invert></plus-avatar>
-``` 
-
-```tsx
-import { PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return <>
-    <PlusAvatar />
-    <PlusAvatar invert />
-  </>;
-};
-```
-
-```ts
-import { Component, Input } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-avatar></plus-avatar>
-    <plus-avatar invert></plus-avatar>
-  </div>`
-})
-
-export class AppComponent {}
-```
-
-```vue
-<template>
-  <plus-avatar></plus-avatar>
-  <plus-avatar invert></plus-avatar>
+  <plus-avatar size="xl"></plus-avatar>
+  <plus-avatar size="60px"></plus-avatar>
 </template>
 ```
 </code-bubble>
 
 ### Shape
 
-The shape property allows you to define the shape of the avatar. Avatars can take on one of two shapes: "circle" or "square." You can choose the shape that best aligns with your design preferences or the specific context in which the avatar is used.&#x20;
+The `shape` prop determines the overall shape of the avatar.
 
-* **Circle shape** imparts a rounded, circular appearance to the avatar. It's often employed to create a softer and more approachable visual identity for users or entities.&#x20;
-* **Square shape** imparts a square or rectangular appearance to the avatar. This shape provides a more geometric and structured visual style, suitable for various design contexts.
-
-<code-bubble class="not-content">
-
-<div slot="preview">
-  <div class="container">
-    <div class="row">
-      <plus-avatar shape="circle"></plus-avatar>
-      <plus-avatar shape="square"></plus-avatar>
-    </div>
-    <div class="row">
-      <plus-avatar shape="circle" text="John Doe"></plus-avatar>
-      <plus-avatar shape="square" text="John Doe"></plus-avatar>
-    </div>
-    <div class="row">
-      <plus-avatar shape="circle" image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-      <plus-avatar shape="square" image="https://i.pravatar.cc/50?u=4"></plus-avatar>
-    </div>
-  </div>
-</div>
+<code-bubble class="not-content horizontal">
 
 ```html
-  <plus-avatar shape="circle"></plus-avatar>
-  <plus-avatar shape="square"></plus-avatar>
-``` 
+<plus-avatar shape="circle" image="https://i.pravatar.cc/50"></plus-avatar>
+<plus-avatar shape="square" image="https://i.pravatar.cc/50"></plus-avatar>
+```
 
 ```tsx
 import { PlusAvatar } from '@plusui/library/react';
 
 export default () => {
   return <>
-    <PlusAvatar shape="circle" />
-    <PlusAvatar shape="square" />
+    <PlusAvatar shape="circle" image="https://i.pravatar.cc/50" />
+    <PlusAvatar shape="square" image="https://i.pravatar.cc/50" />
   </>;
 };
 ```
 
 ```ts
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-avatar shape="circle"></plus-avatar>
-    <plus-avatar shape="square"></plus-avatar>
-  </div>`
+  selector: 'app-avatar-shapes',
+  template: `
+    <plus-avatar shape="circle" image="https://i.pravatar.cc/50"></plus-avatar>
+    <plus-avatar shape="square" image="https://i.pravatar.cc/50"></plus-avatar>
+  `
 })
-
-export class AppComponent {}
+export class AvatarShapesComponent {}
 ```
 
 ```vue
 <template>
-  <plus-avatar shape="circle"></plus-avatar>
-  <plus-avatar shape="square"></plus-avatar>
+  <plus-avatar shape="circle" image="https://i.pravatar.cc/50"></plus-avatar>
+  <plus-avatar shape="square" image="https://i.pravatar.cc/50"></plus-avatar>
 </template>
 ```
 </code-bubble>
 
-## Layout & Spacing
+### Fallback Behavior
 
-Layout and spacing for avatar in user interfaces are crucial for usability, aesthetics, and accessibility. By paying attention to the placement and spacing of avatar, designers can create interfaces that are both visually appealing and user-friendly, ultimately enhancing the overall user experience.
+When an `image` is not provided or fails to load, the avatar displays fallback content based on the `fallbackStrategy` prop. You can provide `text` for initials or use the default `icon` (customizable via the `icon` prop).
 
-<Image src={layoutSpacing1} alt="layout and spacing of avatar component" />
+<code-bubble class="not-content horizontal">
 
-<Image src={layoutSpacing2} alt="layout and spacing of avatar component" />
+```html
+<!-- Initials Fallback -->
+<plus-avatar text="Murat Polat Özkan" fallback-strategy="text"></plus-avatar>
+<plus-avatar text="Single" fallback-strategy="text"></plus-avatar>
 
-<Image src={layoutSpacing3} alt="layout and spacing of avatar component" />
+<!-- Icon Fallback -->
+<plus-avatar icon="fa-solid fa-ghost"></plus-avatar>
+<plus-avatar></plus-avatar> <!-- Default icon -->
+```
 
-## Light & Dark Mode
+```tsx
+import { PlusAvatar } from '@plusui/library/react';
 
-Providing both light and dark modes for avatar in user interfaces enhances user comfort, choice, accessibility, and energy efficiency. It also aligns with contemporary design trends and accommodates a variety of user preferences and needs.&#x20;
+export default () => {
+  return <>
+    {/* Initials Fallback */}
+    <PlusAvatar text="Murat Polat Özkan" fallbackStrategy="text" />
+    <PlusAvatar text="Single" fallbackStrategy="text" />
 
-<Image src={lightDarkMode} alt="dark and light mode of avatar component" />
+    {/* Icon Fallback */}
+    <PlusAvatar icon="fa-solid fa-ghost" />
+    <PlusAvatar /> {/* Default icon */}
+  </>;
+};
+```
 
-## Accessibility
+```ts
+import { Component } from '@angular/core';
 
-Accessibility is not only a moral and legal imperative but also a valuable design principle. Ensuring that avatar in a design system are accessible not only benefits users with disabilities but also leads to a more inclusive, user-friendly, and successful digital product.&#x20;
+@Component({
+  selector: 'app-avatar-fallback',
+  template: `
+    <!-- Initials Fallback -->
+    <plus-avatar text="Murat Polat Özkan" fallback-strategy="text"></plus-avatar>
+    <plus-avatar text="Single" fallback-strategy="text"></plus-avatar>
 
-| Criteria | Description | Status |
-| -------- | ----------- | ------ |
-| ARIA attributes | Ensures ARIA attributes are allowed for an element's role | ✔️ Passed |
-| ARIA Role | Ensures role attribute has an appropriate value for the element | ✔️ Passed |
-| Aria-hidden Elements | Ensures aria-hidden elements are not focusable nor contain focusable elements | ✔️ Passed |
-| Attributes Provided | Ensures elements with ARIA roles have all required ARIA attributes | ✔️ Passed |
-| Roles Valid Values | Ensures all elements with a role attribute use a valid value | ✔️ Passed |
-| Attributes Valid Values | Ensures all ARIA attributes have valid values | ✔️ Passed |
-| Unique ID Attributes | Ensures every id attribute value is unique | ✔️ Passed |
-| Nested Interactive Controls | Ensures interactive controls are not nested as they are not always announced by screen readers or can cause focus problems for assistive technologies | ✔️ Passed |
-| Alternative Text | Ensures [role='img'] elements have alternate text | ✔️ Passed |
-| Color Contrast | Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds. | ✔️ AA ~ AAA |
+    <!-- Icon Fallback -->
+    <plus-avatar icon="fa-solid fa-ghost"></plus-avatar>
+    <plus-avatar></plus-avatar> <!-- Default icon -->
+  `
+})
+export class AvatarFallbackComponent {}
+```
 
+```vue
+<template>
+  <!-- Initials Fallback -->
+  <plus-avatar text="Murat Polat Özkan" fallback-strategy="text"></plus-avatar>
+  <plus-avatar text="Single" fallback-strategy="text"></plus-avatar>
 
-To learn more about Plus UI's accessibility criteria, please visit Accessibility.
+  <!-- Icon Fallback -->
+  <plus-avatar icon="fa-solid fa-ghost"></plus-avatar>
+  <plus-avatar></plus-avatar> <!-- Default icon -->
+</template>
+```
+</code-bubble>
 
-## Design System
+## Visual Sections
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
+### Layout & Spacing
 
-## API
+Proper layout and spacing are crucial for integrating avatars seamlessly into the UI.
+
+<Image src={layoutSpacing1} alt="Avatar - layout spacing 1" />
+<Image src={layoutSpacing2} alt="Avatar - layout spacing 2" />
+<Image src={layoutSpacing3} alt="Avatar - layout spacing 3" />
+
+### Light & Dark Mode
+
+The Avatar component adapts to both light and dark themes.
+
+<Image src={lightDarkMode} alt="Avatar - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:** The component itself is not typically interactive, but if used within an interactive element (like a button or link), ensure that element follows standard keyboard navigation patterns.
+*   **Screen Reader:** The `role="img"` is automatically applied. Provide meaningful alternative text via the `alt` prop, especially when an `image` is used. If `alt` is absent, the component attempts to use the `text` prop or a generic label, but explicit `alt` text is always recommended for clarity.
+*   **Developer Actions:** Always provide a descriptive `alt` prop when using the `image` prop. Ensure sufficient color contrast between the avatar background and foreground (text/icon) if customizing colors.
+
+## API Reference
 
 ### Properties
 
-| Property | Description | Type | Default |
-| -------- | ----------- | ---- | ------- |
-| `image` | The URL of the avatar image | `string` |  ` ` |
-| `alt` | Alternative text for the avatar image | `string` |  ` ` |
-| `shape` | The shape of the avatar | `'circle' \| 'square'` | `'circle'` |
-| `size` | The size of the avatar | `'xs' \| 'sm' \| 'md' \| 'lg' \| string` | `'md'` |
-| `icon` | The icon class to be used as fallback or icon type avatar | `string` | `'fa-solid fa-user'` |
-| `invert` | Whether to invert the avatar colors | `boolean` | `false` |
-| `text` | The text to display (initials will be generated) | `string` |  ` ` |
-{/* 
-| `loading` | Whether the avatar is in loading state | `boolean` | `false` |
-| `fallbackStrategy` | Strategy to use when image fails to load | `'icon' \| 'text' \| 'custom'` | `'icon'` |
-| `loadingText` | Text to display during loading state | `string` | `'Loading...'` | 
-*/}
+| Name             | Type                                                 | Default           | Description                                                                       |
+|------------------|------------------------------------------------------|-------------------|-----------------------------------------------------------------------------------|
+| `image`          | `string`                                             | `undefined`       | URL of the avatar image.                                                          |
+| `alt`            | `string`                                             | `undefined`       | Alternative text for the image.                                                  |
+| `shape`          | `'circle' \| 'square'`                               | `'circle'`        | Shape of the avatar.                                                              |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| string` | `'md'`            | Size of the avatar (predefined or custom CSS unit).                               |
+| `icon`           | `string`                                             | `'fa-solid fa-user'` | CSS class for the fallback icon.                                                  |
+| `invert`         | `boolean`                                            | `false`           | Toggles the inverted color scheme.                                              |
+| `text`           | `string`                                             | `undefined`       | Text to display as initials.                                                      |
+| `fallbackStrategy` | `'icon' \| 'text' \| 'custom'`                    | `'icon'`          | Strategy when image fails to load.                                                 |
 
 ### Events
 
-| Event | Description | Type |
-| ----- | ----------- | ---- |
-| `error` | Emitted when the image fails to load | `CustomEvent<void>` |
-| `load` | Emitted when the image successfully loads | `CustomEvent<void>` |
+| Name    | Payload Type        | Description                        |
+|---------|---------------------|------------------------------------|
+| `error` | `CustomEvent<void>` | Fired when the image fails to load. |
+| `load`  | `CustomEvent<void>` | Fired when the image loads.        |
 
 ### Slots
 
-| Name | Description |
-| ---- | ----------- |
-| `default` | The default slot for custom content |
-| `fallback` | Custom fallback content when image fails to load |
+| Name        | Description                                                   |
+|-------------|---------------------------------------------------------------|
+| `(default)` | Main content area (image, icon, or text).                     |
+| `fallback`  | Custom content for `fallbackStrategy='custom'`.                |
 
+### CSS Custom Properties
+
+| Name           | Description                           |
+|----------------|---------------------------------------|
+| `--text-color` | Text color for initials or icon.      |
+| `--bg-default` | Default background color.             |
+
+### Shadow Parts
+
+| Name   | Description                     |
+|--------|---------------------------------|
+| `base` | The main container element.      |

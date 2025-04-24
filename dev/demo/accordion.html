@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        margin-bottom: 1rem;
+        color: #333;
+      }
+
+      .accordion-container {
+        max-width: 800px;
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Bordered Accordion Group (Default)</h2>
+      <div class="accordion-container">
+        <plus-accordion-group>
+          <plus-accordion>
+            <div slot="header">First Item</div>
+            <div slot="helper">Helper text for first item</div>
+            <div slot="panel">
+              Content for the first accordion item. This is a longer content to
+              demonstrate the panel expansion.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Second Item</div>
+            <div slot="helper">Helper text for second item</div>
+            <div slot="panel">
+              Content for the second accordion item. This is another example of
+              panel content.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Third Item</div>
+            <div slot="helper">Helper text for third item</div>
+            <div slot="panel">
+              Content for the third accordion item. This is the last item in the
+              group.
+            </div>
+          </plus-accordion>
+        </plus-accordion-group>
+      </div>
+
+      <h2>Divided Accordion Group</h2>
+      <div class="accordion-container">
+        <plus-accordion-group kind="divided">
+          <plus-accordion>
+            <div slot="header">First Item</div>
+            <div slot="helper">Helper text for first item</div>
+            <div slot="panel">
+              Content for the first accordion item. This is a longer content to
+              demonstrate the panel expansion.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Second Item</div>
+            <div slot="helper">Helper text for second item</div>
+            <div slot="panel">
+              Content for the second accordion item. This is another example of
+              panel content.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Third Item</div>
+            <div slot="helper">Helper text for third item</div>
+            <div slot="panel">
+              Content for the third accordion item. This is the last item in the
+              group.
+            </div>
+          </plus-accordion>
+        </plus-accordion-group>
+      </div>
+
+      <h2>Separated Accordion Group</h2>
+      <div class="accordion-container">
+        <plus-accordion>
+          <div slot="header">First Item</div>
+          <div slot="helper">Helper text for first item</div>
+          <div slot="panel">
+            Content for the first accordion item. This is a longer content to
+            demonstrate the panel expansion.
+          </div>
+        </plus-accordion>
+
+        <plus-accordion-group kind="separated">
+          <plus-accordion>
+            <div slot="header">First Item</div>
+            <div slot="helper">Helper text for first item</div>
+            <div slot="panel">
+              Content for the first accordion item. This is a longer content to
+              demonstrate the panel expansion.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Second Item</div>
+            <div slot="helper">Helper text for second item</div>
+            <div slot="panel">
+              Content for the second accordion item. This is another example of
+              panel content.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Third Item</div>
+            <div slot="helper">Helper text for third item</div>
+            <div slot="panel">
+              Content for the third accordion item. This is the last item in the
+              group.
+            </div>
+          </plus-accordion>
+        </plus-accordion-group>
+      </div>
+
+      <h2>Size Variants</h2>
+      <div class="accordion-container">
+        <h3>Small Size</h3>
+        <plus-accordion-group size="sm">
+          <plus-accordion>
+            <div slot="header">Small Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">Content for the small accordion item.</div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Another Small Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">Content for another small accordion item.</div>
+          </plus-accordion>
+        </plus-accordion-group>
+
+        <h3>Medium Size (Default)</h3>
+        <plus-accordion-group size="md">
+          <plus-accordion>
+            <div slot="header">Medium Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">Content for the medium accordion item.</div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Another Medium Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">Content for another medium accordion item.</div>
+          </plus-accordion>
+        </plus-accordion-group>
+
+        <h3>Large Size</h3>
+        <plus-accordion-group size="lg">
+          <plus-accordion>
+            <div slot="header">Large Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">Content for the large accordion item.</div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Another Large Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">Content for another large accordion item.</div>
+          </plus-accordion>
+        </plus-accordion-group>
+      </div>
+
+      <h2>Multi Expand</h2>
+      <div class="accordion-container">
+        <plus-accordion-group multi>
+          <plus-accordion>
+            <div slot="header">First Item</div>
+            <div slot="helper">Helper text for first item</div>
+            <div slot="panel">
+              Content for the first accordion item. This is a longer content to
+              demonstrate the panel expansion.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Second Item</div>
+            <div slot="helper">Helper text for second item</div>
+            <div slot="panel">
+              Content for the second accordion item. This is another example of
+              panel content.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Third Item</div>
+            <div slot="helper">Helper text for third item</div>
+            <div slot="panel">
+              Content for the third accordion item. This is the last item in the
+              group.
+            </div>
+          </plus-accordion>
+        </plus-accordion-group>
+      </div>
+
+      <h2>Disabled Accordion</h2>
+      <div class="accordion-container">
+        <plus-accordion-group>
+          <plus-accordion disabled>
+            <div slot="header">Disabled Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">
+              This accordion is disabled and cannot be expanded.
+            </div>
+          </plus-accordion>
+          <plus-accordion>
+            <div slot="header">Enabled Accordion</div>
+            <div slot="helper">Helper text</div>
+            <div slot="panel">
+              This accordion is enabled and can be expanded.
+            </div>
+          </plus-accordion>
+        </plus-accordion-group>
+      </div>
+    </div>
+  </body>
+</html>

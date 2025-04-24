@@ -1,172 +1,152 @@
 ---
 title: Badge
-description: Badge produces a tiny emblem on the upper-right side of its offspring.
+description: Displays a small notification count or status indicator on another element.
 ---
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/badge/anatomy.png';
 import layoutSpacing from '../../../assets/components/badge/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/badge/light-dark-mode.png';
 
-
-The Badge component is a versatile UI element used to display additional information, notifications, or status indicators. This documentation provides an overview of the Badge component and its different variants, states, sizes, and additional features, along with usage examples.
+The Badge component is used to display small pieces of information, such as notification counts or status indicators, typically attached to another UI element.
 
 ## Anatomy
 
-The anatomy of a badge is elegantly simple, consisting of two primary elements. The "label" serves as the textual or numerical content displayed within the badge, while the "container" frames and encapsulates the label, defining the badge's boundaries. Together, these elements form a versatile tool for highlighting information, notifications, or status indicators within your user interface.
+<Image src={anatomy} alt="Badge - anatomy" />
 
-<Image src={anatomy} alt="anatomy of badge component" />
+## Usage
 
-## Properties
+### Basic Example
 
-The badge component offers a range of customizable properties, including text, background color, text color, shape, size, and position. It also supports a "count" property for numerical values and various visual "variants" for distinct styles. These properties enable you to create badges that fit your design needs and effectively convey information or notifications in your application.
+A basic badge can display content (like a number) attached to an element, or act as a simple status dot.
 
-<table data-full-width="false"><thead><tr><th>Kind</th><th>Status</th><th>Size</th><th>Invert</th></tr></thead><tbody><tr><td>Default</td><td>Default</td><td>Small</td><td>True</td></tr><tr><td>Number</td><td>Info</td><td>Medium</td><td>False</td></tr><tr><td>Icon</td><td>Success</td><td>Large</td><td></td></tr><tr><td>Text</td><td>Warning</td><td></td><td></td></tr><tr><td></td><td>Error</td><td></td><td></td></tr></tbody></table>
-
-### Kind
-
-* **Default badge** variant uses a small dot to indicate the presence of new information or notifications without displaying specific content.
-* **Text badge** variant displays textual content, such as numbers or short labels.
-
-<EmbedContent url="https://codesandbox.io/embed/25k9dh?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
-<plus-badge>
-  <plus-avatar invert shape="square"></plus-avatar>
+<!-- Badge with numeric content -->
+<plus-badge content="5">
+  <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
 </plus-badge>
 
-<plus-badge content="1">
-  <plus-avatar invert shape="square"></plus-avatar>
-</plus-badge>
-
-<plus-badge content="New">
-  <plus-avatar invert shape="square"></plus-avatar>
+<!-- Dot badge indicating status -->
+<plus-badge status="success">
+  <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
 </plus-badge>
 ```
 
 ```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/react';
+import { PlusBadge, PlusAvatar } from '@plusui/library/react';
 
 export default () => {
-  return <>
-    <PlusBadge>
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="1">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="New">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-  </>;
+  return (
+    <>
+      {/* Badge with numeric content */}
+      <PlusBadge content="5">
+        <PlusAvatar image="https://i.pravatar.cc/50" alt="User Avatar" />
+      </PlusBadge>
+
+      {/* Dot badge indicating status */}
+      <PlusBadge status="success">
+        <PlusAvatar image="https://i.pravatar.cc/50" alt="User Avatar" />
+      </PlusBadge>
+    </>
+  );
 };
 ```
 
 ```ts
 import { Component } from '@angular/core';
+// Make sure PlusUiModule is imported
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-badge-basic',
   template: `
-    <plus-badge>
-      <plus-avatar invert shape="square"></plus-avatar>
+    <!-- Badge with numeric content -->
+    <plus-badge content="5">
+      <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
     </plus-badge>
 
-    <plus-badge content="1">
-      <plus-avatar invert shape="square"></plus-avatar>
-    </plus-badge>
-
-    <plus-badge content="New">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <!-- Dot badge indicating status -->
+    <plus-badge status="success">
+      <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
     </plus-badge>
   `
 })
-export class AppComponent {}
+export class BadgeBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-badge>
-    <plus-avatar invert shape="square" />
+  <!-- Badge with numeric content -->
+  <plus-badge content="5">
+    <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge content="1">
-    <plus-avatar invert shape="square" />
-  </plus-badge>
-  
-  <plus-badge content="New">
-    <plus-avatar invert shape="square" />
+
+  <!-- Dot badge indicating status -->
+  <plus-badge status="success">
+    <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
   </plus-badge>
 </template>
+
+<script setup>
+// Assuming Plus UI components are registered globally or imported locally
+</script>
 ```
 </code-bubble>
 
 ### Status
 
-The Badge component supports different states to indicate various statuses or interactions.
+Use the `status` prop to change the color variant: `default`, `primary`, `success`, `warning`, `danger`, `info`.
 
-* **Default** state represents the badge in its normal state, with no specific interactions or changes.
-* **Info** state is typically used to indicate an information need to considered.
-* **Success** state is used to signify that a task or action has been completed successfully. It typically uses a green color to convey a positive outcome.
-* **Warning** state is used to highlight potential issues or warnings. It typically uses a yellow or orange color to grab the user's attention.
-* **Error** state is used to indicate errors or critical issues. It typically uses a red color to alert the user to a problem.
-
-<EmbedContent url="https://codesandbox.io/embed/z5yc5m?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
-<plus-badge content="1">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge status="default" content="1">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
-
-<plus-badge content="1" status="info">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge status="primary" content="2">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
-
-<plus-badge content="1" status="success">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge status="success" content="✓">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
-
-<plus-badge content="1" status="warning">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge status="warning">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
-
-<plus-badge content="1" status="error">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge status="danger">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+</plus-badge>
+<plus-badge status="info">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
 ```
 
 ```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/react';
+import { PlusBadge, PlusAvatar } from '@plusui/library/react';
 
 export default () => {
-  return <>
-    <PlusBadge content="1">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="1" status="info">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="1" status="success">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="1" status="warning">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="1" status="error">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-  </>;
+  return (
+    <>
+      <PlusBadge status="default" content="1">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge status="primary" content="2">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge status="success" content="✓">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge status="warning">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge status="danger">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge status="info">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+    </>
+  );
 };
 ```
 
@@ -174,52 +154,50 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-badge-status',
   template: `
-    <plus-badge content="1">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge status="default" content="1">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
-
-    <plus-badge content="1" status="info">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge status="primary" content="2">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
-
-    <plus-badge content="1" status="success">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge status="success" content="✓">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
-
-    <plus-badge content="1" status="warning">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge status="warning">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
-
-    <plus-badge content="1" status="error">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge status="danger">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+    </plus-badge>
+    <plus-badge status="info">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
   `
 })
-export class AppComponent {}
+export class BadgeStatusComponent {}
 ```
 
 ```vue
 <template>
-  <plus-badge content="1">
-    <plus-avatar invert shape="square" />
+  <plus-badge status="default" content="1">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge content="1" status="info">
-    <plus-avatar invert shape="square" />
+  <plus-badge status="primary" content="2">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge content="1" status="success">
-    <plus-avatar invert shape="square" />
+  <plus-badge status="success" content="✓">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge content="1" status="warning">
-    <plus-avatar invert shape="square" />
+  <plus-badge status="warning">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge content="1" status="error">
-    <plus-avatar invert shape="square" />
+  <plus-badge status="danger">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+  </plus-badge>
+  <plus-badge status="info">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
 </template>
 ```
@@ -227,48 +205,58 @@ export class AppComponent {}
 
 ### Size
 
-The Badge component comes in different sizes to accommodate various design needs.
+Control the badge size with the `size` prop: `sm`, `md` (default), `lg`.
 
-* Small
-* Medium (Default)
-* Large
-
-You can set the size of a badge using the `size` prop.
-
-<EmbedContent url="https://codesandbox.io/embed/n9jgzc?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
-<plus-badge size="sm" content="1">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge size="sm" content="S">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+</plus-badge>
+<plus-badge size="md" content="M">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+</plus-badge>
+<plus-badge size="lg" content="L">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
 
-<plus-badge size="md" content="1">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge size="sm">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
-
-<plus-badge size="lg" content="1">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge size="md">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+</plus-badge>
+<plus-badge size="lg">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
 ```
 
 ```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/react';
+import { PlusBadge, PlusAvatar } from '@plusui/library/react';
 
 export default () => {
-  return <>
-    <PlusBadge size="sm" content="1">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge size="md" content="1">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge size="lg" content="1">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-  </>;
+  return (
+    <>
+      <PlusBadge size="sm" content="S">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge size="md" content="M">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge size="lg" content="L">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+
+      <PlusBadge size="sm">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge size="md">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge size="lg">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+    </>
+  );
 };
 ```
 
@@ -276,71 +264,91 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-badge-size',
   template: `
-    <plus-badge size="sm" content="1">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge size="sm" content="S">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+    </plus-badge>
+    <plus-badge size="md" content="M">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+    </plus-badge>
+    <plus-badge size="lg" content="L">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
 
-    <plus-badge size="md" content="1">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge size="sm">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
-
-    <plus-badge size="lg" content="1">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge size="md">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+    </plus-badge>
+    <plus-badge size="lg">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
   `
 })
-export class AppComponent {}
+export class BadgeSizeComponent {}
 ```
 
 ```vue
 <template>
-  <plus-badge size="sm" content="1">
-    <plus-avatar invert shape="square" />
+  <plus-badge size="sm" content="S">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge size="md" content="1">
-    <plus-avatar invert shape="square" />
+  <plus-badge size="md" content="M">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge size="lg" content="1">
-    <plus-avatar invert shape="square" />
+  <plus-badge size="lg" content="L">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+  </plus-badge>
+
+  <plus-badge size="sm">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+  </plus-badge>
+  <plus-badge size="md">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+  </plus-badge>
+  <plus-badge size="lg">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
 </template>
 ```
 </code-bubble>
 
-### Invert
+### Placement & Offset
 
-The "invert" variant for the badge component offers a striking visual alternative. By applying this variant, the badge's background color is reversed, creating a high-contrast effect. This can be particularly useful for highlighting critical information or drawing attention to specific elements within your application. The "invert" variant provides a distinctive and eye-catching way to convey important messages or statuses.
+Use the `orientation` prop to place the badge at different corners (`top-right` (default), `top-left`, `bottom-right`, `bottom-left`) relative to the element in the default slot. Use the `offset` prop (format: "x,y") to fine-tune the position.
 
-<EmbedContent url="https://codesandbox.io/embed/vzd4gx?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
-<plus-badge content="1">
-  <plus-avatar invert shape="square"></plus-avatar>
+<plus-badge orientation="top-left" content="TL">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
-
-<plus-badge content="1" invert>
-  <plus-avatar shape="square"></plus-avatar>
+<plus-badge orientation="bottom-left" offset="-5px,5px" content="Offset">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+</plus-badge>
+<plus-badge orientation="bottom-right" content="BR">
+  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
 </plus-badge>
 ```
 
 ```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/react';
+import { PlusBadge, PlusAvatar } from '@plusui/library/react';
 
 export default () => {
-  return <>
-    <PlusBadge content="1">
-      <PlusAvatar invert shape="square" />
-    </PlusBadge>
-    
-    <PlusBadge content="1" invert>
-      <PlusAvatar shape="square" />
-    </PlusBadge>
-  </>;
+  return (
+    <>
+      <PlusBadge orientation="top-left" content="TL">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge orientation="bottom-right" content="BR">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+      <PlusBadge orientation="bottom-left" offset="-5px,5px" content="Offset">
+        <PlusAvatar image="https://i.pravatar.cc/50" />
+      </PlusBadge>
+    </>
+  );
 };
 ```
 
@@ -348,67 +356,85 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-badge-placement',
   template: `
-    <plus-badge content="1">
-      <plus-avatar invert shape="square"></plus-avatar>
+    <plus-badge orientation="top-left" content="TL">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
-
-    <plus-badge content="1" invert>
-      <plus-avatar shape="square"></plus-avatar>
+    <plus-badge orientation="bottom-right" content="BR">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+    </plus-badge>
+    <plus-badge orientation="bottom-left" offset="-5px,5px" content="Offset">
+      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
     </plus-badge>
   `
 })
-export class AppComponent {}
+export class BadgePlacementComponent {}
 ```
 
 ```vue
 <template>
-  <plus-badge content="1">
-    <plus-avatar invert shape="square" />
+  <plus-badge orientation="top-left" content="TL">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  
-  <plus-badge content="1" invert>
-    <plus-avatar shape="square" />
+  <plus-badge orientation="bottom-right" content="BR">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+  </plus-badge>
+  <plus-badge orientation="bottom-left" offset="-5px,5px" content="Offset">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
 </template>
 ```
 </code-bubble>
 
-## Layout & Spacing
+## Visual Sections
 
-Layout and spacing for buttons in user interfaces are crucial for usability, aesthetics, and accessibility. By paying attention to the placement and spacing of buttons, designers can create interfaces that are both visually appealing and user-friendly, ultimately enhancing the overall user experience.
+### Layout & Spacing
 
-<Image src={layoutSpacing} alt="layout and spacing of badge component" />
+<Image src={layoutSpacing} alt="Badge - layout spacing" />
 
-## Light & Dark Mode
+### Light & Dark Mode
 
-Providing both light and dark modes for buttons in user interfaces enhances user comfort, choice, accessibility, and energy efficiency. It also aligns with contemporary design trends and accommodates a variety of user preferences and needs.&#x20;
+<Image src={lightDarkMode} alt="Badge - light & dark mode" />
 
-<Image src={lightDarkMode} alt="light and dark mode of badge component" />
+## Accessibility (a11y)
 
+*   **Keyboard Behavior:** Badges are typically non-interactive and do not receive focus.
+*   **Screen Reader:**
+    *   The component uses `role="status"` and `aria-live="polite"` to ensure that badge content (especially counts or status changes) is announced by screen readers.
+    *   When a badge represents critical information (e.g., "Offline"), ensure the surrounding context or the element the badge is attached to provides sufficient information. For purely decorative badges or status dots where the meaning is clear from context (e.g., a green dot next to "Online"), explicit labeling might not be necessary, but consider if additional `aria-label` or `aria-describedby` on the associated element could improve clarity.
+*   **Required Developer Actions:**
+    *   If the badge conveys important status information not otherwise available textually (e.g., a red dot indicating an error without accompanying text), provide an accessible label for the element the badge is associated with, or use visually hidden text within the host element to describe the badge's meaning.
 
-<Aside type="tip">
-We structured the design system simply switch from the light mode to the dark mode within the **Layer > Color** section.
-</Aside>
+## API Reference
 
+### Properties
 
-## Accessibility
+| Name         | Type                                                              | Default        | Description                                                         | Required |
+|--------------|-------------------------------------------------------------------|----------------|---------------------------------------------------------------------|----------|
+| `status`     | `'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'` | `'default'`    | Color variant of the badge.                                          | No       |
+| `size`       | `'sm' | 'md' | 'lg'`                                          | `'md'`         | Size of the badge.                                                   | No       |
+| `orientation`| `'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | ''` | `'top-right'`  | Position relative to the default slot content. Leave empty for inline. | No       |
+| `offset`     | `[string, string]` (parsed from "x,y")                       | `undefined`    | Fine-tune position with x,y offset (e.g., "5px,-2px").           | No       |
+| `content`    | `string`                                                          | `undefined`    | Text/number content for the badge (alternative to slot).             | No       |
 
-Accessibility is not only a moral and legal imperative but also a valuable design principle. Ensuring that buttons in a design system are accessible not only benefits users with disabilities but also leads to a more inclusive, user-friendly, and successful digital product.&#x20;
+### Slots
 
-<table><thead><tr><th width="148.33333333333331">Criteria</th><th width="476">Description</th><th>Status<select><option value="661ce971b52146ac8e0b634101c4d030" label="Passed" color="blue"></option><option value="6aa5fe5ad5744b9e834098e1949edd4e" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Attributes</td><td>Ensures ARIA attributes are allowed for an element's role</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>ARIA Role</td><td>Ensures role attribute has an appropriate value for the element</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Required ARIA Attribute</td><td>Ensures elements with ARIA roles have all required ARIA attributes</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Valid Values</td><td>Ensures all elements with a role attribute use a valid value</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Valid Values ARIA Attributes</td><td>Ensures all ARIA attributes have valid values</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Valid Names</td><td>Ensures attributes that begin with aria- are valid ARIA attributes</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="661ce971b52146ac8e0b634101c4d030">Passed</span></td></tr><tr><td>Color Constrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="6aa5fe5ad5744b9e834098e1949edd4e">AA ~ AAA</span></td></tr></tbody></table>
+| Name            | Description                                                        |
+|-----------------|--------------------------------------------------------------------|
+| (default)       | The element the badge is attached to (anchor element).             |
+| `badge-content` | The content displayed inside the badge (overrides `content` prop). |
 
-## Design System
+### CSS Shadow Parts
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+| Part    | Description                   |
+|---------|-------------------------------|
+| `badge` | The main badge container element. |
 
-## API
+### CSS Custom Properties
 
-| Property | Description   | Type           | Accepted Values               | Default |
-| -------- | ------------- | -------------- | ----------------------------- | ------- |
-| content  | Badge content | String, Number | —                             | —       |
-| size     | Badge size    | String         | sm, md, lg                    | md      |
-| status   | Badge status  | String         | success, warning, info, error | —       |
-| offset   | Badge offset  | String         | —                             | —       |
-| invert   | Badge invert  | Boolean        | —                             | false   |
+| Name             | Description                     |
+|------------------|---------------------------------|
+| `--text-color`   | Badge text color.             |
+| `--border-color` | Badge border color.           |
+| `--bg-default`   | Badge background color.         |

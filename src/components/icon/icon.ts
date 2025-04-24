@@ -34,10 +34,10 @@ export default class PlusIcon extends LitElement {
     super();
   }
 
-  @property()
+  @property({ type: String })
   iconName?: IconName;
 
-  @property()
+  @property({ type: String })
   override prefix: IconPrefix = 'fas';
 
   private getIconHtml() {

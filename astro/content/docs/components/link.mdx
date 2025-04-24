@@ -1,91 +1,56 @@
 ---
 title: Link
-description: Customize your anchor elements with Link to match your theme's style.
+description: Creates styled anchor elements for navigation or actions.
 ---
 
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
-import anatomy from '../../../assets/components/button/anatomy.png';
-import layoutSpacing from '../../../assets/components/button/layout-spacing.png';
-import lightDarkMode from '../../../assets/components/button/light-dark-mode.png';
+import anatomy from '../../../assets/components/link/anatomy.png';
+import layoutSpacing from '../../../assets/components/link/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/link/light-dark-mode.png';
 
-The Link component is a fundamental UI element used for navigating between different parts of a web application or opening external resources. This documentation provides an overview of the Link component and its different variants, states, sizes, and additional features, along with usage examples.
+The Link component renders a styled anchor (`<a>`) tag, providing options for navigation, interaction states, and visual customization like size and underline behavior.
 
 ## Anatomy
 
-The anatomy of a link component consists of essential elements such as the link text, destination and optional properties for customization, enabling user interaction and engagement within your application.
+<Image src={anatomy} alt="Link - anatomy" />
 
-<Image src={anatomy} alt="anatomy of a link component" />
+## Usage
 
-### States and Sizes
+### Basic Example
 
-The Link component supports different states to communicate interactivity and provide visual feedback.
-
-* **Default link** state represents the normal state of the link, with no specific interactions or changes.
-* **Hovered link** state occurs when the user's mouse pointer is over the link, providing visual feedback to indicate interactivity.
-* **Visited link** state represents a link that the user has already clicked or visited.
-
-### Sizes
-
-You can set the size of a link using the `size` prop as small, medium, large, or inherit. The `inherit` size allows the link to inherit the font size of its parent element, ensuring consistency with the surrounding text.
+A standard link with an `href` attribute.
 
 <code-bubble class="not-content">
 
 ```html
-<plus-link size="sm">Small Link</plus-link>
-<plus-link size="md">Medium Link</plus-link>
-<plus-link size="lg">Large Link</plus-link>
-<div style="font-size: 24px">
-    <plus-link size="inherit">Inherit Link (24px from parent)</plus-link>
-</div>
+<plus-link href="https://plusui.com">Visit Plus UI</plus-link>
 ```
 
 ```tsx
 import { PlusLink } from '@plusui/library/react';
 
-export const LinkComponent = () => (
-  <div>
-    <PlusLink size="sm">Small Link</PlusLink>
-    <PlusLink size="md">Medium Link</PlusLink>
-    <PlusLink size="lg">Large Link</PlusLink>
-    <div style={{ fontSize: '24px' }}>
-      <PlusLink size="inherit">Inherit Link (24px from parent)</PlusLink>
-    </div>
-  </div>
-);
+export default () => {
+  return <PlusLink href="https://plusui.com">Visit Plus UI</PlusLink>;
+};
 ```
 
 ```ts
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-link size="sm">Small Link</plus-link>
-    <plus-link size="md">Medium Link</plus-link>
-    <plus-link size="lg">Large Link</plus-link>
-    <div style="font-size: 24px">
-        <plus-link size="inherit">Inherit Link (24px from parent)</plus-link>
-    </div>
-  </div>`
+  selector: 'app-link-basic',
+  template: ` <plus-link href="https://plusui.com">Visit Plus UI</plus-link> `
 })
-export class AppComponent {
+export class LinkBasicComponent {
 }
 ```
 
 ```vue
 <template>
-  <div>
-    <plus-link size="sm">Small Link</plus-link>
-    <plus-link size="md">Medium Link</plus-link>
-    <plus-link size="lg">Large Link</plus-link>
-    <div style="font-size: 24px">
-        <plus-link size="inherit">Inherit Link (24px from parent)</plus-link>
-    </div>
-  </div>
+  <plus-link href="https://plusui.com">Visit Plus UI</plus-link>
 </template>
 ```
 </code-bubble>

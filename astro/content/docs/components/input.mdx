@@ -1,100 +1,39 @@
 ---
 title: Input
-description: The input component allows users to enter and edit text.
+description: Allows users to enter and edit text, supporting various types, states, and customization.
 ---
 
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/input/anatomy.png';
 import layoutSpacing from '../../../assets/components/input/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/input/light-dark-mode.png';
 
-The Input component is a versatile UI element used to capture user input, such as text or numbers. It offers various customization options and states to ensure a seamless user experience in your applications.
+The Input component is a versatile UI element used to capture user input, such as text, numbers, emails, or passwords. It supports various types, validation, prefixes/suffixes, and states like disabled or error.
 
 ## Anatomy
 
-The anatomy of an input component includes the input field itself, a container to frame the input, and optional elements like labels and icons that assist in user interaction and information conveyance.
+<Image src={anatomy} alt="Input - anatomy" />
 
-<Image src={anatomy} alt="anatomy of input component" />
+## Usage
 
-## Properties
+### Basic Example
 
-Input components typically have properties like type (e.g., text fields, checkboxes), labels, placeholders, value, read-only and disabled states, required fields, validation rules, and events. These components offer a means to capture user data, provide feedback, and ensure accessibility and security while enhancing the overall user experience.
-
-| Status  | States     | Size   | Disabled |
-| ------- | ---------- | ------ | -------- |
-| Default | Default    | Small  | True     |
-| Error   | Hover      | Medium | False    |
-|         | Fill       | Large  |          |
-|         | Fill-hover |        |          |
-|         | Press      |        |          |
-
-### Status
-
-* **Default input** component is the standard, regular input field for user data entry.
-* **Error input** is an input field that indicates an error, often with a highlighted border or error message, when user input is incorrect or doesn't meet validation criteria.
-
-<EmbedContent url="https://codesandbox.io/embed/nyxysj?hidenavigation=1&module=/index.html&view=preview" />
+A standard text input with a label and placeholder.
 
 <code-bubble class="not-content">
-```html
-<plus-input
-  size="md"
-  label="Label"
-  caption="There will be a caption text here"
-  placeholder="Placeholder"
-  required
->
-  <i slot="prefix" class="fa-solid fa-plus"></i>
-  <i slot="suffix" class="fa-solid fa-plus"></i>
-</plus-input>
 
-<plus-input
-  error
-  size="md"
-  label="Label"
-  caption="There will be a caption text here"
-  placeholder="Placeholder"
-  required
->
-  <i slot="prefix" class="fa-solid fa-plus"></i>
-  <i slot="suffix" class="fa-solid fa-plus"></i>
-</plus-input>
+```html
+<plus-input label="Username" placeholder="Enter your username"></plus-input>
 ```
 
 ```tsx
-import { PlusInput } from '@plusui/react';
+import { PlusInput } from '@plusui/library/react';
 
 export default () => {
-  return (
-    <>
-      <PlusInput
-        size="md"
-        label="Label"
-        caption="There will be a caption text here"
-        placeholder="Placeholder"
-        required
-      >
-        <i slot="prefix" className="fa-solid fa-plus"></i>
-        <i slot="suffix" className="fa-solid fa-plus"></i>
-      </PlusInput>
-
-      <PlusInput
-        error
-        size="md"
-        label="Label"
-        caption="There will be a caption text here"
-        placeholder="Placeholder"
-        required
-      >
-        <i slot="prefix" className="fa-solid fa-plus"></i>
-        <i slot="suffix" className="fa-solid fa-plus"></i>
-      </PlusInput>
-    </>
-  );
+  return <PlusInput label="Username" placeholder="Enter your username" />;
 };
 ```
 
@@ -102,99 +41,42 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-input-basic',
   template: `
-    <plus-input
-      size="md"
-      label="Label"
-      caption="There will be a caption text here"
-      placeholder="Placeholder"
-      required
-    >
-      <i slot="prefix" class="fa-solid fa-plus"></i>
-      <i slot="suffix" class="fa-solid fa-plus"></i>
-    </plus-input>
-
-    <plus-input
-      error
-      size="md"
-      label="Label"
-      caption="There will be a caption text here"
-      placeholder="Placeholder"
-      required
-    >
-      <i slot="prefix" class="fa-solid fa-plus"></i>
-      <i slot="suffix" class="fa-solid fa-plus"></i>
-    </plus-input>
+    <plus-input label="Username" placeholder="Enter your username"></plus-input>
   `
 })
-export class AppComponent {}
+export class InputBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-input
-    size="md"
-    label="Label"
-    caption="There will be a caption text here"
-    placeholder="Placeholder"
-    required
-  >
-    <i slot="prefix" class="fa-solid fa-plus"></i>
-    <i slot="suffix" class="fa-solid fa-plus"></i>
-  </plus-input>
-
-  <plus-input
-    error
-    size="md"
-    label="Label"
-    caption="There will be a caption text here"
-    placeholder="Placeholder"
-    required
-  >
-    <i slot="prefix" class="fa-solid fa-plus"></i>
-    <i slot="suffix" class="fa-solid fa-plus"></i>
-  </plus-input>
+  <plus-input label="Username" placeholder="Enter your username"></plus-input>
 </template>
 ```
 </code-bubble>
 
-### States
+### Type
 
-* **Default input** state is component in its initial state, ready for user interaction.
-* **Hover input** is the appearance of an input component when a user hovers their mouse cursor over it, which can include visual changes like a highlighted background.
-* **Fill input** is component with content or data already filled in, which users can edit or modify as needed.
-* **Fill-Hover** input is a combination of the "Fill Input" and "Hover Input" states, indicating the appearance when the cursor hovers over a filled input.
-* **Press input** is how an input component looks when a user clicks or presses on it, often indicating that it's currently being interacted with.
-
-<EmbedContent url="https://codesandbox.io/embed/59gl2t?hidenavigation=1&module=/index.html&view=preview" />
+The `type` prop determines the input's behavior and validation (e.g., `email`, `password`, `number`).
 
 <code-bubble class="not-content">
-```html
-<plus-input size="md" label="Default Input" placeholder="Type here..."></plus-input>  <!-- Default input -->
 
-<plus-input
-  size="md"
-  label="Input with Value"
-  placeholder="Type here..."
-  value="Predefined Value"
-></plus-input>  <!-- Input with a predefined value -->
+```html
+<plus-input label="Email" type="email" placeholder="your@email.com"></plus-input>
+<plus-input label="Password" type="password" placeholder="Enter password"></plus-input>
+<plus-input label="Age" type="number" placeholder="Your age"></plus-input>
 ```
 
 ```tsx
-import { PlusInput } from '@plusui/react';
+import { PlusInput } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusInput size="md" label="Default Input" placeholder="Type here..." />  {/* Default input */}
-
-      <PlusInput
-        size="md"
-        label="Input with Value"
-        placeholder="Type here..."
-        value="Predefined Value"  {/* Input with a predefined value */}
-      />
+      <PlusInput label="Email" type="email" placeholder="your@email.com" />
+      <PlusInput label="Password" type="password" placeholder="Enter password" />
+      <PlusInput label="Age" type="number" placeholder="Your age" />
     </>
   );
 };
@@ -204,71 +86,46 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-input-type',
   template: `
-    <plus-input
-      size="md"
-      label="Default Input"
-      placeholder="Type here..."
-    ></plus-input>  <!-- Default input -->
-
-    <plus-input
-      size="md"
-      label="Input with Value"
-      placeholder="Type here..."
-      value="Predefined Value"
-    ></plus-input>  <!-- Input with a predefined value -->
+    <plus-input label="Email" type="email" placeholder="your@email.com"></plus-input>
+    <plus-input label="Password" type="password" placeholder="Enter password"></plus-input>
+    <plus-input label="Age" type="number" placeholder="Your age"></plus-input>
   `
 })
-export class AppComponent {}
+export class InputTypeComponent {}
 ```
 
 ```vue
 <template>
-  <plus-input
-    size="md"
-    label="Default Input"
-    placeholder="Type here..."
-  ></plus-input>  <!-- Default input -->
-
-  <plus-input
-    size="md"
-    label="Input with Value"
-    placeholder="Type here..."
-    value="Predefined Value"
-  ></plus-input>  <!-- Input with a predefined value -->
+  <plus-input label="Email" type="email" placeholder="your@email.com"></plus-input>
+  <plus-input label="Password" type="password" placeholder="Enter password"></plus-input>
+  <plus-input label="Age" type="number" placeholder="Your age"></plus-input>
 </template>
 ```
 </code-bubble>
 
 ### Size
 
-* **Small input** is a smaller-sized input component, typically used for compact forms or in specific design contexts.
-* **Medium input** is a standard-sized input component, suitable for most data entry scenarios.
-* **Large input** is a larger-sized input field, often used when more space is needed for user input or for a prominent display.
+Control the input's dimensions using the `size` prop.
 
-<EmbedContent url="https://codesandbox.io/embed/g67j9v?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content horizontal items-center">
 
-<code-bubble class="not-content">
 ```html
-<plus-input size="sm" label="Small Input" placeholder="Type here..."></plus-input>  <!-- Small size -->
-
-<plus-input size="md" label="Medium Input" placeholder="Type here..."></plus-input>  <!-- Medium size -->
-
-<plus-input size="lg" label="Large Input" placeholder="Type here..."></plus-input>  <!-- Large size -->
+<plus-input size="sm" placeholder="Small"></plus-input>
+<plus-input size="md" placeholder="Medium (Default)"></plus-input>
+<plus-input size="lg" placeholder="Large"></plus-input>
 ```
 
 ```tsx
-import { PlusInput } from '@plusui/react';
+import { PlusInput } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusInput size="sm" label="Small Input" placeholder="Type here..." />  {/* Small size */}
-
-      <PlusInput size="md" label="Medium Input" placeholder="Type here..." />  {/* Medium size */}
-
-      <PlusInput size="lg" label="Large Input" placeholder="Type here..." />  {/* Large size */}
+      <PlusInput size="sm" placeholder="Small" />
+      <PlusInput size="md" placeholder="Medium (Default)" />
+      <PlusInput size="lg" placeholder="Large" />
     </>
   );
 };
@@ -278,89 +135,204 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-input-size',
   template: `
-    <plus-input
-      size="sm"
-      label="Small Input"
-      placeholder="Type here..."
-    ></plus-input>  <!-- Small size -->
-
-    <plus-input
-      size="md"
-      label="Medium Input"
-      placeholder="Type here..."
-    ></plus-input>  <!-- Medium size -->
-
-    <plus-input
-      size="lg"
-      label="Large Input"
-      placeholder="Type here..."
-    ></plus-input>  <!-- Large size -->
+    <plus-input size="sm" placeholder="Small"></plus-input>
+    <plus-input size="md" placeholder="Medium (Default)"></plus-input>
+    <plus-input size="lg" placeholder="Large"></plus-input>
   `
 })
-export class AppComponent {}
+export class InputSizeComponent {}
 ```
 
 ```vue
 <template>
-  <plus-input
-    size="sm"
-    label="Small Input"
-    placeholder="Type here..."
-  ></plus-input>  <!-- Small size -->
-
-  <plus-input
-    size="md"
-    label="Medium Input"
-    placeholder="Type here..."
-  ></plus-input>  <!-- Medium size -->
-
-  <plus-input
-    size="lg"
-    label="Large Input"
-    placeholder="Type here..."
-  ></plus-input>  <!-- Large size -->
+  <plus-input size="sm" placeholder="Small"></plus-input>
+  <plus-input size="md" placeholder="Medium (Default)"></plus-input>
+  <plus-input size="lg" placeholder="Large"></plus-input>
 </template>
 ```
 </code-bubble>
 
-### Disabled
+### Disabled State
 
-Disabled input is an input component that cannot be interacted with by the user, often used when certain conditions or permissions prevent input.
-
-<EmbedContent url="https://codesandbox.io/embed/fp22wh?hidenavigation=1&module=/index.html&view=preview" />
+Set the `disabled` attribute or prop to prevent user interaction.
 
 <code-bubble class="not-content">
-```html
-<plus-input
-  size="md"
-  label="Default Input"
-  placeholder="Type here..."
-></plus-input>  <!-- Default state -->
 
-<plus-input
-  size="md"
-  label="Disabled Input"
-  placeholder="Can't type here..."
-  disabled
-></plus-input>  <!-- Disabled state -->
+```html
+<plus-input label="Disabled Input" placeholder="Cannot interact" disabled></plus-input>
 ```
 
 ```tsx
-import { PlusInput } from '@plusui/react';
+import { PlusInput } from '@plusui/library/react';
+
+export default () => {
+  return <PlusInput label="Disabled Input" placeholder="Cannot interact" disabled />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-input-disabled',
+  template: `
+    <plus-input label="Disabled Input" placeholder="Cannot interact" disabled></plus-input>
+  `
+})
+export class InputDisabledComponent {}
+```
+
+```vue
+<template>
+  <plus-input label="Disabled Input" placeholder="Cannot interact" disabled></plus-input>
+</template>
+```
+</code-bubble>
+
+### Readonly State
+
+Set the `readonly` attribute or prop to prevent modification while allowing focus and selection.
+
+<code-bubble class="not-content">
+
+```html
+<plus-input label="Readonly Input" value="Cannot change this" readonly></plus-input>
+```
+
+```tsx
+import { PlusInput } from '@plusui/library/react';
+
+export default () => {
+  return <PlusInput label="Readonly Input" value="Cannot change this" readonly />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-input-readonly',
+  template: `
+    <plus-input label="Readonly Input" value="Cannot change this" readonly></plus-input>
+  `
+})
+export class InputReadonlyComponent {}
+```
+
+```vue
+<template>
+  <plus-input label="Readonly Input" value="Cannot change this" readonly></plus-input>
+</template>
+```
+</code-bubble>
+
+### Clearable Input
+
+Add the `clearable` attribute or prop to show a button that clears the input's value.
+
+<code-bubble class="not-content">
+
+```html
+<plus-input label="Search" placeholder="Type to search..." clearable></plus-input>
+```
+
+```tsx
+import { PlusInput } from '@plusui/library/react';
+
+export default () => {
+  return <PlusInput label="Search" placeholder="Type to search..." clearable />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-input-clearable',
+  template: `
+    <plus-input label="Search" placeholder="Type to search..." clearable></plus-input>
+  `
+})
+export class InputClearableComponent {}
+```
+
+```vue
+<template>
+  <plus-input label="Search" placeholder="Type to search..." clearable></plus-input>
+</template>
+```
+</code-bubble>
+
+### Password Visibility Toggle
+
+For `type="password"`, use `password-toggle` to add an icon that toggles visibility. Control visibility with `password-visible`.
+
+<code-bubble class="not-content">
+
+```html
+<plus-input label="Password" type="password" placeholder="Enter password" password-toggle></plus-input>
+```
+
+```tsx
+import { PlusInput } from '@plusui/library/react';
+
+export default () => {
+  return <PlusInput label="Password" type="password" placeholder="Enter password" passwordToggle />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-input-password',
+  template: `
+    <plus-input label="Password" type="password" placeholder="Enter password" password-toggle></plus-input>
+  `
+})
+export class InputPasswordComponent {}
+```
+
+```vue
+<template>
+  <plus-input label="Password" type="password" placeholder="Enter password" password-toggle></plus-input>
+</template>
+```
+</code-bubble>
+
+### With Icons/Slots
+
+Use the `prefix` and `suffix` slots or the `prefix-icon` and `suffix-icon` props to add elements inside the input.
+
+<code-bubble class="not-content">
+
+```html
+<!-- Using slots -->
+<plus-input label="Amount" placeholder="0.00">
+  <span slot="prefix">$</span>
+  <span slot="suffix">USD</span>
+</plus-input>
+
+<!-- Using icon props -->
+<plus-input label="Website" placeholder="example.com" prefix-icon="link" suffix-icon="external-link-alt"></plus-input>
+```
+
+```tsx
+import { PlusInput } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusInput size="md" label="Default Input" placeholder="Type here..." />  {/* Default state */}
+      {/* Using slots */}
+      <PlusInput label="Amount" placeholder="0.00">
+        <span slot="prefix">$</span>
+        <span slot="suffix">USD</span>
+      </PlusInput>
 
-      <PlusInput
-        size="md"
-        label="Disabled Input"
-        placeholder="Can't type here..."
-        disabled  {/* Disabled state */}
-      />
+      {/* Using icon props */}
+      <PlusInput label="Website" placeholder="example.com" prefixIcon="link" suffixIcon="external-link-alt" />
     </>
   );
 };
@@ -370,78 +342,188 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-input-slots',
   template: `
-    <plus-input
-      size="md"
-      label="Default Input"
-      placeholder="Type here..."
-    ></plus-input>  <!-- Default state -->
+    <!-- Using slots -->
+    <plus-input label="Amount" placeholder="0.00">
+      <span slot="prefix">$</span>
+      <span slot="suffix">USD</span>
+    </plus-input>
 
-    <plus-input
-      size="md"
-      label="Disabled Input"
-      placeholder="Can't type here..."
-      disabled
-    ></plus-input>  <!-- Disabled state -->
+    <!-- Using icon props -->
+    <plus-input label="Website" placeholder="example.com" prefix-icon="link" suffix-icon="external-link-alt"></plus-input>
   `
 })
-export class AppComponent {}
+export class InputSlotsComponent {}
 ```
 
 ```vue
 <template>
-  <plus-input
-    size="md"
-    label="Default Input"
-    placeholder="Type here..."
-  ></plus-input>  <!-- Default state -->
+  <!-- Using slots -->
+  <plus-input label="Amount" placeholder="0.00">
+    <span slot="prefix">$</span>
+    <span slot="suffix">USD</span>
+  </plus-input>
 
-  <plus-input
-    size="md"
-    label="Disabled Input"
-    placeholder="Can't type here..."
-    disabled
-  ></plus-input>  <!-- Disabled state -->
+  <!-- Using icon props -->
+  <plus-input label="Website" placeholder="example.com" prefix-icon="link" suffix-icon="external-link-alt"></plus-input>
 </template>
 ```
 </code-bubble>
 
-## Layout & Spacing
+### Error State & Validation
 
-Layout and spacing in input components influence user interface clarity. Consistent spacing and alignment help organize input fields, leading to a more user-friendly and visually cohesive design.
+Use the `error` prop and `error-message` or `caption` prop to display validation feedback. Native HTML5 validation attributes (`required`, `pattern`, `minlength`, etc.) are supported.
 
-<Image src={layoutSpacing} alt="layout and spacing of input component" />
+<code-bubble class="not-content">
 
-## Light & Dark Mode
+```html
+<plus-input label="Email" type="email" required error error-message="Please enter a valid email."></plus-input>
+<plus-input label="Confirm Password" type="password" required caption="Must match password."></plus-input>
+```
 
-Supporting light and dark modes is essential for user interface adaptability. Proper color choices and contrast adjustments ensure readability and comfort for users in different lighting conditions.
+```tsx
+import { PlusInput } from '@plusui/library/react';
 
-<Image src={lightDarkMode} alt="light and dark mode of input component" />
+export default () => {
+  return (
+    <>
+      <PlusInput label="Email" type="email" required error errorMessage="Please enter a valid email." />
+      <PlusInput label="Confirm Password" type="password" required caption="Must match password." />
+    </>
+  );
+};
+```
 
-## Accessibility
+```ts
+import { Component } from '@angular/core';
 
-Input components must prioritize accessibility for users with disabilities. This includes clear labels, logical tab order, color contrast, ARIA roles, and keyboard navigation, fostering inclusivity and usability for all.
+@Component({
+  selector: 'app-input-error',
+  template: `
+    <plus-input label="Email" type="email" required error error-message="Please enter a valid email."></plus-input>
+    <plus-input label="Confirm Password" type="password" required caption="Must match password."></plus-input>
+  `
+})
+export class InputErrorComponent {}
+```
 
-<table data-full-width="false"><thead><tr><th width="195">Criteria</th><th width="461.3333333333333">Description</th><th>Status<select><option value="871ca74978e34cb6a897fa96f2763611" label="Passed" color="blue"></option><option value="63b9ff302cd74683b66177da970a685c" label="AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>Autocomplete Attribute</td><td>Ensure the autocomplete attribute is correct and suitable for the form field</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Active Elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Form Elements</td><td>Ensures form field does not have multiple label elements</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Visible Labels</td><td>Ensures that every form element has a visible label and is not solely labeled using hidden labels,or the title or aria-describedby attributes</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="871ca74978e34cb6a897fa96f2763611">Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="63b9ff302cd74683b66177da970a685c">AA ~ AAA</span></td></tr></tbody></table>
+```vue
+<template>
+  <plus-input label="Email" type="email" required error error-message="Please enter a valid email."></plus-input>
+  <plus-input label="Confirm Password" type="password" required caption="Must match password."></plus-input>
+</template>
+```
+</code-bubble>
 
-## Design System
+## Visual Sections
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+### Layout & Spacing
 
-## API
+<Image src={layoutSpacing} alt="Input - layout spacing" />
 
-| Property    | Description       | Type    | Accepted Values                         | Default |
-| ----------- | ----------------- | ------- | --------------------------------------- | ------- |
-| type        | Input type        | String  | text, email, password, number, tel, url | text    |
-| size        | Input size        | String  | sm, md, lg                              | md      |
-| disabled    | Input disabled    | Boolean | true, false                             | false   |
-| readonly    | Input readonly    | Boolean | true, false                             | false   |
-| required    | Input required    | Boolean | true, false                             | false   |
-| value       | Input value       | String  |                                         |         |
-| name        | Input name        | String  |                                         |         |
-| placeholder | Input placeholder | String  |                                         |         |
-| label       | Input label       | String  |                                         |         |
-| caption     | Input caption     | String  |                                         |         |
-| error       | Input error text  | String  |                                         |         |
-| clearable   | Input clearable   | Boolean | true, false                             | false   |
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Input - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Standard text input navigation and interaction (`Tab` to focus, typing, arrow keys, `Home`/`End`, `Delete`/`Backspace`).
+    *   Clear button and password toggle button (if present) are focusable via `Tab` and activatable with `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The `label` prop is crucial for associating a visible label with the input. The component automatically links them using `for` and `id`.
+    *   `aria-describedby` is used to link the input with the `caption` or `error-message` content.
+    *   `aria-invalid` is set automatically based on the `error` state or native validation.
+    *   `aria-required` is set based on the `required` prop.
+    *   `aria-disabled` and `aria-readonly` reflect the respective props.
+    *   Clear and password toggle buttons have appropriate `aria-label` attributes.
+*   **Required Developer Actions:**
+    *   **Always provide a meaningful `label` prop.**
+    *   Use the `caption` or `error-message` prop for supplemental instructions or error feedback.
+    *   Ensure sufficient color contrast if customizing colors.
+    *   Use appropriate `type` and validation attributes (`pattern`, `required`, etc.) for the expected data format.
+    *   Consider using the `autocomplete` attribute to improve user experience.
+
+## API Reference
+
+### Properties
+
+| Name              | Type                                                                                           | Default    | Description                                                                  | Required |
+|-------------------|------------------------------------------------------------------------------------------------|------------|------------------------------------------------------------------------------|----------|
+| `type`            | `'date' \| 'datetime-local' \| 'email' \| 'number' \| 'password' \| 'search' \| 'tel' \| 'text' \| 'time' \| 'url'` | `'text'`   | The type of control to display.                                              | No       |
+| `name`            | `string`                                                                                       | `''`       | The name of the input, submitted with form data.                             | No       |
+| `value`           | `string`                                                                                       | `''`       | The current value of the input.                                              | No       |
+| `placeholder`     | `string`                                                                                       | `''`       | Placeholder text shown when the input is empty.                              | No       |
+| `size`            | `'sm' \| 'md' \| 'lg'`                                                                         | `'md'`     | The size of the input control.                                               | No       |
+| `clearable`       | `boolean`                                                                                      | `false`    | Adds a clear button to the input.                                            | No       |
+| `disabled`        | `boolean`                                                                                      | `false`    | Disables the input.                                                          | No       |
+| `readonly`        | `boolean`                                                                                      | `false`    | Makes the input read-only.                                                   | No       |
+| `required`        | `boolean`                                                                                      | `false`    | Makes the input required for form submission.                                | No       |
+| `passwordToggle`  | `boolean`                                                                                      | `false`    | Shows a toggle button to reveal/hide password (only for `type="password"`). | No       |
+| `passwordVisible` | `boolean`                                                                                      | `false`    | Controls the visibility state when `passwordToggle` is true.                 | No       |
+| `label`           | `string`                                                                                       | `undefined`| The label text for the input.                                                | No       |
+| `pattern`         | `string`                                                                                       | `undefined`| A regex pattern the value must match for validation.                         | No       |
+| `minlength`       | `number`                                                                                       | `undefined`| Minimum length (number of characters) of value.                              | No       |
+| `maxlength`       | `number`                                                                                       | `undefined`| Maximum length (number of characters) of value.                              | No       |
+| `min`             | `number \| string`                                                                             | `undefined`| Minimum value for numeric or date types.                                     | No       |
+| `max`             | `number \| string`                                                                             | `undefined`| Maximum value for numeric or date types.                                     | No       |
+| `step`            | `number \| 'any'`                                                                              | `undefined`| Specifies the legal number intervals for numeric or date types.              | No       |
+| `autocorrect`     | `'off' \| 'on'`                                                                                | `undefined`| Controls whether autocorrect is enabled.                                     | No       |
+| `autocomplete`    | `string`                                                                                       | `undefined`| Hints for form autofill.                                                     | No       |
+| `autoFocus`       | `boolean`                                                                                      | `undefined`| Automatically focuses the input when the page loads.                         | No       |
+| `enterkeyhint`    | `'enter' \| 'done' \| 'go' \| 'next' \| 'previous' \| 'search' \| 'send'`                         | `undefined`| Hint for the virtual keyboard's enter key.                                   | No       |
+| `inputmode`       | `'none' \| 'text' \| 'decimal' \| 'numeric' \| 'tel' \| 'search' \| 'email' \| 'url'`             | `undefined`| Hint for the type of data expected.                                          | No       |
+| `spellCheck`      | `boolean`                                                                                      | `undefined`| Controls whether spell check is enabled.                                     | No       |
+| `caption`         | `string`                                                                                       | `undefined`| Helper text displayed below the input.                                       | No       |
+| `error`           | `boolean`                                                                                      | `false`    | Puts the input in an error state.                                            | No       |
+| `errorMessage`    | `string`                                                                                       | `''`       | Error message displayed below the input when in error state (overrides caption). | No       |
+| `fullWidth`       | `boolean`                                                                                      | `false`    | Makes the input span the full width of its container.                         | No       |
+| `isSelect`        | `boolean`                                                                                      | `false`    | Internal prop indicating if the input is part of a select component (affects styling). | No       |
+| `prefixIcon`      | `string`                                                                                       | `undefined`| Icon name to display in the prefix slot area.                                | No       |
+| `suffixIcon`      | `string`                                                                                       | `undefined`| Icon name to display in the suffix slot area.                                | No       |
+
+### Events
+
+| Name                   | Payload Type                                      | Description                                                                    |
+|------------------------|---------------------------------------------------|--------------------------------------------------------------------------------|
+| `plus-input`           | `CustomEvent<void>`                               | Fired whenever the input's value changes.                                      |
+| `plus-change`          | `CustomEvent<void>`                               | Fired when the input's value changes and it loses focus.                       |
+| `plus-focus`           | `CustomEvent<void>`                               | Fired when the input gains focus.                                              |
+| `plus-blur`            | `CustomEvent<void>`                               | Fired when the input loses focus.                                              |
+| `plus-clear`           | `CustomEvent<void>`                               | Fired when the clear button is clicked.                                        |
+| `plus-password-toggle` | `CustomEvent<{ visible: boolean }>`               | Fired when the password visibility toggle is clicked.                          |
+| `plus-invalid`         | `CustomEvent<{ validationMessage: string }>` | Fired when the input fails native validation after interaction (e.g., on blur or form submit). |
+
+### Methods
+
+| Name                | Parameters                     | Returns   | Description                                                                       |
+|---------------------|--------------------------------|-----------|-----------------------------------------------------------------------------------|
+| `checkValidity()`   | —                              | `boolean` | Checks if the input's value satisfies its validation constraints.                 |
+| `reportValidity()`  | —                              | `boolean` | Checks validity and reports errors if invalid. Focuses the input if invalid.      |
+| `setCustomValidity()`| `message: string`              | `void`    | Sets a custom validation message. An empty string means the input is valid.       |
+
+### Slots
+
+| Name              | Description                                               |
+|-------------------|-----------------------------------------------------------|
+| `prefix`          | Content placed inside the input, before the text value.   |
+| `suffix`          | Content placed inside the input, after the text value.    |
+
+### CSS Shadow Parts
+
+| Part               | Description                             |
+|--------------------|-----------------------------------------|
+| `base`             | The main container element.             |
+| `input`            | The native `<input>` element.           |
+| `wrapper`          | The wrapper div around the input/slots. |
+| `prefix`           | The container for prefix content.       |
+| `suffix`           | The container for suffix content.       |
+| `clear-button`     | The clear button element.               |
+| `password-toggle`  | The password toggle button element.     |
+| `label`            | The label element.                      |
+| `caption`          | The caption/error message element.      |
+
+### CSS Custom Properties
+
+No specific public CSS custom properties are defined for direct styling. Use standard CSS targeting the element or shadow parts for customization.

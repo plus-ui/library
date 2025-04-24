@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Component Test Page</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <plus-breadcrumb size="md" separator="arrow" kind="non-framed">
+      <plus-breadcrumb-item href="#">
+        <i slot="prefix" class="fa-solid fa-house-chimney"></i>
+        Home
+      </plus-breadcrumb-item>
+      <plus-breadcrumb-item href="#"> Category </plus-breadcrumb-item>
+      <plus-breadcrumb-item> Current Page </plus-breadcrumb-item>
+    </plus-breadcrumb>
+
+    <plus-breadcrumb size="lg" separator="slash" kind="framed">
+      <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
+      <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
+      <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
+    </plus-breadcrumb>
+  </body>
+</html>

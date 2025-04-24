@@ -1,174 +1,125 @@
 ---
 title: Breadcrumb
-description: Elevate your user experience to new heights with our Breadcrumb Component, a seamless and intuitive way to guide users through the digital landscape. This feature-rich element, 18 variant component ensures that users never feel lost, offering a clear and concise path back to key pages. Enhance your website's usability and keep your audience engaged effortlessly.
+description: Displays hierarchical navigation path, allowing users to trace their steps back to the starting point.
 ---
-
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/breadcrumb/anatomy.png';
 import layoutSpacing from '../../../assets/components/breadcrumb/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/breadcrumb/light-dark-mode.png';
 
+The Breadcrumb component provides a navigational aid that displays the user's current location within the site hierarchy and allows them to easily navigate back to previous levels. It's typically placed horizontally before the page title or main content.
+
 ## Anatomy
 
-The Breadcrumb Component comprises a series of clickable links, each representing a step in the user's journey. It typically appears near the top of a webpage, showcasing the hierarchical structure of the site. The links progress from left to right, providing a visual representation of the user's location within the website's content hierarchy.
+<Image src={anatomy} alt="Breadcrumb - anatomy" />
 
-<Image src={anatomy} alt="Anatomy of Breadcrumb Component" />
+## Usage
 
-## Properties
+### Basic Example
 
-Customize your Breadcrumb Component with ease! Tailor its appearance and behavior to suit your design requirements. From adjusting link styles to defining separator symbols, our component properties empower you to integrate the breadcrumb seamlessly into your unique design language.
+Create a breadcrumb trail by nesting `plus-breadcrumb-item` components within the `plus-breadcrumb`. The last item is automatically considered the current page.
 
-| Separator | Size   |
-| --------- | ------ |
-| Arrow     | Small  |
-| Slash     | Medium |
-|           | Large  |
-
-### Separator
-
-* **The arrow** icon ">", used denote the hierarchy between breadcrumb items.
-* **The slash** icon "/", used as the separator between breadcrumb items
-
-
-
-<EmbedContent url="https://codesandbox.io/embed/6lyxh9?hidenavigation=1&view=preview" />
-
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
-<plus-breadcrumb separator=">">
-  <plus-link href="#">
-    <i class="fa-solid fa-house-chimney-medical"></i> Dashboard
-  </plus-link>
-  <plus-link href="#">Reports</plus-link>
-  <plus-link href="#">Sales</plus-link>
-  <plus-link href="#">Monthly</plus-link>
-  <plus-link href="#">February</plus-link>
-</plus-breadcrumb>
-
-<plus-breadcrumb separator="/">
-  <plus-link href="#">
-    <i class="fa-solid fa-house-chimney-medical"></i> Home
-  </plus-link>
-  <plus-link href="#">Products</plus-link>
-  <plus-link href="#">Electronics</plus-link>
-  <plus-link href="#">Laptops</plus-link>
-  <plus-link href="#">Dell</plus-link>
+<plus-breadcrumb>
+  <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+  <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
+  <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
 </plus-breadcrumb>
 ```
 
 ```tsx
-import { PlusBreadcrumb, PlusLink } from '@plusui/react';
+import { PlusBreadcrumb, PlusBreadcrumbItem } from '@plusui/library/react';
 
 export default () => {
-  return <>
-    <PlusBreadcrumb separator=">">
-      <PlusLink href="#">
-        <i className="fa-solid fa-house-chimney-medical"></i> Dashboard
-      </PlusLink>
-      <PlusLink href="#">Reports</PlusLink>
-      <PlusLink href="#">Sales</PlusLink>
-      <PlusLink href="#">Monthly</PlusLink>
-      <PlusLink href="#">February</PlusLink>
+  return (
+    <PlusBreadcrumb>
+      <PlusBreadcrumbItem href="#">Home</PlusBreadcrumbItem>
+      <PlusBreadcrumbItem href="#">Category</PlusBreadcrumbItem>
+      <PlusBreadcrumbItem>Current Page</PlusBreadcrumbItem>
     </PlusBreadcrumb>
-    
-    <PlusBreadcrumb separator="/">
-      <PlusLink href="#">
-        <i className="fa-solid fa-house-chimney-medical"></i> Home
-      </PlusLink>
-      <PlusLink href="#">Products</PlusLink>
-      <PlusLink href="#">Electronics</PlusLink>
-      <PlusLink href="#">Laptops</PlusLink>
-      <PlusLink href="#">Dell</PlusLink>
-    </PlusBreadcrumb>
-  </>;
+  );
 };
 ```
 
 ```ts
 import { Component } from '@angular/core';
+// Make sure PlusUiModule is imported
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-breadcrumb-basic',
   template: `
-    <plus-breadcrumb separator=">">
-      <plus-link href="#">
-        <i class="fa-solid fa-house-chimney-medical"></i> Dashboard
-      </plus-link>
-      <plus-link href="#">Reports</plus-link>
-      <plus-link href="#">Sales</plus-link>
-      <plus-link href="#">Monthly</plus-link>
-      <plus-link href="#">February</plus-link>
-</plus-breadcrumb>
-
-    <plus-breadcrumb separator="/">
-      <plus-link href="#">
-        <i class="fa-solid fa-house-chimney-medical"></i> Home
-      </plus-link>
-      <plus-link href="#">Products</plus-link>
-      <plus-link href="#">Electronics</plus-link>
-      <plus-link href="#">Laptops</plus-link>
-      <plus-link href="#">Dell</plus-link>
+    <plus-breadcrumb>
+      <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+      <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
+      <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
     </plus-breadcrumb>
   `
 })
-export class AppComponent {}
+export class BreadcrumbBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-breadcrumb separator=">">
-    <plus-link href="#">
-      <i class="fa-solid fa-house-chimney-medical"></i> Dashboard
-    </plus-link>
-    <plus-link href="#">Reports</plus-link>
-    <plus-link href="#">Sales</plus-link>
-    <plus-link href="#">Monthly</plus-link>
-    <plus-link href="#">Febr</plus-link>
-uary</plus-link>
-</plus-breadcrumb>
-  
-  <plus-breadcrumb separator="/">
-    <plus-link href="#">
-      <i class="fa-solid fa-house-chimney-medical"></i> Home
-    </plus-link>
-    <plus-link href="#">Products</plus-link>
-    <plus-link href="#">Electronics</plus-link>
-    <plus-link href="#">Laptops</plus-link>
-    <plus-link href="#">Dell</plus-link>
+  <plus-breadcrumb>
+    <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+    <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
+    <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
   </plus-breadcrumb>
 </template>
+
+<script setup>
+// Assuming Plus UI components are registered globally or imported locally
+</script>
 ```
 </code-bubble>
 
-### Size
+### Separator Style
 
-Our button component supports different sizes such as small, medium, large to fit various design requirements.
+Use the `separator` property to change the visual separator between items. Allowed values are `'arrow'` (default) and `'slash'`.
 
-<code-bubble class="not-content">
+<code-bubble class="not-content horizontal">
 ```html
-<plus-breadcrumb size="sm" separator="/">
-  <plus-link href="#">Home</plus-link>
-  <plus-link href="#">Products</plus-link>
-  <plus-link href="#">Electronics</plus-link>
-  <plus-link href="#">Laptops</plus-link>
+<!-- Default separator (arrow) -->
+<plus-breadcrumb>
+  <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+  <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
+  <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
+</plus-breadcrumb>
+
+<!-- Using slash separator -->
+<plus-breadcrumb separator="slash">
+  <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
+  <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
+  <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
 </plus-breadcrumb>
 ```
 
 ```tsx
-import { PlusBreadcrumb, PlusLink } from '@plusui/react';
+import { PlusBreadcrumb, PlusBreadcrumbItem } from '@plusui/library/react';
 
 export default () => {
   return (
-    <PlusBreadcrumb size="sm" separator="/">
-      <PlusLink href="#">Home</PlusLink>
-      <PlusLink href="#">Products</PlusLink>
-      <PlusLink href="#">Electronics</PlusLink>
-      <PlusLink href="#">Laptops</PlusLink>
-    </PlusBreadcrumb>
+    <>
+      {/* Default separator (arrow) */}
+      <PlusBreadcrumb>
+        <PlusBreadcrumbItem href="#">Home</PlusBreadcrumbItem>
+        <PlusBreadcrumbItem href="#">Products</PlusBreadcrumbItem>
+        <PlusBreadcrumbItem>Gadgets</PlusBreadcrumbItem>
+      </PlusBreadcrumb>
+
+      <br />
+
+      {/* Using slash separator */}
+      <PlusBreadcrumb separator="slash">
+        <PlusBreadcrumbItem href="#">Settings</PlusBreadcrumbItem>
+        <PlusBreadcrumbItem href="#">Profile</PlusBreadcrumbItem>
+        <PlusBreadcrumbItem>Edit</PlusBreadcrumbItem>
+      </PlusBreadcrumb>
+    </>
   );
 };
 ```
@@ -177,54 +128,134 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-breadcrumb-separator',
   template: `
-    <plus-breadcrumb size="sm" separator="/">
-      <plus-link href="#">Home</plus-link>
-      <plus-link href="#">Products</plus-link>
-      <plus-link href="#">Electronics</plus-link>
-      <plus-link href="#">Laptops</plus-link>
+    <!-- Default separator (arrow) -->
+    <plus-breadcrumb>
+      <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+      <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
+      <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
+    </plus-breadcrumb>
+
+    <br />
+
+    <!-- Using slash separator -->
+    <plus-breadcrumb separator="slash">
+      <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
+      <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
+      <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
     </plus-breadcrumb>
   `
 })
-export class AppComponent {}
+export class BreadcrumbSeparatorComponent {}
 ```
 
 ```vue
 <template>
-  <plus-breadcrumb size="sm" separator="/">
-    <plus-link href="#">Home</plus-link>
-    <plus-link href="#">Products</plus-link>
-    <plus-link href="#">Electronics</plus-link>
-    <plus-link href="#">Laptops</plus-link>
+  <!-- Default separator (arrow) -->
+  <plus-breadcrumb>
+    <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+    <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
+    <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
+  </plus-breadcrumb>
+
+  <br />
+
+  <!-- Using slash separator -->
+  <plus-breadcrumb separator="slash">
+    <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
+    <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
+    <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
   </plus-breadcrumb>
 </template>
+
+<script setup>
+// Assuming Plus UI components are registered globally or imported locally
+</script>
 ```
 </code-bubble>
 
-## Layout & Spacing
+## Visual Sections
 
-Achieve pixel-perfect precision with our Breadcrumb Component's flexible layout and spacing options. Whether you prefer a compact design or a more spacious arrangement, you have the tools to ensure the component seamlessly integrates into your layout, maintaining visual harmony and balance.
+### Layout & Spacing
 
-<Image src={layoutSpacing} alt="Layout and Spacing of Breadcrumb Component" />
+<Image src={layoutSpacing} alt="Breadcrumb - layout spacing" />
 
-## Light & Dark Mode
+### Light & Dark Mode
 
-Adapt to your users' preferences effortlessly with our Breadcrumb Component's built-in light and dark mode support. Enhance readability and aesthetics by seamlessly transitioning between these modes, ensuring a cohesive and visually pleasing experience in any lighting condition.
+<Image src={lightDarkMode} alt="Breadcrumb - light & dark mode" />
 
-<Image src={lightDarkMode} alt="Light and Dark Mode of Breadcrumb Component" />
+## Accessibility (a11y)
 
-## Accessibility
+*   **Keyboard Behavior:**
+    *   Users can navigate through the breadcrumb links using the `Tab` key.
+    *   Each link can be activated using `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component is wrapped in a `<nav>` element with `aria-label="breadcrumb"` to identify it as a navigation landmark.
+    *   The current page item (the last item without an `href`) includes `aria-current="page"` to indicate its status.
+    *   Separators are hidden from screen readers using `aria-hidden="true"`.
+*   **Required Developer Actions:**
+    *   Ensure that `href` attributes are provided for all navigable `plus-breadcrumb-item` elements.
+    *   Provide meaningful text content for each `plus-breadcrumb-item`.
 
-Champion inclusivity with our Breadcrumb Component's commitment to accessibility. Built with industry-leading standards in mind, it ensures a smooth experience for all users, including those with disabilities. Screen reader compatibility, keyboard navigation, and high contrast options are just a few features that make our Breadcrumb Component accessible to everyone.
+## API Reference
 
-<table><thead><tr><th>Criteria</th><th width="393">Description</th><th>Status<select><option value="e97a3e7c418846ba82ba0854f38ddd4d" label="✔️ Passed" color="blue"></option><option value="9e9b6ea338a346e4aeeb11bea22d1b6a" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Inline Text Spacing</td><td>Ensure that text spacing set through style attributes can be adjusted with custom stylesheets</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID’s of active elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures links have discernible text</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="9e9b6ea338a346e4aeeb11bea22d1b6a">✔️ AA ~ AAA</span></td></tr></tbody></table>
+### `<plus-breadcrumb>` Properties
 
-## Design System
+| Name         | Type                               | Default | Description                                                                                                | Required |
+|--------------|------------------------------------|---------|------------------------------------------------------------------------------------------------------------|----------|
+| `label`      | `string`                           | `'breadcrumb'` | The `aria-label` for the underlying `<nav>` element. Override for internationalization or specific context. | No       |
+| `separator`  | `'arrow' \| 'slash'`              | `'arrow'` | Defines the visual separator between items.                                                              | No       |
 
-<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+### `<plus-breadcrumb>` Slots
 
-## API
+| Name        | Description                                                                |
+|-------------|----------------------------------------------------------------------------|
+| (default)   | Container for `plus-breadcrumb-item` elements.                             |
 
-<table><thead><tr><th width="121">Property</th><th width="248">Description</th><th>Type</th><th width="186">Accepted Values	</th><th>Default</th></tr></thead><tbody><tr><td>separator</td><td>Sets the separator between breadcrumb items</td><td>String</td><td>Any valid string (e.g., "/", "→", ">")</td><td>"/"</td></tr><tr><td>size</td><td>Determines the size of the breadcrumb</td><td>String</td><td>sm, md, lg</td><td>md</td></tr><tr><td></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+### `<plus-breadcrumb-item>` Properties
+
+| Name   | Type     | Default     | Description                                          | Required               |
+|--------|----------|-------------|------------------------------------------------------|------------------------|
+| `href` | `string` | `undefined` | The URL to navigate to when the item is clicked. If omitted, the item is treated as the current page (non-interactive). | No (Required for links) |
+
+### `<plus-breadcrumb-item>` Slots
+
+| Name      | Description                           |
+|-----------|---------------------------------------|
+| (default) | The text content of the breadcrumb item. |
+
+### `<plus-breadcrumb>` CSS Shadow Parts
+
+| Part        | Description                        |
+|-------------|------------------------------------|
+| `base`      | The main container (`<nav>`) element. |
+| `list`      | The list (`<ol>`) wrapping the items. |
+| `separator` | The separator element displayed between items. |
+
+### `<plus-breadcrumb-item>` CSS Shadow Parts
+
+| Part        | Description                               |
+|-------------|-------------------------------------------|
+| `base`      | The list item (`<li>`) element.           |
+| `link`      | The anchor (`<a>`) element (if `href` exists). |
+| `text`      | The non-interactive text span (if no `href`). |
+
+### `<plus-breadcrumb>` CSS Custom Properties
+
+| Name                     | Description                      |
+|--------------------------|----------------------------------|
+| `--separator-color`      | Color of the default separator. |
+| `--gap`                  | Space between items and separators. |
+
+### `<plus-breadcrumb-item>` CSS Custom Properties
+
+| Name                          | Description                      |
+|-------------------------------|----------------------------------|
+| `--color`                     | Text color of the item.          |
+| `--color-hover`               | Text color on hover (links only). |
+| `--text-decoration`           | Text decoration (links only).     |
+| `--text-decoration-hover`     | Text decoration on hover (links only). |
+| `--color-current`             | Text color of the current item (last item without `href`). |
+| `--text-decoration-current`   | Text decoration of the current item. |
 

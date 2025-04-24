@@ -1,57 +1,38 @@
 ---
 title: Checkbox
-description: Enhance Choices with Stylish Checkboxes
+description: Allows users to select one or more options from a set.
 ---
-
-import { Image } from 'astro:assets';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 import EmbedContent from '../../../components/EmbedContent.astro';
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-import { Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/checkbox/anatomy.png';
 import layoutSpacing from '../../../assets/components/checkbox/layout-spacing.png';
 import lightDarkMode from '../../../assets/components/checkbox/light-dark-mode.png';
 
-Our checkbox component is a user-friendly and visually intuitive UI element designed to enhance decision-making in your application or website. With a clear and straightforward design, it simplifies binary choices, making interactions smooth and engaging for users.
+The Checkbox component allows users to make a binary choice, such as toggling an option on or off. It's commonly used in forms and settings.
 
 ## Anatomy
 
-The checkbox features a small box with a checkmark or indicator representing its selected state. Accompanied by a label, users interact by clicking or tapping, toggling between selected and unselected states. Its simplicity makes it an effective UI element for binary choices.
+<Image src={anatomy} alt="Checkbox - anatomy" />
 
-<Image src={anatomy} alt="anatomy of checkbox component" />
+## Usage
 
-## Properties
+### Basic Example
 
-Key properties like "checked" determine the checkbox state, while "disabled" prevents user interaction when activated. The "label" associates descriptive text, enhancing usability. Events such as "change" trigger dynamic responses to user actions, offering developers customization options for functionality and appearance in the interface.
-
-<table><thead><tr><th width="131.33333333333331">Checked</th><th>Indeterminate</th><th>State</th><th>Size</th></tr></thead><tbody><tr><td>True</td><td>True</td><td>Default</td><td>Small</td></tr><tr><td>False</td><td>False</td><td>Hover</td><td>Medium</td></tr><tr><td></td><td></td><td>Press</td><td>Large</td></tr><tr><td></td><td></td><td>Error</td><td></td></tr><tr><td></td><td></td><td>Require</td><td></td></tr><tr><td></td><td></td><td>Read-only</td><td></td></tr><tr><td></td><td></td><td>Disabled</td><td></td></tr></tbody></table>
-
-### Status
-
-* **Default checkbox** is the initial state when the checkbox is rendered, allowing users to make a conscious selection.&#x20;
-* **Checked checkbox** indicates user affirmation or consent and is visually represented by a marked or filled checkbox.&#x20;
-* **Indeterminate checkbox** represents a state where a checkbox's selection status is not explicitly checked or unchecked. It’s often used in scenarios where a checkbox group has a mix of selected and unselected items.
-
-<EmbedContent url="https://codesandbox.io/embed/znggh4?hidenavigation=1&module=/index.html&view=preview" />
+A standard checkbox with a label.
 
 <code-bubble class="not-content">
+
 ```html
-<plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal checkbox -->
-<plus-checkbox checked>Checkbox</plus-checkbox>  <!-- Checked checkbox -->
-<plus-checkbox indeterminate>Checkbox</plus-checkbox>  <!-- Indeterminate checkbox -->
+<plus-checkbox>Label</plus-checkbox>
 ```
 
 ```tsx
-import { PlusCheckbox } from '@plusui/react';
+import { PlusCheckbox } from '@plusui/library/react';
 
 export default () => {
-  return (
-    <>
-      <PlusCheckbox>Checkbox</PlusCheckbox>  {/* Normal checkbox */}
-      <PlusCheckbox checked>Checkbox</PlusCheckbox>  {/* Checked checkbox */}
-      <PlusCheckbox indeterminate>Checkbox</PlusCheckbox>  {/* Indeterminate checkbox */}
-    </>
-  );
+  return <PlusCheckbox>Label</PlusCheckbox>;
 };
 ```
 
@@ -59,53 +40,41 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: `
-    <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal checkbox -->
-    <plus-checkbox checked>Checkbox</plus-checkbox>  <!-- Checked checkbox -->
-    <plus-checkbox indeterminate>Checkbox</plus-checkbox>  <!-- Indeterminate checkbox -->
-  `
+  selector: 'app-checkbox-basic',
+  template: ` <plus-checkbox>Label</plus-checkbox> `
 })
-export class AppComponent {}
+export class CheckboxBasicComponent {}
 ```
 
 ```vue
 <template>
-  <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal checkbox -->
-  <plus-checkbox checked>Checkbox</plus-checkbox>  <!-- Checked checkbox -->
-  <plus-checkbox indeterminate>Checkbox</plus-checkbox>  <!-- Indeterminate checkbox -->
+  <plus-checkbox>Label</plus-checkbox>
 </template>
 ```
+
 </code-bubble>
 
-### State
+### Checked State
 
-The checkbox supports various visual states, enhancing its adaptability.
+Use the `checked` prop to control the selection state. The `indeterminate` prop represents a state where the checkbox is neither checked nor unchecked, often used in parent checkboxes.
 
-* **Default checkbox** is the standard appearance when not interacting.
-* **Hover checkbox** is the visual change that occurs when the user hovers over the checkbox
-* **Press checkbox** is the appearance when the user clicks or taps on the checkbox.
-* **Read-only checkbox** state ensures that users can view the checkbox state but cannot modify it.
-* **Disabled checkbox** state implies that the checkbox is not only non-interactive but also visually subdued to convey its inactive status.
+<code-bubble class="not-content horizontal">
 
-<EmbedContent url="https://codesandbox.io/embed/98zkkf?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
 ```html
-<plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal state -->
-<plus-checkbox readonly>Checkbox</plus-checkbox>  <!-- Readonly state -->
-<plus-checkbox disabled>Checkbox</plus-checkbox>  <!-- Disabled state -->
+<plus-checkbox>Unchecked</plus-checkbox>
+<plus-checkbox checked>Checked</plus-checkbox>
+<plus-checkbox indeterminate>Indeterminate</plus-checkbox>
 ```
 
 ```tsx
-import { PlusCheckbox } from '@plusui/react';
+import { PlusCheckbox } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusCheckbox>Checkbox</PlusCheckbox>  {/* Normal state */}
-      <PlusCheckbox readOnly>Checkbox</PlusCheckbox>  {/* Readonly state */}
-      <PlusCheckbox disabled>Checkbox</PlusCheckbox>  {/* Disabled state */}
+      <PlusCheckbox>Unchecked</PlusCheckbox>
+      <PlusCheckbox checked>Checked</PlusCheckbox>
+      <PlusCheckbox indeterminate>Indeterminate</PlusCheckbox>
     </>
   );
 };
@@ -115,47 +84,47 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-checkbox-checked',
   template: `
-    <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal state -->
-    <plus-checkbox readonly>Checkbox</plus-checkbox>  <!-- Readonly state -->
-    <plus-checkbox disabled>Checkbox</plus-checkbox>  <!-- Disabled state -->
+    <plus-checkbox>Unchecked</plus-checkbox>
+    <plus-checkbox checked>Checked</plus-checkbox>
+    <plus-checkbox indeterminate>Indeterminate</plus-checkbox>
   `
 })
-export class AppComponent {}
+export class CheckboxCheckedComponent {}
 ```
 
 ```vue
 <template>
-  <plus-checkbox>Checkbox</plus-checkbox>  <!-- Normal state -->
-  <plus-checkbox readonly>Checkbox</plus-checkbox>  <!-- Readonly state -->
-  <plus-checkbox disabled>Checkbox</plus-checkbox>  <!-- Disabled state -->
+  <plus-checkbox>Unchecked</plus-checkbox>
+  <plus-checkbox checked>Checked</plus-checkbox>
+  <plus-checkbox indeterminate>Indeterminate</plus-checkbox>
 </template>
 ```
+
 </code-bubble>
 
 ### Size
 
-The size property offers flexibility in design, allowing developers to choose from small, medium, and large checkboxes based on their application's aesthetic and layout preferences.
+The `size` prop controls the checkbox dimensions.
 
-<EmbedContent url="https://codesandbox.io/embed/8rhhzv?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content horizontal items-center">
 
-<code-bubble class="not-content">
 ```html
-<plus-checkbox size="sm">Small Checkbox</plus-checkbox>
-<plus-checkbox size="md">Medium Checkbox</plus-checkbox>
-<plus-checkbox size="lg">Large Checkbox</plus-checkbox>
+<plus-checkbox size="sm">Small</plus-checkbox>
+<plus-checkbox size="md">Medium</plus-checkbox>
+<plus-checkbox size="lg">Large</plus-checkbox>
 ```
 
 ```tsx
-import { PlusCheckbox } from '@plusui/react';
+import { PlusCheckbox } from '@plusui/library/react';
 
 export default () => {
   return (
     <>
-      <PlusCheckbox size="sm">Small Checkbox</PlusCheckbox>
-      <PlusCheckbox size="md">Medium Checkbox</PlusCheckbox>
-      <PlusCheckbox size="lg">Large Checkbox</PlusCheckbox>
+      <PlusCheckbox size="sm">Small</PlusCheckbox>
+      <PlusCheckbox size="md">Medium</PlusCheckbox>
+      <PlusCheckbox size="lg">Large</PlusCheckbox>
     </>
   );
 };
@@ -165,43 +134,203 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-checkbox-size',
   template: `
-    <plus-checkbox size="sm">Small Checkbox</plus-checkbox>
-    <plus-checkbox size="md">Medium Checkbox</plus-checkbox>
-    <plus-checkbox size="lg">Large Checkbox</plus-checkbox>
+    <plus-checkbox size="sm">Small</plus-checkbox>
+    <plus-checkbox size="md">Medium</plus-checkbox>
+    <plus-checkbox size="lg">Large</plus-checkbox>
   `
 })
-export class AppComponent {}
+export class CheckboxSizeComponent {}
 ```
 
 ```vue
 <template>
-  <plus-checkbox size="sm">Small Checkbox</plus-checkbox>
-  <plus-checkbox size="md">Medium Checkbox</plus-checkbox>
-  <plus-checkbox size="lg">Large Checkbox</plus-checkbox>
+  <plus-checkbox size="sm">Small</plus-checkbox>
+  <plus-checkbox size="md">Medium</plus-checkbox>
+  <plus-checkbox size="lg">Large</plus-checkbox>
 </template>
 ```
+
 </code-bubble>
 
-### Status
+### Disabled State
 
-* Error checkbox  is the visual cue indicating an error state, often accompanied by an error message.
+Set the `disabled` attribute or prop to prevent user interaction.
 
-<EmbedContent url="https://codesandbox.io/embed/wmqkcz?hidenavigation=1&module=/index.html&view=preview" />
+<code-bubble class="not-content horizontal">
 
-<code-bubble class="not-content">
 ```html
-<plus-checkbox required error caption="This is a required field with an error">Checkbox</plus-checkbox>
+<plus-checkbox disabled>Disabled Unchecked</plus-checkbox>
+<plus-checkbox checked disabled>Disabled Checked</plus-checkbox>
+<plus-checkbox indeterminate disabled>Disabled Indeterminate</plus-checkbox>
 ```
 
 ```tsx
-import { PlusCheckbox } from '@plusui/react';
+import { PlusCheckbox } from '@plusui/library/react';
 
 export default () => {
   return (
-    <PlusCheckbox required error caption="This is a required field with an error">
-      Checkbox
+    <>
+      <PlusCheckbox disabled>Disabled Unchecked</PlusCheckbox>
+      <PlusCheckbox checked disabled>Disabled Checked</PlusCheckbox>
+      <PlusCheckbox indeterminate disabled>Disabled Indeterminate</PlusCheckbox>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-checkbox-disabled',
+  template: `
+    <plus-checkbox disabled>Disabled Unchecked</plus-checkbox>
+    <plus-checkbox checked disabled>Disabled Checked</plus-checkbox>
+    <plus-checkbox indeterminate disabled>Disabled Indeterminate</plus-checkbox>
+  `
+})
+export class CheckboxDisabledComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox disabled>Disabled Unchecked</plus-checkbox>
+  <plus-checkbox checked disabled>Disabled Checked</plus-checkbox>
+  <plus-checkbox indeterminate disabled>Disabled Indeterminate</plus-checkbox>
+</template>
+```
+
+</code-bubble>
+
+### Error State
+
+Set the `error` attribute or prop to indicate a validation error.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-checkbox error>Error Unchecked</plus-checkbox>
+<plus-checkbox checked error>Error Checked</plus-checkbox>
+<plus-checkbox indeterminate error>Error Indeterminate</plus-checkbox>
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusCheckbox error>Error Unchecked</PlusCheckbox>
+      <PlusCheckbox checked error>Error Checked</PlusCheckbox>
+      <PlusCheckbox indeterminate error>Error Indeterminate</PlusCheckbox>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-checkbox-error',
+  template: `
+    <plus-checkbox error>Error Unchecked</plus-checkbox>
+    <plus-checkbox checked error>Error Checked</plus-checkbox>
+    <plus-checkbox indeterminate error>Error Indeterminate</plus-checkbox>
+  `
+})
+export class CheckboxErrorComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox error>Error Unchecked</plus-checkbox>
+  <plus-checkbox checked error>Error Checked</plus-checkbox>
+  <plus-checkbox indeterminate error>Error Indeterminate</plus-checkbox>
+</template>
+```
+
+</code-bubble>
+
+### Labeling
+
+You can provide the label text either via the default slot or the `text` prop. The default slot takes precedence.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-checkbox>Label via Slot</plus-checkbox>
+<plus-checkbox text="Label via Prop"></plus-checkbox>
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusCheckbox>Label via Slot</PlusCheckbox>
+      <PlusCheckbox text="Label via Prop" />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-checkbox-labeling',
+  template: `
+    <plus-checkbox>Label via Slot</plus-checkbox>
+    <plus-checkbox text="Label via Prop"></plus-checkbox>
+  `
+})
+export class CheckboxLabelingComponent {}
+```
+
+```vue
+<template>
+  <plus-checkbox>Label via Slot</plus-checkbox>
+  <plus-checkbox text="Label via Prop"></plus-checkbox>
+</template>
+```
+
+</code-bubble>
+
+### Handling Changes
+
+Listen for the `plus-change` event to react when the checked state changes.
+
+<code-bubble class="not-content">
+
+```html
+<plus-checkbox id="my-checkbox">Notify on Change</plus-checkbox>
+
+<script>
+  document.getElementById('my-checkbox').addEventListener('plus-change', (event) => {
+    console.log('Checkbox changed:', event.target.checked);
+  });
+</script>
+```
+
+```tsx
+import { PlusCheckbox } from '@plusui/library/react';
+import { useState } from 'react';
+
+export default () => {
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChange = (event) => {
+    console.log('Checkbox changed:', event.target.checked);
+    setIsChecked(event.target.checked);
+  };
+
+  return (
+    <PlusCheckbox checked={isChecked} onPlusChange={handleChange}>
+      Notify on Change
     </PlusCheckbox>
   );
 };
@@ -211,151 +340,245 @@ export default () => {
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-checkbox-change',
   template: `
-    <plus-checkbox required error caption="This is a required field with an error">Checkbox</plus-checkbox>
+    <plus-checkbox (plus-change)="handleChange($event)"
+      >Notify on Change</plus-checkbox
+    >
   `
 })
-export class AppComponent {}
+export class CheckboxChangeComponent {
+  handleChange(event: any) {
+    console.log('Checkbox changed:', event.target.checked);
+  }
+}
 ```
 
 ```vue
 <template>
-  <plus-checkbox required error caption="This is a required field with an error">Checkbox</plus-checkbox>
+  <plus-checkbox @plus-change="handleChange">Notify on Change</plus-checkbox>
 </template>
-```
-</code-bubble>
 
-### Required
-
-Required checkbox is s state emphasizing the mandatory nature of the checkbox, typically for required fields, with a distinct visual representation.
-
-<EmbedContent url="https://codesandbox.io/embed/nhn2gg?hidenavigation=1&module=/index.html&view=preview" />
-
-<code-bubble class="not-content">
-```html
-<plus-checkbox required caption="This is a required field">Checkbox</plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/react';
-
-export default () => {
-  return (
-    <PlusCheckbox required caption="This is a required field">
-      Checkbox
-    </PlusCheckbox>
-  );
+<script setup>
+const handleChange = (event) => {
+  console.log('Checkbox changed:', event.target.checked);
 };
+</script>
 ```
 
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <plus-checkbox required caption="This is a required field">Checkbox</plus-checkbox>
-  `
-})
-export class AppComponent {}
-```
-
-```vue
-<template>
-  <plus-checkbox required caption="This is a required field">Checkbox</plus-checkbox>
-</template>
-```
 </code-bubble>
 
 ### Checkbox Group
 
-The Checkbox Group inherits essential properties from the Checkbox, offering seamless integration and consistent behavior. With two additional properties, vertical and horizontal, customization becomes effortless, allowing you to tailor the layout of your checkbox group according to your design preferences. The power lies in the ability to fine-tune the appearance of each checkbox within the group by leveraging the customizable properties inherited from Plus UI's Checkbox component.
-
-<EmbedContent url="https://codesandbox.io/embed/2sp9qn?hidenavigation=1&module=/index.html&view=preview" />
+Use the `plus-checkbox-group` component to group related checkboxes. The group manages the `value` (an array of checked checkbox values) and can control properties like `size` and `disabled` for all nested checkboxes. Use the `vertical` prop on the group to arrange checkboxes vertically.
 
 <code-bubble class="not-content">
+
 ```html
-<plus-checkbox-group label="UI Library Preferences:">
-  <plus-checkbox>Responsive Design</plus-checkbox>
-  <plus-checkbox>Customizable Themes</plus-checkbox>
-  <plus-checkbox>Accessibility Features</plus-checkbox>
+<plus-checkbox-group value=\'["react", "vue"]\' vertical size="sm">
+  <plus-checkbox value="html">HTML</plus-checkbox>
+  <plus-checkbox value="css">CSS</plus-checkbox>
+  <plus-checkbox value="react">React</plus-checkbox>
+  <plus-checkbox value="angular">Angular</plus-checkbox>
+  <plus-checkbox value="vue">Vue</plus-checkbox>
+  <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
 </plus-checkbox-group>
+
+<script>
+  document.querySelector(\'plus-checkbox-group\').addEventListener(\'plus-change\', (event) => {
+    console.log(\'Group value changed:\', event.detail.value);
+  });
+</script>
 ```
 
 ```tsx
-import { PlusCheckboxGroup, PlusCheckbox } from '@plusui/react';
+import { PlusCheckbox, PlusCheckboxGroup } from \'@plusui/library/react\';
+import { useState } from \'react\';
 
 export default () => {
+  const [groupValue, setGroupValue] = useState([\'react\', \'vue\']);
+
+  const handleGroupChange = (event) => {
+    console.log(\'Group value changed:\', event.detail.value);
+    setGroupValue(event.detail.value);
+  };
+
   return (
-    <PlusCheckboxGroup label="UI Library Preferences:">
-      <PlusCheckbox>Responsive Design</PlusCheckbox>
-      <PlusCheckbox>Customizable Themes</PlusCheckbox>
-      <PlusCheckbox>Accessibility Features</PlusCheckbox>
+    <PlusCheckboxGroup value={groupValue} vertical size="sm" onPlusChange={handleGroupChange}>
+      <PlusCheckbox value="html">HTML</PlusCheckbox>
+      <PlusCheckbox value="css">CSS</PlusCheckbox>
+      <PlusCheckbox value="react">React</PlusCheckbox>
+      <PlusCheckbox value="angular">Angular</PlusCheckbox>
+      <PlusCheckbox value="vue">Vue</PlusCheckbox>
+      <PlusCheckbox value="svelte" disabled>Svelte (disabled)</PlusCheckbox>
     </PlusCheckboxGroup>
   );
 };
 ```
 
 ```ts
-import { Component } from '@angular/core';
+import { Component } from \'@angular/core\';
 
 @Component({
-  selector: 'app-root',
+  selector: \'app-checkbox-group\',
   template: `
-    <plus-checkbox-group label="UI Library Preferences:">
-      <plus-checkbox>Responsive Design</plus-checkbox>
-      <plus-checkbox>Customizable Themes</plus-checkbox>
-      <plus-checkbox>Accessibility Features</plus-checkbox>
+    <plus-checkbox-group [value]=\'groupValue\' vertical size="sm" (plus-change)=\'handleGroupChange($event)\'>
+      <plus-checkbox value="html">HTML</plus-checkbox>
+      <plus-checkbox value="css">CSS</plus-checkbox>
+      <plus-checkbox value="react">React</plus-checkbox>
+      <plus-checkbox value="angular">Angular</plus-checkbox>
+      <plus-checkbox value="vue">Vue</plus-checkbox>
+      <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
     </plus-checkbox-group>
   `
 })
-export class AppComponent {}
+export class CheckboxGroupComponent {
+  groupValue = [\'react\', \'vue\'];
+
+  handleGroupChange(event: any) {
+    console.log(\'Group value changed:\', event.detail.value);
+    this.groupValue = event.detail.value;
+  }
+}
 ```
 
 ```vue
 <template>
-  <plus-checkbox-group label="UI Library Preferences:">
-    <plus-checkbox>Responsive Design</plus-checkbox>
-    <plus-checkbox>Customizable Themes</plus-checkbox>
-    <plus-checkbox>Accessibility Features</plus-checkbox>
+  <plus-checkbox-group :value=\'groupValue\' vertical size="sm" @plus-change=\'handleGroupChange\'>
+    <plus-checkbox value="html">HTML</plus-checkbox>
+    <plus-checkbox value="css">CSS</plus-checkbox>
+    <plus-checkbox value="react">React</plus-checkbox>
+    <plus-checkbox value="angular">Angular</plus-checkbox>
+    <plus-checkbox value="vue">Vue</plus-checkbox>
+    <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
   </plus-checkbox-group>
 </template>
+
+<script setup>
+import { ref } from \'vue\';
+
+const groupValue = ref([\'react\', \'vue\']);
+
+const handleGroupChange = (event) => {
+  console.log(\'Group value changed:\', event.detail.value);
+  groupValue.value = event.detail.value;
+};
+</script>
 ```
+
 </code-bubble>
 
-## Layout & Spacing
+## Visual Sections
 
-The layout and spacing of checkbox components play a crucial role in user interface design. Proper alignment and spacing contribute to a visually organized and intuitive form, reducing clutter and enhancing user experience. Consistency in layout ensures that users can quickly identify and interact with checkboxes, creating a cohesive design.
+### Layout & Spacing
 
-<Image src={layoutSpacing} alt="layout and spacing of checkbox component" />
+<Image src={layoutSpacing} alt="Checkbox - layout spacing" />
 
-## Light & Dark Mode
+### Light & Dark Mode
 
-Checkbox components should seamlessly adapt to both light and dark modes to enhance overall user experience. Considerate color choices and contrast adjustments are essential for maintaining visibility and readability in different lighting conditions. Ensuring a harmonious transition between modes allows users to comfortably engage with checkboxes regardless of the interface's overall theme.
+<Image src={lightDarkMode} alt="Checkbox - light & dark mode" />
 
-<Image src={lightDarkMode} alt="light and dark mode of checkbox component" />
+## Accessibility (a11y)
 
-## Accessibility
-
-Accessibility is paramount in checkbox component design, aiming to make them usable for everyone, including individuals with disabilities. This involves providing clear labels, employing proper focus indicators, ensuring keyboard navigation, and utilizing ARIA roles. By prioritizing accessibility, designers contribute to an inclusive digital environment where all users can engage with checkbox components effortlessly.
-
-<table><thead><tr><th>Criteria</th><th width="393">Description</th><th>Status<select><option value="e97a3e7c418846ba82ba0854f38ddd4d" label="✔️ Passed" color="blue"></option><option value="9e9b6ea338a346e4aeeb11bea22d1b6a" label="✔️ AA ~ AAA" color="blue"></option></select></th></tr></thead><tbody><tr><td>ARIA Hidden Elements</td><td>Ensures aria-hidden elements are not focusable nor contain focusable elements</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Inline Text Spacing</td><td>Ensure that text spacing set through style attributes can be adjusted with custom stylesheets</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID’s of active elements</td><td>Ensures every id attribute value of active elements is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>ID Attribute</td><td>Ensures every id attribute value is unique</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Discernible Text</td><td>Ensures links have discernible text</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Tabindex Attribute</td><td>Ensures tabindex attribute values are not greater than 0</td><td><span data-option="e97a3e7c418846ba82ba0854f38ddd4d">✔️ Passed</span></td></tr><tr><td>Color Contrast</td><td>Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds.</td><td><span data-option="9e9b6ea338a346e4aeeb11bea22d1b6a">✔️ AA ~ AAA</span></td></tr></tbody></table>
+*   **Keyboard Behavior:**
+    *   Checkboxes are focusable via the `Tab` key.
+    *   The state can be toggled using the `Space` key when focused.
+*   **Screen Reader:**
+    *   Uses a native `<input type="checkbox">` internally, ensuring standard screen reader announcements for state (checked, unchecked, mixed, disabled).
+    *   The label provided via the slot or `text` prop serves as the accessible name, linked via the `<label>` element.
+    *   `aria-checked` is set to `true`, `false`, or `mixed` based on the `checked` and `indeterminate` props.
+    *   `aria-disabled` is set based on the `disabled` prop.
+    *   `aria-invalid` is set based on the `error` prop.
+*   **Required Developer Actions:**
+    *   **Always provide a visible label** either through the default slot or the `text` prop. Avoid using checkboxes without labels.
+    *   Ensure sufficient color contrast between the checkbox and its background, and the checkmark/text and the checkbox background, especially when customizing colors.
 
 ## Design System
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
 
-## API
+## API Reference
 
-| Property      | Description                               | Type      | Default |
-| ------------- | ----------------------------------------- | --------- | ------- |
-| label         | Label of the checkbox                     | `string`  | -       |
-| name          | Name of the checkbox                      | `string`  | -       |
-| value         | Value of the checkbox                     | `string`  | -       |
-| required      | Whether the checkbox is required          | `boolean` | `false` |
-| disabled      | Whether the checkbox is disabled          | `boolean` | `false` |
-| readonly      | Whether the checkbox is readonly          | `boolean` | `false` |
-| checked       | Whether the checkbox is checked           | `boolean` | `false` |
-| indeterminate | Whether the checkbox is indeterminate     | `boolean` | `false` |
-| plus-change   | Emitted when the checked property changes | `event`   | -       |
+<Aside type="note">
+This section covers the API for both `plus-checkbox` and `plus-checkbox-group`.
+</Aside>
+
+### Properties (`plus-checkbox`)
+
+| Name            | Type                    | Default    | Description                                                                       | Required |
+|-----------------|-------------------------|------------|-----------------------------------------------------------------------------------|----------|
+| `name`          | `string`                | `undefined`| The name attribute for the internal input, used in form submission.             | No       |
+| `size`          | `'sm' \| 'md' \| 'lg'`    | `'md'`     | Size of the checkbox. Inherited from group if nested.                             | No       |
+| `checked`       | `boolean`               | `false`    | Whether the checkbox is checked. Managed by group if nested.                    | No       |
+| `indeterminate` | `boolean`               | `false`    | Whether the checkbox is in an indeterminate state.                                | No       |
+| `disabled`      | `boolean`               | `false`    | Whether the checkbox is disabled. Inherited from group if nested.                   | No       |
+| `value`         | `string`                | `'on'`     | The value submitted with form data when the checkbox is checked.                  | No       |
+| `error`         | `boolean`               | `false`    | Displays the checkbox in an error state (e.g., invalid input).                  | No       |
+| `text`          | `string`                | `undefined`| Text label for the checkbox (alternative to default slot). The slot takes precedence. | No       |
+
+### Properties (`plus-checkbox-group`)
+
+| Name       | Type                    | Default    | Description                                                     | Required |
+|------------|-------------------------|------------|-----------------------------------------------------------------|----------|
+| `value`    | `string[]`              | `[]`       | An array of values corresponding to the checked checkboxes.     | No       |
+| `vertical` | `boolean`               | `false`    | If true, displays checkboxes vertically instead of horizontally. | No       |
+| `size`     | `'sm' \| 'md' \| 'lg'`    | `'md'`     | Sets the size for all nested checkboxes.                       | No       |
+| `disabled` | `boolean`               | `false`    | Disables all nested checkboxes.                                 | No       |
+
+### Events (`plus-checkbox`)
+
+| Name          | Payload Type        | Description                                 |
+|---------------|---------------------|---------------------------------------------|
+| `plus-change` | `Event`             | Fired when the checked state changes.       |
+| `plus-focus`  | `FocusEvent`        | Fired when the checkbox gains focus.        |
+| `plus-blur`   | `FocusEvent`        | Fired when the checkbox loses focus.        |
+
+### Events (`plus-checkbox-group`)
+
+| Name          | Payload Type                      | Description                                      |
+|---------------|-----------------------------------|--------------------------------------------------|
+| `plus-change` | `CustomEvent<{ value: string[] }>` | Fired when the group's value changes (any checkbox toggled). |
+
+### Slots (`plus-checkbox`)
+
+| Name              | Description                                           |
+|-------------------|-------------------------------------------------------|
+| `default` (unnamed) | The label content for the checkbox. Overrides `text`. |
+
+### Slots (`plus-checkbox-group`)
+
+| Name              | Description                           |
+|-------------------|---------------------------------------|
+| `default` (unnamed) | Container for `plus-checkbox` elements. |
+
+### CSS Shadow Parts (`plus-checkbox`)
+
+| Part        | Description                                                           |
+|-------------|-----------------------------------------------------------------------|
+| `base`      | The main container element (`<label>`).                               |
+| `control`   | The container wrapping the visual checkbox and the native input.        |
+| `checkbox`  | The visual representation of the checkbox box.                          |
+| `icon`      | The checkmark or indeterminate icon (`<plus-svg-icon>`).               |
+| `label`     | The container for the label text (slot content or `text` prop).       |
+
+### CSS Shadow Parts (`plus-checkbox-group`)
+
+| Part        | Description                         |
+|-------------|-------------------------------------|
+| `base`      | The main container element (`div`). |
+
+### CSS Custom Properties (`plus-checkbox`)
+
+| Name                              | Description                                               |
+|-----------------------------------|-----------------------------------------------------------|
+| `--checkbox-size`                 | Controls the size of the checkbox control.                |
+| `--checkbox-color-default`        | Default background color of the checkbox.                 |
+| `--checkbox-color-checked`        | Background color when checked or indeterminate.           |
+| `--checkbox-color-border`         | Border color of the checkbox.                             |
+| `--checkbox-color-border-checked` | Border color when checked or indeterminate.               |
+| `--checkbox-color-icon`           | Color of the checkmark or indeterminate icon.             |
+| `--checkbox-border-color-error`   | Border color when in the `error` state.                   |
+
+<Aside type="note">
+`plus-checkbox-group` does not expose specific CSS custom properties; styling is primarily controlled via the nested `plus-checkbox` elements.
+</Aside>
