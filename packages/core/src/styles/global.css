@@ -1,4 +1,4 @@
-@layer theme, base, components, utilities;
+@layer base, plus-ui-core, theme, components, utilities;
 @import 'tailwindcss/theme' layer(theme);
 @import 'tailwindcss/utilities' layer(utilities);
 @config '../../tailwind.config.js';
@@ -29,5 +29,5 @@
 }
 
 @utility plus-ui-element {
-  @apply antialiased font-sans
+  @apply antialiased font-sans;
 }
