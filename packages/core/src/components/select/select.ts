@@ -40,6 +40,11 @@ export default class PlusSelect extends Tailwind {
         width: fit-content;
         height: fit-content;
       }
+      :host([full-width]) {
+        width: 100%;
+        max-width: unset;
+        min-width: unset;
+      }
     `,
   ];
 
@@ -359,6 +364,13 @@ export default class PlusSelect extends Tailwind {
     const slot = this.shadowRoot?.querySelector('slot[name="select-item"]');
     slot?.removeEventListener('slotchange', this.handleSlotChange);
   }
+
+  // setValue(value: string) {
+  //   const item = this.slots.find((item) => item.getAttribute("value") === value);
+  //   if (item) {
+  //     this.selectedItem = item;
+  //   }
+  // }
 
   /**
    * Renders the select component.

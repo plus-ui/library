@@ -9,7 +9,6 @@ export const inputStyle = tv({
     inputWrapper: [
       'flex flex-row items-center justify-start flex-1 w-full cursor-text',
       'rounded border border-solid',
-      'enabled:bg-color-surface enabled:text-color-default',
       'placeholder-color-placeholder',
     ],
     prefix:
@@ -55,7 +54,8 @@ export const inputStyle = tv({
       },
       false: {
         host: 'cursor-text',
-        inputWrapper: 'cursor-text',
+        inputWrapper:
+          'cursor-text bg-color-surface text-color-default',
       },
     },
     readonly: {
