@@ -1,0 +1,452 @@
+---
+title: Accordion
+description: Displays collapsible content panels for presenting information in a limited amount of space.
+---
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/accordion/anatomy.png';
+import layoutSpacing from '../../../assets/components/accordion/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/accordion/light-dark-mode.png';
+
+The Accordion component allows users to toggle the visibility of content sections. It's often used for FAQs, settings panels, or anywhere information needs to be organized concisely. Individual accordion items (`<plus-accordion>`) should typically be wrapped in an `<plus-accordion-group>` for proper styling and behavior, especially when multiple items are present.
+
+## Anatomy
+
+<Image src={anatomy} alt="Accordion - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A single accordion item consists of a header and a panel. Clicking the header toggles the panel's visibility.
+
+<code-bubble class="not-content">
+```html
+<plus-accordion>
+  <div slot="header">Accordion Title</div>
+  <div slot="panel">Accordion Content</div>
+</plus-accordion>
+```
+
+```tsx
+import { PlusAccordion } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <PlusAccordion>
+      <div slot="header">Accordion Title</div>
+      <div slot="panel">Accordion Content</div>
+    </PlusAccordion>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-accordion-basic',
+  template: `
+    <plus-accordion>
+      <div slot="header">Accordion Title</div>
+      <div slot="panel">Accordion Content</div>
+    </plus-accordion>
+  `
+})
+export class AccordionBasicComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion>
+    <div slot="header">Accordion Title</div>
+    <div slot="panel">Accordion Content</div>
+  </plus-accordion>
+</template>
+```
+</code-bubble>
+
+### Grouping Accordions
+
+Wrap multiple `<plus-accordion>` elements in `<plus-accordion-group>` for proper styling and interaction. By default, only one accordion within a group can be open at a time.
+
+<code-bubble class="not-content">
+```html
+<plus-accordion-group>
+  <plus-accordion>
+    <div slot="header">First Item</div>
+    <div slot="panel">Content for the first item.</div>
+  </plus-accordion>
+  <plus-accordion>
+    <div slot="header">Second Item</div>
+    <div slot="panel">Content for the second item.</div>
+  </plus-accordion>
+  <plus-accordion>
+    <div slot="header">Third Item</div>
+    <div slot="panel">Content for the third item.</div>
+  </plus-accordion>
+</plus-accordion-group>
+```
+
+```tsx
+import { PlusAccordion, PlusAccordionGroup } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <PlusAccordionGroup>
+      <PlusAccordion>
+        <div slot="header">First Item</div>
+        <div slot="panel">Content for the first item.</div>
+      </PlusAccordion>
+      <PlusAccordion>
+        <div slot="header">Second Item</div>
+        <div slot="panel">Content for the second item.</div>
+      </PlusAccordion>
+      <PlusAccordion>
+        <div slot="header">Third Item</div>
+        <div slot="panel">Content for the third item.</div>
+      </PlusAccordion>
+    </PlusAccordionGroup>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-accordion-group-basic',
+  template: `
+    <plus-accordion-group>
+      <plus-accordion>
+        <div slot="header">First Item</div>
+        <div slot="panel">Content for the first item.</div>
+      </plus-accordion>
+      <plus-accordion>
+        <div slot="header">Second Item</div>
+        <div slot="panel">Content for the second item.</div>
+      </plus-accordion>
+      <plus-accordion>
+        <div slot="header">Third Item</div>
+        <div slot="panel">Content for the third item.</div>
+      </plus-accordion>
+    </plus-accordion-group>
+  `
+})
+export class AccordionGroupBasicComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion-group>
+    <plus-accordion>
+      <div slot="header">First Item</div>
+      <div slot="panel">Content for the first item.</div>
+    </plus-accordion>
+    <plus-accordion>
+      <div slot="header">Second Item</div>
+      <div slot="panel">Content for the second item.</div>
+    </plus-accordion>
+    <plus-accordion>
+      <div slot="header">Third Item</div>
+      <div slot="panel">Content for the third item.</div>
+    </plus-accordion>
+  </plus-accordion-group>
+</template>
+```
+</code-bubble>
+
+### Multiple Open Items
+
+Set the `multi` attribute on `<plus-accordion-group>` to allow multiple accordion items within the group to be open simultaneously.
+
+<code-bubble class="not-content">
+```html
+<plus-accordion-group multi>
+  <plus-accordion open>
+    <div slot="header">Initially Open Item</div>
+    <div slot="panel">This item starts expanded because of the `open` attribute.</div>
+  </plus-accordion>
+  <plus-accordion>
+    <div slot="header">Another Item</div>
+    <div slot="panel">This can be opened independently.</div>
+  </plus-accordion>
+</plus-accordion-group>
+```
+
+```tsx
+import { PlusAccordion, PlusAccordionGroup } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <PlusAccordionGroup multi>
+      <PlusAccordion open>
+        <div slot="header">Initially Open Item</div>
+        <div slot="panel">This item starts expanded because of the `open` attribute.</div>
+      </PlusAccordion>
+      <PlusAccordion>
+        <div slot="header">Another Item</div>
+        <div slot="panel">This can be opened independently.</div>
+      </PlusAccordion>
+    </PlusAccordionGroup>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-accordion-group-multi',
+  template: `
+    <plus-accordion-group multi>
+      <plus-accordion open>
+        <div slot="header">Initially Open Item</div>
+        <div slot="panel">This item starts expanded because of the `open` attribute.</div>
+      </plus-accordion>
+      <plus-accordion>
+        <div slot="header">Another Item</div>
+        <div slot="panel">This can be opened independently.</div>
+      </plus-accordion>
+    </plus-accordion-group>
+  `
+})
+export class AccordionGroupMultiComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion-group multi>
+    <plus-accordion open>
+      <div slot="header">Initially Open Item</div>
+      <div slot="panel">This item starts expanded because of the `open` attribute.</div>
+    </plus-accordion>
+    <plus-accordion>
+      <div slot="header">Another Item</div>
+      <div slot="panel">This can be opened independently.</div>
+    </plus-accordion>
+  </plus-accordion-group>
+</template>
+```
+</code-bubble>
+
+### Size
+
+Use the `size` attribute on `<plus-accordion-group>` (or individual `<plus-accordion>` if not grouped) to control the overall size.
+
+<code-bubble class="not-content">
+```html
+<plus-accordion-group size="sm">
+  <plus-accordion>
+    <div slot="header">Small Item</div>
+    <div slot="panel">Small content.</div>
+  </plus-accordion>
+</plus-accordion-group>
+
+<plus-accordion-group size="lg">
+  <plus-accordion>
+    <div slot="header">Large Item</div>
+    <div slot="panel">Large content.</div>
+  </plus-accordion>
+</plus-accordion-group>
+```
+
+```tsx
+import { PlusAccordion, PlusAccordionGroup } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusAccordionGroup size="sm">
+        <PlusAccordion>
+          <div slot="header">Small Item</div>
+          <div slot="panel">Small content.</div>
+        </PlusAccordion>
+      </PlusAccordionGroup>
+
+      <PlusAccordionGroup size="lg">
+        <PlusAccordion>
+          <div slot="header">Large Item</div>
+          <div slot="panel">Large content.</div>
+        </PlusAccordion>
+      </PlusAccordionGroup>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-accordion-group-size',
+  template: `
+    <plus-accordion-group size="sm">
+      <plus-accordion>
+        <div slot="header">Small Item</div>
+        <div slot="panel">Small content.</div>
+      </plus-accordion>
+    </plus-accordion-group>
+
+    <plus-accordion-group size="lg">
+      <plus-accordion>
+        <div slot="header">Large Item</div>
+        <div slot="panel">Large content.</div>
+      </plus-accordion>
+    </plus-accordion-group>
+  `
+})
+export class AccordionGroupSizeComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion-group size="sm">
+    <plus-accordion>
+      <div slot="header">Small Item</div>
+      <div slot="panel">Small content.</div>
+    </plus-accordion>
+  </plus-accordion-group>
+
+  <plus-accordion-group size="lg">
+    <plus-accordion>
+      <div slot="header">Large Item</div>
+      <div slot="panel">Large content.</div>
+    </plus-accordion>
+  </plus-accordion-group>
+</template>
+```
+</code-bubble>
+
+### Disabled
+
+Set the `disabled` attribute on `<plus-accordion>` to prevent it from being opened or closed.
+
+<code-bubble class="not-content">
+```html
+<plus-accordion disabled>
+  <div slot="header">Disabled Item</div>
+  <div slot="panel">This content cannot be shown via UI interaction.</div>
+</plus-accordion>
+```
+
+```tsx
+import { PlusAccordion } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <PlusAccordion disabled>
+      <div slot="header">Disabled Item</div>
+      <div slot="panel">This content cannot be shown via UI interaction.</div>
+    </PlusAccordion>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-accordion-disabled',
+  template: `
+    <plus-accordion disabled>
+      <div slot="header">Disabled Item</div>
+      <div slot="panel">This content cannot be shown via UI interaction.</div>
+    </plus-accordion>
+  `
+})
+export class AccordionDisabledComponent {}
+```
+
+```vue
+<template>
+  <plus-accordion disabled>
+    <div slot="header">Disabled Item</div>
+    <div slot="panel">This content cannot be shown via UI interaction.</div>
+  </plus-accordion>
+</template>
+```
+</code-bubble>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Accordion - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Accordion - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   When the accordion header has focus, `Enter` or `Space` toggles the accordion's expansion state.
+    *   Accordion headers are included in the standard tab sequence.
+    *   Disabled accordions are skipped in the tab sequence.
+*   **Screen Reader:**
+    *   The component uses `role="button"` for the header and `role="region"` for the panel.
+    *   `aria-expanded` indicates the state (true/false) of the accordion panel.
+    *   `aria-controls` links the header button to the panel it controls.
+    *   `aria-disabled="true"` is set on disabled accordion headers.
+*   **Required Developer Actions:**
+    *   Ensure the content placed within the `header` slot is descriptive and clearly indicates the topic of the panel content.
+    *   Use `<plus-accordion-group>` when displaying multiple related accordion items for better structure and accessibility.
+
+## API Reference
+
+### `<plus-accordion>`
+
+#### Properties
+
+| Name      | Type                         | Default     | Description                                  | Required |
+|-----------|------------------------------|-------------|----------------------------------------------|----------|
+| `expand`  | `boolean`                    | `false`     | Whether the accordion is expanded.            | No       |
+| `size`    | `'sm' | 'md' | 'lg'`         | `'md'`      | The size of the accordion.                  | No       |
+| `disabled`| `boolean`                    | `false`     | Disables the accordion.                      | No       |
+
+#### Events
+
+| Name                    | Payload Type                           | Description                        |
+|-------------------------|----------------------------------------|------------------------------------|
+| `plus-accordion-toggle` | `CustomEvent<{ expand: boolean }>`    | Fired when the accordion is toggled. |
+
+#### Slots
+
+| Name     | Description                                        |
+|----------|----------------------------------------------------|
+| `header` | The header content (clickable part).             |
+| `panel`  | The content displayed when the accordion is open. |
+| `helper` | Optional helper text displayed next to the header. |
+
+#### CSS Shadow Parts
+
+| Part     | Description                     |
+|----------|---------------------------------|
+| `header` | The header container element.   |
+| `panel`  | The panel container element.    |
+| `icon`   | The expand/collapse icon element.|
+| `helper` | The helper text container.      |
+
+### `<plus-accordion-group>`
+
+#### Properties
+
+| Name   | Type                                     | Default        | Description                                         | Required |
+|--------|------------------------------------------|----------------|-----------------------------------------------------|----------|
+| `multi`| `boolean`                                | `false`        | Allows multiple accordions to be open at once.   | No       |
+| `kind` | `'bordered' | 'divided' | 'separated'` | `'bordered'`   | The visual style of the group.                    | No       |
+| `size` | `'sm' | 'md' | 'lg'`                  | `'md'`         | Sets the size for all accordions in the group.   | No       |
+
+#### Slots
+
+| Name      | Description                                   |
+|-----------|-----------------------------------------------|
+| (default) | Place `<plus-accordion>` elements here.        |
+
+#### CSS Shadow Parts
+
+| Part        | Description                                      |
+|-------------|--------------------------------------------------|
+| `container` | The main container element for the group.       |

@@ -1,0 +1,412 @@
+---
+title: Divider
+description: Visually separates content horizontally or vertically.
+---
+
+import { Image } from 'astro:assets';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/divider/anatomy.png';
+import layoutSpacing from '../../../assets/components/divider/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/divider/light-dark-mode.png';
+
+The Divider component is used to create a visual separation between sections of content or groups of elements. It can be oriented horizontally or vertically and supports different line styles and thicknesses.
+
+## Anatomy
+
+<Image src={anatomy} alt="Divider - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A standard horizontal divider.
+
+<code-bubble class="not-content">
+
+```html
+Content above
+<plus-divider></plus-divider>
+Content below
+```
+
+```tsx
+import { PlusDivider } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <div>
+      Content above
+      <PlusDivider />
+      Content below
+    </div>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-divider-basic',
+  template: `
+    <div>
+      Content above
+      <plus-divider></plus-divider>
+      Content below
+    </div>
+  `
+})
+export class DividerBasicComponent {}
+```
+
+```vue
+<template>
+  <div>
+    Content above
+    <plus-divider></plus-divider>
+    Content below
+  </div>
+</template>
+```
+
+</code-bubble>
+
+### Orientation
+
+Use the `orientation` prop to set the divider direction. Vertical dividers require a defined height on the divider or its container.
+
+<code-bubble class="not-content">
+
+```html
+<!-- Horizontal (default) -->
+<plus-divider></plus-divider>
+
+<!-- Vertical -->
+<div style="height: 50px; display: flex; align-items: center; gap: 1rem;">
+  Left
+  <plus-divider orientation="vertical"></plus-divider>
+  Right
+</div>
+```
+
+```tsx
+import { PlusDivider } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      {/* Horizontal (default) */}
+      <PlusDivider />
+
+      {/* Vertical */}
+      <div style={{ height: '50px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        Left
+        <PlusDivider orientation="vertical" />
+        Right
+      </div>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-divider-orientation',
+  template: `
+    <!-- Horizontal (default) -->
+    <plus-divider></plus-divider>
+
+    <br />
+
+    <!-- Vertical -->
+    <div style="height: 50px; display: flex; align-items: center; gap: 1rem;">
+      Left
+      <plus-divider orientation="vertical"></plus-divider>
+      Right
+    </div>
+  `
+})
+export class DividerOrientationComponent {}
+```
+
+```vue
+<template>
+  <!-- Horizontal (default) -->
+  <plus-divider></plus-divider>
+
+  <br />
+
+  <!-- Vertical -->
+  <div style="height: 50px; display: flex; align-items: center; gap: 1rem;">
+    Left
+    <plus-divider orientation="vertical"></plus-divider>
+    Right
+  </div>
+</template>
+```
+
+</code-bubble>
+
+### Kind
+
+The `kind` prop changes the line style.
+
+<code-bubble class="not-content">
+
+```html
+Solid (Default)
+<plus-divider kind="solid"></plus-divider>
+Dashed
+<plus-divider kind="dashed"></plus-divider>
+Dotted
+<plus-divider kind="dotted"></plus-divider>
+```
+
+```tsx
+import { PlusDivider } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      Solid (Default)
+      <PlusDivider kind="solid" />
+      Dashed
+      <PlusDivider kind="dashed" />
+      Dotted
+      <PlusDivider kind="dotted" />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-divider-kind',
+  template: `
+    Solid (Default)
+    <plus-divider kind="solid"></plus-divider>
+    Dashed
+    <plus-divider kind="dashed"></plus-divider>
+    Dotted
+    <plus-divider kind="dotted"></plus-divider>
+  `
+})
+export class DividerKindComponent {}
+```
+
+```vue
+<template>
+  Solid (Default)
+  <plus-divider kind="solid"></plus-divider>
+  Dashed
+  <plus-divider kind="dashed"></plus-divider>
+  Dotted
+  <plus-divider kind="dotted"></plus-divider>
+</template>
+```
+
+</code-bubble>
+
+### Thickness
+
+The `thickness` prop adjusts the line thickness.
+
+<code-bubble class="not-content">
+
+```html
+Thin (Default)
+<plus-divider thickness="thin"></plus-divider>
+Medium
+<plus-divider thickness="medium"></plus-divider>
+Thick
+<plus-divider thickness="thick"></plus-divider>
+```
+
+```tsx
+import { PlusDivider } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      Thin (Default)
+      <PlusDivider thickness="thin" />
+      Medium
+      <PlusDivider thickness="medium" />
+      Thick
+      <PlusDivider thickness="thick" />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-divider-thickness',
+  template: `
+    Thin (Default)
+    <plus-divider thickness="thin"></plus-divider>
+    Medium
+    <plus-divider thickness="medium"></plus-divider>
+    Thick
+    <plus-divider thickness="thick"></plus-divider>
+  `
+})
+export class DividerThicknessComponent {}
+```
+
+```vue
+<template>
+  Thin (Default)
+  <plus-divider thickness="thin"></plus-divider>
+  Medium
+  <plus-divider thickness="medium"></plus-divider>
+  Thick
+  <plus-divider thickness="thick"></plus-divider>
+</template>
+```
+
+</code-bubble>
+
+### With Text Content
+
+Place text or other elements in the default slot to display content within the divider line. Use `contentPosition` to align the text.
+
+<code-bubble class="not-content">
+
+```html
+<plus-divider contentPosition="left">Left</plus-divider>
+<plus-divider contentPosition="center">Center (Default)</plus-divider>
+<plus-divider contentPosition="right">Right</plus-divider>
+<plus-divider>
+  <plus-icon iconName="star"></plus-icon>
+  With Icon
+  <plus-icon iconName="star"></plus-icon>
+</plus-divider>
+```
+
+```tsx
+import { PlusDivider, PlusIcon } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusDivider contentPosition="left">Left</PlusDivider>
+      <PlusDivider contentPosition="center">Center (Default)</PlusDivider>
+      <PlusDivider contentPosition="right">Right</PlusDivider>
+      <PlusDivider>
+        <PlusIcon iconName="star" />
+        With Icon
+        <PlusIcon iconName="star" />
+      </PlusDivider>
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+// Assuming PlusIcon is available globally or imported
+
+@Component({
+  selector: 'app-divider-content',
+  template: `
+    <plus-divider contentPosition="left">Left</plus-divider>
+    <plus-divider contentPosition="center">Center (Default)</plus-divider>
+    <plus-divider contentPosition="right">Right</plus-divider>
+    <plus-divider>
+      <plus-icon iconName="star"></plus-icon>
+      With Icon
+      <plus-icon iconName="star"></plus-icon>
+    </plus-divider>
+  `
+})
+export class DividerContentComponent {}
+```
+
+```vue
+<template>
+  <plus-divider contentPosition="left">Left</plus-divider>
+  <plus-divider contentPosition="center">Center (Default)</plus-divider>
+  <plus-divider contentPosition="right">Right</plus-divider>
+  <plus-divider>
+    <plus-icon iconName="star"></plus-icon>
+    With Icon
+    <plus-icon iconName="star"></plus-icon>
+  </plus-divider>
+</template>
+
+<script setup>
+// Assuming plus-icon is registered globally or imported
+</script>
+```
+
+</code-bubble>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Divider - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Divider - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Screen Reader:**
+    *   The component uses `role="separator"` implicitly via the host element or explicitly depending on context, indicating its purpose as a separator.
+    *   It is typically non-interactive and not included in the tab order.
+    *   If the divider contains text content (via the slot), ensure the text itself is meaningful or provides context.
+*   **Required Developer Actions:**
+    *   Use dividers semantically to separate distinct groups of content. Avoid using them purely for decoration if a simple margin or padding would suffice.
+    *   Ensure sufficient visual contrast between the divider line and the background, especially when customizing colors using `--divider-color`.
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API Reference
+
+### Properties
+
+| Name              | Type                                         | Default        | Description                                                      | Required |
+|-------------------|----------------------------------------------|----------------|------------------------------------------------------------------|----------|
+| `orientation`     | `'horizontal' \| 'vertical'`                 | `'horizontal'` | Sets the orientation of the divider.                             | No       |
+| `kind`            | `'solid' \| 'dashed' \| 'dotted'`               | `'solid'`      | Sets the line style of the divider.                              | No       |
+| `contentPosition` | `'left' \| 'center' \| 'right'`                | `'center'`     | Aligns the content (slot) within the horizontal divider line.    | No       |
+| `thickness`       | `'thin' \| 'medium' \| 'thick'`                | `'thin'`       | Sets the thickness of the divider line.                          | No       |
+
+### Slots
+
+| Name              | Description                                         |
+|-------------------|-----------------------------------------------------|
+| `default` (unnamed) | Optional content to display within the divider line. |
+
+### CSS Shadow Parts
+
+| Part      | Description                                                       |
+|-----------|-------------------------------------------------------------------| 
+| `divider` | The main container element (`div`).                               |
+| `label`   | The container for the slotted content (when content is present). |
+
+<Aside type="note">
+<p>The `label` part is implicitly the container for the slot content but might not be explicitly targeted in all internal styles.</p>
+</Aside>
+
+### CSS Custom Properties
+
+| Name                  | Description                                |
+|-----------------------|--------------------------------------------|
+| `--divider-color`     | Controls the color of the divider line.    |
+| `--divider-thickness` | Controls the thickness of the divider line. |
+| `--divider-spacing`   | Controls the spacing around the divider.   |
+

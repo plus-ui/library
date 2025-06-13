@@ -1,0 +1,241 @@
+---
+interface Props {
+  title?: string;
+  className?: string;
+}
+
+const { title, className } = Astro.props;
+---
+
+<div class={`framework-preview ${className || ""}`}>
+  <!-- Live Preview Area -->
+  <div class="preview-container">
+    <div class="preview-header">
+      {title && <h3 class="preview-title">{title}</h3>}
+    </div>
+    <div class="preview-content">
+      <slot name="preview" />
+    </div>
+  </div>
+
+  <!-- Toggle Code Button -->
+  <div class="code-toggle-container">
+    <button class="code-toggle-btn" id="code-toggle">
+      <span class="toggle-text">Show Code</span>
+      <svg
+        class="toggle-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 16 16"
+        fill="currentColor"
+      >
+        <path d="M8 12l-4-4h8l-4 4z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Code Examples Container -->
+  <div class="code-container" id="code-container">
+    <div class="code-tabs">
+      <button class="tab-btn active" data-tab="html">HTML</button>
+      <button class="tab-btn" data-tab="react">React</button>
+      <button class="tab-btn" data-tab="angular">Angular</button>
+      <button class="tab-btn" data-tab="vue">Vue</button>
+      <button class="tab-btn" data-tab="svelte">Svelte</button>
+    </div>
+
+    <div class="code-panels">
+      <div class="code-panel active" data-panel="html">
+        <slot name="html" />
+      </div>
+      <div class="code-panel" data-panel="react">
+        <slot name="react" />
+      </div>
+      <div class="code-panel" data-panel="angular">
+        <slot name="angular" />
+      </div>
+      <div class="code-panel" data-panel="vue">
+        <slot name="vue" />
+      </div>
+      <div class="code-panel" data-panel="svelte">
+        <slot name="svelte" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .framework-preview {
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+  }
+
+  .preview-container {
+    background: var(--sl-color-bg);
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  .preview-header {
+    padding: 1rem 1.5rem 0.5rem;
+    border-bottom: 1px solid var(--sl-color-gray-6);
+  }
+
+  .preview-title {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+  }
+
+  .preview-content {
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    background: var(--sl-color-bg-nav);
+  }
+
+  .code-toggle-container {
+    background: var(--sl-color-bg-sidebar);
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+  }
+
+  .code-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.375rem;
+    color: var(--sl-color-text);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .code-toggle-btn:hover {
+    background: var(--sl-color-gray-6);
+  }
+
+  .toggle-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .code-toggle-btn.active .toggle-icon {
+    transform: rotate(180deg);
+  }
+
+  .code-container {
+    display: none;
+    background: var(--sl-color-bg);
+  }
+
+  .code-container.show {
+    display: block;
+  }
+
+  .code-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg-sidebar);
+  }
+
+  .tab-btn {
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    color: var(--sl-color-text-accent);
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .tab-btn:hover {
+    background: var(--sl-color-gray-6);
+  }
+
+  .tab-btn.active {
+    color: var(--sl-color-text);
+    border-bottom-color: var(--sl-color-accent);
+    background: var(--sl-color-bg);
+  }
+
+  .code-panels {
+    position: relative;
+  }
+
+  .code-panel {
+    display: none;
+  }
+
+  .code-panel.active {
+    display: block;
+  }
+
+  .code-panel :global(pre) {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+  }
+
+  @media (max-width: 640px) {
+    .preview-content {
+      padding: 1.5rem 1rem;
+    }
+
+    .code-tabs {
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+</style>
+
+<script>
+  // Toggle code visibility
+  const toggleBtn = document.getElementById("code-toggle");
+  const codeContainer = document.getElementById("code-container");
+  const toggleText = toggleBtn?.querySelector(".toggle-text");
+
+  toggleBtn?.addEventListener("click", () => {
+    const isVisible = codeContainer?.classList.contains("show");
+
+    if (isVisible) {
+      codeContainer?.classList.remove("show");
+      toggleBtn.classList.remove("active");
+      if (toggleText) toggleText.textContent = "Show Code";
+    } else {
+      codeContainer?.classList.add("show");
+      toggleBtn.classList.add("active");
+      if (toggleText) toggleText.textContent = "Hide Code";
+    }
+  });
+
+  // Tab functionality
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const codePanels = document.querySelectorAll(".code-panel");
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.getAttribute("data-tab");
+
+      // Remove active class from all tabs and panels
+      tabBtns.forEach((tab) => tab.classList.remove("active"));
+      codePanels.forEach((panel) => panel.classList.remove("active"));
+
+      // Add active class to clicked tab and corresponding panel
+      btn.classList.add("active");
+      const targetPanel = document.querySelector(`[data-panel="${targetTab}"]`);
+      targetPanel?.classList.add("active");
+    });
+  });
+</script>

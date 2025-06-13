@@ -1,0 +1,165 @@
+---
+title: Link
+description: Creates styled anchor elements for navigation or actions.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/link/anatomy.png';
+import layoutSpacing from '../../../assets/components/link/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/link/light-dark-mode.png';
+
+The Link component renders a styled anchor (`<a>`) tag, providing options for navigation, interaction states, and visual customization like size and underline behavior.
+
+## Anatomy
+
+<Image src={anatomy} alt="Link - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A standard link with an `href` attribute.
+
+<code-bubble class="not-content">
+
+```html
+<plus-link href="https://plusui.com">Visit Plus UI</plus-link>
+```
+
+```tsx
+import { PlusLink } from '@plusui/library/react';
+
+export default () => {
+  return <PlusLink href="https://plusui.com">Visit Plus UI</PlusLink>;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-link-basic',
+  template: ` <plus-link href="https://plusui.com">Visit Plus UI</plus-link> `
+})
+export class LinkBasicComponent {
+}
+```
+
+```vue
+<template>
+  <plus-link href="https://plusui.com">Visit Plus UI</plus-link>
+</template>
+```
+</code-bubble>
+
+### Disabled
+
+Disabled link component ensures that users receive visual and functional cues when a link cannot be interacted with, maintaining a user-friendly and inclusive experience. You can use its variant as true / false.
+
+<code-bubble class="not-content">
+
+```html
+<plus-link disabled>Disabled Link</plus-link>
+<plus-link disabled="false">Enabled Link</plus-link>
+```
+
+```tsx
+import { PlusLink } from '@plusui/library/react';
+
+export const LinkComponent = () => (
+  <div>
+    <PlusLink disabled={true}>Disabled Link</PlusLink>
+    <PlusLink disabled={false}>Enabled Link</PlusLink>
+  </div>
+);
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `<div>
+    <plus-link disabled>Disabled Link</plus-link>
+    <plus-link disabled="false">Enabled Link</plus-link>
+  </div>`
+})
+export class AppComponent {
+}
+```
+
+```vue
+<template>
+  <div>
+    <plus-link disabled>Disabled Link</plus-link>
+    <plus-link disabled="false">Enabled Link</plus-link>
+  </div>
+</template>
+```
+</code-bubble>
+
+## Layout & Spacing
+
+Effective layout and spacing of link components play a vital role in crafting user-friendly, visually appealing, and accessible interfaces. Thoughtful consideration of how links are positioned and the space around them enhances both aesthetics and usability, resulting in an overall improved user experience. Properly spaced and arranged links make it easier for users to navigate and interact with your content, promoting an intuitive and engaging interface.
+
+<Image src={layoutSpacing} alt="layout and spacing of button component" />
+
+## Light & Dark Mode
+
+Implementing light and dark modes for link components enhances user experience, accessibility, and aesthetics. It accommodates various user preferences, improves readability, and keeps your design modern.
+
+<Image src={lightDarkMode} alt="dark and light mode of button component" />
+
+## Accessibility
+
+Accessibility is a core consideration for our link components, just like it is for buttons. Accessible links benefit users with disabilities and enhance the overall user experience, making our digital product more inclusive, user-friendly, and legally compliant. In this section, we'll provide guidelines for ensuring accessibility in our link components.
+
+| Criteria | Description | Status |
+| -------- | ----------- | ------ |
+| ARIA Hidden Elements | Ensures aria-hidden elements are not focusable nor contain focusable elements | Passed |
+| ID Attributes | Ensures every id attribute value is unique | Passed |
+| Discernible Text | Ensures links have discernible text | Passed |
+| Color Contrast | Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds | AA ~ AAA |
+
+
+To learn more about Plus UI's accessibility criteria, please visit Accessibility.
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
+
+## API
+
+### Props
+
+| Property    | Description                           | Type                          | Default    |
+| ----------- | ------------------------------------- | ----------------------------- | ---------- |
+| size        | Controls the size of the link         | 'sm' \| 'md' \| 'lg' \| 'inherit' | 'inherit'  |
+| disabled    | Makes link non-interactive            | boolean                       | false      |
+| readonly    | Makes link non-interactive but styled | boolean                       | false      |
+| href        | URL the link points to               | string                        | ''         |
+| target      | Where to display linked URL          | string                        | ''         |
+| rel         | Relationship to linked document       | string                        | ''         |
+| download    | Download URL instead of navigating    | string                       | ''         |
+| loading     | Shows loading state                   | boolean                      | false      |
+| external    | Opens in new tab securely            | boolean                      | false      |
+| underline   | Controls underline style             | 'always' \| 'hover' \| 'never' | 'hover'    |
+
+### Events
+
+| Event      | Description                    | Event Detail |
+| ---------- | ------------------------------ | ------------ |
+| plus-click | Emitted when link is clicked   | -           |
+| plus-focus | Emitted when link gets focus   | -           |
+| plus-blur  | Emitted when link loses focus  | -           |
+
+### Slots
+
+| Name    | Description                        |
+| ------- | ---------------------------------- |
+| default | Main content of the link           |
+| prefix  | Content before the main content    |
+| suffix  | Content after the main content     |

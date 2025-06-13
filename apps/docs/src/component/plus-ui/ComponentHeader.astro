@@ -1,0 +1,680 @@
+---
+import { Code } from "@astrojs/starlight/components";
+import Changelog from "./Changelog.astro";
+
+const { data } = Astro.props;
+
+const { title, description, version, isComponent, since, updated } = data;
+
+const updatedDate = new Date(updated).toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<div
+  class="not-content bg-color-default-default p-6 rounded mb-6 component-header-block font-normal"
+>
+  <!-- Header Section -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex flex-col gap-1 w-full">
+      <h1 class="text-2xl font-semibold text-color-default m-0">{title}</h1>
+      <p class="text-sm text-color-caption font-normal m-0">{description}</p>
+      <p class="text-xs text-color-caption font-normal m-0">
+        <span class="text-color-caption">Since:</span>
+        <span class="text-color-default">{since}</span>
+        <span class="text-color-caption">Updated:</span>
+        <span class="text-color-default">{updatedDate}</span>
+        <span class="text-color-caption">Version:</span>
+        <span class="text-color-default">{version}</span>
+      </p>
+    </div>
+    <div class="min-w-26 w-26">
+      <plus-select
+        id="framework-select"
+        placeholder="React"
+        size="sm"
+        full-width
+      >
+        <plus-select-item value="react" text="React">React</plus-select-item>
+        <plus-select-item value="angular" text="Angular"
+          >Angular</plus-select-item
+        >
+        <plus-select-item value="vue" text="Vue">Vue</plus-select-item>
+        <plus-select-item value="svelte" text="Svelte">Svelte</plus-select-item>
+        <plus-select-item value="html" text="HTML">HTML</plus-select-item>
+      </plus-select>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <div class="flex flex-col mb-4 gap-3">
+    <!-- Import -->
+    <div class="info-row">
+      <h3 class="info-label">Import</h3>
+      <div class="info-content" data-framework-content="import">
+        <div data-framework="react">
+          <Code
+            code={`import { Plus${title} } from '@plusui/react';`}
+            lang="tsx"
+            frame="none"
+          />
+        </div>
+        <div data-framework="angular">
+          <Code
+            code={`import { Plus${title}Component } from '@plusui/angular';`}
+            lang="tsx"
+            frame="none"
+          />
+        </div>
+        <div data-framework="vue">
+          <Code
+            code={`import { Plus${title} } from '@plusui/vue';`}
+            lang="tsx"
+            frame="none"
+          />
+        </div>
+        <div data-framework="svelte">
+          <Code
+            code={`import Plus${title} from '@plusui/svelte';`}
+            lang="tsx"
+            frame="none"
+          />
+        </div>
+        <div data-framework="html">
+          <Code
+            code={`<script src="https://cdn.jsdelivr.net/npm/@plusui/core"></script>`}
+            lang="tsx"
+            frame="none"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Package -->
+    <div class="info-row">
+      <h3 class="info-label">Package</h3>
+      <div class="info-content" data-framework-content="package">
+        <div data-framework="react">
+          <Code code={`@plusui/react`} lang="markdown" frame="none" />
+        </div>
+        <div data-framework="angular">
+          <Code code={`@plusui/angular`} lang="markdown" frame="none" />
+        </div>
+        <div data-framework="vue">
+          <Code code={`@plusui/vue`} lang="markdown" frame="none" />
+        </div>
+        <div data-framework="svelte">
+          <Code code={`@plusui/svelte`} lang="markdown" frame="none" />
+        </div>
+        <div data-framework="html">
+          <Code code={`@plusui/core`} lang="markdown" frame="none" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Usage -->
+    <div class="info-row">
+      <h3 class="info-label">Usage</h3>
+      <div class="info-content" data-framework-content="usage">
+        <a href="#usage" class="usage-link">
+          <div data-framework="react">
+            <Code code={`<Plus${title} />`} lang="tsx" frame="none" />
+          </div>
+          <div data-framework="angular">
+            <Code
+              code={`<plus-${title.toLowerCase()} />`}
+              lang="tsx"
+              frame="none"
+            />
+          </div>
+          <div data-framework="vue">
+            <Code
+              code={`<plus-${title.toLowerCase()} />`}
+              lang="tsx"
+              frame="none"
+            />
+          </div>
+          <div data-framework="svelte">
+            <Code code={`<Plus${title} />`} lang="tsx" frame="none" />
+          </div>
+          <div data-framework="html">
+            <Code
+              code={`<plus-${title.toLowerCase()} />`}
+              lang="tsx"
+              frame="none"
+            />
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Docs -->
+    <div class="info-row">
+      <h3 class="info-label">Docs</h3>
+      <div class="info-content">
+        <button
+          id="changelog-trigger"
+          class="changelog-trigger"
+          data-component={title.toLowerCase()}
+        >
+          <i class="fa-regular fa-clock"></i>
+          Changelog
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Changelog Modal -->
+<div id="changelog-modal" class="changelog-modal-overlay hidden not-content">
+  <div class="changelog-modal-content">
+    <div class="changelog-modal-header">
+      <button
+        id="changelog-modal-close"
+        class="changelog-modal-close"
+        aria-label="Close changelog"
+      >
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+
+    <div class="changelog-modal-body">
+      <Changelog
+        componentFilter={title.toLowerCase()}
+        isModal={true}
+        maxEntries={10}
+      />
+    </div>
+  </div>
+</div>
+
+<script>
+  // Constants
+  const STORAGE_KEY = "starlight-synced-tabs__code-tab";
+  const DEFAULT_FRAMEWORK = "react";
+
+  const FRAMEWORK_MAPPINGS = {
+    label: {
+      React: "react",
+      Angular: "angular",
+      Vue: "vue",
+      Svelte: "svelte",
+      HTML: "html",
+    },
+    value: {
+      react: "React",
+      angular: "Angular",
+      vue: "Vue",
+      svelte: "Svelte",
+      html: "HTML",
+    },
+  };
+
+  class ComponentHeaderManager {
+    private select: any;
+    private isUpdatingSelect = false;
+    private currentFramework = DEFAULT_FRAMEWORK;
+    private modal: HTMLElement | null = null;
+    private changelogTrigger: HTMLElement | null = null;
+
+    constructor() {
+      this.init();
+    }
+
+    private init(): void {
+      document.addEventListener("DOMContentLoaded", () => {
+        this.select = document.getElementById("framework-select");
+        this.modal = document.getElementById("changelog-modal");
+        this.changelogTrigger = document.getElementById("changelog-trigger");
+        this.setupEventListeners();
+        this.loadSavedFramework();
+      });
+    }
+
+    private setupEventListeners(): void {
+      // Select change listener
+      if (this.select) {
+        this.select.addEventListener(
+          "plus-select-selected-item",
+          this.handleSelectChange.bind(this)
+        );
+      }
+
+      // Storage change listener
+      window.addEventListener("storage", this.handleStorageChange.bind(this));
+
+      // Starlight tabs click listener
+      document.addEventListener("click", this.handleTabClick.bind(this));
+
+      // Changelog modal listeners
+      this.setupModalListeners();
+    }
+
+    private setupModalListeners(): void {
+      // Changelog trigger button
+      this.changelogTrigger?.addEventListener(
+        "click",
+        this.openModal.bind(this)
+      );
+
+      // Modal close button
+      const closeButton = document.getElementById("changelog-modal-close");
+      closeButton?.addEventListener("click", this.closeModal.bind(this));
+
+      // Close on overlay click
+      this.modal?.addEventListener("click", (event) => {
+        if (event.target === this.modal) {
+          this.closeModal();
+        }
+      });
+
+      // Close on escape key
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && this.isModalOpen()) {
+          this.closeModal();
+        }
+      });
+    }
+
+    private openModal(): void {
+      if (!this.modal) return;
+
+      this.modal.classList.remove("hidden");
+      this.modal.classList.add("visible");
+      document.body.classList.add("modal-open");
+
+      // Focus close button for accessibility
+      const closeButton = document.getElementById("changelog-modal-close");
+      closeButton?.focus();
+    }
+
+    private closeModal(): void {
+      if (!this.modal) return;
+
+      this.modal.classList.remove("visible");
+      this.modal.classList.add("hidden");
+      document.body.classList.remove("modal-open");
+    }
+
+    private isModalOpen(): boolean {
+      return this.modal?.classList.contains("visible") || false;
+    }
+
+    private handleSelectChange(event: any): void {
+      if (this.isUpdatingSelect) return;
+
+      const selectedValue = event.detail.selectedItem.getAttribute("value");
+      const frameworkLabel = this.normalizeFramework(selectedValue).label;
+
+      this.updateFrameworkDisplay(selectedValue);
+      this.saveFrameworkPreference(frameworkLabel);
+      this.syncStarlightTabs(frameworkLabel);
+    }
+
+    private handleStorageChange(event: StorageEvent): void {
+      if (event.key === STORAGE_KEY && event.newValue) {
+        const framework = this.normalizeFramework(event.newValue);
+        this.updateFrameworkDisplay(framework.value);
+        this.updateSelectUI(framework.value);
+      }
+    }
+
+    private handleTabClick(event: Event): void {
+      if (this.isUpdatingSelect) return;
+
+      const target = event.target as HTMLElement;
+      const tab = target?.closest('[role="tab"]') as HTMLElement;
+
+      if (!tab) return;
+
+      const starlightTabs = tab.closest(
+        'starlight-tabs[data-sync-key="code-tab"]'
+      );
+      if (!starlightTabs) return;
+
+      const tabLabel = tab.textContent?.trim();
+      if (
+        !tabLabel ||
+        !FRAMEWORK_MAPPINGS.label[
+          tabLabel as keyof typeof FRAMEWORK_MAPPINGS.label
+        ]
+      )
+        return;
+
+      setTimeout(() => {
+        const framework = this.normalizeFramework(tabLabel);
+        this.updateFrameworkDisplay(framework.value);
+        this.updateSelectUI(framework.value);
+        this.saveFrameworkPreference(tabLabel);
+      }, 10);
+    }
+
+    private normalizeFramework(input: string): {
+      value: string;
+      label: string;
+    } {
+      // Check if input is a label (React, Angular, etc.)
+      if (
+        FRAMEWORK_MAPPINGS.label[input as keyof typeof FRAMEWORK_MAPPINGS.label]
+      ) {
+        return {
+          value:
+            FRAMEWORK_MAPPINGS.label[
+              input as keyof typeof FRAMEWORK_MAPPINGS.label
+            ],
+          label: input,
+        };
+      }
+
+      // Check if input is a value (react, angular, etc.)
+      if (
+        FRAMEWORK_MAPPINGS.value[input as keyof typeof FRAMEWORK_MAPPINGS.value]
+      ) {
+        return {
+          value: input,
+          label:
+            FRAMEWORK_MAPPINGS.value[
+              input as keyof typeof FRAMEWORK_MAPPINGS.value
+            ],
+        };
+      }
+
+      // Default fallback
+      return { value: DEFAULT_FRAMEWORK, label: "React" };
+    }
+
+    private updateFrameworkDisplay(frameworkValue: string): void {
+      this.currentFramework = frameworkValue;
+
+      // Hide all framework content
+      const allFrameworkElements =
+        document.querySelectorAll("[data-framework]");
+      allFrameworkElements.forEach((element: Element) => {
+        (element as HTMLElement).style.display = "none";
+      });
+
+      // Show selected framework content
+      const selectedElements = document.querySelectorAll(
+        `[data-framework="${frameworkValue}"]`
+      );
+      selectedElements.forEach((element: Element) => {
+        (element as HTMLElement).style.display = "block";
+      });
+    }
+
+    private updateSelectUI(frameworkValue: string): void {
+      if (!this.select || this.isUpdatingSelect) return;
+
+      this.isUpdatingSelect = true;
+
+      const targetItem = this.select.querySelector(
+        `plus-select-item[value="${frameworkValue}"]`
+      );
+      if (!targetItem) {
+        this.isUpdatingSelect = false;
+        return;
+      }
+
+      // Clear all selections
+      const allItems = this.select.querySelectorAll("plus-select-item");
+      allItems.forEach((item: any) => {
+        item.removeAttribute("selected");
+        item.selected = false;
+      });
+
+      // Set target item as selected
+      targetItem.setAttribute("selected", "true");
+      targetItem.selected = true;
+
+      // Update select component
+      setTimeout(() => {
+        if (this.select.slots && Array.isArray(this.select.slots)) {
+          this.select.slots.forEach((item: any) => {
+            item.selected = false;
+          });
+
+          const targetSlot = this.select.slots.find(
+            (item: any) => item.getAttribute("value") === frameworkValue
+          );
+
+          if (targetSlot) {
+            targetSlot.selected = true;
+            this.select.selectedItem = targetSlot;
+            this.select.requestUpdate();
+          }
+        } else {
+          this.select.selectedItem = targetItem;
+        }
+
+        this.isUpdatingSelect = false;
+      }, 50);
+    }
+
+    private syncStarlightTabs(label: string): void {
+      const starlightTabs = document.querySelectorAll(
+        'starlight-tabs[data-sync-key="code-tab"]'
+      );
+
+      starlightTabs.forEach((tabGroup) => {
+        const tabs = tabGroup.querySelectorAll('[role="tab"]');
+        const panels = tabGroup.querySelectorAll('[role="tabpanel"]');
+
+        tabs.forEach((tab, index) => {
+          const tabLabel = tab.textContent?.trim();
+
+          if (tabLabel === label) {
+            // Reset all tabs and panels
+            tabs.forEach((t) => {
+              t.setAttribute("aria-selected", "false");
+              t.setAttribute("tabindex", "-1");
+            });
+            panels.forEach((p) => p.setAttribute("hidden", "true"));
+
+            // Activate selected tab and panel
+            tab.setAttribute("aria-selected", "true");
+            tab.removeAttribute("tabindex");
+
+            if (panels[index]) {
+              panels[index].removeAttribute("hidden");
+            }
+          }
+        });
+      });
+    }
+
+    private saveFrameworkPreference(label: string): void {
+      localStorage.setItem(STORAGE_KEY, label);
+    }
+
+    private loadSavedFramework(): void {
+      const savedFramework = localStorage.getItem(STORAGE_KEY) || "React";
+      const framework = this.normalizeFramework(savedFramework);
+
+      this.updateFrameworkDisplay(framework.value);
+      this.updateSelectUI(framework.value);
+      this.syncStarlightTabs(framework.label);
+    }
+  }
+
+  // Initialize the component
+  new ComponentHeaderManager();
+</script>
+
+<style is:inline>
+  .component-header-block .expressive-code .ec-line .code {
+    padding-inline-start: 0;
+  }
+
+  .component-header-block .expressive-code pre > code {
+    padding: 0;
+  }
+
+  .component-header-block .expressive-code .copy {
+    inset-block-start: -3px;
+  }
+
+  /* Info row styling */
+  .info-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .info-label {
+    font-size: 0.875rem;
+    font-weight: normal;
+    margin: 0;
+    color: var(--sl-color-text-muted);
+    min-width: 4rem;
+    width: 4rem;
+  }
+
+  .info-content {
+    flex: 1;
+  }
+
+  .usage-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--sl-color-text);
+    text-decoration: none;
+  }
+
+  .docs-link {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--sl-color-text);
+    text-decoration: none;
+  }
+
+  /* Hide all framework content by default */
+  [data-framework] {
+    display: none;
+  }
+
+  /* Changelog trigger button styles */
+  .changelog-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--sl-color-text);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s ease;
+  }
+
+  .changelog-trigger:hover {
+    color: var(--sl-color-accent);
+  }
+
+  /* Modal styles */
+  .changelog-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+  }
+
+  .changelog-modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .changelog-modal-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .changelog-modal-content {
+    background: var(--sl-color-bg);
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+
+  .changelog-modal-overlay.visible .changelog-modal-content {
+    transform: scale(1);
+  }
+
+  .changelog-modal-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-bottom: 1px solid var(--sl-color-hairline);
+    background: var(--sl-color-bg-nav);
+  }
+
+  .changelog-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    color: var(--sl-color-text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition:
+      color 0.2s ease,
+      background-color 0.2s ease;
+  }
+
+  .changelog-modal-close:hover {
+    color: var(--sl-color-text);
+    background-color: var(--sl-color-bg-sidebar);
+  }
+
+  .changelog-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: calc(80vh - 80px);
+  }
+
+  /* Prevent body scroll when modal is open */
+  :global(body.modal-open) {
+    overflow: hidden;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .changelog-modal-overlay {
+      padding: 10px;
+    }
+
+    .changelog-modal-content {
+      max-height: 90vh;
+    }
+
+    .changelog-modal-body {
+      padding: 1rem;
+      max-height: calc(90vh - 70px);
+    }
+  }
+</style>

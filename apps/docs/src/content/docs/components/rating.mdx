@@ -1,0 +1,413 @@
+---
+title: Rating
+description: Displays a star rating that allows users to view and set ratings.
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import EmbedContent from '../../../components/EmbedContent.astro';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/rating/anatomy.png';
+import layoutSpacing from '../../../assets/components/rating/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/rating/light-dark-mode.png';
+
+The Rating component allows users to view or interactively select a rating, typically represented by stars. It supports features like different sizes, precision (half stars), readonly/disabled states, and custom icons.
+
+## Anatomy
+
+<Image src={anatomy} alt="Rating - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A simple rating component allowing users to select a value.
+
+<code-bubble class="not-content">
+
+```html
+<plus-rating value="3"></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+import { useState } from 'react';
+
+export default () => {
+  const [rating, setRating] = useState(3);
+
+  const handleChange = (event: any) => {
+    setRating(event.detail.value);
+  };
+
+  return <PlusRating value={rating} onPlusChange={handleChange} />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-basic',
+  template: `
+    <plus-rating [value]="rating" (plus-change)="handleChange($event)"></plus-rating>
+    <p>Current rating: {{ rating }}</p>
+  `
+})
+export class RatingBasicComponent {
+  rating = 3;
+
+  handleChange(event: any) {
+    this.rating = event.detail.value;
+  }
+}
+```
+
+```vue
+<template>
+  <plus-rating :value="rating" @plus-change="handleChange"></plus-rating>
+  <p>Current rating: {{ rating }}</p>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+const rating = ref(3);
+
+const handleChange = (event) => {
+  rating.value = event.detail.value;
+};
+</script>
+```
+</code-bubble>
+
+### Size
+
+Use the `size` prop to control the rating item size.
+
+<code-bubble class="not-content horizontal items-center">
+
+```html
+<plus-rating size="sm" value="3"></plus-rating>
+<plus-rating size="md" value="3"></plus-rating>
+<plus-rating size="lg" value="3"></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusRating size="sm" value={3} />
+      <PlusRating size="md" value={3} />
+      <PlusRating size="lg" value={3} />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-size',
+  template: `
+    <plus-rating size="sm" value="3"></plus-rating>
+    <plus-rating size="md" value="3"></plus-rating>
+    <plus-rating size="lg" value="3"></plus-rating>
+  `
+})
+export class RatingSizeComponent {}
+```
+
+```vue
+<template>
+  <plus-rating size="sm" value="3"></plus-rating>
+  <plus-rating size="md" value="3"></plus-rating>
+  <plus-rating size="lg" value="3"></plus-rating>
+</template>
+```
+</code-bubble>
+
+### Precision
+
+The `precision` prop allows for fractional ratings (e.g., half stars).
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-rating value="3.5" precision="0.5"></plus-rating>
+<plus-rating value="2.7" precision="0.1"></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusRating value={3.5} precision={0.5} />
+      <PlusRating value={2.7} precision={0.1} />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-precision',
+  template: `
+    <plus-rating value="3.5" precision="0.5"></plus-rating>
+    <plus-rating value="2.7" precision="0.1"></plus-rating>
+  `
+})
+export class RatingPrecisionComponent {}
+```
+
+```vue
+<template>
+  <plus-rating value="3.5" precision="0.5"></plus-rating>
+  <plus-rating value="2.7" precision="0.1"></plus-rating>
+</template>
+```
+</code-bubble>
+
+### Max Value
+
+Use the `max` prop to set the maximum number of rating items.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-rating value="7" max="10"></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+
+export default () => {
+  return <PlusRating value={7} max={10} />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-max',
+  template: `
+    <plus-rating value="7" max="10"></plus-rating>
+  `
+})
+export class RatingMaxComponent {}
+```
+
+```vue
+<template>
+  <plus-rating value="7" max="10"></plus-rating>
+</template>
+```
+</code-bubble>
+
+### Readonly & Disabled
+
+Set `readonly` to display a rating without allowing changes, or `disabled` to make it visually disabled and non-interactive.
+
+<code-bubble class="not-content horizontal items-center">
+
+```html
+<plus-rating value="4" readonly></plus-rating>
+<plus-rating value="2" disabled></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+
+export default () => {
+  return (
+    <>
+      <PlusRating value={4} readonly />
+      <PlusRating value={2} disabled />
+    </>
+  );
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-states',
+  template: `
+    <plus-rating value="4" readonly></plus-rating>
+    <plus-rating value="2" disabled></plus-rating>
+  `
+})
+export class RatingStatesComponent {}
+```
+
+```vue
+<template>
+  <plus-rating value="4" readonly></plus-rating>
+  <plus-rating value="2" disabled></plus-rating>
+</template>
+```
+</code-bubble>
+
+### Custom Icons
+
+Use `empty-icon-name` and `filled-icon-name` to specify different icons.
+
+<code-bubble class="not-content horizontal">
+
+```html
+<plus-rating value="3" empty-icon-name="regular-heart" filled-icon-name="solid-heart"></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+
+export default () => {
+  return <PlusRating value={3} emptyIconName="regular-heart" filledIconName="solid-heart" />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-icons',
+  template: `
+    <plus-rating value="3" empty-icon-name="regular-heart" filled-icon-name="solid-heart"></plus-rating>
+  `
+})
+export class RatingIconsComponent {}
+```
+
+```vue
+<template>
+  <plus-rating value="3" empty-icon-name="regular-heart" filled-icon-name="solid-heart"></plus-rating>
+</template>
+```
+</code-bubble>
+
+### Label and Caption
+
+Use `label` and `caption` props to add context.
+
+<code-bubble class="not-content">
+
+```html
+<plus-rating value="4" label="Product Rating" caption="Based on user reviews"></plus-rating>
+```
+
+```tsx
+import { PlusRating } from '@plusui/library/react';
+
+export default () => {
+  return <PlusRating value={4} label="Product Rating" caption="Based on user reviews" />;
+};
+```
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-rating-label-caption',
+  template: `
+    <plus-rating value="4" label="Product Rating" caption="Based on user reviews"></plus-rating>
+  `
+})
+export class RatingLabelCaptionComponent {}
+```
+
+```vue
+<template>
+  <plus-rating value="4" label="Product Rating" caption="Based on user reviews"></plus-rating>
+</template>
+```
+</code-bubble>
+
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Rating - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Rating - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   The rating component is focusable (`Tab`).
+    *   When focused, `ArrowLeft` decreases the rating by `precision`.
+    *   `ArrowRight` increases the rating by `precision`.
+    *   `Home` sets the rating to 0.
+    *   `End` sets the rating to `max`.
+*   **Screen Reader:**
+    *   The component uses `role="slider"`.
+    *   `aria-valuemin="0"`, `aria-valuemax`, and `aria-valuenow` reflect the rating state.
+    *   `aria-label` or `aria-labelledby` provides the accessible name (uses `label` prop if provided).
+    *   `aria-describedby` points to the caption if present.
+    *   `aria-readonly` and `aria-disabled` reflect the respective states.
+    *   `aria-valuetext` provides a human-readable version of the current value (e.g., "3 out of 5 stars").
+    *   `aria-required` indicates if the rating is mandatory.
+    *   `aria-invalid` indicates an error state (e.g., if required but no value set).
+*   **Required Developer Actions:**
+    *   Provide a `label` prop or ensure an external label is associated via `aria-labelledby` for context.
+    *   If used in a form and required, set the `required` prop.
+
+## API Reference
+
+### Props
+
+| Name             | Type                   | Default             | Description                                                         | Required |
+|------------------|------------------------|---------------------|---------------------------------------------------------------------|----------|
+| `value`          | `number`               | `0`                 | The current rating value.                                           | No       |
+| `max`            | `number`               | `5`                 | The maximum rating value (number of items).                         | No       |
+| `precision`      | `number`               | `1`                 | The precision for rating steps (e.g., 1 for full, 0.5 for half). | No       |
+| `readonly`       | `boolean`              | `false`             | Makes the rating display-only, preventing user interaction.         | No       |
+| `disabled`       | `boolean`              | `false`             | Disables the rating component entirely.                             | No       |
+| `size`           | `'sm' \| 'md' \| 'lg'` | `'md'`              | Size of the rating items.                                           | No       |
+| `name`           | `string`               | `undefined`         | Name attribute, potentially for form integration.                   | No       |
+| `emptyIconName`  | `string`               | `'regular-star'`    | The name of the SVG icon to use for empty rating items.             | No       |
+| `filledIconName` | `string`               | `'solid-star'`      | The name of the SVG icon to use for filled rating items.            | No       |
+| `label`          | `string`               | `undefined`         | An accessible label for the rating component.                       | No       |
+| `caption`        | `string`               | `undefined`         | Optional descriptive text displayed below the rating.               | No       |
+| `required`       | `boolean`              | `false`             | Indicates if a rating value is required.                            | No       |
+
+### Events
+
+| Name          | Payload Type                  | Description                                                   |
+|---------------|-------------------------------|---------------------------------------------------------------|
+| `plus-change` | `CustomEvent<{ value: number }>` | Fired when the rating value changes via user interaction.     |
+| `plus-hover`  | `CustomEvent<{ phase: string, value: number }>` | Fired when the user hovers over a star (`phase`: 'start'/'end'). |
+
+### Slots
+
+_This component does not currently utilize named slots beyond the default slot for potential future extension._
+
+### CSS Shadow Parts
+
+| Part             | Description                               |
+|------------------|-------------------------------------------|
+| `host`           | The main container element.               |
+| `star-container` | The container for each star icon.       |
+| `star-icon`      | Each individual star icon element.        |
+| `star-partial`   | The element used to display partial stars. |
+
+### CSS Custom Properties
+
+| Name                      | Default Value                   | Description                       |
+|---------------------------|---------------------------------|-----------------------------------|
+| `--star-color-active`     | `var(--plus-color-warning-500)` | Color of active/selected stars.   |
+| `--star-color-inactive`   | `var(--plus-color-neutral-300)` | Color of inactive/empty stars.    |
+| `--star-color-hover`      | `var(--plus-color-warning-400)` | Color of stars on hover (approx). |
+
+``` 
