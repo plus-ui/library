@@ -8,5 +8,8 @@
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "tailwindCSS.classFunctions": ["tw", "tv", "clsx"]
+  "tailwindCSS.classFunctions": ["tw", "tv", "clsx"],
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  }
 }
