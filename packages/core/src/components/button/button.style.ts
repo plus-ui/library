@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants';
 export const baseButtonStyle = tv({
   slots: {
     base: [
-      'button plus-button plus-ui-element',
+      'button plus-button plus-ui-element font-medium',
       'inline-flex items-center justify-center',
       'rounded-default',
       'border',
