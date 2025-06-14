@@ -23,10 +23,10 @@ const shouldRenderSearch =
     {shouldRenderSearch && <Search />}
   </div>
   <div class="sl-hidden md:sl-flex print:hidden right-group">
+    <ThemeSelect />
     <div class="sl-flex social-icons">
       <SocialIcons />
     </div>
-    <ThemeSelect />
     <LanguageSelect />
 
     <plus-button kind="text" size="sm"> Sign in </plus-button>
@@ -44,6 +44,8 @@ const shouldRenderSearch =
       justify-content: space-between;
       align-items: center;
       height: 100%;
+      max-width: none;
+      margin: 0 auto;
     }
 
     .title-wrapper {
@@ -66,42 +68,35 @@ const shouldRenderSearch =
       border-inline-end: 1px solid var(--background-color-color-divider);
     }
 
-    @media (min-width: 50rem) {
-      :global(:root[data-has-sidebar]) {
-        --__sidebar-pad: calc(2 * var(--sl-nav-pad-x));
-      }
-      :global(:root:not([data-has-toc])) {
-        --__toc-width: 0rem;
-      }
+    @media (min-width: 1400px) {
       .header {
-        --__sidebar-width: max(
-          0rem,
-          var(--sl-content-inline-start, 0rem) - var(--sl-nav-pad-x)
-        );
-        --__main-column-fr: calc(
-          (
-              100% + var(--__sidebar-pad, 0rem) -
-                var(--__toc-width, var(--sl-sidebar-width)) -
-                (2 * var(--__toc-width, var(--sl-nav-pad-x))) -
-                var(--sl-content-inline-start, 0rem) - var(--sl-content-width)
-            ) / 2
-        );
+        /* Geniş ekranlarda özel layout */
+        max-width: 1400px;
+        margin: 0 auto;
         display: grid;
-        grid-template-columns:
-        /* 1 (site title): runs up until the main content column’s left edge or the width of the title, whichever is the largest  */
-          minmax(
-            calc(
-              var(--__sidebar-width) +
-                max(0rem, var(--__main-column-fr) - var(--sl-nav-gap))
-            ),
-            auto
-          )
-          /* 2 (search box): all free space that is available. */
+        grid-template-columns: 
+          /* 1. Logo alanı - sidebar genişliği kadar */
+          16rem
+          /* 2. Search alanı - kalan alan */
           1fr
-          /* 3 (right items): use the space that these need. */
+          /* 3. Right group - ihtiyaca göre */
           auto;
+        gap: var(--sl-nav-gap);
         align-content: center;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
     }
+  }
+
+  .header-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
   }
 </style>

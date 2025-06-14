@@ -171,6 +171,7 @@ export default defineConfig({
         // TwoColumnContent:"./src/component/starlight-overrides/TwoColumnContent.astro",
         PageTitle: "./src/component/starlight-overrides/PageTitle.astro",
         // ThemeSelect: "./src/component/starlight-overrides/ThemeSelect.astro",
+        SocialIcons: "./src/component/starlight-overrides/SocialIcons.astro",
       },
       expressiveCode: {
         // Replace the default themes with a custom set of bundled themes:
