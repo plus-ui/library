@@ -167,28 +167,24 @@ const updatedDate = new Date(updated).toLocaleDateString("en-US", {
   </div>
 </div>
 
-<!-- Changelog Modal -->
-<div id="changelog-modal" class="changelog-modal-overlay hidden not-content">
-  <div class="changelog-modal-content">
-    <div class="changelog-modal-header">
-      <button
-        id="changelog-modal-close"
-        class="changelog-modal-close"
-        aria-label="Close changelog"
-      >
-        <i class="fa-solid fa-times"></i>
-      </button>
-    </div>
-
-    <div class="changelog-modal-body">
-      <Changelog
-        componentFilter={title.toLowerCase()}
-        isModal={true}
-        maxEntries={10}
-      />
-    </div>
+<!-- Changelog Drawer -->
+<plus-drawer
+  id="changelog-drawer"
+  orientation="right"
+  size="lg"
+  class="not-content"
+>
+  <div slot="header">
+    <h2 class="text-lg font-semibold m-0">Changelog</h2>
   </div>
-</div>
+  <div slot="body">
+    <Changelog
+      componentFilter={title.toLowerCase()}
+      isModal={true}
+      maxEntries={10}
+    />
+  </div>
+</plus-drawer>
 
 <script>
   // Constants
@@ -216,7 +212,7 @@ const updatedDate = new Date(updated).toLocaleDateString("en-US", {
     private select: any;
     private isUpdatingSelect = false;
     private currentFramework = DEFAULT_FRAMEWORK;
-    private modal: HTMLElement | null = null;
+    private drawer: HTMLElement | null = null;
     private changelogTrigger: HTMLElement | null = null;
 
     constructor() {
@@ -226,7 +222,7 @@ const updatedDate = new Date(updated).toLocaleDateString("en-US", {
     private init(): void {
       document.addEventListener("DOMContentLoaded", () => {
         this.select = document.getElementById("framework-select");
-        this.modal = document.getElementById("changelog-modal");
+        this.drawer = document.getElementById("changelog-drawer");
         this.changelogTrigger = document.getElementById("changelog-trigger");
         this.setupEventListeners();
         this.loadSavedFramework();
@@ -248,58 +244,35 @@ const updatedDate = new Date(updated).toLocaleDateString("en-US", {
       // Starlight tabs click listener
       document.addEventListener("click", this.handleTabClick.bind(this));
 
-      // Changelog modal listeners
-      this.setupModalListeners();
+      // Changelog drawer listeners
+      this.setupDrawerListeners();
     }
 
-    private setupModalListeners(): void {
+    private setupDrawerListeners(): void {
       // Changelog trigger button
       this.changelogTrigger?.addEventListener(
         "click",
-        this.openModal.bind(this)
+        this.openDrawer.bind(this)
       );
 
-      // Modal close button
-      const closeButton = document.getElementById("changelog-modal-close");
-      closeButton?.addEventListener("click", this.closeModal.bind(this));
-
-      // Close on overlay click
-      this.modal?.addEventListener("click", (event) => {
-        if (event.target === this.modal) {
-          this.closeModal();
-        }
+      // Drawer event listeners
+      this.drawer?.addEventListener("plus-drawer-before-show", () => {
+        console.log("Drawer opening...");
       });
 
-      // Close on escape key
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && this.isModalOpen()) {
-          this.closeModal();
-        }
+      this.drawer?.addEventListener("plus-drawer-hide", () => {
+        console.log("Drawer closed");
       });
     }
 
-    private openModal(): void {
-      if (!this.modal) return;
-
-      this.modal.classList.remove("hidden");
-      this.modal.classList.add("visible");
-      document.body.classList.add("modal-open");
-
-      // Focus close button for accessibility
-      const closeButton = document.getElementById("changelog-modal-close");
-      closeButton?.focus();
+    private openDrawer(): void {
+      if (!this.drawer) return;
+      (this.drawer as any).show();
     }
 
-    private closeModal(): void {
-      if (!this.modal) return;
-
-      this.modal.classList.remove("visible");
-      this.modal.classList.add("hidden");
-      document.body.classList.remove("modal-open");
-    }
-
-    private isModalOpen(): boolean {
-      return this.modal?.classList.contains("visible") || false;
+    private closeDrawer(): void {
+      if (!this.drawer) return;
+      (this.drawer as any).hide();
     }
 
     private handleSelectChange(event: any): void {
@@ -576,105 +549,5 @@ const updatedDate = new Date(updated).toLocaleDateString("en-US", {
 
   .changelog-trigger:hover {
     color: var(--sl-color-accent);
-  }
-
-  /* Modal styles */
-  .changelog-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    margin: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition:
-      opacity 0.3s ease,
-      visibility 0.3s ease;
-  }
-
-  .changelog-modal-overlay.visible {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .changelog-modal-overlay.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-
-  .changelog-modal-content {
-    background: var(--sl-color-bg);
-    border-radius: 8px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    width: 100%;
-    max-height: 80vh;
-    overflow: hidden;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-  }
-
-  .changelog-modal-overlay.visible .changelog-modal-content {
-    transform: scale(1);
-  }
-
-  .changelog-modal-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 1rem;
-    border-bottom: 1px solid var(--sl-color-hairline);
-    background: var(--sl-color-bg-nav);
-  }
-
-  .changelog-modal-close {
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    color: var(--sl-color-text-muted);
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition:
-      color 0.2s ease,
-      background-color 0.2s ease;
-  }
-
-  .changelog-modal-close:hover {
-    color: var(--sl-color-text);
-    background-color: var(--sl-color-bg-sidebar);
-  }
-
-  .changelog-modal-body {
-    padding: 1.5rem;
-    overflow-y: auto;
-    max-height: calc(80vh - 80px);
-  }
-
-  /* Prevent body scroll when modal is open */
-  :global(body.modal-open) {
-    overflow: hidden;
-  }
-
-  /* Mobile responsive */
-  @media (max-width: 768px) {
-    .changelog-modal-overlay {
-      padding: 10px;
-    }
-
-    .changelog-modal-content {
-      max-height: 90vh;
-    }
-
-    .changelog-modal-body {
-      padding: 1rem;
-      max-height: calc(90vh - 70px);
-    }
   }
 </style>
