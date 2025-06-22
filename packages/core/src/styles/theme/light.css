@@ -1,4 +1,4 @@
-@theme {
+:root {
   --plus-color-background-surface: var(--plus-color-base-white);
   --plus-color-background-disabled-default: var(--plus-color-neutral-200);
   --plus-color-background-transparent: var(--plus-color-base-transparent);
