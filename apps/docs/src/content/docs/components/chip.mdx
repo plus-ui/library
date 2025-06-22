@@ -1,0 +1,275 @@
+---
+title: Chip
+description: Represents tags, categories, attributes, or simple selections in a compact format.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/chip/anatomy.png';
+import layoutSpacing from '../../../assets/components/chip/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/chip/light-dark-mode.png';
+
+The Chip component displays information such as tags, categories, attributes, or selections in a compact and optionally interactive format. It supports various styles, sizes, and statuses.
+
+## Anatomy
+
+<Image src={anatomy} alt="Chip - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A standard chip using default settings.
+
+<CodePreview autoGeneration={true}>
+  <plus-chip>Default Chip</plus-chip>
+</CodePreview>
+
+### Kind
+
+The `kind` prop defines the chip's visual style: `filled` (solid background) or `outlined` (transparent with border).
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-kind="filled,outlined">Kind</plus-chip>
+</CodePreview>
+
+### Status
+
+The `status` prop sets the chip's color scheme to convey semantic meaning.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-status="default,info,success,warning,danger">Status</plus-chip>
+</CodePreview>
+
+### Size
+
+The `size` prop controls the chip's dimensions.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-size="sm,md,lg">Size</plus-chip>
+</CodePreview>
+
+### Shape
+
+The `shape` prop controls the border radius: `full` (pill shape) or `rounded` (slightly rounded corners).
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-shape="full,rounded">Shape</plus-chip>
+</CodePreview>
+
+### Invert
+
+Set the `invert` prop to use an inverted color scheme, typically for display on darker backgrounds.
+
+<CodePreview autoGeneration={true} horizontal>
+    <plus-chip data-variant-status="default,info,success,warning,danger" invert>Inverted</plus-chip>
+</CodePreview>
+
+### Dismissible
+
+Set the `dismiss` prop to add a close button. Clicking it fires the `dismiss` event.
+
+<CodePreview autoGeneration={false} customScript="document.querySelectorAll('plus-chip[dismiss]').forEach(chip => { chip.addEventListener('dismiss', () => { console.log('Chip dismissed!'); chip.style.display = 'none'; }); });" showConsole horizontal>
+  <plus-chip dismiss>Dismissible</plus-chip>
+  <plus-chip dismiss kind="outlined">Outlined Dismiss</plus-chip>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusChip } from '@plusui/react';
+
+    export default () => {
+      const handleDismiss = (event) => {
+        console.log('Chip dismissed!');
+        event.target.style.display = 'none'; // Example: hide the chip
+      };
+
+      return (
+        <>
+          <PlusChip dismiss onDismiss={handleDismiss}>Dismissible</PlusChip>
+          <PlusChip dismiss kind="outlined" onDismiss={handleDismiss}>
+            Outlined Dismiss
+          </PlusChip>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-chip-dismiss',
+      template: `
+        <plus-chip dismiss (dismiss)="handleDismiss($event)">Dismissible</plus-chip>
+        <plus-chip dismiss kind="outlined" (dismiss)="handleDismiss($event)">
+          Outlined Dismiss
+        </plus-chip>
+      `
+    })
+    export class ChipDismissComponent {
+      handleDismiss(event: Event) {
+        console.log('Chip dismissed!');
+        (event.target as HTMLElement).style.display = 'none'; // Example: hide the chip
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-chip dismiss @dismiss="handleDismiss">Dismissible</plus-chip>
+      <plus-chip dismiss kind="outlined" @dismiss="handleDismiss">
+        Outlined Dismiss
+      </plus-chip>
+    </template>
+
+    <script setup>
+    const handleDismiss = (event) => {
+      console.log('Chip dismissed!');
+      event.target.style.display = 'none'; // Example: hide the chip
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let chipElements = [];
+
+      onMount(() => {
+        chipElements.forEach(chip => {
+          if (chip) {
+            chip.addEventListener('dismiss', () => {
+              console.log('Chip dismissed!');
+              chip.style.display = 'none';
+            });
+          }
+        });
+      });
+    </script>
+
+    <plus-chip bind:this={chipElements[0]} dismiss>Dismissible</plus-chip>
+    <plus-chip bind:this={chipElements[1]} dismiss kind="outlined">
+      Outlined Dismiss
+    </plus-chip>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-chip dismiss id="dismissible-chip">Dismissible</plus-chip>
+    <plus-chip dismiss kind="outlined" id="outlined-dismiss-chip">
+      Outlined Dismiss
+    </plus-chip>
+
+    <script>
+      document.querySelectorAll('plus-chip[dismiss]').forEach(chip => {
+        chip.addEventListener('dismiss', () => {
+          console.log('Chip dismissed!');
+          chip.style.display = 'none'; // Example: hide the chip
+        });
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+### Disabled State
+
+Set the `disabled` prop to prevent user interaction, including dismissing.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip disabled>Disabled</plus-chip>
+  <plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
+  <plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
+</CodePreview>
+
+<Aside type="note">
+<p>The `type="avatar"` prop is available but its specific usage and styling require integration with the Avatar component or custom styling. Examples are omitted here as they depend on external components or custom CSS.</p>
+</Aside>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Chip - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Chip - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Chips are focusable via the `Tab` key if not disabled.
+    *   If a chip is `dismiss`ible, the dismiss button (`plus-icon`) is focusable and can be activated with `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component has `role="status"` and `aria-live="polite"`.
+    *   `aria-label` is set based on the `status` prop (e.g., "success chip"). Consider providing more specific context if needed, potentially via an `aria-labelledby` attribute pointing to associated text.
+    *   `aria-disabled` is set based on the `disabled` prop.
+    *   The dismiss button has an `aria-label="Remove"`.
+*   **Required Developer Actions:**
+    *   Ensure the chip's content (passed via the default slot) is meaningful and understandable.
+    *   If chips represent interactive elements (like filters), consider using a more appropriate role (e.g., `button` or `checkbox`) depending on the interaction model, potentially by wrapping the `plus-chip` or using a different component.
+    *   Ensure sufficient color contrast between the chip's text/icon and its background, especially when using `status` colors or customizing with CSS properties.
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API Reference
+
+### Properties
+
+| Name       | Type                                                              | Default     | Description                                                 | Required |
+|------------|-------------------------------------------------------------------|-------------|-------------------------------------------------------------|----------|
+| `kind`     | `'filled' \| 'outlined'`                                        | `'filled'`  | Visual style of the chip.                                   | No       |
+| `size`     | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Size of the chip.                                           | No       |
+| `type`     | `'default' \| 'avatar'`                                        | `'default'` | Type of chip, affecting potential internal layout (e.g., for avatar). | No       |
+| `status`   | `'default' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Status/color variant of the chip.                         | No       |
+| `shape`    | `'full' \| 'rounded'`                                         | `'full'`    | Controls the border radius style.                           | No       |
+| `invert`   | `boolean`                                                         | `false`     | Toggles the inverted color scheme.                          | No       |
+| `dismiss`  | `boolean`                                                         | `false`     | Shows a dismiss button.                                     | No       |
+| `disabled` | `boolean`                                                         | `false`     | Disables chip interaction, including the dismiss button.    | No       |
+
+### Events
+
+| Name      | Payload Type        | Description                                      |
+|-----------|---------------------|--------------------------------------------------|
+| `dismiss` | `CustomEvent<void>` | Fired when the dismiss button is clicked.        |
+
+### Slots
+
+| Name              | Description                      |
+|-------------------|----------------------------------|
+| `default` (unnamed) | The main content of the chip.    |
+
+### CSS Shadow Parts
+
+| Part   | Description                             |
+|--------|-----------------------------------------|
+| `base` | The main chip container element (`div`). |
+| `icon` | The dismiss icon container (`plus-icon`). |
+
+### CSS Custom Properties
+
+| Name           | Description                          |
+|----------------|--------------------------------------|
+| `--text-color` | Controls the text color.             |
+| `--border-color` | Controls the border color.           |
+| `--bg-default` | Controls the default background color. |
+| `--bg-hovered` | Controls the background on hover.    |
+| `--bg-pressed` | Controls the background when pressed. |
+| `--bg-focused` | Controls the background when focused. |
+

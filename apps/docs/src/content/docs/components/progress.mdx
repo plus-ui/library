@@ -1,0 +1,191 @@
+---
+title: Progress
+description: Displays the progress of a task or process with visual feedback.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/progress/anatomy.png';
+import layoutSpacing from '../../../assets/components/progress/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/progress/light-dark-mode.png';
+
+The Progress component provides visual feedback about the completion status of ongoing processes. Whether it's loading times, form submissions, or task completion, this component transforms the user experience by providing real-time visual feedback.
+
+## Anatomy
+
+<Image src={anatomy} alt="Progress - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A basic progress bar with label and caption.
+
+<CodePreview autoGeneration={true}>
+  <plus-progress
+    value="50"
+    label="File Upload"
+    caption="Uploading..."
+  ></plus-progress>
+</CodePreview>
+
+### Status
+
+Use the `status` prop to apply different color schemes indicating the type or severity of the progress.
+
+<CodePreview autoGeneration={true}>
+  <plus-progress
+    value="50"
+    label="Default Progress"
+    caption="Processing..."
+  ></plus-progress>
+  <plus-progress
+    value="100"
+    label="Success Progress"
+    caption="Upload complete!"
+    status="success"
+  ></plus-progress>
+  <plus-progress
+    value="75"
+    label="Warning Progress"
+    caption="Disk space low..."
+    status="warning"
+  ></plus-progress>
+  <plus-progress
+    value="25"
+    label="Error Progress"
+    caption="Upload failed"
+    status="error"
+  ></plus-progress>
+  <plus-progress
+    value="60"
+    label="Info Progress"
+    caption="Processing data..."
+    status="info"
+  ></plus-progress>
+</CodePreview>
+
+### Size
+
+The `size` prop controls the dimensions of the progress bar.
+
+<CodePreview autoGeneration={true}>
+  <plus-progress
+    size="sm"
+    label="Small Progress"
+    caption="Loading..."
+    value="50"
+  ></plus-progress>
+  <plus-progress
+    size="md"
+    label="Medium Progress"
+    caption="Processing..."
+    value="50"
+  ></plus-progress>
+  <plus-progress
+    size="lg"
+    label="Large Progress"
+    caption="Working..."
+    value="50"
+  ></plus-progress>
+</CodePreview>
+
+### States
+
+Different states for various progress scenarios.
+
+<CodePreview autoGeneration={true}>
+  <plus-progress
+    value="75"
+    label="Normal Progress"
+    caption="Uploading files..."
+  ></plus-progress>
+  <plus-progress
+    value="30"
+    label="Disabled Progress"
+    caption="Upload paused"
+    disabled
+  ></plus-progress>
+  <plus-progress
+    label="Indeterminate Progress"
+    caption="Loading data..."
+    indeterminate
+  ></plus-progress>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Progress - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Progress - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Screen Reader:**
+    *   The component uses `role="progressbar"` to indicate its purpose.
+    *   `aria-valuemin`, `aria-valuemax`, and `aria-valuenow` attributes provide current progress information.
+    *   `aria-label` or `aria-labelledby` should be used to provide an accessible name.
+    *   For indeterminate progress, `aria-valuenow` is omitted and `aria-valuetext` may be used.
+*   **Visual Design:**
+    *   Sufficient color contrast is maintained between progress fill and background.
+    *   Progress is not solely indicated by color - text labels and percentages provide additional context.
+*   **Required Developer Actions:**
+    *   Provide meaningful `label` text that describes what is progressing.
+    *   Use appropriate `status` values to convey semantic meaning.
+    *   For indeterminate progress, ensure the `caption` provides context about the ongoing process.
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API Reference
+
+### Properties
+
+| Name          | Type                                                    | Default     | Description                                              | Required |
+|---------------|---------------------------------------------------------|-------------|----------------------------------------------------------|----------|
+| `size`        | `'sm' \| 'md' \| 'lg'`                                  | `'md'`      | Size of the progress bar.                                | No       |
+| `value`       | `number`                                                | `0`         | Current progress value (0 to maxValue).                 | No       |
+| `maxValue`    | `number`                                                | `100`       | Maximum value for the progress bar.                     | No       |
+| `label`       | `string`                                                | `undefined` | Text label displayed with the progress bar.             | No       |
+| `caption`     | `string`                                                | `undefined` | Additional descriptive text below the label.            | No       |
+| `status`      | `'default' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Visual status of the progress bar.                      | No       |
+| `statusIcon`  | `boolean`                                               | `false`     | Whether to show a status icon.                          | No       |
+| `disabled`    | `boolean`                                               | `false`     | Whether the progress bar is disabled.                   | No       |
+| `indeterminate` | `boolean`                                             | `false`     | Whether to show indeterminate progress animation.       | No       |
+| `valueFormat` | `'percent' \| 'step'`                                   | `'percent'` | Format for displaying the progress value.               | No       |
+
+### Events
+
+| Name              | Payload Type        | Description                                    |
+|-------------------|---------------------|------------------------------------------------|
+| `plus-change`     | `CustomEvent<number>` | Fired when the progress value changes.         |
+| `plus-complete`   | `CustomEvent<void>` | Fired when progress reaches 100% (maxValue).  |
+
+### CSS Custom Properties
+
+| Name                    | Description                                    |
+|-------------------------|------------------------------------------------|
+| `--progress-bg`         | Background color of the progress track.       |
+| `--progress-fill`       | Color of the progress fill.                   |
+| `--progress-height`     | Height of the progress bar.                   |
+
+### Shadow Parts
+
+| Name       | Description                               |
+|------------|-------------------------------------------|
+| `base`     | The main container element.               |
+| `track`    | The background track of the progress bar. |
+| `fill`     | The filled portion of the progress bar.   |
+| `label`    | The label text container.                 |
+| `caption`  | The caption text container.               |

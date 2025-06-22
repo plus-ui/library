@@ -1,0 +1,157 @@
+---
+title: Button Group
+description: Displays a set of related buttons in a horizontal or vertical arrangement.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/button-group/anatomy.png';
+import layoutSpacing from '../../../assets/components/button-group/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/button-group/light-dark-mode.png';
+
+The Button Group component organizes multiple related buttons into a single cohesive unit, providing a clear visual relationship between similar actions. This component is useful for creating segmented controls, toolbars, and pagination interfaces.
+
+## Anatomy
+
+<Image src={anatomy} alt="Button Group - anatomy" />
+
+## Usage
+
+### Basic Example
+
+Create a button group by wrapping multiple `plus-button` components within a `plus-button-group`.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button-group>
+    <plus-button kind="filled" status="primary">Left</plus-button>
+    <plus-button kind="filled" status="primary">Middle</plus-button>
+    <plus-button kind="filled" status="primary">Right</plus-button>
+  </plus-button-group>
+</CodePreview>
+
+### Override Properties
+
+Use the `override` property to make all buttons in the group inherit the properties defined on the button group. This ensures visual consistency between all buttons.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button-group data-variant-override="true,false" kind="outlined" status="success" size="md">
+    <plus-button>Save</plus-button>
+    <plus-button>Cancel</plus-button>
+    <plus-button>Reset</plus-button>
+  </plus-button-group>
+</CodePreview>
+
+### Orientation
+
+Use the `orientation` property to arrange buttons horizontally (default) or vertically.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button-group data-variant-orientation="horizontal,vertical" kind="filled" status="primary">
+    <plus-button>Day</plus-button>
+    <plus-button>Week</plus-button>
+    <plus-button>Month</plus-button>
+  </plus-button-group>
+</CodePreview>
+
+### Button Styles (kind and status)
+
+Button group can control the visual style and color of all its buttons when using the `override` property.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button-group kind="outlined" status="primary" override>
+    <plus-button>Cut</plus-button>
+    <plus-button>Copy</plus-button>
+    <plus-button>Paste</plus-button>
+  </plus-button-group>
+  <plus-button-group kind="dashed" status="warning" override>
+    <plus-button>Cut</plus-button>
+    <plus-button>Copy</plus-button>
+    <plus-button>Paste</plus-button>
+  </plus-button-group>
+  <plus-button-group kind="text" status="default" override>
+    <plus-button>Cut</plus-button>
+    <plus-button>Copy</plus-button>
+    <plus-button>Paste</plus-button>
+  </plus-button-group>
+</CodePreview>
+
+### Size
+
+Control the size of all buttons within the group using the `size` property. This ensures consistent sizing across the entire group.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button-group data-variant-size="sm,md,lg" override>
+    <plus-button>Button 1</plus-button>
+    <plus-button>Button 2</plus-button>
+  </plus-button-group>
+</CodePreview>
+
+### Disabled and Loading State
+
+Control the state of all buttons in the group with the `disabled` and `loading` properties.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button-group data-variant-disabled="false,true" data-variant-loading="false,true" override>
+    <plus-button>Normal</plus-button>
+    <plus-button>Buttons</plus-button>
+  </plus-button-group>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Button Group - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Button Group - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Users can navigate between buttons using the `Tab` key.
+    *   Each button can be activated using `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The button group has `role="group"` to indicate to assistive technologies that these buttons are related.
+*   **Required Developer Actions:**
+    *   Ensure that button text is descriptive and clearly indicates its action.
+    *   Consider adding an additional `aria-label` attribute to the button group if the purpose of the group is not clear from button text alone.
+
+## API Reference
+
+### Properties
+
+| Name          | Type                                                              | Default      | Description                                                           | Required |
+|---------------|-------------------------------------------------------------------|--------------|-----------------------------------------------------------------------|----------|
+| `orientation` | `'horizontal' \| 'vertical'`                                       | `'horizontal'` | The orientation of the button group.                                  | No       |
+| `override`    | `boolean`                                                         | `true`       | When true, button group properties override child button properties.  | No       |
+| `kind`        | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                     | `'filled'`   | The visual style of buttons when override is true.                    | No       |
+| `status`      | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'`  | The color variant of buttons when override is true.                   | No       |
+| `size`        | `'sm' \| 'md' \| 'lg'`                                             | `'md'`       | Size of all buttons in the group when override is true.               | No       |
+| `disabled`    | `boolean`                                                         | `false`      | Disables all buttons in the group when override is true.              | No       |
+| `loading`     | `boolean`                                                         | `false`      | Shows loading state for all buttons when override is true.            | No       |
+
+### Slots
+
+| Name      | Description                           |
+|-----------|---------------------------------------|
+| (default) | Container for button elements.        |
+
+### CSS Shadow Parts
+
+| Part         | Description                        |
+|--------------|------------------------------------|
+| `base`       | The component's base wrapper.      |
+
+### CSS Custom Properties
+
+| Name                     | Description                      |
+|--------------------------|----------------------------------|
+| `--button-group-gap`     | Gap between buttons in the group (default is 0). |
+

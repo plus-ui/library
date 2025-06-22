@@ -1,0 +1,463 @@
+---
+title: Radio & Radio Group
+description: Allows users to select a single option from a predefined set.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/radio/anatomy.png';
+import layoutSpacing from '../../../assets/components/radio/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/radio/light-dark-mode.png';
+
+The Radio component (`plus-radio`) allows users to select one option from a set. It should always be used within a Radio Group (`plus-radio-group`) which manages the selection state and provides grouping for accessibility and form submission.
+
+## Anatomy
+
+<Image src={anatomy} alt="Radio - anatomy" />
+
+## Usage
+
+### Basic Example (Radio Group)
+
+Radios must be contained within a `plus-radio-group`. The group manages the selected `value`.
+
+<CodePreview autoGeneration={false}>
+  <plus-radio-group name="fruit" value="apple">
+    <plus-radio value="apple">Apple</plus-radio>
+    <plus-radio value="banana">Banana</plus-radio>
+    <plus-radio value="orange">Orange</plus-radio>
+  </plus-radio-group>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusRadio, PlusRadioGroup } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [selectedValue, setSelectedValue] = useState('apple');
+
+      const handleChange = (event: any) => {
+        setSelectedValue(event.detail.value);
+      };
+
+      return (
+        <PlusRadioGroup name="fruit" value={selectedValue} onPlusGroupChange={handleChange}>
+          <PlusRadio value="apple">Apple</PlusRadio>
+          <PlusRadio value="banana">Banana</PlusRadio>
+          <PlusRadio value="orange">Orange</PlusRadio>
+        </PlusRadioGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-radio-basic',
+      template: `
+        <plus-radio-group name="fruit" [value]="selectedValue" (plus-group-change)="handleChange($event)">
+          <plus-radio value="apple">Apple</plus-radio>
+          <plus-radio value="banana">Banana</plus-radio>
+          <plus-radio value="orange">Orange</plus-radio>
+        </plus-radio-group>
+        Selected: {{ selectedValue }}
+      `
+    })
+    export class RadioBasicComponent {
+      selectedValue = 'apple';
+
+      handleChange(event: any) {
+        this.selectedValue = event.detail.value;
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-radio-group name="fruit" :value="selectedValue" @plus-group-change="handleChange">
+        <plus-radio value="apple">Apple</plus-radio>
+        <plus-radio value="banana">Banana</plus-radio>
+        <plus-radio value="orange">Orange</plus-radio>
+      </plus-radio-group>
+      <p>Selected: {{ selectedValue }}</p>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedValue = ref('apple');
+
+    const handleChange = (event) => {
+      selectedValue.value = event.detail.value;
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let selectedValue = 'apple';
+
+      function handleChange(event) {
+        selectedValue = event.detail.value;
+      }
+    </script>
+
+    <plus-radio-group name="fruit" value={selectedValue} on:plus-group-change={handleChange}>
+      <plus-radio value="apple">Apple</plus-radio>
+      <plus-radio value="banana">Banana</plus-radio>
+      <plus-radio value="orange">Orange</plus-radio>
+    </plus-radio-group>
+    <p>Selected: {selectedValue}</p>
+    ```
+  </Fragment>
+</CodePreview>
+
+### Size
+
+Set the `size` prop on the `plus-radio-group` to control the size of all radio buttons within it.
+
+<CodePreview autoGeneration={true}>
+  <plus-radio-group name="size-sm" size="sm" value="a">
+    <plus-radio value="a">Small</plus-radio>
+    <plus-radio value="b">Small</plus-radio>
+  </plus-radio-group>
+
+  <plus-radio-group name="size-md" size="md" value="a">
+    <plus-radio value="a">Medium</plus-radio>
+    <plus-radio value="b">Medium</plus-radio>
+  </plus-radio-group>
+
+  <plus-radio-group name="size-lg" size="lg" value="a">
+    <plus-radio value="a">Large</plus-radio>
+    <plus-radio value="b">Large</plus-radio>
+  </plus-radio-group>
+</CodePreview>
+
+### Disabled State
+
+Set the `disabled` attribute on the `plus-radio-group` to disable all radios within it, or on an individual `plus-radio`.
+
+<CodePreview autoGeneration={true}>
+  <plus-radio-group name="disabled-group" value="a" disabled>
+    <plus-radio value="a">Group Disabled A</plus-radio>
+    <plus-radio value="b">Group Disabled B</plus-radio>
+  </plus-radio-group>
+
+  <plus-radio-group name="disabled-individual" value="a">
+    <plus-radio value="a">Enabled A</plus-radio>
+    <plus-radio value="b" disabled>Individually Disabled B</plus-radio>
+    <plus-radio value="c">Enabled C</plus-radio>
+  </plus-radio-group>
+</CodePreview>
+
+### Readonly State
+
+Set the `readonly` attribute on individual `plus-radio` components to make them non-interactive but visually appear normal.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-radio-group name="readonly-example" value="b">
+    <plus-radio value="a">Normal A</plus-radio>
+    <plus-radio value="b" readonly>Readonly B (Checked)</plus-radio>
+    <plus-radio value="c" readonly>Readonly C</plus-radio>
+  </plus-radio-group>
+</CodePreview>
+
+### Error State
+
+Set the `error` attribute on the `plus-radio-group` to indicate a validation error.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-radio-group name="error-example" value="a" error>
+    <plus-radio value="a">Option A</plus-radio>
+    <plus-radio value="b">Option B</plus-radio>
+  </plus-radio-group>
+</CodePreview>
+
+### Handling Events
+
+Listen to the `plus-group-change` event to respond when the selected value changes.
+
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const radioGroup = document.getElementById('event-radio-group');
+      if (radioGroup) {
+        radioGroup.addEventListener('plus-group-change', (event) => {
+          console.log('Selected value:', event.detail.value);
+        });
+      }
+    }, 100);
+  `}
+>
+  <plus-radio-group name="event-example" value="option1" id="event-radio-group">
+    <plus-radio value="option1">Option 1</plus-radio>
+    <plus-radio value="option2">Option 2</plus-radio>
+    <plus-radio value="option3">Option 3</plus-radio>
+  </plus-radio-group>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusRadio, PlusRadioGroup } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [selectedValue, setSelectedValue] = useState('option1');
+
+      const handleGroupChange = (event: any) => {
+        setSelectedValue(event.detail.value);
+        console.log('Selected value:', event.detail.value);
+      };
+
+      return (
+        <PlusRadioGroup 
+          name="event-example" 
+          value={selectedValue} 
+          onPlusGroupChange={handleGroupChange}
+        >
+          <PlusRadio value="option1">Option 1</PlusRadio>
+          <PlusRadio value="option2">Option 2</PlusRadio>
+          <PlusRadio value="option3">Option 3</PlusRadio>
+        </PlusRadioGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-radio-events',
+      template: `
+        <plus-radio-group 
+          name="event-example" 
+          [value]="selectedValue" 
+          (plus-group-change)="handleGroupChange($event)"
+        >
+          <plus-radio value="option1">Option 1</plus-radio>
+          <plus-radio value="option2">Option 2</plus-radio>
+          <plus-radio value="option3">Option 3</plus-radio>
+        </plus-radio-group>
+      `
+    })
+    export class RadioEventsComponent {
+      selectedValue = 'option1';
+
+      handleGroupChange(event: any) {
+        this.selectedValue = event.detail.value;
+        console.log('Selected value:', event.detail.value);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-radio-group 
+        name="event-example" 
+        :value="selectedValue" 
+        @plus-group-change="handleGroupChange"
+      >
+        <plus-radio value="option1">Option 1</plus-radio>
+        <plus-radio value="option2">Option 2</plus-radio>
+        <plus-radio value="option3">Option 3</plus-radio>
+      </plus-radio-group>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedValue = ref('option1');
+
+    const handleGroupChange = (event) => {
+      selectedValue.value = event.detail.value;
+      console.log('Selected value:', event.detail.value);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let selectedValue = 'option1';
+
+      function handleGroupChange(event) {
+        selectedValue = event.detail.value;
+        console.log('Selected value:', event.detail.value);
+      }
+    </script>
+
+    <plus-radio-group 
+      name="event-example" 
+      value={selectedValue} 
+      on:plus-group-change={handleGroupChange}
+    >
+      <plus-radio value="option1">Option 1</plus-radio>
+      <plus-radio value="option2">Option 2</plus-radio>
+      <plus-radio value="option3">Option 3</plus-radio>
+    </plus-radio-group>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-radio-group name="event-example" value="option1" id="event-radio-group">
+      <plus-radio value="option1">Option 1</plus-radio>
+      <plus-radio value="option2">Option 2</plus-radio>
+      <plus-radio value="option3">Option 3</plus-radio>
+    </plus-radio-group>
+
+    <script>
+      const radioGroup = document.getElementById('event-radio-group');
+      
+      radioGroup.addEventListener('plus-group-change', (event) => {
+        console.log('Selected value:', event.detail.value);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+### Orientation
+
+Use the `orientation` prop on `plus-radio-group` to arrange radios vertically or horizontally.
+
+<CodePreview autoGeneration={true}>
+  <div>
+    <h4>Horizontal (Default)</h4>
+    <plus-radio-group name="horizontal-example" value="a" orientation="horizontal">
+      <plus-radio value="a">Horizontal A</plus-radio>
+      <plus-radio value="b">Horizontal B</plus-radio>
+    </plus-radio-group>
+  </div>
+
+  <div>
+    <h4>Vertical</h4>
+    <plus-radio-group name="vertical-example" value="a" orientation="vertical">
+      <plus-radio value="a">Vertical A</plus-radio>
+      <plus-radio value="b">Vertical B</plus-radio>
+    </plus-radio-group>
+  </div>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Radio - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Radio - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Radio groups are part of the tab order. Users can `Tab` into the group.
+    *   Once focus is inside the group (on the selected radio), `ArrowUp` / `ArrowLeft` move focus and selection to the previous radio, wrapping around.
+    *   `ArrowDown` / `ArrowRight` move focus and selection to the next radio, wrapping around.
+    *   `Space` checks the focused radio button (if not already checked).
+    *   `Tab` moves focus out of the radio group.
+*   **Screen Reader:**
+    *   The `plus-radio-group` uses `role="radiogroup"` and should have an accessible label (e.g., via `aria-labelledby` if an external label exists, or implicitly via a `<legend>` if used in a `<fieldset>`). The `name` prop can serve as an implicit label reference if needed.
+    *   Each `plus-radio` has `role="radio"`, `aria-checked` reflecting its state, and is implicitly labelled by its slotted content.
+    *   Disabled radios have `aria-disabled="true"`.
+*   **Required Developer Actions:**
+    *   Always wrap `plus-radio` elements within a `plus-radio-group`.
+    *   Provide a meaningful `name` for the `plus-radio-group` for form submission and accessibility.
+    *   Ensure the `plus-radio-group` has an accessible label (e.g., by associating it with a visible label using `aria-labelledby` or wrapping it in a `fieldset` with a `legend`).
+    *   Ensure each `plus-radio` has a unique `value` within the group.
+    *   Provide clear label text for each `plus-radio` (via slot or `text` prop).
+
+## API Reference
+
+### plus-radio
+
+#### Properties
+
+| Name       | Type                         | Default  | Description                                                  | Required |
+|------------|------------------------------|----------|--------------------------------------------------------------|----------|
+| `size`     | `'sm' \| 'md' \| 'lg'`         | `'md'`   | Size of the radio button. Typically controlled by the group. | No       |
+| `text`     | `string`                     | `undefined` | Text label for the radio. Use default slot for complex labels. | No       |
+| `checked`  | `boolean`                    | `false`  | Whether the radio is checked. Controlled by the group.       | No       |
+| `error`    | `boolean`                    | `false`  | Whether the radio shows error styling. Controlled by group.  | No       |
+| `disabled` | `boolean`                    | `false`  | Disables the radio. Can be set individually or by group.     | No       |
+| `readonly` | `boolean`                    | `false`  | Makes the radio non-interactive but not visually disabled.   | No       |
+| `name`     | `string`                     | `''`       | The name attribute. Controlled by the group.                 | No       |
+| `required` | `boolean`                    | `false`  | If the radio is required. Typically set on the group.        | No       |
+| `value`    | `string`                     | `''`       | The value associated with this radio option.                 | Yes      |
+
+#### Events
+
+| Name          | Payload Type        | Description                               |
+|---------------|---------------------|-------------------------------------------|
+| `plus-change` | `CustomEvent<void>` | Fired when the checked state changes.     |
+| `plus-focus`  | `CustomEvent<void>` | Fired when the radio receives focus.      |
+| `plus-blur`   | `CustomEvent<void>` | Fired when the radio loses focus.         |
+
+#### Slots
+
+| Name        | Description                   |
+|-------------|-------------------------------|
+| `(default)` | The label content for the radio. |
+
+#### CSS Shadow Parts
+
+| Name    | Description                             |
+|---------|-----------------------------------------|
+| `radio` | The native `<input type="radio">` element. |
+
+---
+
+### plus-radio-group
+
+#### Properties
+
+| Name          | Type                         | Default        | Description                                                  | Required |
+|---------------|------------------------------|----------------|--------------------------------------------------------------|----------|
+| `name`        | `string`                     | `''`           | Name for the group, passed to radios and used for form submission. | Yes      |
+| `value`       | `string`                     | `''`           | The value of the currently selected radio in the group.      | No       |
+| `disabled`    | `boolean`                    | `false`        | Disables all radio buttons within the group.                 | No       |
+| `required`    | `boolean`                    | `false`        | Makes the radio group required in a form.                  | No       |
+| `size`        | `'sm' \| 'md' \| 'lg'`         | `'md'`         | Sets the size for all radio buttons within the group.        | No       |
+| `error`       | `boolean`                    | `false`        | Applies error styling to all radios within the group.        | No       |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Arrangement direction of the radio buttons.                | No       |
+
+#### Events
+
+| Name                | Payload Type                | Description                                      |
+|---------------------|-----------------------------|--------------------------------------------------|
+| `plus-group-change` | `CustomEvent<{value: string}>` | Fired when the selected value of the group changes. |
+
+#### Slots
+
+| Name        | Description                               |
+|-------------|-------------------------------------------|
+| `(default)` | Contains the `plus-radio` elements for the group. |
+
+#### CSS Shadow Parts
+
+| Name   | Description                |
+|--------|----------------------------|
+| `base` | The main container element. |
+
+
+

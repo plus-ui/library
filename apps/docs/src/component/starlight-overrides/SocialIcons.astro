@@ -1,0 +1,38 @@
+---
+import config from "virtual:starlight/user-config";
+// apps/docs/src/assets/header-logo-figma.svg
+import FigmaIcon from "../../assets/header-logo-figma.svg";
+
+const links = config.social || [];
+---
+
+{
+  links.length > 0 && (
+    <>
+      {links.map(({ label, href, icon }) => (
+        <a {href} rel="me" class="sl-flex" title={label}>
+          <span class="sr-only">{label}</span>
+          {/* <i class={`fa-brands fa-${icon}`} /> */}
+          {icon === "figma" && (
+            <img src={FigmaIcon.src} alt="Figma" class="w-4 h-4" />
+          )}
+          {icon !== "figma" && <i class={`fa-brands fa-${icon}`} />}
+        </a>
+      ))}
+    </>
+  )
+}
+
+<style>
+  @layer starlight.core {
+    a {
+      color: var(--text-color-color-default);
+      padding: 0.5em;
+      margin: -0.5em;
+      text-decoration: none;
+    }
+    a:hover {
+      color: var(--text-color-color-primary);
+    }
+  }
+</style>

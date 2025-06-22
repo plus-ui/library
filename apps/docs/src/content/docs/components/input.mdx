@@ -1,0 +1,215 @@
+---
+title: Input
+description: Allows users to enter and edit text, supporting various types, states, and customization.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/input/anatomy.png';
+import layoutSpacing from '../../../assets/components/input/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/input/light-dark-mode.png';
+
+The Input component is a versatile UI element used to capture user input, such as text, numbers, emails, or passwords. It supports various types, validation, prefixes/suffixes, and states like disabled or error.
+
+## Anatomy
+
+<Image src={anatomy} alt="Input - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A standard text input with a label and placeholder.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Username" placeholder="Enter your username"></plus-input>
+</CodePreview>
+
+### Type
+
+The `type` prop determines the input's behavior and validation (e.g., `email`, `password`, `number`).
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Email" type="email" placeholder="your@email.com"></plus-input>
+  <plus-input label="Password" type="password" placeholder="Enter password"></plus-input>
+  <plus-input label="Age" type="number" placeholder="Your age"></plus-input>
+</CodePreview>
+
+### Size
+
+Control the input's dimensions using the `size` prop.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-input data-variant-size="sm,md,lg" placeholder="Placeholder"></plus-input>
+</CodePreview>
+
+### Disabled State
+
+Set the `disabled` attribute or prop to prevent user interaction.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Disabled Input" placeholder="Cannot interact" disabled></plus-input>
+</CodePreview>
+
+### Readonly State
+
+Set the `readonly` attribute or prop to prevent modification while allowing focus and selection.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Readonly Input" value="Cannot change this" readonly></plus-input>
+</CodePreview>
+
+### Clearable Input
+
+Add the `clearable` attribute or prop to show a button that clears the input's value.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Search" placeholder="Type to search..." clearable></plus-input>
+</CodePreview>
+
+### Password Visibility Toggle
+
+For `type="password"`, use `password-toggle` to add an icon that toggles visibility. Control visibility with `password-visible`.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Password" type="password" placeholder="Enter password" password-toggle></plus-input>
+</CodePreview>
+
+### With Icons/Slots
+
+Use the `prefix` and `suffix` slots or the `prefix-icon` and `suffix-icon` props to add elements inside the input.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Amount" placeholder="0.00">
+    <span slot="prefix">$</span>
+    <span slot="suffix">USD</span>
+  </plus-input>
+  <plus-input label="Website" placeholder="example.com" prefix-icon="link" suffix-icon="external-link-alt"></plus-input>
+</CodePreview>
+
+### Error State & Validation
+
+Use the `error` prop and `error-message` or `caption` prop to display validation feedback. Native HTML5 validation attributes (`required`, `pattern`, `minlength`, etc.) are supported.
+
+<CodePreview autoGeneration={true}>
+  <plus-input label="Email" type="email" required error error-message="Please enter a valid email."></plus-input>
+  <plus-input label="Confirm Password" type="password" required caption="Must match password."></plus-input>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Input - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Input - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Standard text input navigation and interaction (`Tab` to focus, typing, arrow keys, `Home`/`End`, `Delete`/`Backspace`).
+    *   Clear button and password toggle button (if present) are focusable via `Tab` and activatable with `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The `label` prop is crucial for associating a visible label with the input. The component automatically links them using `for` and `id`.
+    *   `aria-describedby` is used to link the input with the `caption` or `error-message` content.
+    *   `aria-invalid` is set automatically based on the `error` state or native validation.
+    *   `aria-required` is set based on the `required` prop.
+    *   `aria-disabled` and `aria-readonly` reflect the respective props.
+    *   Clear and password toggle buttons have appropriate `aria-label` attributes.
+*   **Required Developer Actions:**
+    *   **Always provide a meaningful `label` prop.**
+    *   Use the `caption` or `error-message` prop for supplemental instructions or error feedback.
+    *   Ensure sufficient color contrast if customizing colors.
+    *   Use appropriate `type` and validation attributes (`pattern`, `required`, etc.) for the expected data format.
+    *   Consider using the `autocomplete` attribute to improve user experience.
+
+## API Reference
+
+### Properties
+
+| Name              | Type                                                                                           | Default    | Description                                                                  | Required |
+|-------------------|------------------------------------------------------------------------------------------------|------------|------------------------------------------------------------------------------|----------|
+| `type`            | `'date' \| 'datetime-local' \| 'email' \| 'number' \| 'password' \| 'search' \| 'tel' \| 'text' \| 'time' \| 'url'` | `'text'`   | The type of control to display.                                              | No       |
+| `name`            | `string`                                                                                       | `''`       | The name of the input, submitted with form data.                             | No       |
+| `value`           | `string`                                                                                       | `''`       | The current value of the input.                                              | No       |
+| `placeholder`     | `string`                                                                                       | `''`       | Placeholder text shown when the input is empty.                              | No       |
+| `size`            | `'sm' \| 'md' \| 'lg'`                                                                         | `'md'`     | The size of the input control.                                               | No       |
+| `clearable`       | `boolean`                                                                                      | `false`    | Adds a clear button to the input.                                            | No       |
+| `disabled`        | `boolean`                                                                                      | `false`    | Disables the input.                                                          | No       |
+| `readonly`        | `boolean`                                                                                      | `false`    | Makes the input read-only.                                                   | No       |
+| `required`        | `boolean`                                                                                      | `false`    | Makes the input required for form submission.                                | No       |
+| `passwordToggle`  | `boolean`                                                                                      | `false`    | Shows a toggle button to reveal/hide password (only for `type="password"`). | No       |
+| `passwordVisible` | `boolean`                                                                                      | `false`    | Controls the visibility state when `passwordToggle` is true.                 | No       |
+| `label`           | `string`                                                                                       | `undefined`| The label text for the input.                                                | No       |
+| `pattern`         | `string`                                                                                       | `undefined`| A regex pattern the value must match for validation.                         | No       |
+| `minlength`       | `number`                                                                                       | `undefined`| Minimum length (number of characters) of value.                              | No       |
+| `maxlength`       | `number`                                                                                       | `undefined`| Maximum length (number of characters) of value.                              | No       |
+| `min`             | `number \| string`                                                                             | `undefined`| Minimum value for numeric or date types.                                     | No       |
+| `max`             | `number \| string`                                                                             | `undefined`| Maximum value for numeric or date types.                                     | No       |
+| `step`            | `number \| 'any'`                                                                              | `undefined`| Specifies the legal number intervals for numeric or date types.              | No       |
+| `autocorrect`     | `'off' \| 'on'`                                                                                | `undefined`| Controls whether autocorrect is enabled.                                     | No       |
+| `autocomplete`    | `string`                                                                                       | `undefined`| Hints for form autofill.                                                     | No       |
+| `autoFocus`       | `boolean`                                                                                      | `undefined`| Automatically focuses the input when the page loads.                         | No       |
+| `enterkeyhint`    | `'enter' \| 'done' \| 'go' \| 'next' \| 'previous' \| 'search' \| 'send'`                         | `undefined`| Hint for the virtual keyboard's enter key.                                   | No       |
+| `inputmode`       | `'none' \| 'text' \| 'decimal' \| 'numeric' \| 'tel' \| 'search' \| 'email' \| 'url'`             | `undefined`| Hint for the type of data expected.                                          | No       |
+| `spellCheck`      | `boolean`                                                                                      | `undefined`| Controls whether spell check is enabled.                                     | No       |
+| `caption`         | `string`                                                                                       | `undefined`| Helper text displayed below the input.                                       | No       |
+| `error`           | `boolean`                                                                                      | `false`    | Puts the input in an error state.                                            | No       |
+| `errorMessage`    | `string`                                                                                       | `''`       | Error message displayed below the input when in error state (overrides caption). | No       |
+| `fullWidth`       | `boolean`                                                                                      | `false`    | Makes the input span the full width of its container.                         | No       |
+| `isSelect`        | `boolean`                                                                                      | `false`    | Internal prop indicating if the input is part of a select component (affects styling). | No       |
+| `prefixIcon`      | `string`                                                                                       | `undefined`| Icon name to display in the prefix slot area.                                | No       |
+| `suffixIcon`      | `string`                                                                                       | `undefined`| Icon name to display in the suffix slot area.                                | No       |
+
+### Events
+
+| Name                   | Payload Type                                      | Description                                                                    |
+|------------------------|---------------------------------------------------|--------------------------------------------------------------------------------|
+| `plus-input`           | `CustomEvent<void>`                               | Fired whenever the input's value changes.                                      |
+| `plus-change`          | `CustomEvent<void>`                               | Fired when the input's value changes and it loses focus.                       |
+| `plus-focus`           | `CustomEvent<void>`                               | Fired when the input gains focus.                                              |
+| `plus-blur`            | `CustomEvent<void>`                               | Fired when the input loses focus.                                              |
+| `plus-clear`           | `CustomEvent<void>`                               | Fired when the clear button is clicked.                                        |
+| `plus-password-toggle` | `CustomEvent<{ visible: boolean }>`               | Fired when the password visibility toggle is clicked.                          |
+| `plus-invalid`         | `CustomEvent<{ validationMessage: string }>` | Fired when the input fails native validation after interaction (e.g., on blur or form submit). |
+
+### Methods
+
+| Name                | Parameters                     | Returns   | Description                                                                       |
+|---------------------|--------------------------------|-----------|-----------------------------------------------------------------------------------|
+| `checkValidity()`   | —                              | `boolean` | Checks if the input's value satisfies its validation constraints.                 |
+| `reportValidity()`  | —                              | `boolean` | Checks validity and reports errors if invalid. Focuses the input if invalid.      |
+| `setCustomValidity()`| `message: string`              | `void`    | Sets a custom validation message. An empty string means the input is valid.       |
+
+### Slots
+
+| Name              | Description                                               |
+|-------------------|-----------------------------------------------------------|
+| `prefix`          | Content placed inside the input, before the text value.   |
+| `suffix`          | Content placed inside the input, after the text value.    |
+
+### CSS Shadow Parts
+
+| Part               | Description                             |
+|--------------------|-----------------------------------------|
+| `base`             | The main container element.             |
+| `input`            | The native `<input>` element.           |
+| `wrapper`          | The wrapper div around the input/slots. |
+| `prefix`           | The container for prefix content.       |
+| `suffix`           | The container for suffix content.       |
+| `clear-button`     | The clear button element.               |
+| `password-toggle`  | The password toggle button element.     |
+| `label`            | The label element.                      |
+| `caption`          | The caption/error message element.      |
+
+### CSS Custom Properties
+
+No specific public CSS custom properties are defined for direct styling. Use standard CSS targeting the element or shadow parts for customization.

@@ -1,0 +1,368 @@
+---
+title: Dropdown
+description: Provides a button that toggles a list of selectable options (dropdown items).
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/dropdown/anatomy.png';
+import layoutSpacing from '../../../assets/components/dropdown/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/dropdown/light-dark-mode.png';
+
+The Dropdown component consists of a trigger button (`plus-button`) and a panel (`dropdown-box`) containing a list of options (`plus-dropdown-item`). Clicking the button toggles the visibility of the panel.
+
+## Anatomy
+
+<Image src={anatomy} alt="Dropdown - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A dropdown requires a trigger (implicitly a `plus-button`) and `plus-dropdown-item` elements placed within the `dropdown-item` slot.
+
+<CodePreview autoGeneration={true}>
+<plus-dropdown>
+<Fragment slot="default">Select Option</Fragment>
+<plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
+<plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
+<plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
+</plus-dropdown>
+</CodePreview>
+
+### Trigger Button Appearance (`kind`, `status`, `size`)
+
+Customize the appearance of the trigger button using the `kind`, `status`, and `size` props. These props are passed down to the internal `plus-button`.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-dropdown kind="outlined" status="primary" size="sm">
+    <Fragment slot="default">Outlined Primary SM</Fragment>
+    <plus-dropdown-item>Item A</plus-dropdown-item>
+    <plus-dropdown-item>Item B</plus-dropdown-item>
+  </plus-dropdown>
+  <plus-dropdown kind="dashed" status="success" size="md">
+    <Fragment slot="default">Dashed Success MD</Fragment>
+    <plus-dropdown-item>Item A</plus-dropdown-item>
+    <plus-dropdown-item>Item B</plus-dropdown-item>
+  </plus-dropdown>
+  <plus-dropdown kind="text" status="danger" size="lg">
+    <Fragment slot="default">Text Danger LG</Fragment>
+    <plus-dropdown-item>Item A</plus-dropdown-item>
+    <plus-dropdown-item>Item B</plus-dropdown-item>
+  </plus-dropdown>
+</CodePreview>
+
+### Disabled States
+
+The entire dropdown can be disabled using the `disabled` prop on `plus-dropdown`. Individual items can be disabled using the `disabled` prop on `plus-dropdown-item`.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-dropdown disabled>
+    <Fragment slot="default">Disabled Dropdown</Fragment>
+    <plus-dropdown-item>Cannot select</plus-dropdown-item>
+  </plus-dropdown>
+  <plus-dropdown>
+    <Fragment slot="default">Dropdown with Disabled Item</Fragment>
+    <plus-dropdown-item>Option 1</plus-dropdown-item>
+    <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
+    <plus-dropdown-item>Option 3</plus-dropdown-item>
+  </plus-dropdown>
+</CodePreview>
+
+### Trigger Content (Slots & Prop)
+
+Customize the trigger button's content using the default slot. Use the `suffix` slot for content on the right (like an additional icon). The `text` prop can be used as an alternative to the default slot.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-dropdown>
+    <Fragment slot="default">
+      <plus-icon iconName="user" style="margin-right: 0.5em"></plus-icon>
+      My Account
+      <plus-icon iconName="cog" slot="suffix"></plus-icon>
+    </Fragment>
+    <plus-dropdown-item>Profile</plus-dropdown-item>
+    <plus-dropdown-item>Settings</plus-dropdown-item>
+  </plus-dropdown>
+  <plus-dropdown>
+    <Fragment slot="default">Options via Slot</Fragment>
+    <plus-dropdown-item>Action 1</plus-dropdown-item>
+  </plus-dropdown>
+</CodePreview>
+
+
+### Handling Selection
+
+Listen for the `plus-dropdown-selected-item` event to get the selected `plus-dropdown-item` element when an option is chosen.
+
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const dropdown = document.getElementById('selection-dropdown');
+      const display = document.getElementById('selected-color');
+      
+      if (dropdown && display) {
+        dropdown.addEventListener('plus-dropdown-selected-item', (event) => {
+          const selectedItem = event.detail.selectedItem;
+          display.textContent = selectedItem.text || selectedItem.textContent;
+        });
+      }
+    }, 100);
+  `}
+  showConsole
+>
+  <plus-dropdown id="selection-dropdown">
+    <Fragment slot="default">Choose Color</Fragment>
+    <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+    <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+    <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+  </plus-dropdown>
+  <p>Selected: <span id="selected-color">None</span></p>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusDropdown, PlusDropdownItem } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [selectedColor, setSelectedColor] = useState('None');
+
+      const handleSelect = (event) => {
+        const selectedItem = event.detail.selectedItem;
+        setSelectedColor(selectedItem.text || selectedItem.textContent);
+      };
+
+      return (
+        <>
+          <PlusDropdown onPlusDropdownSelectedItem={handleSelect}>
+            Choose Color
+            <PlusDropdownItem text="Red">Red</PlusDropdownItem>
+            <PlusDropdownItem text="Green">Green</PlusDropdownItem>
+            <PlusDropdownItem text="Blue">Blue</PlusDropdownItem>
+          </PlusDropdown>
+          <p>Selected: {selectedColor}</p>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-dropdown-selection',
+      template: `
+        <plus-dropdown (plus-dropdown-selected-item)="handleSelect($event)">
+          Choose Color
+          <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+          <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+          <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+        </plus-dropdown>
+        <p>Selected: {{selectedColor}}</p>
+      `
+    })
+    export class DropdownSelectionComponent {
+      selectedColor = 'None';
+
+      handleSelect(event: CustomEvent) {
+        const selectedItem = event.detail.selectedItem;
+        this.selectedColor = selectedItem.text || selectedItem.textContent;
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-dropdown @plus-dropdown-selected-item="handleSelect">
+        Choose Color
+        <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+        <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+        <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+      </plus-dropdown>
+      <p>Selected: {{selectedColor}}</p>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedColor = ref('None');
+
+    const handleSelect = (event) => {
+      const selectedItem = event.detail.selectedItem;
+      selectedColor.value = selectedItem.text || selectedItem.textContent;
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let selectedColor = 'None';
+      let dropdownRef;
+
+      onMount(() => {
+        if (dropdownRef) {
+          dropdownRef.addEventListener('plus-dropdown-selected-item', (event) => {
+            const selectedItem = event.detail.selectedItem;
+            selectedColor = selectedItem.text || selectedItem.textContent;
+          });
+        }
+      });
+    </script>
+
+    <plus-dropdown bind:this={dropdownRef}>
+      Choose Color
+      <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+      <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+      <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+    </plus-dropdown>
+    <p>Selected: {selectedColor}</p>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-dropdown id="selection-dropdown-html">
+      Choose Color
+      <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+      <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+      <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+    </plus-dropdown>
+    <p>Selected: <span id="selected-color-html">None</span></p>
+
+    <script>
+      const dropdown = document.getElementById('selection-dropdown-html');
+      const display = document.getElementById('selected-color-html');
+      
+      dropdown.addEventListener('plus-dropdown-selected-item', (event) => {
+        const selectedItem = event.detail.selectedItem;
+        display.textContent = selectedItem.text || selectedItem.textContent;
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Dropdown - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Dropdown - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   The trigger button is focusable (`Tab`).
+    *   Pressing `Enter` or `Space` on the button opens/closes the dropdown.
+    *   When the dropdown is open:
+        *   `ArrowDown` / `ArrowUp` navigates through focusable items.
+        *   `Enter` or `Space` selects the focused item and closes the dropdown.
+        *   `Escape` closes the dropdown without selection.
+        *   Typing letters generally focuses the next item starting with that letter (browser implementation may vary).
+*   **Screen Reader:**
+    *   The trigger button uses `role="button"`, `aria-haspopup="listbox"`, and `aria-expanded` to indicate its function and state.
+    *   `aria-controls` links the button to the dropdown panel (`role="listbox"`).
+    *   Dropdown items use `role="option"`, `aria-selected`, and `aria-disabled`.
+    *   Ensure items have meaningful text content either via the slot or the `text` prop.
+*   **Required Developer Actions:**
+    *   Provide clear and concise text for the trigger button (via slot or `text` prop).
+    *   Ensure each `plus-dropdown-item` has meaningful content.
+    *   If using custom content within items, ensure it's accessible.
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
+
+## API Reference
+
+<Aside type="note">
+This section covers the API for both `plus-dropdown` and `plus-dropdown-item`.
+</Aside>
+
+### Properties (`plus-dropdown`)
+
+| Name       | Type                                                              | Default     | Description                                                               | Required |
+|------------|-------------------------------------------------------------------|-------------|---------------------------------------------------------------------------|----------|
+| `size`     | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Sets the size of the trigger button and influences item size.           | No       |
+| `status`   | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Sets the status/color variant of the trigger button.                      | No       |
+| `kind`     | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                      | `'filled'`  | Sets the visual style of the trigger button.                             | No       |
+| `disabled` | `boolean`                                                         | `false`     | Disables the dropdown interaction (trigger button).                       | No       |
+| `text`     | `string`                                                          | `undefined` | Sets the text content of the trigger button (alternative to default slot). | No       |
+
+### Properties (`plus-dropdown-item`)
+
+| Name       | Type                  | Default     | Description                                                               | Required |
+|------------|-----------------------|-------------|---------------------------------------------------------------------------|----------|
+| `size`     | `'sm' \| 'md' \| 'lg'`  | `'md'`      | Sets the size of the dropdown item (usually matches dropdown size).      | No       |
+| `disabled` | `boolean`             | `false`     | Disables the item, making it non-selectable.                              | No       |
+| `selected` | `boolean`             | `false`     | Indicates if the item is currently selected (managed by parent dropdown). | No       |
+| `text`     | `string`              | `undefined` | Text content for the item (alternative to slot), used for `aria-label`.   | No       |
+
+### Events (`plus-dropdown`)
+
+| Name                          | Payload Type                                 | Description                                                   |
+|-------------------------------|----------------------------------------------|---------------------------------------------------------------|
+| `plus-dropdown-open`          | `CustomEvent<void>`                          | Fired when the dropdown panel opens.                            |
+| `plus-dropdown-close`         | `CustomEvent<void>`                          | Fired when the dropdown panel closes.                           |
+| `plus-dropdown-selected-item` | `CustomEvent<{ selectedItem: HTMLElement }>` | Fired when an item is selected. `detail.selectedItem` is the selected `plus-dropdown-item` element. | 
+
+### Slots (`plus-dropdown`)
+
+| Name              | Description                                                |
+|-------------------|------------------------------------------------------------|
+| `default` (unnamed) | Content for the trigger button (overrides `text` prop).      |
+| `suffix`          | Content placed to the right of the trigger button content. |
+| `dropdown-item`   | Container for `plus-dropdown-item` elements.             |
+
+### Slots (`plus-dropdown-item`)
+
+| Name              | Description                                      |
+|-------------------|--------------------------------------------------|
+| `default` (unnamed) | The main content displayed within the item.      |
+
+### CSS Shadow Parts (`plus-dropdown`)
+
+| Part           | Description                       |
+|----------------|-----------------------------------|
+| `base`         | The main wrapper element.         |
+| `button`       | The trigger button (`plus-button`). |
+| `dropdown-box` | The dropdown panel container (`div`). |
+
+### CSS Shadow Parts (`plus-dropdown-item`)
+
+| Part   | Description                                  |
+|--------|----------------------------------------------|
+| `base` | The base wrapper of the item (`div` or host). |
+| `item` | The listbox item element (`plus-list-box-item`). |
+
+### CSS Custom Properties (`plus-dropdown-item`)
+
+| Name                | Description                             |
+|---------------------|-----------------------------------------|
+| `--i-bg-default`    | Default background color.               |
+| `--i-bg-hovered`    | Background color on hover.              |
+| `--i-bg-pressed`    | Background color when pressed/active.   |
+| `--i-text-color`    | Text color.                             |
+| `--i-selected-bg`   | Background color when selected.         |
+
+<Aside type="note">
+`plus-dropdown` itself does not expose specific CSS custom properties. Styling is primarily controlled through the trigger button (`plus-button`) and the items (`plus-dropdown-item`).
+</Aside>
+
