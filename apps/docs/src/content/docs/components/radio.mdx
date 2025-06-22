@@ -1,10 +1,14 @@
 ---
 title: Radio & Radio Group
 description: Allows users to select a single option from a predefined set.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/radio/anatomy.png';
@@ -23,153 +27,109 @@ The Radio component (`plus-radio`) allows users to select one option from a set.
 
 Radios must be contained within a `plus-radio-group`. The group manages the selected `value`.
 
-<code-bubble class="not-content">
-
-```html
-<plus-radio-group name="fruit" value="apple">
-  <plus-radio value="apple">Apple</plus-radio>
-  <plus-radio value="banana">Banana</plus-radio>
-  <plus-radio value="orange">Orange</plus-radio>
-</plus-radio-group>
-```
-
-```tsx
-import { PlusRadio, PlusRadioGroup } from '@plusui/library/react';
-import { useState } from 'react';
-
-export default () => {
-  const [selectedValue, setSelectedValue] = useState('apple');
-
-  const handleChange = (event: any) => {
-    setSelectedValue(event.detail.value);
-  };
-
-  return (
-    <PlusRadioGroup name="fruit" value={selectedValue} onPlusGroupChange={handleChange}>
-      <PlusRadio value="apple">Apple</PlusRadio>
-      <PlusRadio value="banana">Banana</PlusRadio>
-      <PlusRadio value="orange">Orange</PlusRadio>
-    </PlusRadioGroup>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-radio-basic',
-  template: `
-    <plus-radio-group name="fruit" [value]="selectedValue" (plus-group-change)="handleChange($event)">
-      <plus-radio value="apple">Apple</plus-radio>
-      <plus-radio value="banana">Banana</plus-radio>
-      <plus-radio value="orange">Orange</plus-radio>
-    </plus-radio-group>
-    Selected: {{ selectedValue }}
-  `
-})
-export class RadioBasicComponent {
-  selectedValue = 'apple';
-
-  handleChange(event: any) {
-    this.selectedValue = event.detail.value;
-  }
-}
-```
-
-```vue
-<template>
-  <plus-radio-group name="fruit" :value="selectedValue" @plus-group-change="handleChange">
+<CodePreview autoGeneration={false}>
+  <plus-radio-group name="fruit" value="apple">
     <plus-radio value="apple">Apple</plus-radio>
     <plus-radio value="banana">Banana</plus-radio>
     <plus-radio value="orange">Orange</plus-radio>
   </plus-radio-group>
-  <p>Selected: {{ selectedValue }}</p>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusRadio, PlusRadioGroup } from '@plusui/react';
+    import { useState } from 'react';
 
-const selectedValue = ref('apple');
+    export default () => {
+      const [selectedValue, setSelectedValue] = useState('apple');
 
-const handleChange = (event) => {
-  selectedValue.value = event.detail.value;
-};
-</script>
-```
-</code-bubble>
+      const handleChange = (event: any) => {
+        setSelectedValue(event.detail.value);
+      };
+
+      return (
+        <PlusRadioGroup name="fruit" value={selectedValue} onPlusGroupChange={handleChange}>
+          <PlusRadio value="apple">Apple</PlusRadio>
+          <PlusRadio value="banana">Banana</PlusRadio>
+          <PlusRadio value="orange">Orange</PlusRadio>
+        </PlusRadioGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-radio-basic',
+      template: `
+        <plus-radio-group name="fruit" [value]="selectedValue" (plus-group-change)="handleChange($event)">
+          <plus-radio value="apple">Apple</plus-radio>
+          <plus-radio value="banana">Banana</plus-radio>
+          <plus-radio value="orange">Orange</plus-radio>
+        </plus-radio-group>
+        Selected: {{ selectedValue }}
+      `
+    })
+    export class RadioBasicComponent {
+      selectedValue = 'apple';
+
+      handleChange(event: any) {
+        this.selectedValue = event.detail.value;
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-radio-group name="fruit" :value="selectedValue" @plus-group-change="handleChange">
+        <plus-radio value="apple">Apple</plus-radio>
+        <plus-radio value="banana">Banana</plus-radio>
+        <plus-radio value="orange">Orange</plus-radio>
+      </plus-radio-group>
+      <p>Selected: {{ selectedValue }}</p>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedValue = ref('apple');
+
+    const handleChange = (event) => {
+      selectedValue.value = event.detail.value;
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let selectedValue = 'apple';
+
+      function handleChange(event) {
+        selectedValue = event.detail.value;
+      }
+    </script>
+
+    <plus-radio-group name="fruit" value={selectedValue} on:plus-group-change={handleChange}>
+      <plus-radio value="apple">Apple</plus-radio>
+      <plus-radio value="banana">Banana</plus-radio>
+      <plus-radio value="orange">Orange</plus-radio>
+    </plus-radio-group>
+    <p>Selected: {selectedValue}</p>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 Set the `size` prop on the `plus-radio-group` to control the size of all radio buttons within it.
 
-<code-bubble class="not-content ">
-
-```html
-<plus-radio-group name="size-sm" size="sm" value="a">
-  <plus-radio value="a">Apple</plus-radio>
-  <plus-radio value="b">Banana</plus-radio>
-</plus-radio-group>
-
-<plus-radio-group name="size-md" size="md" value="a">
-  <plus-radio value="a">Apple</plus-radio>
-  <plus-radio value="b">Banana</plus-radio>
-</plus-radio-group>
-
-<plus-radio-group name="size-lg" size="lg" value="a">
-  <plus-radio value="a">Apple</plus-radio>
-  <plus-radio value="b">Banana</plus-radio>
-</plus-radio-group>
-```
-
-```tsx
-import { PlusRadio, PlusRadioGroup } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusRadioGroup name="size-sm" size="sm" value="a">
-        <PlusRadio value="a">Small</PlusRadio>
-        <PlusRadio value="b">Small</PlusRadio>
-      </PlusRadioGroup>
-      <PlusRadioGroup name="size-md" size="md" value="a">
-        <PlusRadio value="a">Medium</PlusRadio>
-        <PlusRadio value="b">Medium</PlusRadio>
-      </PlusRadioGroup>
-      <PlusRadioGroup name="size-lg" size="lg" value="a">
-        <PlusRadio value="a">Large</PlusRadio>
-        <PlusRadio value="b">Large</PlusRadio>
-      </PlusRadioGroup>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-radio-size',
-  template: `
-    <plus-radio-group name="size-sm" size="sm" value="a">
-      <plus-radio value="a">Small</plus-radio>
-      <plus-radio value="b">Small</plus-radio>
-    </plus-radio-group>
-    <plus-radio-group name="size-md" size="md" value="a">
-      <plus-radio value="a">Medium</plus-radio>
-      <plus-radio value="b">Medium</plus-radio>
-    </plus-radio-group>
-    <plus-radio-group name="size-lg" size="lg" value="a">
-      <plus-radio value="a">Large</plus-radio>
-      <plus-radio value="b">Large</plus-radio>
-    </plus-radio-group>
-  `
-})
-export class RadioSizeComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-radio-group name="size-sm" size="sm" value="a">
     <plus-radio value="a">Small</plus-radio>
     <plus-radio value="b">Small</plus-radio>
@@ -184,72 +144,13 @@ export class RadioSizeComponent {}
     <plus-radio value="a">Large</plus-radio>
     <plus-radio value="b">Large</plus-radio>
   </plus-radio-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Disabled State
 
 Set the `disabled` attribute on the `plus-radio-group` to disable all radios within it, or on an individual `plus-radio`.
 
-<code-bubble class="not-content">
-
-```html
-<plus-radio-group name="disabled-group" value="a" disabled>
-  <plus-radio value="a">Group Disabled A</plus-radio>
-  <plus-radio value="b">Group Disabled B</plus-radio>
-</plus-radio-group>
-
-<plus-radio-group name="disabled-individual" value="a">
-  <plus-radio value="a">Enabled A</plus-radio>
-  <plus-radio value="b" disabled>Individually Disabled B</plus-radio>
-  <plus-radio value="c">Enabled C</plus-radio>
-</plus-radio-group>
-```
-
-```tsx
-import { PlusRadio, PlusRadioGroup } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusRadioGroup name="disabled-group" value="a" disabled>
-        <PlusRadio value="a">Group Disabled A</PlusRadio>
-        <PlusRadio value="b">Group Disabled B</PlusRadio>
-      </PlusRadioGroup>
-      <PlusRadioGroup name="disabled-individual" value="a">
-        <PlusRadio value="a">Enabled A</PlusRadio>
-        <PlusRadio value="b" disabled>Individually Disabled B</PlusRadio>
-        <PlusRadio value="c">Enabled C</PlusRadio>
-      </PlusRadioGroup>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-radio-disabled',
-  template: `
-    <plus-radio-group name="disabled-group" value="a" disabled>
-      <plus-radio value="a">Group Disabled A</plus-radio>
-      <plus-radio value="b">Group Disabled B</plus-radio>
-    </plus-radio-group>
-
-    <plus-radio-group name="disabled-individual" value="a">
-      <plus-radio value="a">Enabled A</plus-radio>
-      <plus-radio value="b" disabled>Individually Disabled B</plus-radio>
-      <plus-radio value="c">Enabled C</plus-radio>
-    </plus-radio-group>
-  `
-})
-export class RadioDisabledComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-radio-group name="disabled-group" value="a" disabled>
     <plus-radio value="a">Group Disabled A</plus-radio>
     <plus-radio value="b">Group Disabled B</plus-radio>
@@ -260,140 +161,202 @@ export class RadioDisabledComponent {}
     <plus-radio value="b" disabled>Individually Disabled B</plus-radio>
     <plus-radio value="c">Enabled C</plus-radio>
   </plus-radio-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Readonly State
 
 Set the `readonly` attribute on individual `plus-radio` components to make them non-interactive but visually appear normal.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-radio-group name="readonly-example" value="b">
-  <plus-radio value="a">Normal A</plus-radio>
-  <plus-radio value="b" readonly>Readonly B (Checked)</plus-radio>
-  <plus-radio value="c" readonly>Readonly C</plus-radio>
-</plus-radio-group>
-```
-
-```tsx
-import { PlusRadio, PlusRadioGroup } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusRadioGroup name="readonly-example" value="b">
-      <PlusRadio value="a">Normal A</PlusRadio>
-      <PlusRadio value="b" readonly>Readonly B (Checked)</PlusRadio>
-      <PlusRadio value="c" readonly>Readonly C</PlusRadio>
-    </PlusRadioGroup>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-radio-readonly',
-  template: `
-    <plus-radio-group name="readonly-example" value="b">
-      <plus-radio value="a">Normal A</plus-radio>
-      <plus-radio value="b" readonly>Readonly B (Checked)</plus-radio>
-      <plus-radio value="c" readonly>Readonly C</plus-radio>
-    </plus-radio-group>
-  `
-})
-export class RadioReadonlyComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-radio-group name="readonly-example" value="b">
     <plus-radio value="a">Normal A</plus-radio>
     <plus-radio value="b" readonly>Readonly B (Checked)</plus-radio>
     <plus-radio value="c" readonly>Readonly C</plus-radio>
   </plus-radio-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Error State
 
 Set the `error` attribute on the `plus-radio-group` to indicate a validation error.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-radio-group name="error-example" value="a" error>
-  <plus-radio value="a">Option A</plus-radio>
-  <plus-radio value="b">Option B</plus-radio>
-</plus-radio-group>
-```
-
-```tsx
-import { PlusRadio, PlusRadioGroup } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusRadioGroup name="error-example" value="a" error>
-      <PlusRadio value="a">Option A</PlusRadio>
-      <PlusRadio value="b">Option B</PlusRadio>
-    </PlusRadioGroup>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-radio-error',
-  template: `
-    <plus-radio-group name="error-example" value="a" error>
-      <plus-radio value="a">Option A</plus-radio>
-      <plus-radio value="b">Option B</plus-radio>
-    </plus-radio-group>
-  `
-})
-export class RadioErrorComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-radio-group name="error-example" value="a" error>
     <plus-radio value="a">Option A</plus-radio>
     <plus-radio value="b">Option B</plus-radio>
   </plus-radio-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
+
+### Handling Events
+
+Listen to the `plus-group-change` event to respond when the selected value changes.
+
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const radioGroup = document.getElementById('event-radio-group');
+      if (radioGroup) {
+        radioGroup.addEventListener('plus-group-change', (event) => {
+          console.log('Selected value:', event.detail.value);
+        });
+      }
+    }, 100);
+  `}
+>
+  <plus-radio-group name="event-example" value="option1" id="event-radio-group">
+    <plus-radio value="option1">Option 1</plus-radio>
+    <plus-radio value="option2">Option 2</plus-radio>
+    <plus-radio value="option3">Option 3</plus-radio>
+  </plus-radio-group>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusRadio, PlusRadioGroup } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [selectedValue, setSelectedValue] = useState('option1');
+
+      const handleGroupChange = (event: any) => {
+        setSelectedValue(event.detail.value);
+        console.log('Selected value:', event.detail.value);
+      };
+
+      return (
+        <PlusRadioGroup 
+          name="event-example" 
+          value={selectedValue} 
+          onPlusGroupChange={handleGroupChange}
+        >
+          <PlusRadio value="option1">Option 1</PlusRadio>
+          <PlusRadio value="option2">Option 2</PlusRadio>
+          <PlusRadio value="option3">Option 3</PlusRadio>
+        </PlusRadioGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-radio-events',
+      template: `
+        <plus-radio-group 
+          name="event-example" 
+          [value]="selectedValue" 
+          (plus-group-change)="handleGroupChange($event)"
+        >
+          <plus-radio value="option1">Option 1</plus-radio>
+          <plus-radio value="option2">Option 2</plus-radio>
+          <plus-radio value="option3">Option 3</plus-radio>
+        </plus-radio-group>
+      `
+    })
+    export class RadioEventsComponent {
+      selectedValue = 'option1';
+
+      handleGroupChange(event: any) {
+        this.selectedValue = event.detail.value;
+        console.log('Selected value:', event.detail.value);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-radio-group 
+        name="event-example" 
+        :value="selectedValue" 
+        @plus-group-change="handleGroupChange"
+      >
+        <plus-radio value="option1">Option 1</plus-radio>
+        <plus-radio value="option2">Option 2</plus-radio>
+        <plus-radio value="option3">Option 3</plus-radio>
+      </plus-radio-group>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedValue = ref('option1');
+
+    const handleGroupChange = (event) => {
+      selectedValue.value = event.detail.value;
+      console.log('Selected value:', event.detail.value);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let selectedValue = 'option1';
+
+      function handleGroupChange(event) {
+        selectedValue = event.detail.value;
+        console.log('Selected value:', event.detail.value);
+      }
+    </script>
+
+    <plus-radio-group 
+      name="event-example" 
+      value={selectedValue} 
+      on:plus-group-change={handleGroupChange}
+    >
+      <plus-radio value="option1">Option 1</plus-radio>
+      <plus-radio value="option2">Option 2</plus-radio>
+      <plus-radio value="option3">Option 3</plus-radio>
+    </plus-radio-group>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-radio-group name="event-example" value="option1" id="event-radio-group">
+      <plus-radio value="option1">Option 1</plus-radio>
+      <plus-radio value="option2">Option 2</plus-radio>
+      <plus-radio value="option3">Option 3</plus-radio>
+    </plus-radio-group>
+
+    <script>
+      const radioGroup = document.getElementById('event-radio-group');
+      
+      radioGroup.addEventListener('plus-group-change', (event) => {
+        console.log('Selected value:', event.detail.value);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Orientation
 
 Use the `orientation` prop on `plus-radio-group` to arrange radios vertically or horizontally.
 
-<code-bubble class="not-content">
+<CodePreview autoGeneration={true}>
+  <div>
+    <h4>Horizontal (Default)</h4>
+    <plus-radio-group name="horizontal-example" value="a" orientation="horizontal">
+      <plus-radio value="a">Horizontal A</plus-radio>
+      <plus-radio value="b">Horizontal B</plus-radio>
+    </plus-radio-group>
+  </div>
 
-**Horizontal (Default)**
-```html
-<plus-radio-group name="horizontal-example" value="a" orientation="horizontal">
-  <plus-radio value="a">Horizontal A</plus-radio>
-  <plus-radio value="b">Horizontal B</plus-radio>
-</plus-radio-group>
-```
-
-**Vertical**
-```html
-<plus-radio-group name="vertical-example" value="a" orientation="vertical">
-  <plus-radio value="a">Vertical A</plus-radio>
-  <plus-radio value="b">Vertical B</plus-radio>
-</plus-radio-group>
-```
-
-</code-bubble>
-
+  <div>
+    <h4>Vertical</h4>
+    <plus-radio-group name="vertical-example" value="a" orientation="vertical">
+      <plus-radio value="a">Vertical A</plus-radio>
+      <plus-radio value="b">Vertical B</plus-radio>
+    </plus-radio-group>
+  </div>
+</CodePreview>
 
 ## Visual Sections
 
@@ -428,12 +391,12 @@ Use the `orientation` prop on `plus-radio-group` to arrange radios vertically or
 
 ### plus-radio
 
-#### Props
+#### Properties
 
 | Name       | Type                         | Default  | Description                                                  | Required |
 |------------|------------------------------|----------|--------------------------------------------------------------|----------|
-| `size`     | `\'sm\' \| \'md\' \| \'lg\'`         | `\'md\'`   | Size of the radio button. Typically controlled by the group. | No       |
-| `text`     | `string`                     |          | Text label for the radio. Use default slot for complex labels. | No       |
+| `size`     | `'sm' \| 'md' \| 'lg'`         | `'md'`   | Size of the radio button. Typically controlled by the group. | No       |
+| `text`     | `string`                     | `undefined` | Text label for the radio. Use default slot for complex labels. | No       |
 | `checked`  | `boolean`                    | `false`  | Whether the radio is checked. Controlled by the group.       | No       |
 | `error`    | `boolean`                    | `false`  | Whether the radio shows error styling. Controlled by group.  | No       |
 | `disabled` | `boolean`                    | `false`  | Disables the radio. Can be set individually or by group.     | No       |
@@ -444,21 +407,21 @@ Use the `orientation` prop on `plus-radio-group` to arrange radios vertically or
 
 #### Events
 
-| Name          | Payload Type  | Description                               | Inside Group |
-|---------------|---------------|-------------------------------------------|--------------|
-| `plus-change` | `CustomEvent` | Fired when the checked state changes.     | Yes          |
-| `plus-focus`  | `CustomEvent` | Fired when the radio receives focus.      | Yes          |
-| `plus-blur`   | `CustomEvent` | Fired when the radio loses focus.         | Yes          |
+| Name          | Payload Type        | Description                               |
+|---------------|---------------------|-------------------------------------------|
+| `plus-change` | `CustomEvent<void>` | Fired when the checked state changes.     |
+| `plus-focus`  | `CustomEvent<void>` | Fired when the radio receives focus.      |
+| `plus-blur`   | `CustomEvent<void>` | Fired when the radio loses focus.         |
 
 #### Slots
 
-| Name              | Description                   |
-|-------------------|-------------------------------|
-| `default` (unnamed) | The label content for the radio. |
+| Name        | Description                   |
+|-------------|-------------------------------|
+| `(default)` | The label content for the radio. |
 
 #### CSS Shadow Parts
 
-| Part    | Description                             |
+| Name    | Description                             |
 |---------|-----------------------------------------|
 | `radio` | The native `<input type="radio">` element. |
 
@@ -466,7 +429,7 @@ Use the `orientation` prop on `plus-radio-group` to arrange radios vertically or
 
 ### plus-radio-group
 
-#### Props
+#### Properties
 
 | Name          | Type                         | Default        | Description                                                  | Required |
 |---------------|------------------------------|----------------|--------------------------------------------------------------|----------|
@@ -474,25 +437,25 @@ Use the `orientation` prop on `plus-radio-group` to arrange radios vertically or
 | `value`       | `string`                     | `''`           | The value of the currently selected radio in the group.      | No       |
 | `disabled`    | `boolean`                    | `false`        | Disables all radio buttons within the group.                 | No       |
 | `required`    | `boolean`                    | `false`        | Makes the radio group required in a form.                  | No       |
-| `size`        | `\'sm\' \| \'md\' \| \'lg\'`         | `\'md\'`         | Sets the size for all radio buttons within the group.        | No       |
+| `size`        | `'sm' \| 'md' \| 'lg'`         | `'md'`         | Sets the size for all radio buttons within the group.        | No       |
 | `error`       | `boolean`                    | `false`        | Applies error styling to all radios within the group.        | No       |
-| `orientation` | `\'horizontal\' \| \'vertical\'` | `\'horizontal\'` | Arrangement direction of the radio buttons.                | No       |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Arrangement direction of the radio buttons.                | No       |
 
 #### Events
 
-| Name                | Payload Type  | Description                                      |
-|---------------------|---------------|--------------------------------------------------|
-| `plus-group-change` | `CustomEvent` | Fired when the selected value of the group changes. |
+| Name                | Payload Type                | Description                                      |
+|---------------------|-----------------------------|--------------------------------------------------|
+| `plus-group-change` | `CustomEvent<{value: string}>` | Fired when the selected value of the group changes. |
 
 #### Slots
 
-| Name              | Description                               |
-|-------------------|-------------------------------------------|
-| `default` (unnamed) | Contains the `plus-radio` elements for the group. |
+| Name        | Description                               |
+|-------------|-------------------------------------------|
+| `(default)` | Contains the `plus-radio` elements for the group. |
 
 #### CSS Shadow Parts
 
-| Part   | Description                |
+| Name   | Description                |
 |--------|----------------------------|
 | `base` | The main container element. |
 

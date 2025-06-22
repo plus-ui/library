@@ -1,9 +1,13 @@
 ---
 title: Drawer
 description: A sliding panel that appears from the edge of the screen to display content.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/drawer/anatomy.png';
@@ -22,517 +26,832 @@ The Drawer component provides a flexible way to display navigation, forms, detai
 
 Use the `show()` and `hide()` methods to programmatically open and close the drawer. The `isOpen` property reflects the current state.
 
-<code-bubble class="not-content">
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const drawer = document.getElementById('my-drawer');
+      const openButton = document.getElementById('open-button');
+      const closeButton = document.getElementById('close-button');
+      
+      if (drawer && openButton && closeButton) {
+        openButton.addEventListener('plus-click', () => drawer.show());
+        closeButton.addEventListener('plus-click', () => drawer.hide());
+        
+        drawer.addEventListener('plus-drawer-show', () => console.log('Drawer shown'));
+        drawer.addEventListener('plus-drawer-hide', () => console.log('Drawer hidden'));
+      }
+    }, 500);
+  `}
+  showConsole
+>
+  <plus-button id="open-button">Open Drawer</plus-button>
 
-```html
-<plus-button id="open-button">Open Drawer</plus-button>
-
-<plus-drawer id="my-drawer">
-  <div slot="header">Drawer Title</div>
-  <div slot="body">
-    <p>This is the main content of the drawer.</p>
-    <plus-button id="close-button">Close Drawer</plus-button>
-  </div>
-  <div slot="footer">Footer Content</div>
-</plus-drawer>
-
-<script>
-  const drawer = document.getElementById('my-drawer');
-  const openButton = document.getElementById('open-button');
-  const closeButton = document.getElementById('close-button');
-
-  openButton.addEventListener('plus-click', () => drawer.show());
-  closeButton.addEventListener('plus-click', () => drawer.hide());
-
-  drawer.addEventListener('plus-drawer-show', () => console.log('Drawer shown'));
-  drawer.addEventListener('plus-drawer-hide', () => console.log('Drawer hidden'));
-</script>
-```
-
-```tsx
-import { PlusDrawer, PlusButton } from '@plusui/library/react';
-import { useRef } from 'react';
-
-export default () => {
-  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
-
-  const showDrawer = () => drawerRef.current?.show();
-  const hideDrawer = () => drawerRef.current?.hide();
-
-  const handleShow = () => console.log('Drawer shown');
-  const handleHide = () => console.log('Drawer hidden');
-
-  return (
-    <>
-      <PlusButton onClick={showDrawer}>Open Drawer</PlusButton>
-      <PlusDrawer
-        ref={drawerRef}
-        onPlusDrawerShow={handleShow}
-        onPlusDrawerHide={handleHide}
-      >
-        <div slot="header">Drawer Title</div>
-        <div slot="body">
-          <p>This is the main content of the drawer.</p>
-          <PlusButton onClick={hideDrawer}>Close Drawer</PlusButton>
-        </div>
-        <div slot="footer">Footer Content</div>
-      </PlusDrawer>
-    </>
-  );
-};
-```
-
-```ts
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
-
-@Component({
-  selector: 'app-drawer-basic',
-  template: `
-    <plus-button (plus-click)="showDrawer()">Open Drawer</plus-button>
-
-    <plus-drawer #drawer (plus-drawer-show)="handleShow()" (plus-drawer-hide)="handleHide()">
-      <div slot="header">Drawer Title</div>
-      <div slot="body">
-        <p>This is the main content of the drawer.</p>
-        <plus-button (plus-click)="hideDrawer()">Close Drawer</plus-button>
-      </div>
-      <div slot="footer">Footer Content</div>
-    </plus-drawer>
-  `
-})
-export class DrawerBasicComponent {
-  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
-
-  showDrawer() {
-    this.drawerRef.nativeElement.show();
-  }
-
-  hideDrawer() {
-    this.drawerRef.nativeElement.hide();
-  }
-
-  handleShow() {
-    console.log('Drawer shown');
-  }
-
-  handleHide() {
-    console.log('Drawer hidden');
-  }
-}
-```
-
-```vue
-<template>
-  <plus-button @plus-click="showDrawer">Open Drawer</plus-button>
-
-  <plus-drawer ref="drawerRef" @plus-drawer-show="handleShow" @plus-drawer-hide="handleHide">
+  <plus-drawer id="my-drawer">
     <div slot="header">Drawer Title</div>
     <div slot="body">
       <p>This is the main content of the drawer.</p>
-      <plus-button @plus-click="hideDrawer">Close Drawer</plus-button>
+      <plus-button id="close-button">Close Drawer</plus-button>
     </div>
     <div slot="footer">Footer Content</div>
   </plus-drawer>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusDrawer, PlusButton } from '@plusui/react';
+    import { useRef } from 'react';
 
-const drawerRef = ref(null);
+    export default () => {
+      const drawerRef = useRef<HTMLPlusDrawerElement>(null);
 
-const showDrawer = () => drawerRef.value?.show();
-const hideDrawer = () => drawerRef.value?.hide();
+      const showDrawer = () => drawerRef.current?.show();
+      const hideDrawer = () => drawerRef.current?.hide();
 
-const handleShow = () => console.log('Drawer shown');
-const handleHide = () => console.log('Drawer hidden');
-</script>
-```
+      const handleShow = () => console.log('Drawer shown');
+      const handleHide = () => console.log('Drawer hidden');
 
-</code-bubble>
+      return (
+        <>
+          <PlusButton onClick={showDrawer}>Open Drawer</PlusButton>
+          <PlusDrawer
+            ref={drawerRef}
+            onPlusDrawerShow={handleShow}
+            onPlusDrawerHide={handleHide}
+          >
+            <div slot="header">Drawer Title</div>
+            <div slot="body">
+              <p>This is the main content of the drawer.</p>
+              <PlusButton onClick={hideDrawer}>Close Drawer</PlusButton>
+            </div>
+            <div slot="footer">Footer Content</div>
+          </PlusDrawer>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+    import type { PlusDrawer } from '@plusui/core';
+
+    @Component({
+      selector: 'app-drawer-basic',
+      template: `
+        <plus-button (plus-click)="showDrawer()">Open Drawer</plus-button>
+
+        <plus-drawer #drawer (plus-drawer-show)="handleShow()" (plus-drawer-hide)="handleHide()">
+          <div slot="header">Drawer Title</div>
+          <div slot="body">
+            <p>This is the main content of the drawer.</p>
+            <plus-button (plus-click)="hideDrawer()">Close Drawer</plus-button>
+          </div>
+          <div slot="footer">Footer Content</div>
+        </plus-drawer>
+      `
+    })
+    export class DrawerBasicComponent {
+      @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
+
+      showDrawer() {
+        this.drawerRef.nativeElement.show();
+      }
+
+      hideDrawer() {
+        this.drawerRef.nativeElement.hide();
+      }
+
+      handleShow() {
+        console.log('Drawer shown');
+      }
+
+      handleHide() {
+        console.log('Drawer hidden');
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="showDrawer">Open Drawer</plus-button>
+
+      <plus-drawer ref="drawerRef" @plus-drawer-show="handleShow" @plus-drawer-hide="handleHide">
+        <div slot="header">Drawer Title</div>
+        <div slot="body">
+          <p>This is the main content of the drawer.</p>
+          <plus-button @plus-click="hideDrawer">Close Drawer</plus-button>
+        </div>
+        <div slot="footer">Footer Content</div>
+      </plus-drawer>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const drawerRef = ref(null);
+
+    const showDrawer = () => drawerRef.value?.show();
+    const hideDrawer = () => drawerRef.value?.hide();
+
+    const handleShow = () => console.log('Drawer shown');
+    const handleHide = () => console.log('Drawer hidden');
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let drawerRef;
+      let openButtonRef;
+      let closeButtonRef;
+
+      onMount(() => {
+        if (openButtonRef && closeButtonRef && drawerRef) {
+          openButtonRef.addEventListener('plus-click', () => drawerRef.show());
+          closeButtonRef.addEventListener('plus-click', () => drawerRef.hide());
+          
+          drawerRef.addEventListener('plus-drawer-show', () => console.log('Drawer shown'));
+          drawerRef.addEventListener('plus-drawer-hide', () => console.log('Drawer hidden'));
+        }
+      });
+    </script>
+
+    <plus-button bind:this={openButtonRef}>Open Drawer</plus-button>
+
+    <plus-drawer bind:this={drawerRef}>
+      <div slot="header">Drawer Title</div>
+      <div slot="body">
+        <p>This is the main content of the drawer.</p>
+        <plus-button bind:this={closeButtonRef}>Close Drawer</plus-button>
+      </div>
+      <div slot="footer">Footer Content</div>
+    </plus-drawer>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="open-button-html">Open Drawer</plus-button>
+
+    <plus-drawer id="my-drawer-html">
+      <div slot="header">Drawer Title</div>
+      <div slot="body">
+        <p>This is the main content of the drawer.</p>
+        <plus-button id="close-button-html">Close Drawer</plus-button>
+      </div>
+      <div slot="footer">Footer Content</div>
+    </plus-drawer>
+
+    <script>
+      const drawer = document.getElementById('my-drawer-html');
+      const openButton = document.getElementById('open-button-html');
+      const closeButton = document.getElementById('close-button-html');
+
+      openButton.addEventListener('plus-click', () => drawer.show());
+      closeButton.addEventListener('plus-click', () => drawer.hide());
+
+      drawer.addEventListener('plus-drawer-show', () => console.log('Drawer shown'));
+      drawer.addEventListener('plus-drawer-hide', () => console.log('Drawer hidden'));
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Orientation
 
 The `orientation` prop determines which edge the drawer slides in from.
 
-<code-bubble class="not-content horizontal">
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const drawerO = document.getElementById('drawer-orientation-2');
+      const leftBtn = document.getElementById('open-left-2');
+      const rightBtn = document.getElementById('open-right-2');
+      const topBtn = document.getElementById('open-top-2');
+      const bottomBtn = document.getElementById('open-bottom-2');
+      
+      if (drawerO && leftBtn && rightBtn && topBtn && bottomBtn) {
+        leftBtn.addEventListener('plus-click', () => {
+          drawerO.orientation = 'left';
+          drawerO.show();
+        });
+        
+        rightBtn.addEventListener('plus-click', () => {
+          drawerO.orientation = 'right';
+          drawerO.show();
+        });
+        
+        topBtn.addEventListener('plus-click', () => {
+          drawerO.orientation = 'top';
+          drawerO.show();
+        });
+        
+        bottomBtn.addEventListener('plus-click', () => {
+          drawerO.orientation = 'bottom';
+          drawerO.show();
+        });
+      }
+    }, 200);
+  `}
+  horizontal
+>
+  <plus-button id="open-left-2">Left</plus-button>
+  <plus-button id="open-right-2">Right (Default)</plus-button>
+  <plus-button id="open-top-2">Top</plus-button>
+  <plus-button id="open-bottom-2">Bottom</plus-button>
 
-```html
-<plus-button id="open-left">Left</plus-button>
-<plus-button id="open-right">Right (Default)</plus-button>
-<plus-button id="open-top">Top</plus-button>
-<plus-button id="open-bottom">Bottom</plus-button>
-
-<plus-drawer id="drawer-orientation">
-  <div slot="header">Orientation Example</div>
-  <div slot="body">Content</div>
-</plus-drawer>
-
-<script>
-  const drawerO = document.getElementById('drawer-orientation');
-  document.getElementById('open-left').addEventListener('plus-click', () => {
-    drawerO.orientation = 'left';
-    drawerO.show();
-  });
-  document.getElementById('open-right').addEventListener('plus-click', () => {
-    drawerO.orientation = 'right';
-    drawerO.show();
-  });
-  document.getElementById('open-top').addEventListener('plus-click', () => {
-    drawerO.orientation = 'top';
-    drawerO.show();
-  });
-  document.getElementById('open-bottom').addEventListener('plus-click', () => {
-    drawerO.orientation = 'bottom';
-    drawerO.show();
-  });
-</script>
-```
-
-```tsx
-import { PlusDrawer, PlusButton } from '@plusui/library/react';
-import { useRef, useState } from 'react';
-
-export default () => {
-  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
-  const [orientation, setOrientation] = useState('right');
-
-  const openDrawer = (orient: string) => {
-    setOrientation(orient);
-    // Setting state might not be instant, ensure drawer exists before showing
-    requestAnimationFrame(() => drawerRef.current?.show());
-  };
-
-  return (
-    <>
-      <PlusButton onClick={() => openDrawer('left')}>Left</PlusButton>
-      <PlusButton onClick={() => openDrawer('right')}>Right (Default)</PlusButton>
-      <PlusButton onClick={() => openDrawer('top')}>Top</PlusButton>
-      <PlusButton onClick={() => openDrawer('bottom')}>Bottom</PlusButton>
-
-      <PlusDrawer ref={drawerRef} orientation={orientation}>
-        <div slot="header">Orientation Example</div>
-        <div slot="body">Content</div>
-      </PlusDrawer>
-    </>
-  );
-};
-```
-
-```ts
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
-
-@Component({
-  selector: 'app-drawer-orientation',
-  template: `
-    <plus-button (plus-click)="openDrawer('left')">Left</plus-button>
-    <plus-button (plus-click)="openDrawer('right')">Right (Default)</plus-button>
-    <plus-button (plus-click)="openDrawer('top')">Top</plus-button>
-    <plus-button (plus-click)="openDrawer('bottom')">Bottom</plus-button>
-
-    <plus-drawer #drawer>
-      <div slot="header">Orientation Example</div>
-      <div slot="body">Content</div>
-    </plus-drawer>
-  `
-})
-export class DrawerOrientationComponent {
-  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
-
-  openDrawer(orientation: 'left' | 'right' | 'top' | 'bottom') {
-    if (this.drawerRef.nativeElement) {
-      this.drawerRef.nativeElement.orientation = orientation;
-      this.drawerRef.nativeElement.show();
-    }
-  }
-}
-```
-
-```vue
-<template>
-  <plus-button @plus-click="openDrawer('left')">Left</plus-button>
-  <plus-button @plus-click="openDrawer('right')">Right (Default)</plus-button>
-  <plus-button @plus-click="openDrawer('top')">Top</plus-button>
-  <plus-button @plus-click="openDrawer('bottom')">Bottom</plus-button>
-
-  <plus-drawer ref="drawerRef" :orientation="currentOrientation">
+  <plus-drawer id="drawer-orientation-2">
     <div slot="header">Orientation Example</div>
     <div slot="body">Content</div>
   </plus-drawer>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusDrawer, PlusButton } from '@plusui/react';
+    import { useRef, useState } from 'react';
 
-const drawerRef = ref(null);
-const currentOrientation = ref('right');
+    export default () => {
+      const drawerRef = useRef<HTMLPlusDrawerElement>(null);
+      const [orientation, setOrientation] = useState('right');
 
-const openDrawer = (orientation) => {
-  currentOrientation.value = orientation;
-  // Use nextTick to ensure orientation is updated before showing
-  nextTick(() => {
-      drawerRef.value?.show();
-  });
-};
-</script>
-```
+      const openDrawer = (orient: string) => {
+        setOrientation(orient);
+        // Setting state might not be instant, ensure drawer exists before showing
+        requestAnimationFrame(() => drawerRef.current?.show());
+      };
 
-</code-bubble>
+      return (
+        <>
+          <PlusButton onClick={() => openDrawer('left')}>Left</PlusButton>
+          <PlusButton onClick={() => openDrawer('right')}>Right (Default)</PlusButton>
+          <PlusButton onClick={() => openDrawer('top')}>Top</PlusButton>
+          <PlusButton onClick={() => openDrawer('bottom')}>Bottom</PlusButton>
+
+          <PlusDrawer ref={drawerRef} orientation={orientation}>
+            <div slot="header">Orientation Example</div>
+            <div slot="body">Content</div>
+          </PlusDrawer>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+    import type { PlusDrawer } from '@plusui/core';
+
+    @Component({
+      selector: 'app-drawer-orientation',
+      template: `
+        <plus-button (plus-click)="openDrawer('left')">Left</plus-button>
+        <plus-button (plus-click)="openDrawer('right')">Right (Default)</plus-button>
+        <plus-button (plus-click)="openDrawer('top')">Top</plus-button>
+        <plus-button (plus-click)="openDrawer('bottom')">Bottom</plus-button>
+
+        <plus-drawer #drawer>
+          <div slot="header">Orientation Example</div>
+          <div slot="body">Content</div>
+        </plus-drawer>
+      `
+    })
+    export class DrawerOrientationComponent {
+      @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
+
+      openDrawer(orientation: 'left' | 'right' | 'top' | 'bottom') {
+        if (this.drawerRef.nativeElement) {
+          this.drawerRef.nativeElement.orientation = orientation;
+          this.drawerRef.nativeElement.show();
+        }
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="openDrawer('left')">Left</plus-button>
+      <plus-button @plus-click="openDrawer('right')">Right (Default)</plus-button>
+      <plus-button @plus-click="openDrawer('top')">Top</plus-button>
+      <plus-button @plus-click="openDrawer('bottom')">Bottom</plus-button>
+
+      <plus-drawer ref="drawerRef" :orientation="currentOrientation">
+        <div slot="header">Orientation Example</div>
+        <div slot="body">Content</div>
+      </plus-drawer>
+    </template>
+
+    <script setup>
+    import { ref, nextTick } from 'vue';
+
+    const drawerRef = ref(null);
+    const currentOrientation = ref('right');
+
+    const openDrawer = (orientation) => {
+      currentOrientation.value = orientation;
+      // Use nextTick to ensure orientation is updated before showing
+      nextTick(() => {
+        drawerRef.value?.show();
+      });
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let drawerRef;
+      let currentOrientation = 'right';
+
+      onMount(() => {
+        const buttons = ['open-left', 'open-right', 'open-top', 'open-bottom'];
+        const orientations = ['left', 'right', 'top', 'bottom'];
+        
+        buttons.forEach((buttonId, index) => {
+          const button = document.getElementById(buttonId);
+          if (button && drawerRef) {
+            button.addEventListener('plus-click', () => {
+              drawerRef.orientation = orientations[index];
+              drawerRef.show();
+            });
+          }
+        });
+      });
+    </script>
+
+    <plus-button id="open-left">Left</plus-button>
+    <plus-button id="open-right">Right (Default)</plus-button>
+    <plus-button id="open-top">Top</plus-button>
+    <plus-button id="open-bottom">Bottom</plus-button>
+
+    <plus-drawer bind:this={drawerRef} orientation={currentOrientation}>
+      <div slot="header">Orientation Example</div>
+      <div slot="body">Content</div>
+    </plus-drawer>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="open-left-html">Left</plus-button>
+    <plus-button id="open-right-html">Right (Default)</plus-button>
+    <plus-button id="open-top-html">Top</plus-button>
+    <plus-button id="open-bottom-html">Bottom</plus-button>
+
+    <plus-drawer id="drawer-orientation-html">
+      <div slot="header">Orientation Example</div>
+      <div slot="body">Content</div>
+    </plus-drawer>
+
+    <script>
+      const drawerO = document.getElementById('drawer-orientation-html');
+      document.getElementById('open-left-html').addEventListener('plus-click', () => {
+        drawerO.orientation = 'left';
+        drawerO.show();
+      });
+      document.getElementById('open-right-html').addEventListener('plus-click', () => {
+        drawerO.orientation = 'right';
+        drawerO.show();
+      });
+      document.getElementById('open-top-html').addEventListener('plus-click', () => {
+        drawerO.orientation = 'top';
+        drawerO.show();
+      });
+      document.getElementById('open-bottom-html').addEventListener('plus-click', () => {
+        drawerO.orientation = 'bottom';
+        drawerO.show();
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 The `size` prop controls the width (for left/right) or height (for top/bottom) of the drawer.
 
-<code-bubble class="not-content horizontal">
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const drawerS = document.getElementById('drawer-size-3');
+      const smBtn = document.getElementById('open-sm-3');
+      const mdBtn = document.getElementById('open-md-3');
+      const lgBtn = document.getElementById('open-lg-3');
+      
+      if (drawerS && smBtn && mdBtn && lgBtn) {
+        smBtn.addEventListener('plus-click', () => {
+          drawerS.size = 'sm';
+          drawerS.show();
+        });
+        
+        mdBtn.addEventListener('plus-click', () => {
+          drawerS.size = 'md';
+          drawerS.show();
+        });
+        
+        lgBtn.addEventListener('plus-click', () => {
+          drawerS.size = 'lg';
+          drawerS.show();
+        });
+      }
+    }, 300);
+  `}
+  horizontal
+>
+  <plus-button id="open-sm-3">Small</plus-button>
+  <plus-button id="open-md-3">Medium (Default)</plus-button>
+  <plus-button id="open-lg-3">Large</plus-button>
 
-```html
-<plus-button id="open-sm">Small</plus-button>
-<plus-button id="open-md">Medium (Default)</plus-button>
-<plus-button id="open-lg">Large</plus-button>
-
-<plus-drawer id="drawer-size">
-  <div slot="header">Size Example</div>
-  <div slot="body">Content</div>
-</plus-drawer>
-
-<script>
-  const drawerS = document.getElementById('drawer-size');
-  document.getElementById('open-sm').addEventListener('plus-click', () => {
-    drawerS.size = 'sm';
-    drawerS.show();
-  });
-  document.getElementById('open-md').addEventListener('plus-click', () => {
-    drawerS.size = 'md';
-    drawerS.show();
-  });
-  document.getElementById('open-lg').addEventListener('plus-click', () => {
-    drawerS.size = 'lg';
-    drawerS.show();
-  });
-</script>
-```
-
-```tsx
-import { PlusDrawer, PlusButton } from '@plusui/library/react';
-import { useRef, useState } from 'react';
-
-export default () => {
-  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
-  const [size, setSize] = useState('md');
-
-  const openDrawer = (sz: string) => {
-    setSize(sz);
-    requestAnimationFrame(() => drawerRef.current?.show());
-  };
-
-  return (
-    <>
-      <PlusButton onClick={() => openDrawer('sm')}>Small</PlusButton>
-      <PlusButton onClick={() => openDrawer('md')}>Medium (Default)</PlusButton>
-      <PlusButton onClick={() => openDrawer('lg')}>Large</PlusButton>
-
-      <PlusDrawer ref={drawerRef} size={size}>
-        <div slot="header">Size Example</div>
-        <div slot="body">Content</div>
-      </PlusDrawer>
-    </>
-  );
-};
-```
-
-```ts
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
-
-@Component({
-  selector: 'app-drawer-size',
-  template: `
-    <plus-button (plus-click)="openDrawer('sm')">Small</plus-button>
-    <plus-button (plus-click)="openDrawer('md')">Medium (Default)</plus-button>
-    <plus-button (plus-click)="openDrawer('lg')">Large</plus-button>
-
-    <plus-drawer #drawer>
-      <div slot="header">Size Example</div>
-      <div slot="body">Content</div>
-    </plus-drawer>
-  `
-})
-export class DrawerSizeComponent {
-  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
-
-  openDrawer(size: 'sm' | 'md' | 'lg') {
-    if (this.drawerRef.nativeElement) {
-      this.drawerRef.nativeElement.size = size;
-      this.drawerRef.nativeElement.show();
-    }
-  }
-}
-```
-
-```vue
-<template>
-  <plus-button @plus-click="openDrawer('sm')">Small</plus-button>
-  <plus-button @plus-click="openDrawer('md')">Medium (Default)</plus-button>
-  <plus-button @plus-click="openDrawer('lg')">Large</plus-button>
-
-  <plus-drawer ref="drawerRef" :size="currentSize">
+  <plus-drawer id="drawer-size-3">
     <div slot="header">Size Example</div>
     <div slot="body">Content</div>
   </plus-drawer>
-</template>
 
-<script setup>
-import { ref, nextTick } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusDrawer, PlusButton } from '@plusui/react';
+    import { useRef, useState } from 'react';
 
-const drawerRef = ref(null);
-const currentSize = ref('md');
+    export default () => {
+      const drawerRef = useRef<HTMLPlusDrawerElement>(null);
+      const [size, setSize] = useState('md');
 
-const openDrawer = (size) => {
-  currentSize.value = size;
-  nextTick(() => {
-    drawerRef.value?.show();
-  });
-};
-</script>
-```
+      const openDrawer = (sz: string) => {
+        setSize(sz);
+        requestAnimationFrame(() => drawerRef.current?.show());
+      };
 
-</code-bubble>
+      return (
+        <>
+          <PlusButton onClick={() => openDrawer('sm')}>Small</PlusButton>
+          <PlusButton onClick={() => openDrawer('md')}>Medium (Default)</PlusButton>
+          <PlusButton onClick={() => openDrawer('lg')}>Large</PlusButton>
+
+          <PlusDrawer ref={drawerRef} size={size}>
+            <div slot="header">Size Example</div>
+            <div slot="body">Content</div>
+          </PlusDrawer>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+    import type { PlusDrawer } from '@plusui/core';
+
+    @Component({
+      selector: 'app-drawer-size',
+      template: `
+        <plus-button (plus-click)="openDrawer('sm')">Small</plus-button>
+        <plus-button (plus-click)="openDrawer('md')">Medium (Default)</plus-button>
+        <plus-button (plus-click)="openDrawer('lg')">Large</plus-button>
+
+        <plus-drawer #drawer>
+          <div slot="header">Size Example</div>
+          <div slot="body">Content</div>
+        </plus-drawer>
+      `
+    })
+    export class DrawerSizeComponent {
+      @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
+
+      openDrawer(size: 'sm' | 'md' | 'lg') {
+        if (this.drawerRef.nativeElement) {
+          this.drawerRef.nativeElement.size = size;
+          this.drawerRef.nativeElement.show();
+        }
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="openDrawer('sm')">Small</plus-button>
+      <plus-button @plus-click="openDrawer('md')">Medium (Default)</plus-button>
+      <plus-button @plus-click="openDrawer('lg')">Large</plus-button>
+
+      <plus-drawer ref="drawerRef" :size="currentSize">
+        <div slot="header">Size Example</div>
+        <div slot="body">Content</div>
+      </plus-drawer>
+    </template>
+
+    <script setup>
+    import { ref, nextTick } from 'vue';
+
+    const drawerRef = ref(null);
+    const currentSize = ref('md');
+
+    const openDrawer = (size) => {
+      currentSize.value = size;
+      nextTick(() => {
+        drawerRef.value?.show();
+      });
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let drawerRef;
+      let currentSize = 'md';
+
+      onMount(() => {
+        const buttons = ['open-sm', 'open-md', 'open-lg'];
+        const sizes = ['sm', 'md', 'lg'];
+        
+        buttons.forEach((buttonId, index) => {
+          const button = document.getElementById(buttonId);
+          if (button && drawerRef) {
+            button.addEventListener('plus-click', () => {
+              drawerRef.size = sizes[index];
+              drawerRef.show();
+            });
+          }
+        });
+      });
+    </script>
+
+    <plus-button id="open-sm">Small</plus-button>
+    <plus-button id="open-md">Medium (Default)</plus-button>
+    <plus-button id="open-lg">Large</plus-button>
+
+    <plus-drawer bind:this={drawerRef} size={currentSize}>
+      <div slot="header">Size Example</div>
+      <div slot="body">Content</div>
+    </plus-drawer>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="open-sm-html">Small</plus-button>
+    <plus-button id="open-md-html">Medium (Default)</plus-button>
+    <plus-button id="open-lg-html">Large</plus-button>
+
+    <plus-drawer id="drawer-size-html">
+      <div slot="header">Size Example</div>
+      <div slot="body">Content</div>
+    </plus-drawer>
+
+    <script>
+      const drawerS = document.getElementById('drawer-size-html');
+      document.getElementById('open-sm-html').addEventListener('plus-click', () => {
+        drawerS.size = 'sm';
+        drawerS.show();
+      });
+      document.getElementById('open-md-html').addEventListener('plus-click', () => {
+        drawerS.size = 'md';
+        drawerS.show();
+      });
+      document.getElementById('open-lg-html').addEventListener('plus-click', () => {
+        drawerS.size = 'lg';
+        drawerS.show();
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Customizing Content (Slots)
 
 Use the `header`, `body`, and `footer` slots to structure the drawer content. The default close button can be replaced using the `close` slot.
 
-<code-bubble class="not-content">
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const drawerSlots = document.getElementById('drawer-slots-4');
+      const openBtn = document.getElementById('open-slots-4');
+      const closeBtn = document.getElementById('close-slots-4');
+      
+      if (drawerSlots && openBtn && closeBtn) {
+        openBtn.addEventListener('plus-click', () => drawerSlots.show());
+        closeBtn.addEventListener('plus-click', () => drawerSlots.hide());
+        
+        const closeSlotBtn = drawerSlots.querySelector('[slot=close]');
+        if (closeSlotBtn) {
+          closeSlotBtn.addEventListener('plus-click', () => drawerSlots.hide());
+        }
+      }
+    }, 400);
+  `}
+>
+  <plus-button id="open-slots-4">Open Custom Drawer</plus-button>
 
-```html
-<plus-button id="open-slots">Open Custom Drawer</plus-button>
-
-<plus-drawer id="drawer-slots">
-  <span slot="header"><strong>Custom Header</strong></span>
-  <div slot="body">
-    This is the <em>body</em> slot content.
-    <p>Put any HTML here.</p>
-  </div>
-  <div slot="footer">
-    <plus-button kind="text" id="close-slots">Close</plus-button>
-    <plus-button>Save</plus-button>
-  </div>
-  <plus-button slot="close" kind="text" aria-label="Close">
-    <plus-icon iconName="xmark-large"></plus-icon>
-  </plus-button>
-</plus-drawer>
-
-<script>
-  const drawerSlots = document.getElementById('drawer-slots');
-  document.getElementById('open-slots').addEventListener('plus-click', () => drawerSlots.show());
-  document.getElementById('close-slots').addEventListener('plus-click', () => drawerSlots.hide());
-
-  drawerSlots.querySelector('[slot="close"]').addEventListener('plus-click', () => drawerSlots.hide());
-</script>
-```
-
-```tsx
-import { PlusDrawer, PlusButton, PlusIcon } from '@plusui/library/react';
-import { useRef } from 'react';
-
-export default () => {
-  const drawerRef = useRef<HTMLPlusDrawerElement>(null);
-
-  const showDrawer = () => drawerRef.current?.show();
-  const hideDrawer = () => drawerRef.current?.hide();
-
-  return (
-    <>
-      <PlusButton onClick={showDrawer}>Open Custom Drawer</PlusButton>
-
-      <PlusDrawer ref={drawerRef}>
-        <span slot="header"><strong>Custom Header</strong></span>
-        <div slot="body">
-          This is the <em>body</em> slot content.
-          <p>Put any HTML here.</p>
-        </div>
-        <div slot="footer">
-          <PlusButton kind="text" onClick={hideDrawer}>Close</PlusButton>
-          <PlusButton>Save</PlusButton>
-        </div>
-        <PlusButton slot="close" kind="text" aria-label="Close" onClick={hideDrawer}>
-          <PlusIcon iconName="xmark-large" />
-        </PlusButton>
-      </PlusDrawer>
-    </>
-  );
-};
-```
-
-```ts
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import type { PlusDrawer } from '@plusui/library/components/drawer/drawer';
-
-@Component({
-  selector: 'app-drawer-slots',
-  template: `
-    <plus-button (plus-click)="showDrawer()">Open Custom Drawer</plus-button>
-
-    <plus-drawer #drawer>
-      <span slot="header"><strong>Custom Header</strong></span>
-      <div slot="body">
-        This is the <em>body</em> slot content.
-        <p>Put any HTML here.</p>
-      </div>
-      <div slot="footer">
-        <plus-button kind="text" (plus-click)="hideDrawer()">Close</plus-button>
-        <plus-button>Save</plus-button>
-      </div>
-      <plus-button slot="close" kind="text" aria-label="Close" (plus-click)="hideDrawer()">
-        <plus-icon iconName="xmark-large"></plus-icon>
-      </plus-button>
-    </plus-drawer>
-  `
-})
-export class DrawerSlotsComponent {
-  @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
-
-  showDrawer() {
-    this.drawerRef.nativeElement.show();
-  }
-  hideDrawer() {
-    this.drawerRef.nativeElement.hide();
-  }
-}
-```
-
-```vue
-<template>
-  <plus-button @plus-click="showDrawer">Open Custom Drawer</plus-button>
-
-  <plus-drawer ref="drawerRef">
+  <plus-drawer id="drawer-slots-4">
     <span slot="header"><strong>Custom Header</strong></span>
     <div slot="body">
       This is the <em>body</em> slot content.
       <p>Put any HTML here.</p>
     </div>
     <div slot="footer">
-      <plus-button kind="text" @plus-click="hideDrawer">Close</plus-button>
+      <plus-button kind="text" id="close-slots-4">Close</plus-button>
       <plus-button>Save</plus-button>
     </div>
-    <plus-button slot="close" kind="text" aria-label="Close" @plus-click="hideDrawer">
+    <plus-button slot="close" kind="text" aria-label="Close">
       <plus-icon iconName="xmark-large"></plus-icon>
     </plus-button>
   </plus-drawer>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusDrawer, PlusButton, PlusIcon } from '@plusui/react';
+    import { useRef } from 'react';
 
-const drawerRef = ref(null);
+    export default () => {
+      const drawerRef = useRef<HTMLPlusDrawerElement>(null);
 
-const showDrawer = () => drawerRef.value?.show();
-const hideDrawer = () => drawerRef.value?.hide();
-</script>
-```
+      const showDrawer = () => drawerRef.current?.show();
+      const hideDrawer = () => drawerRef.current?.hide();
 
-</code-bubble>
+      return (
+        <>
+          <PlusButton onClick={showDrawer}>Open Custom Drawer</PlusButton>
+
+          <PlusDrawer ref={drawerRef}>
+            <span slot="header"><strong>Custom Header</strong></span>
+            <div slot="body">
+              This is the <em>body</em> slot content.
+              <p>Put any HTML here.</p>
+            </div>
+            <div slot="footer">
+              <PlusButton kind="text" onClick={hideDrawer}>Close</PlusButton>
+              <PlusButton>Save</PlusButton>
+            </div>
+            <PlusButton slot="close" kind="text" aria-label="Close" onClick={hideDrawer}>
+              <PlusIcon iconName="xmark-large" />
+            </PlusButton>
+          </PlusDrawer>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+    import type { PlusDrawer } from '@plusui/core';
+
+    @Component({
+      selector: 'app-drawer-slots',
+      template: `
+        <plus-button (plus-click)="showDrawer()">Open Custom Drawer</plus-button>
+
+        <plus-drawer #drawer>
+          <span slot="header"><strong>Custom Header</strong></span>
+          <div slot="body">
+            This is the <em>body</em> slot content.
+            <p>Put any HTML here.</p>
+          </div>
+          <div slot="footer">
+            <plus-button kind="text" (plus-click)="hideDrawer()">Close</plus-button>
+            <plus-button>Save</plus-button>
+          </div>
+          <plus-button slot="close" kind="text" aria-label="Close" (plus-click)="hideDrawer()">
+            <plus-icon iconName="xmark-large"></plus-icon>
+          </plus-button>
+        </plus-drawer>
+      `
+    })
+    export class DrawerSlotsComponent {
+      @ViewChild('drawer') drawerRef!: ElementRef<PlusDrawer>;
+
+      showDrawer() {
+        this.drawerRef.nativeElement.show();
+      }
+      hideDrawer() {
+        this.drawerRef.nativeElement.hide();
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="showDrawer">Open Custom Drawer</plus-button>
+
+      <plus-drawer ref="drawerRef">
+        <span slot="header"><strong>Custom Header</strong></span>
+        <div slot="body">
+          This is the <em>body</em> slot content.
+          <p>Put any HTML here.</p>
+        </div>
+        <div slot="footer">
+          <plus-button kind="text" @plus-click="hideDrawer">Close</plus-button>
+          <plus-button>Save</plus-button>
+        </div>
+        <plus-button slot="close" kind="text" aria-label="Close" @plus-click="hideDrawer">
+          <plus-icon iconName="xmark-large"></plus-icon>
+        </plus-button>
+      </plus-drawer>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const drawerRef = ref(null);
+
+    const showDrawer = () => drawerRef.value?.show();
+    const hideDrawer = () => drawerRef.value?.hide();
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let drawerRef;
+      let openButtonRef;
+      let closeButtonRef;
+
+      onMount(() => {
+        if (openButtonRef && closeButtonRef && drawerRef) {
+          openButtonRef.addEventListener('plus-click', () => drawerRef.show());
+          closeButtonRef.addEventListener('plus-click', () => drawerRef.hide());
+          
+          const closeSlotButton = drawerRef.querySelector('[slot="close"]');
+          if (closeSlotButton) {
+            closeSlotButton.addEventListener('plus-click', () => drawerRef.hide());
+          }
+        }
+      });
+    </script>
+
+    <plus-button bind:this={openButtonRef}>Open Custom Drawer</plus-button>
+
+    <plus-drawer bind:this={drawerRef}>
+      <span slot="header"><strong>Custom Header</strong></span>
+      <div slot="body">
+        This is the <em>body</em> slot content.
+        <p>Put any HTML here.</p>
+      </div>
+      <div slot="footer">
+        <plus-button bind:this={closeButtonRef} kind="text">Close</plus-button>
+        <plus-button>Save</plus-button>
+      </div>
+      <plus-button slot="close" kind="text" aria-label="Close">
+        <plus-icon iconName="xmark-large"></plus-icon>
+      </plus-button>
+    </plus-drawer>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="open-slots-html">Open Custom Drawer</plus-button>
+
+    <plus-drawer id="drawer-slots-html">
+      <span slot="header"><strong>Custom Header</strong></span>
+      <div slot="body">
+        This is the <em>body</em> slot content.
+        <p>Put any HTML here.</p>
+      </div>
+      <div slot="footer">
+        <plus-button kind="text" id="close-slots-html">Close</plus-button>
+        <plus-button>Save</plus-button>
+      </div>
+      <plus-button slot="close" kind="text" aria-label="Close">
+        <plus-icon iconName="xmark-large"></plus-icon>
+      </plus-button>
+    </plus-drawer>
+
+    <script>
+      const drawerSlots = document.getElementById('drawer-slots-html');
+      document.getElementById('open-slots-html').addEventListener('plus-click', () => drawerSlots.show());
+      document.getElementById('close-slots-html').addEventListener('plus-click', () => drawerSlots.hide());
+
+      drawerSlots.querySelector('[slot="close"]').addEventListener('plus-click', () => drawerSlots.hide());
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 <Aside type="tip">
 <p>The `animationDuration` prop (default: 300ms) controls the speed of the slide animation. You can adjust it if needed: `<plus-drawer animation-duration="500">...</plus-drawer>`.</p>

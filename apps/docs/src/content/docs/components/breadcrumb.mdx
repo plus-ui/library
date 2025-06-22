@@ -1,9 +1,13 @@
 ---
 title: Breadcrumb
 description: Displays hierarchical navigation path, allowing users to trace their steps back to the starting point.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/breadcrumb/anatomy.png';
@@ -22,158 +26,25 @@ The Breadcrumb component provides a navigational aid that displays the user's cu
 
 Create a breadcrumb trail by nesting `plus-breadcrumb-item` components within the `plus-breadcrumb`. The last item is automatically considered the current page.
 
-<code-bubble class="not-content horizontal">
-```html
-<plus-breadcrumb>
-  <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
-  <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
-  <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
-</plus-breadcrumb>
-```
-
-```tsx
-import { PlusBreadcrumb, PlusBreadcrumbItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusBreadcrumb>
-      <PlusBreadcrumbItem href="#">Home</PlusBreadcrumbItem>
-      <PlusBreadcrumbItem href="#">Category</PlusBreadcrumbItem>
-      <PlusBreadcrumbItem>Current Page</PlusBreadcrumbItem>
-    </PlusBreadcrumb>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-// Make sure PlusUiModule is imported
-
-@Component({
-  selector: 'app-breadcrumb-basic',
-  template: `
-    <plus-breadcrumb>
-      <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
-      <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
-      <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
-    </plus-breadcrumb>
-  `
-})
-export class BreadcrumbBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-breadcrumb>
     <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
     <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
     <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
   </plus-breadcrumb>
-</template>
-
-<script setup>
-// Assuming Plus UI components are registered globally or imported locally
-</script>
-```
-</code-bubble>
+</CodePreview>
 
 ### Separator Style
 
 Use the `separator` property to change the visual separator between items. Allowed values are `'arrow'` (default) and `'slash'`.
 
-<code-bubble class="not-content horizontal">
-```html
-<!-- Default separator (arrow) -->
-<plus-breadcrumb>
-  <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
-  <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
-  <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
-</plus-breadcrumb>
-
-<!-- Using slash separator -->
-<plus-breadcrumb separator="slash">
-  <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
-  <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
-  <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
-</plus-breadcrumb>
-```
-
-```tsx
-import { PlusBreadcrumb, PlusBreadcrumbItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      {/* Default separator (arrow) */}
-      <PlusBreadcrumb>
-        <PlusBreadcrumbItem href="#">Home</PlusBreadcrumbItem>
-        <PlusBreadcrumbItem href="#">Products</PlusBreadcrumbItem>
-        <PlusBreadcrumbItem>Gadgets</PlusBreadcrumbItem>
-      </PlusBreadcrumb>
-
-      <br />
-
-      {/* Using slash separator */}
-      <PlusBreadcrumb separator="slash">
-        <PlusBreadcrumbItem href="#">Settings</PlusBreadcrumbItem>
-        <PlusBreadcrumbItem href="#">Profile</PlusBreadcrumbItem>
-        <PlusBreadcrumbItem>Edit</PlusBreadcrumbItem>
-      </PlusBreadcrumb>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-breadcrumb-separator',
-  template: `
-    <!-- Default separator (arrow) -->
-    <plus-breadcrumb>
-      <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
-      <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
-      <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
-    </plus-breadcrumb>
-
-    <br />
-
-    <!-- Using slash separator -->
-    <plus-breadcrumb separator="slash">
-      <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
-      <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
-      <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
-    </plus-breadcrumb>
-  `
-})
-export class BreadcrumbSeparatorComponent {}
-```
-
-```vue
-<template>
-  <!-- Default separator (arrow) -->
-  <plus-breadcrumb>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-breadcrumb data-variant-separator="arrow,slash">
     <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
     <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
     <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
   </plus-breadcrumb>
-
-  <br />
-
-  <!-- Using slash separator -->
-  <plus-breadcrumb separator="slash">
-    <plus-breadcrumb-item href="#">Settings</plus-breadcrumb-item>
-    <plus-breadcrumb-item href="#">Profile</plus-breadcrumb-item>
-    <plus-breadcrumb-item>Edit</plus-breadcrumb-item>
-  </plus-breadcrumb>
-</template>
-
-<script setup>
-// Assuming Plus UI components are registered globally or imported locally
-</script>
-```
-</code-bubble>
+</CodePreview>
 
 ## Visual Sections
 

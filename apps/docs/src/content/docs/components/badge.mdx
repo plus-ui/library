@@ -1,9 +1,13 @@
 ---
 title: Badge
 description: Displays a small notification count or status indicator on another element.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/badge/anatomy.png';
@@ -22,370 +26,53 @@ The Badge component is used to display small pieces of information, such as noti
 
 A basic badge can display content (like a number) attached to an element, or act as a simple status dot.
 
-<code-bubble class="not-content horizontal">
-```html
-<!-- Badge with numeric content -->
-<plus-badge content="5">
-  <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
-</plus-badge>
-
-<!-- Dot badge indicating status -->
-<plus-badge status="success">
-  <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
-</plus-badge>
-```
-
-```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      {/* Badge with numeric content */}
-      <PlusBadge content="5">
-        <PlusAvatar image="https://i.pravatar.cc/50" alt="User Avatar" />
-      </PlusBadge>
-
-      {/* Dot badge indicating status */}
-      <PlusBadge status="success">
-        <PlusAvatar image="https://i.pravatar.cc/50" alt="User Avatar" />
-      </PlusBadge>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-// Make sure PlusUiModule is imported
-
-@Component({
-  selector: 'app-badge-basic',
-  template: `
-    <!-- Badge with numeric content -->
-    <plus-badge content="5">
-      <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
-    </plus-badge>
-
-    <!-- Dot badge indicating status -->
-    <plus-badge status="success">
-      <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
-    </plus-badge>
-  `
-})
-export class BadgeBasicComponent {}
-```
-
-```vue
-<template>
-  <!-- Badge with numeric content -->
+<CodePreview autoGeneration={true} horizontal>
   <plus-badge content="5">
     <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
   </plus-badge>
-
-  <!-- Dot badge indicating status -->
   <plus-badge status="success">
     <plus-avatar image="https://i.pravatar.cc/50" alt="User Avatar"></plus-avatar>
   </plus-badge>
-</template>
-
-<script setup>
-// Assuming Plus UI components are registered globally or imported locally
-</script>
-```
-</code-bubble>
+</CodePreview>
 
 ### Status
 
 Use the `status` prop to change the color variant: `default`, `primary`, `success`, `warning`, `danger`, `info`.
 
-<code-bubble class="not-content horizontal">
-```html
-<plus-badge status="default" content="1">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge status="primary" content="2">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge status="success" content="✓">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge status="warning">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge status="danger">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge status="info">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-```
-
-```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusBadge status="default" content="1">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge status="primary" content="2">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge status="success" content="✓">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge status="warning">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge status="danger">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge status="info">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-badge-status',
-  template: `
-    <plus-badge status="default" content="1">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge status="primary" content="2">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge status="success" content="✓">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge status="warning">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge status="danger">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge status="info">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-  `
-})
-export class BadgeStatusComponent {}
-```
-
-```vue
-<template>
-  <plus-badge status="default" content="1">
+<CodePreview autoGeneration={true} horizontal>
+  <plus-badge data-variant-status="default,primary,success,warning,danger,info" content="1">
     <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  <plus-badge status="primary" content="2">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge status="success" content="✓">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge status="warning">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge status="danger">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge status="info">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Size
 
 Control the badge size with the `size` prop: `sm`, `md` (default), `lg`.
 
-<code-bubble class="not-content horizontal">
-```html
-<plus-badge size="sm" content="S">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge size="md" content="M">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge size="lg" content="L">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-
-<plus-badge size="sm">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge size="md">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge size="lg">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-```
-
-```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusBadge size="sm" content="S">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge size="md" content="M">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge size="lg" content="L">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-
-      <PlusBadge size="sm">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge size="md">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge size="lg">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-badge-size',
-  template: `
-    <plus-badge size="sm" content="S">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge size="md" content="M">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge size="lg" content="L">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-
-    <plus-badge size="sm">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge size="md">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge size="lg">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-  `
-})
-export class BadgeSizeComponent {}
-```
-
-```vue
-<template>
-  <plus-badge size="sm" content="S">
+<CodePreview autoGeneration={true} horizontal>
+  <plus-badge data-variant-size="sm,md,lg" content="S">
     <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  <plus-badge size="md" content="M">
+  <plus-badge data-variant-size="sm,md,lg">
     <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-  <plus-badge size="lg" content="L">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-
-  <plus-badge size="sm">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge size="md">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge size="lg">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Placement & Offset
 
 Use the `orientation` prop to place the badge at different corners (`top-right` (default), `top-left`, `bottom-right`, `bottom-left`) relative to the element in the default slot. Use the `offset` prop (format: "x,y") to fine-tune the position.
 
-<code-bubble class="not-content horizontal">
-```html
-<plus-badge orientation="top-left" content="TL">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge orientation="bottom-left" offset="-5px,5px" content="Offset">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-<plus-badge orientation="bottom-right" content="BR">
-  <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-</plus-badge>
-```
-
-```tsx
-import { PlusBadge, PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusBadge orientation="top-left" content="TL">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge orientation="bottom-right" content="BR">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-      <PlusBadge orientation="bottom-left" offset="-5px,5px" content="Offset">
-        <PlusAvatar image="https://i.pravatar.cc/50" />
-      </PlusBadge>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-badge-placement',
-  template: `
-    <plus-badge orientation="top-left" content="TL">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge orientation="bottom-right" content="BR">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-    <plus-badge orientation="bottom-left" offset="-5px,5px" content="Offset">
-      <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-    </plus-badge>
-  `
-})
-export class BadgePlacementComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-badge orientation="top-left" content="TL">
-    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
-  </plus-badge>
-  <plus-badge orientation="bottom-right" content="BR">
     <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
   <plus-badge orientation="bottom-left" offset="-5px,5px" content="Offset">
     <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
   </plus-badge>
-</template>
-```
-</code-bubble>
+  <plus-badge orientation="bottom-right" content="BR">
+    <plus-avatar image="https://i.pravatar.cc/50"></plus-avatar>
+  </plus-badge>
+</CodePreview>
 
 ## Visual Sections
 

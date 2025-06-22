@@ -1,9 +1,13 @@
 ---
 title: Dropdown
 description: Provides a button that toggles a list of selectable options (dropdown items).
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/dropdown/anatomy.png';
@@ -22,442 +26,234 @@ The Dropdown component consists of a trigger button (`plus-button`) and a panel 
 
 A dropdown requires a trigger (implicitly a `plus-button`) and `plus-dropdown-item` elements placed within the `dropdown-item` slot.
 
-<code-bubble class="not-content">
-
-```html
+<CodePreview autoGeneration={true}>
 <plus-dropdown>
-  Select Option
-  <plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
-  <plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
-  <plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
+<Fragment slot="default">Select Option</Fragment>
+<plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
+<plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
+<plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
 </plus-dropdown>
-```
-
-```tsx
-import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusDropdown>
-      Select Option
-      <PlusDropdownItem text="Option 1">Option 1</PlusDropdownItem>
-      <PlusDropdownItem text="Option 2">Option 2</PlusDropdownItem>
-      <PlusDropdownItem text="Option 3">Option 3</PlusDropdownItem>
-    </PlusDropdown>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-// Ensure PlusDropdown and PlusDropdownItem are available
-
-@Component({
-  selector: 'app-dropdown-basic',
-  template: `
-    <plus-dropdown>
-      Select Option
-      <plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
-      <plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
-      <plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
-    </plus-dropdown>
-  `
-})
-export class DropdownBasicComponent {}
-```
-
-```vue
-<template>
-  <plus-dropdown>
-    Select Option
-    <plus-dropdown-item text="Option 1">Option 1</plus-dropdown-item>
-    <plus-dropdown-item text="Option 2">Option 2</plus-dropdown-item>
-    <plus-dropdown-item text="Option 3">Option 3</plus-dropdown-item>
-  </plus-dropdown>
-</template>
-
-<script setup>
-// Ensure components are registered
-</script>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Trigger Button Appearance (`kind`, `status`, `size`)
 
 Customize the appearance of the trigger button using the `kind`, `status`, and `size` props. These props are passed down to the internal `plus-button`.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-dropdown kind="outlined" status="primary" size="sm">
-  Outlined Primary SM
-  <plus-dropdown-item>Item A</plus-dropdown-item>
-  <plus-dropdown-item>Item B</plus-dropdown-item>
-</plus-dropdown>
-
-<plus-dropdown kind="dashed" status="success" size="md">
-  Dashed Success MD
-  <plus-dropdown-item>Item A</plus-dropdown-item>
-  <plus-dropdown-item>Item B</plus-dropdown-item>
-</plus-dropdown>
-
-<plus-dropdown kind="text" status="danger" size="lg">
-  Text Danger LG
-  <plus-dropdown-item>Item A</plus-dropdown-item>
-  <plus-dropdown-item>Item B</plus-dropdown-item>
-</plus-dropdown>
-```
-
-```tsx
-import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusDropdown kind="outlined" status="primary" size="sm">
-        Outlined Primary SM
-        <PlusDropdownItem>Item A</PlusDropdownItem>
-        <PlusDropdownItem>Item B</PlusDropdownItem>
-      </PlusDropdown>
-
-      <PlusDropdown kind="dashed" status="success" size="md">
-        Dashed Success MD
-        <PlusDropdownItem>Item A</PlusDropdownItem>
-        <PlusDropdownItem>Item B</PlusDropdownItem>
-      </PlusDropdown>
-
-      <PlusDropdown kind="text" status="danger" size="lg">
-        Text Danger LG
-        <PlusDropdownItem>Item A</PlusDropdownItem>
-        <PlusDropdownItem>Item B</PlusDropdownItem>
-      </PlusDropdown>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-dropdown-appearance',
-  template: `
-    <plus-dropdown kind="outlined" status="primary" size="sm">
-      Outlined Primary SM
-      <plus-dropdown-item>Item A</plus-dropdown-item>
-      <plus-dropdown-item>Item B</plus-dropdown-item>
-    </plus-dropdown>
-
-    <plus-dropdown kind="dashed" status="success" size="md">
-      Dashed Success MD
-      <plus-dropdown-item>Item A</plus-dropdown-item>
-      <plus-dropdown-item>Item B</plus-dropdown-item>
-    </plus-dropdown>
-
-    <plus-dropdown kind="text" status="danger" size="lg">
-      Text Danger LG
-      <plus-dropdown-item>Item A</plus-dropdown-item>
-      <plus-dropdown-item>Item B</plus-dropdown-item>
-    </plus-dropdown>
-  `
-})
-export class DropdownAppearanceComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-dropdown kind="outlined" status="primary" size="sm">
-    Outlined Primary SM
+    <Fragment slot="default">Outlined Primary SM</Fragment>
     <plus-dropdown-item>Item A</plus-dropdown-item>
     <plus-dropdown-item>Item B</plus-dropdown-item>
   </plus-dropdown>
-
   <plus-dropdown kind="dashed" status="success" size="md">
-    Dashed Success MD
+    <Fragment slot="default">Dashed Success MD</Fragment>
     <plus-dropdown-item>Item A</plus-dropdown-item>
     <plus-dropdown-item>Item B</plus-dropdown-item>
   </plus-dropdown>
-
   <plus-dropdown kind="text" status="danger" size="lg">
-    Text Danger LG
+    <Fragment slot="default">Text Danger LG</Fragment>
     <plus-dropdown-item>Item A</plus-dropdown-item>
     <plus-dropdown-item>Item B</plus-dropdown-item>
   </plus-dropdown>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Disabled States
 
 The entire dropdown can be disabled using the `disabled` prop on `plus-dropdown`. Individual items can be disabled using the `disabled` prop on `plus-dropdown-item`.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-dropdown disabled>
-  Disabled Dropdown
-  <plus-dropdown-item>Cannot select</plus-dropdown-item>
-</plus-dropdown>
-
-<plus-dropdown>
-  Dropdown with Disabled Item
-  <plus-dropdown-item>Option 1</plus-dropdown-item>
-  <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
-  <plus-dropdown-item>Option 3</plus-dropdown-item>
-</plus-dropdown>
-```
-
-```tsx
-import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusDropdown disabled>
-        Disabled Dropdown
-        <PlusDropdownItem>Cannot select</PlusDropdownItem>
-      </PlusDropdown>
-
-      <PlusDropdown>
-        Dropdown with Disabled Item
-        <PlusDropdownItem>Option 1</PlusDropdownItem>
-        <PlusDropdownItem disabled>Option 2 (Disabled)</PlusDropdownItem>
-        <PlusDropdownItem>Option 3</PlusDropdownItem>
-      </PlusDropdown>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-dropdown-disabled',
-  template: `
-    <plus-dropdown disabled>
-      Disabled Dropdown
-      <plus-dropdown-item>Cannot select</plus-dropdown-item>
-    </plus-dropdown>
-
-    <plus-dropdown>
-      Dropdown with Disabled Item
-      <plus-dropdown-item>Option 1</plus-dropdown-item>
-      <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
-      <plus-dropdown-item>Option 3</plus-dropdown-item>
-    </plus-dropdown>
-  `
-})
-export class DropdownDisabledComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-dropdown disabled>
-    Disabled Dropdown
+    <Fragment slot="default">Disabled Dropdown</Fragment>
     <plus-dropdown-item>Cannot select</plus-dropdown-item>
   </plus-dropdown>
-
   <plus-dropdown>
-    Dropdown with Disabled Item
+    <Fragment slot="default">Dropdown with Disabled Item</Fragment>
     <plus-dropdown-item>Option 1</plus-dropdown-item>
     <plus-dropdown-item disabled>Option 2 (Disabled)</plus-dropdown-item>
     <plus-dropdown-item>Option 3</plus-dropdown-item>
   </plus-dropdown>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Trigger Content (Slots & Prop)
 
 Customize the trigger button's content using the default slot. Use the `suffix` slot for content on the right (like an additional icon). The `text` prop can be used as an alternative to the default slot.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-dropdown>
-  <plus-icon iconName="user" slot="prefix"></plus-icon> <!-- Note: prefix not directly supported, use default slot -->
-  My Account
-  <plus-icon iconName="cog" slot="suffix"></plus-icon>
-  <plus-dropdown-item>Profile</plus-dropdown-item>
-  <plus-dropdown-item>Settings</plus-dropdown-item>
-</plus-dropdown>
-
-<plus-dropdown>
-  Options via Slot
-  <plus-dropdown-item>Action 1</plus-dropdown-item>
-</plus-dropdown>
-```
-
-```tsx
-import { PlusDropdown, PlusDropdownItem, PlusIcon } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusDropdown>
-         {/* Place prefix icon within default slot */}
-        <PlusIcon iconName="user" style={{marginRight: '0.5em'}} />
-        My Account
-        <PlusIcon slot="suffix" iconName="cog" />
-        <PlusDropdownItem>Profile</PlusDropdownItem>
-        <PlusDropdownItem>Settings</PlusDropdownItem>
-      </PlusDropdown>
-
-      <PlusDropdown>
-        Options via Slot
-        <PlusDropdownItem>Action 1</PlusDropdownItem>
-      </PlusDropdown>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-dropdown-trigger',
-  template: `
-    <plus-dropdown>
-      <plus-icon iconName="user" style="margin-right: 0.5em"></plus-icon> 
+<CodePreview autoGeneration={true} horizontal>
+  <plus-dropdown>
+    <Fragment slot="default">
+      <plus-icon iconName="user" style="margin-right: 0.5em"></plus-icon>
       My Account
       <plus-icon iconName="cog" slot="suffix"></plus-icon>
-      <plus-dropdown-item>Profile</plus-dropdown-item>
-      <plus-dropdown-item>Settings</plus-dropdown-item>
-    </plus-dropdown>
-
-    <plus-dropdown>
-      Options via Slot
-      <plus-dropdown-item>Action 1</plus-dropdown-item>
-    </plus-dropdown>
-  `
-})
-export class DropdownTriggerComponent {}
-```
-
-```vue
-<template>
-  <plus-dropdown>
-    <plus-icon iconName="user" style="margin-right: 0.5em"></plus-icon>
-    My Account
-    <plus-icon iconName="cog" slot="suffix"></plus-icon>
+    </Fragment>
     <plus-dropdown-item>Profile</plus-dropdown-item>
     <plus-dropdown-item>Settings</plus-dropdown-item>
   </plus-dropdown>
-
   <plus-dropdown>
-    Options via Slot
+    <Fragment slot="default">Options via Slot</Fragment>
     <plus-dropdown-item>Action 1</plus-dropdown-item>
   </plus-dropdown>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 
 ### Handling Selection
 
 Listen for the `plus-dropdown-selected-item` event to get the selected `plus-dropdown-item` element when an option is chosen.
 
-<code-bubble class="not-content">
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const dropdown = document.getElementById('selection-dropdown');
+      const display = document.getElementById('selected-color');
+      
+      if (dropdown && display) {
+        dropdown.addEventListener('plus-dropdown-selected-item', (event) => {
+          const selectedItem = event.detail.selectedItem;
+          display.textContent = selectedItem.text || selectedItem.textContent;
+        });
+      }
+    }, 100);
+  `}
+  showConsole
+>
+  <plus-dropdown id="selection-dropdown">
+    <Fragment slot="default">Choose Color</Fragment>
+    <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+    <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+    <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+  </plus-dropdown>
+  <p>Selected: <span id="selected-color">None</span></p>
 
-```html
-<plus-dropdown id="selection-dropdown">
-  Choose Color
-  <plus-dropdown-item text="Red">Red</plus-dropdown-item>
-  <plus-dropdown-item text="Green">Green</plus-dropdown-item>
-  <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
-</plus-dropdown>
-<p>Selected: <span id="selected-color">None</span></p>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusDropdown, PlusDropdownItem } from '@plusui/react';
+    import { useState } from 'react';
 
-<script>
-  const dropdown = document.getElementById('selection-dropdown');
-  const display = document.getElementById('selected-color');
-  dropdown.addEventListener('plus-dropdown-selected-item', (event) => {
-    display.textContent = event.detail.selectedItem.text || event.detail.selectedItem.textContent;
-  });
-</script>
-```
+    export default () => {
+      const [selectedColor, setSelectedColor] = useState('None');
 
-```tsx
-import { PlusDropdown, PlusDropdownItem } from '@plusui/library/react';
-import { useState } from 'react';
+      const handleSelect = (event) => {
+        const selectedItem = event.detail.selectedItem;
+        setSelectedColor(selectedItem.text || selectedItem.textContent);
+      };
 
-export default () => {
-  const [selectedColor, setSelectedColor] = useState('None');
+      return (
+        <>
+          <PlusDropdown onPlusDropdownSelectedItem={handleSelect}>
+            Choose Color
+            <PlusDropdownItem text="Red">Red</PlusDropdownItem>
+            <PlusDropdownItem text="Green">Green</PlusDropdownItem>
+            <PlusDropdownItem text="Blue">Blue</PlusDropdownItem>
+          </PlusDropdown>
+          <p>Selected: {selectedColor}</p>
+        </>
+      );
+    };
+    ```
+  </Fragment>
 
-  const handleSelect = (event) => {
-    const selectedItem = event.detail.selectedItem;
-    setSelectedColor(selectedItem.text || selectedItem.textContent);
-  };
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
 
-  return (
-    <>
-      <PlusDropdown onPlusDropdownSelectedItem={handleSelect}>
+    @Component({
+      selector: 'app-dropdown-selection',
+      template: `
+        <plus-dropdown (plus-dropdown-selected-item)="handleSelect($event)">
+          Choose Color
+          <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+          <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+          <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+        </plus-dropdown>
+        <p>Selected: {{selectedColor}}</p>
+      `
+    })
+    export class DropdownSelectionComponent {
+      selectedColor = 'None';
+
+      handleSelect(event: CustomEvent) {
+        const selectedItem = event.detail.selectedItem;
+        this.selectedColor = selectedItem.text || selectedItem.textContent;
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-dropdown @plus-dropdown-selected-item="handleSelect">
         Choose Color
-        <PlusDropdownItem text="Red">Red</PlusDropdownItem>
-        <PlusDropdownItem text="Green">Green</PlusDropdownItem>
-        <PlusDropdownItem text="Blue">Blue</PlusDropdownItem>
-      </PlusDropdown>
-      <p>Selected: {selectedColor}</p>
-    </>
-  );
-};
-```
+        <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+        <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+        <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+      </plus-dropdown>
+      <p>Selected: {{selectedColor}}</p>
+    </template>
 
-```ts
-import { Component } from '@angular/core';
+    <script setup>
+    import { ref } from 'vue';
 
-@Component({
-  selector: 'app-dropdown-selection',
-  template: `
-    <plus-dropdown (plus-dropdown-selected-item)="handleSelect($event)">
+    const selectedColor = ref('None');
+
+    const handleSelect = (event) => {
+      const selectedItem = event.detail.selectedItem;
+      selectedColor.value = selectedItem.text || selectedItem.textContent;
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let selectedColor = 'None';
+      let dropdownRef;
+
+      onMount(() => {
+        if (dropdownRef) {
+          dropdownRef.addEventListener('plus-dropdown-selected-item', (event) => {
+            const selectedItem = event.detail.selectedItem;
+            selectedColor = selectedItem.text || selectedItem.textContent;
+          });
+        }
+      });
+    </script>
+
+    <plus-dropdown bind:this={dropdownRef}>
       Choose Color
       <plus-dropdown-item text="Red">Red</plus-dropdown-item>
       <plus-dropdown-item text="Green">Green</plus-dropdown-item>
       <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
     </plus-dropdown>
-    <p>Selected: {{selectedColor}}</p>
-  `
-})
-export class DropdownSelectionComponent {
-  selectedColor = 'None';
+    <p>Selected: {selectedColor}</p>
+    ```
+  </Fragment>
 
-  handleSelect(event: CustomEvent) {
-    const selectedItem = event.detail.selectedItem;
-    this.selectedColor = selectedItem.text || selectedItem.textContent;
-  }
-}
-```
+  <Fragment slot="html">
+    ```html
+    <plus-dropdown id="selection-dropdown-html">
+      Choose Color
+      <plus-dropdown-item text="Red">Red</plus-dropdown-item>
+      <plus-dropdown-item text="Green">Green</plus-dropdown-item>
+      <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
+    </plus-dropdown>
+    <p>Selected: <span id="selected-color-html">None</span></p>
 
-```vue
-<template>
-  <plus-dropdown @plus-dropdown-selected-item="handleSelect">
-    Choose Color
-    <plus-dropdown-item text="Red">Red</plus-dropdown-item>
-    <plus-dropdown-item text="Green">Green</plus-dropdown-item>
-    <plus-dropdown-item text="Blue">Blue</plus-dropdown-item>
-  </plus-dropdown>
-  <p>Selected: {{selectedColor}}</p>
-</template>
-
-<script setup>
-import { ref } from 'vue';
-
-const selectedColor = ref('None');
-
-const handleSelect = (event) => {
-  const selectedItem = event.detail.selectedItem;
-  selectedColor.value = selectedItem.text || selectedItem.textContent;
-};
-</script>
-```
-
-</code-bubble>
+    <script>
+      const dropdown = document.getElementById('selection-dropdown-html');
+      const display = document.getElementById('selected-color-html');
+      
+      dropdown.addEventListener('plus-dropdown-selected-item', (event) => {
+        const selectedItem = event.detail.selectedItem;
+        display.textContent = selectedItem.text || selectedItem.textContent;
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 
 ## Visual Sections

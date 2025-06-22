@@ -3,11 +3,11 @@ title: Button
 description: Button component allows users to take actions variants.
 isComponent: true
 since: 1.0.0
-updated: 2025-06-14
+updated: 2025-07-01
 version: 1.0.0
 ---
 import { Image } from 'astro:assets';
-import { CodePreview, EmbedContent } from '../../../component';
+import { CodePreview, CodePreviewBasic, EmbedContent } from '../../../component';
 
 import anatomy from '../../../assets/components/button/anatomy.png';
 import layoutSpacing from '../../../assets/components/button/layout-spacing.png';
@@ -26,6 +26,7 @@ The Button component enables users to perform actions and make choices with a si
 A standard button using default settings.
 
 <CodePreview 
+  autoGeneration={true}
   horizontal 
   showPlayground
   controls="kind,size,status"
@@ -41,7 +42,7 @@ A standard button using default settings.
 
 The `kind` prop defines the button's visual style.
 
-<CodePreview horizontal>
+<CodePreview autoGeneration={true} horizontal>
   <plus-button data-variant-kind="filled,outlined,dashed,text">Button</plus-button>
 </CodePreview>
 
@@ -49,7 +50,7 @@ The `kind` prop defines the button's visual style.
 
 The `status` prop sets the button's color scheme to convey semantic meaning.
 
-<CodePreview horizontal>
+<CodePreview autoGeneration={true} horizontal>
   <plus-button data-variant-status="default,primary,success,warning,danger,info">Button</plus-button>
 </CodePreview>
 
@@ -57,7 +58,7 @@ The `status` prop sets the button's color scheme to convey semantic meaning.
 
 The `size` prop controls the button's dimensions.
 
-<CodePreview horizontal>
+<CodePreview autoGeneration={true} horizontal>
   <plus-button data-variant-size="sm,md,lg">Button</plus-button>
 </CodePreview>
 
@@ -65,7 +66,7 @@ The `size` prop controls the button's dimensions.
 
 Set the `disabled` attribute or prop to prevent user interaction.
 
-<CodePreview horizontal>
+<CodePreview autoGeneration={true} horizontal>
   <plus-button disabled>Disabled Filled</plus-button>
   <plus-button kind="outlined" disabled>Disabled Outlined</plus-button>
   <plus-button kind="text" disabled>Disabled Text</plus-button>
@@ -75,7 +76,7 @@ Set the `disabled` attribute or prop to prevent user interaction.
 
 Set the `loading` attribute or prop to indicate an ongoing background process. This also disables the button.
 
-<CodePreview horizontal>
+<CodePreview autoGeneration={true} horizontal>
   <plus-button loading>Loading Filled</plus-button>
   <plus-button kind="outlined" loading>Loading Outlined</plus-button>
   <plus-button kind="text" loading>Loading Text</plus-button>
@@ -85,7 +86,7 @@ Set the `loading` attribute or prop to indicate an ongoing background process. T
 
 Set the `full-width` attribute or `fullWidth` prop to make the button span the full width of its container.
 
-<CodePreview>
+<CodePreview autoGeneration={true}>
   <plus-button full-width>Full Width Button</plus-button>
 </CodePreview>
 
@@ -93,7 +94,7 @@ Set the `full-width` attribute or `fullWidth` prop to make the button span the f
 
 Use the `prefix` and `suffix` slots to add icons or other elements alongside the button text.
 
-<CodePreview horizontal>
+<CodePreview autoGeneration={true} horizontal>
   <plus-button>
     <i class="fa-solid fa-download" slot="prefix"></i>
     Download
@@ -115,6 +116,100 @@ Use the `prefix` and `suffix` slots to add icons or other elements alongside the
 ### Handling Clicks
 
 Listen for the `plus-click` event to trigger actions when the button is clicked.
+
+<CodePreview
+  autoGeneration={false}
+  showConsole={true}
+  customScript={`
+    const button = document.getElementById('button-click-example');
+    if (button) {
+      button.addEventListener('plus-click', () => {
+        console.log('Button clicked');
+      });
+    }
+  `}
+>
+  <plus-button id="button-click-example">Click Me</plus-button>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusButton } from '@plusui/react';
+
+    export default () => {
+      const handleClick = () => {
+        console.log('Button clicked');
+      };
+
+      return (
+        <PlusButton onClick={handleClick}>
+          Click Me
+        </PlusButton>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-example',
+      template: `
+        <plus-button (plus-click)="handleClick()">Click Me</plus-button>
+      `
+    })
+    export class ExampleComponent {
+      handleClick() {
+        console.log('Button clicked');
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="handleClick">Click Me</plus-button>
+    </template>
+
+    <script>
+    export default {
+      methods: {
+        handleClick() {
+          console.log('Button clicked');
+        }
+      }
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      function handleClick() {
+        console.log('Button clicked');
+      }
+    </script>
+
+    <plus-button on:plus-click={handleClick}>Click Me</plus-button>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="my-button">Click Me</plus-button>
+
+    <script>
+      const button = document.getElementById('my-button');
+      button.addEventListener('plus-click', () => {
+        console.log('Button clicked');
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 
 ## Visual Sections

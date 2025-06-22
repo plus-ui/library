@@ -1,9 +1,13 @@
 ---
 title: Checkbox
 description: Allows users to select one or more options from a set.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/checkbox/anatomy.png';
@@ -22,429 +26,163 @@ The Checkbox component allows users to make a binary choice, such as toggling an
 
 A standard checkbox with a label.
 
-<code-bubble class="not-content">
-
-```html
-<plus-checkbox>Label</plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-
-export default () => {
-  return <PlusCheckbox>Label</PlusCheckbox>;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-checkbox-basic',
-  template: ` <plus-checkbox>Label</plus-checkbox> `
-})
-export class CheckboxBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-checkbox>Label</plus-checkbox>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Checked State
 
 Use the `checked` prop to control the selection state. The `indeterminate` prop represents a state where the checkbox is neither checked nor unchecked, often used in parent checkboxes.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-checkbox>Unchecked</plus-checkbox>
-<plus-checkbox checked>Checked</plus-checkbox>
-<plus-checkbox indeterminate>Indeterminate</plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusCheckbox>Unchecked</PlusCheckbox>
-      <PlusCheckbox checked>Checked</PlusCheckbox>
-      <PlusCheckbox indeterminate>Indeterminate</PlusCheckbox>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-checkbox-checked',
-  template: `
-    <plus-checkbox>Unchecked</plus-checkbox>
-    <plus-checkbox checked>Checked</plus-checkbox>
-    <plus-checkbox indeterminate>Indeterminate</plus-checkbox>
-  `
-})
-export class CheckboxCheckedComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-checkbox>Unchecked</plus-checkbox>
   <plus-checkbox checked>Checked</plus-checkbox>
   <plus-checkbox indeterminate>Indeterminate</plus-checkbox>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Size
 
 The `size` prop controls the checkbox dimensions.
 
-<code-bubble class="not-content horizontal items-center">
-
-```html
-<plus-checkbox size="sm">Small</plus-checkbox>
-<plus-checkbox size="md">Medium</plus-checkbox>
-<plus-checkbox size="lg">Large</plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusCheckbox size="sm">Small</PlusCheckbox>
-      <PlusCheckbox size="md">Medium</PlusCheckbox>
-      <PlusCheckbox size="lg">Large</PlusCheckbox>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-checkbox-size',
-  template: `
-    <plus-checkbox size="sm">Small</plus-checkbox>
-    <plus-checkbox size="md">Medium</plus-checkbox>
-    <plus-checkbox size="lg">Large</plus-checkbox>
-  `
-})
-export class CheckboxSizeComponent {}
-```
-
-```vue
-<template>
-  <plus-checkbox size="sm">Small</plus-checkbox>
-  <plus-checkbox size="md">Medium</plus-checkbox>
-  <plus-checkbox size="lg">Large</plus-checkbox>
-</template>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-checkbox data-variant-size="sm,md,lg">Size</plus-checkbox>
+</CodePreview>
 
 ### Disabled State
 
 Set the `disabled` attribute or prop to prevent user interaction.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-checkbox disabled>Disabled Unchecked</plus-checkbox>
-<plus-checkbox checked disabled>Disabled Checked</plus-checkbox>
-<plus-checkbox indeterminate disabled>Disabled Indeterminate</plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusCheckbox disabled>Disabled Unchecked</PlusCheckbox>
-      <PlusCheckbox checked disabled>Disabled Checked</PlusCheckbox>
-      <PlusCheckbox indeterminate disabled>Disabled Indeterminate</PlusCheckbox>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-checkbox-disabled',
-  template: `
-    <plus-checkbox disabled>Disabled Unchecked</plus-checkbox>
-    <plus-checkbox checked disabled>Disabled Checked</plus-checkbox>
-    <plus-checkbox indeterminate disabled>Disabled Indeterminate</plus-checkbox>
-  `
-})
-export class CheckboxDisabledComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-checkbox disabled>Disabled Unchecked</plus-checkbox>
   <plus-checkbox checked disabled>Disabled Checked</plus-checkbox>
   <plus-checkbox indeterminate disabled>Disabled Indeterminate</plus-checkbox>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Error State
 
 Set the `error` attribute or prop to indicate a validation error.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-checkbox error>Error Unchecked</plus-checkbox>
-<plus-checkbox checked error>Error Checked</plus-checkbox>
-<plus-checkbox indeterminate error>Error Indeterminate</plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusCheckbox error>Error Unchecked</PlusCheckbox>
-      <PlusCheckbox checked error>Error Checked</PlusCheckbox>
-      <PlusCheckbox indeterminate error>Error Indeterminate</PlusCheckbox>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-checkbox-error',
-  template: `
-    <plus-checkbox error>Error Unchecked</plus-checkbox>
-    <plus-checkbox checked error>Error Checked</plus-checkbox>
-    <plus-checkbox indeterminate error>Error Indeterminate</plus-checkbox>
-  `
-})
-export class CheckboxErrorComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-checkbox error>Error Unchecked</plus-checkbox>
   <plus-checkbox checked error>Error Checked</plus-checkbox>
   <plus-checkbox indeterminate error>Error Indeterminate</plus-checkbox>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Labeling
 
 You can provide the label text either via the default slot or the `text` prop. The default slot takes precedence.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-checkbox>Label via Slot</plus-checkbox>
-<plus-checkbox text="Label via Prop"></plus-checkbox>
-```
-
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusCheckbox>Label via Slot</PlusCheckbox>
-      <PlusCheckbox text="Label via Prop" />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-checkbox-labeling',
-  template: `
-    <plus-checkbox>Label via Slot</plus-checkbox>
-    <plus-checkbox text="Label via Prop"></plus-checkbox>
-  `
-})
-export class CheckboxLabelingComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-checkbox>Label via Slot</plus-checkbox>
   <plus-checkbox text="Label via Prop"></plus-checkbox>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Handling Changes
 
 Listen for the `plus-change` event to react when the checked state changes.
 
-<code-bubble class="not-content">
+<CodePreview autoGeneration={false} customScript="document.getElementById('change-checkbox').addEventListener('plus-change', (event) => { console.log('Checkbox changed:', event.target.checked); });" showConsole>
+  <plus-checkbox id="change-checkbox">Notify on Change</plus-checkbox>
 
-```html
-<plus-checkbox id="my-checkbox">Notify on Change</plus-checkbox>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusCheckbox } from '@plusui/react';
+    import { useState } from 'react';
 
-<script>
-  document.getElementById('my-checkbox').addEventListener('plus-change', (event) => {
-    console.log('Checkbox changed:', event.target.checked);
-  });
-</script>
-```
+    export default () => {
+      const [isChecked, setIsChecked] = useState(false);
 
-```tsx
-import { PlusCheckbox } from '@plusui/library/react';
-import { useState } from 'react';
+      const handleChange = (event) => {
+        console.log('Checkbox changed:', event.target.checked);
+        setIsChecked(event.target.checked);
+      };
 
-export default () => {
-  const [isChecked, setIsChecked] = useState(false);
+      return (
+        <PlusCheckbox checked={isChecked} onPlusChange={handleChange}>
+          Notify on Change
+        </PlusCheckbox>
+      );
+    };
+    ```
+  </Fragment>
 
-  const handleChange = (event) => {
-    console.log('Checkbox changed:', event.target.checked);
-    setIsChecked(event.target.checked);
-  };
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
 
-  return (
-    <PlusCheckbox checked={isChecked} onPlusChange={handleChange}>
+    @Component({
+      selector: 'app-checkbox-change',
+      template: `
+        <plus-checkbox (plus-change)="handleChange($event)">
+          Notify on Change
+        </plus-checkbox>
+      `
+    })
+    export class CheckboxChangeComponent {
+      handleChange(event: any) {
+        console.log('Checkbox changed:', event.target.checked);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-checkbox @plus-change="handleChange">
+        Notify on Change
+      </plus-checkbox>
+    </template>
+
+    <script setup>
+    const handleChange = (event) => {
+      console.log('Checkbox changed:', event.target.checked);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let checkboxElement;
+
+      onMount(() => {
+        if (checkboxElement) {
+          checkboxElement.addEventListener('plus-change', (event) => {
+            console.log('Checkbox changed:', event.target.checked);
+          });
+        }
+      });
+    </script>
+
+    <plus-checkbox bind:this={checkboxElement}>
       Notify on Change
-    </PlusCheckbox>
-  );
-};
-```
+    </plus-checkbox>
+    ```
+  </Fragment>
 
-```ts
-import { Component } from '@angular/core';
+  <Fragment slot="html">
+    ```html
+    <plus-checkbox id="change-checkbox-html">Notify on Change</plus-checkbox>
 
-@Component({
-  selector: 'app-checkbox-change',
-  template: `
-    <plus-checkbox (plus-change)="handleChange($event)"
-      >Notify on Change</plus-checkbox
-    >
-  `
-})
-export class CheckboxChangeComponent {
-  handleChange(event: any) {
-    console.log('Checkbox changed:', event.target.checked);
-  }
-}
-```
-
-```vue
-<template>
-  <plus-checkbox @plus-change="handleChange">Notify on Change</plus-checkbox>
-</template>
-
-<script setup>
-const handleChange = (event) => {
-  console.log('Checkbox changed:', event.target.checked);
-};
-</script>
-```
-
-</code-bubble>
+    <script>
+      document.getElementById('change-checkbox-html').addEventListener('plus-change', (event) => {
+        console.log('Checkbox changed:', event.target.checked);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Checkbox Group
 
 Use the `plus-checkbox-group` component to group related checkboxes. The group manages the `value` (an array of checked checkbox values) and can control properties like `size` and `disabled` for all nested checkboxes. Use the `vertical` prop on the group to arrange checkboxes vertically.
 
-<code-bubble class="not-content">
-
-```html
-<plus-checkbox-group value=\'["react", "vue"]\' vertical size="sm">
-  <plus-checkbox value="html">HTML</plus-checkbox>
-  <plus-checkbox value="css">CSS</plus-checkbox>
-  <plus-checkbox value="react">React</plus-checkbox>
-  <plus-checkbox value="angular">Angular</plus-checkbox>
-  <plus-checkbox value="vue">Vue</plus-checkbox>
-  <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
-</plus-checkbox-group>
-
-<script>
-  document.querySelector(\'plus-checkbox-group\').addEventListener(\'plus-change\', (event) => {
-    console.log(\'Group value changed:\', event.detail.value);
-  });
-</script>
-```
-
-```tsx
-import { PlusCheckbox, PlusCheckboxGroup } from \'@plusui/library/react\';
-import { useState } from \'react\';
-
-export default () => {
-  const [groupValue, setGroupValue] = useState([\'react\', \'vue\']);
-
-  const handleGroupChange = (event) => {
-    console.log(\'Group value changed:\', event.detail.value);
-    setGroupValue(event.detail.value);
-  };
-
-  return (
-    <PlusCheckboxGroup value={groupValue} vertical size="sm" onPlusChange={handleGroupChange}>
-      <PlusCheckbox value="html">HTML</PlusCheckbox>
-      <PlusCheckbox value="css">CSS</PlusCheckbox>
-      <PlusCheckbox value="react">React</PlusCheckbox>
-      <PlusCheckbox value="angular">Angular</PlusCheckbox>
-      <PlusCheckbox value="vue">Vue</PlusCheckbox>
-      <PlusCheckbox value="svelte" disabled>Svelte (disabled)</PlusCheckbox>
-    </PlusCheckboxGroup>
-  );
-};
-```
-
-```ts
-import { Component } from \'@angular/core\';
-
-@Component({
-  selector: \'app-checkbox-group\',
-  template: `
-    <plus-checkbox-group [value]=\'groupValue\' vertical size="sm" (plus-change)=\'handleGroupChange($event)\'>
-      <plus-checkbox value="html">HTML</plus-checkbox>
-      <plus-checkbox value="css">CSS</plus-checkbox>
-      <plus-checkbox value="react">React</plus-checkbox>
-      <plus-checkbox value="angular">Angular</plus-checkbox>
-      <plus-checkbox value="vue">Vue</plus-checkbox>
-      <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
-    </plus-checkbox-group>
-  `
-})
-export class CheckboxGroupComponent {
-  groupValue = [\'react\', \'vue\'];
-
-  handleGroupChange(event: any) {
-    console.log(\'Group value changed:\', event.detail.value);
-    this.groupValue = event.detail.value;
-  }
-}
-```
-
-```vue
-<template>
-  <plus-checkbox-group :value=\'groupValue\' vertical size="sm" @plus-change=\'handleGroupChange\'>
+<CodePreview autoGeneration={false} customScript="document.querySelector('plus-checkbox-group').addEventListener('plus-change', (event) => { console.log('Group value changed:', event.detail.value); });" showConsole>
+  <plus-checkbox-group value='["react", "vue"]' vertical size="sm">
     <plus-checkbox value="html">HTML</plus-checkbox>
     <plus-checkbox value="css">CSS</plus-checkbox>
     <plus-checkbox value="react">React</plus-checkbox>
@@ -452,21 +190,156 @@ export class CheckboxGroupComponent {
     <plus-checkbox value="vue">Vue</plus-checkbox>
     <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
   </plus-checkbox-group>
-</template>
 
-<script setup>
-import { ref } from \'vue\';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusCheckbox, PlusCheckboxGroup } from '@plusui/react';
+    import { useState } from 'react';
 
-const groupValue = ref([\'react\', \'vue\']);
+    export default () => {
+      const [groupValue, setGroupValue] = useState(['react', 'vue']);
 
-const handleGroupChange = (event) => {
-  console.log(\'Group value changed:\', event.detail.value);
-  groupValue.value = event.detail.value;
-};
-</script>
-```
+      const handleGroupChange = (event) => {
+        console.log('Group value changed:', event.detail.value);
+        setGroupValue(event.detail.value);
+      };
 
-</code-bubble>
+      return (
+        <PlusCheckboxGroup 
+          value={groupValue} 
+          vertical 
+          size="sm" 
+          onPlusChange={handleGroupChange}
+        >
+          <PlusCheckbox value="html">HTML</PlusCheckbox>
+          <PlusCheckbox value="css">CSS</PlusCheckbox>
+          <PlusCheckbox value="react">React</PlusCheckbox>
+          <PlusCheckbox value="angular">Angular</PlusCheckbox>
+          <PlusCheckbox value="vue">Vue</PlusCheckbox>
+          <PlusCheckbox value="svelte" disabled>Svelte (disabled)</PlusCheckbox>
+        </PlusCheckboxGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-checkbox-group',
+      template: `
+        <plus-checkbox-group 
+          [value]="groupValue" 
+          vertical 
+          size="sm" 
+          (plus-change)="handleGroupChange($event)"
+        >
+          <plus-checkbox value="html">HTML</plus-checkbox>
+          <plus-checkbox value="css">CSS</plus-checkbox>
+          <plus-checkbox value="react">React</plus-checkbox>
+          <plus-checkbox value="angular">Angular</plus-checkbox>
+          <plus-checkbox value="vue">Vue</plus-checkbox>
+          <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
+        </plus-checkbox-group>
+      `
+    })
+    export class CheckboxGroupComponent {
+      groupValue = ['react', 'vue'];
+
+      handleGroupChange(event: any) {
+        console.log('Group value changed:', event.detail.value);
+        this.groupValue = event.detail.value;
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-checkbox-group 
+        :value="groupValue" 
+        vertical 
+        size="sm" 
+        @plus-change="handleGroupChange"
+      >
+        <plus-checkbox value="html">HTML</plus-checkbox>
+        <plus-checkbox value="css">CSS</plus-checkbox>
+        <plus-checkbox value="react">React</plus-checkbox>
+        <plus-checkbox value="angular">Angular</plus-checkbox>
+        <plus-checkbox value="vue">Vue</plus-checkbox>
+        <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
+      </plus-checkbox-group>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const groupValue = ref(['react', 'vue']);
+
+    const handleGroupChange = (event) => {
+      console.log('Group value changed:', event.detail.value);
+      groupValue.value = event.detail.value;
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let groupValue = ['react', 'vue'];
+      let groupElement;
+
+      onMount(() => {
+        if (groupElement) {
+          groupElement.addEventListener('plus-change', (event) => {
+            console.log('Group value changed:', event.detail.value);
+            groupValue = event.detail.value;
+          });
+        }
+      });
+    </script>
+
+    <plus-checkbox-group 
+      bind:this={groupElement}
+      value={JSON.stringify(groupValue)} 
+      vertical 
+      size="sm"
+    >
+      <plus-checkbox value="html">HTML</plus-checkbox>
+      <plus-checkbox value="css">CSS</plus-checkbox>
+      <plus-checkbox value="react">React</plus-checkbox>
+      <plus-checkbox value="angular">Angular</plus-checkbox>
+      <plus-checkbox value="vue">Vue</plus-checkbox>
+      <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
+    </plus-checkbox-group>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-checkbox-group value='["react", "vue"]' vertical size="sm" id="checkbox-group">
+      <plus-checkbox value="html">HTML</plus-checkbox>
+      <plus-checkbox value="css">CSS</plus-checkbox>
+      <plus-checkbox value="react">React</plus-checkbox>
+      <plus-checkbox value="angular">Angular</plus-checkbox>
+      <plus-checkbox value="vue">Vue</plus-checkbox>
+      <plus-checkbox value="svelte" disabled>Svelte (disabled)</plus-checkbox>
+    </plus-checkbox-group>
+
+    <script>
+      document.getElementById('checkbox-group').addEventListener('plus-change', (event) => {
+        console.log('Group value changed:', event.detail.value);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ## Visual Sections
 

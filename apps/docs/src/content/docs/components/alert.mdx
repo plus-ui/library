@@ -1,9 +1,13 @@
 ---
 title: Alert
 description: Displays important messages or notifications to users in a prominent way.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Image } from 'astro:assets';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 
 import anatomy from '../../../assets/components/alert/anatomy.png';
@@ -22,263 +26,144 @@ The Alert component is used to convey important information to users, such as su
 
 A basic alert displays a message with a default status icon.
 
-<code-bubble class="not-content">
-
-```html
-<plus-alert status="info">
-  <div slot="message">This is an informational alert.</div>
-</plus-alert>
-```
-
-```tsx
-import { PlusAlert } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusAlert status="info">
-      <div slot="message">This is an informational alert.</div>
-    </PlusAlert>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-alert-basic',
-  template: `
-    <plus-alert status="info">
-      <div slot="message">This is an informational alert.</div>
-    </plus-alert>
-  `
-})
-export class AlertBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-alert status="info">
     <div slot="message">This is an informational alert.</div>
   </plus-alert>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Status
 
 Use the `status` prop to indicate the type of message: `info` (default), `success`, `warning`, or `danger`. This affects the color scheme and the default icon.
 
-<code-bubble class="not-content">
-
-```html
-<plus-alert status="success">
-  <div slot="message">Operation successful!</div>
-</plus-alert>
-<plus-alert status="warning">
-  <div slot="message">Warning: Please check your input.</div>
-</plus-alert>
-<plus-alert status="danger">
-  <div slot="message">Error: Could not complete the request.</div>
-</plus-alert>
-```
-
-```tsx
-import { PlusAlert } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusAlert status="success">
-        <div slot="message">Operation successful!</div>
-      </PlusAlert>
-      <PlusAlert status="warning">
-        <div slot="message">Warning: Please check your input.</div>
-      </PlusAlert>
-      <PlusAlert status="danger">
-        <div slot="message">Error: Could not complete the request.</div>
-      </PlusAlert>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-alert-status',
-  template: `
-    <plus-alert status="success">
-      <div slot="message">Operation successful!</div>
-    </plus-alert>
-    <plus-alert status="warning">
-      <div slot="message">Warning: Please check your input.</div>
-    </plus-alert>
-    <plus-alert status="danger">
-      <div slot="message">Error: Could not complete the request.</div>
-    </plus-alert>
-  `
-})
-export class AlertStatusComponent {}
-```
-
-```vue
-<template>
-  <plus-alert status="success">
+<CodePreview autoGeneration={true}>
+  <plus-alert data-variant-status="success,warning,danger">
     <div slot="message">Operation successful!</div>
   </plus-alert>
-  <plus-alert status="warning">
-    <div slot="message">Warning: Please check your input.</div>
-  </plus-alert>
-  <plus-alert status="danger">
-    <div slot="message">Error: Could not complete the request.</div>
-  </plus-alert>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Kind
 
 The `kind` prop controls the visual appearance: `filled` (default), `outlined`, or `dashed`.
 
-<code-bubble class="not-content">
-
-```html
-<plus-alert status="info" kind="filled">
-  <div slot="message">Filled (Default)</div>
-</plus-alert>
-<plus-alert status="info" kind="outlined">
-  <div slot="message">Outlined</div>
-</plus-alert>
-<plus-alert status="info" kind="dashed">
-  <div slot="message">Dashed</div>
-</plus-alert>
-```
-
-```tsx
-import { PlusAlert } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <><PlusAlert status="info" kind="filled">
-      <div slot="message">Filled (Default)</div>
-    </PlusAlert>
-    <PlusAlert status="info" kind="outlined">
-      <div slot="message">Outlined</div>
-    </PlusAlert>
-    <PlusAlert status="info" kind="dashed">
-      <div slot="message">Dashed</div>
-    </PlusAlert></>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-alert-kind',
-  template: `
-    <plus-alert status="info" kind="filled">
-      <div slot="message">Filled (Default)</div>
-    </plus-alert>
-    <plus-alert status="info" kind="outlined">
-      <div slot="message">Outlined</div>
-    </plus-alert>
-    <plus-alert status="info" kind="dashed">
-      <div slot="message">Dashed</div>
-    </plus-alert>
-  `
-})
-export class AlertKindComponent {}
-```
-
-```vue
-<template>
-  <plus-alert status="info" kind="filled">
+<CodePreview autoGeneration={true}>
+  <plus-alert status="info" data-variant-kind="filled,outlined,dashed">
     <div slot="message">Filled (Default)</div>
   </plus-alert>
-  <plus-alert status="info" kind="outlined">
-    <div slot="message">Outlined</div>
-  </plus-alert>
-  <plus-alert status="info" kind="dashed">
-    <div slot="message">Dashed</div>
-  </plus-alert>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Closable
 
 Set the `dismissible` attribute (or `dismissible={true}`) to add a close button. The alert fires a `plus-dismiss` event when closed.
 
-<code-bubble class="not-content">
-
-```html
-<plus-alert status="warning" dismissible>
-  <div slot="message">This alert can be closed.</div>
-  <div slot="description">Click the X button to dismiss.</div>
-</plus-alert>
-
-<script>
-  document.querySelector('plus-alert[dismissible]').addEventListener('plus-dismiss', () => {
-    console.log('Alert dismissed!');
-  });
-</script>
-```
-
-```tsx
-import { PlusAlert } from '@plusui/library/react';
-
-export default () => {
-  const handleDismiss = () => {
-    console.log('Alert dismissed!');
-  };
-
-  return (
-    <PlusAlert status="warning" dismissible onPlusDismiss={handleDismiss}>
-      <div slot="message">This alert can be closed.</div>
-      <div slot="description">Click the X button to dismiss.</div>
-    </PlusAlert>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-alert-closable',
-  template: `
-    <plus-alert status="warning" dismissible (plus-dismiss)="handleDismiss()">
-      <div slot="message">This alert can be closed.</div>
-      <div slot="description">Click the X button to dismiss.</div>
-    </plus-alert>
-  `
-})
-export class AlertClosableComponent {
-  handleDismiss() {
-    console.log('Alert dismissed!');
-  }
-}
-```
-
-```vue
-<template>
-  <plus-alert status="warning" dismissible @plus-dismiss="handleDismiss">
+<CodePreview
+  autoGeneration={false}
+  showConsole={true}
+  customScript={`
+    const alert = document.getElementById('alert-dismiss-example');
+    if (alert) {
+      alert.addEventListener('plus-dismiss', () => {
+        console.log('Alert dismissed!');
+      });
+    }
+  `}
+>
+  <plus-alert id="alert-dismiss-example" status="warning" dismissible>
     <div slot="message">This alert can be closed.</div>
     <div slot="description">Click the X button to dismiss.</div>
   </plus-alert>
-</template>
 
-<script setup>
-const handleDismiss = () => {
-  console.log('Alert dismissed!');
-};
-</script>
-```
-</code-bubble>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusAlert } from '@plusui/react';
+
+    export default () => {
+      const handleDismiss = () => {
+        console.log('Alert dismissed!');
+      };
+
+      return (
+        <PlusAlert status="warning" dismissible onPlusDismiss={handleDismiss}>
+          <div slot="message">This alert can be closed.</div>
+          <div slot="description">Click the X button to dismiss.</div>
+        </PlusAlert>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-example',
+      template: `
+        <plus-alert status="warning" dismissible (plus-dismiss)="handleDismiss()">
+          <div slot="message">This alert can be closed.</div>
+          <div slot="description">Click the X button to dismiss.</div>
+        </plus-alert>
+      `
+    })
+    export class ExampleComponent {
+      handleDismiss() {
+        console.log('Alert dismissed!');
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-alert status="warning" dismissible @plus-dismiss="handleDismiss">
+        <div slot="message">This alert can be closed.</div>
+        <div slot="description">Click the X button to dismiss.</div>
+      </plus-alert>
+    </template>
+
+    <script>
+    export default {
+      methods: {
+        handleDismiss() {
+          console.log('Alert dismissed!');
+        }
+      }
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      function handleDismiss() {
+        console.log('Alert dismissed!');
+      }
+    </script>
+
+    <plus-alert status="warning" dismissible on:plus-dismiss={handleDismiss}>
+      <div slot="message">This alert can be closed.</div>
+      <div slot="description">Click the X button to dismiss.</div>
+    </plus-alert>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-alert id="alert-dismiss-example" status="warning" dismissible>
+      <div slot="message">This alert can be closed.</div>
+      <div slot="description">Click the X button to dismiss.</div>
+    </plus-alert>
+
+    <script>
+      document.getElementById('alert-dismiss-example').addEventListener('plus-dismiss', () => {
+        console.log('Alert dismissed!');
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ## Visual Sections
 

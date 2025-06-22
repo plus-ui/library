@@ -1,10 +1,14 @@
 ---
 title: Divider
 description: Visually separates content horizontally or vertically.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Image } from 'astro:assets';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
 
 import anatomy from '../../../assets/components/divider/anatomy.png';
@@ -23,332 +27,71 @@ The Divider component is used to create a visual separation between sections of 
 
 A standard horizontal divider.
 
-<code-bubble class="not-content">
-
-```html
-Content above
-<plus-divider></plus-divider>
-Content below
-```
-
-```tsx
-import { PlusDivider } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <div>
-      Content above
-      <PlusDivider />
-      Content below
-    </div>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-divider-basic',
-  template: `
-    <div>
-      Content above
-      <plus-divider></plus-divider>
-      Content below
-    </div>
-  `
-})
-export class DividerBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <div>
     Content above
     <plus-divider></plus-divider>
     Content below
   </div>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Orientation
 
 Use the `orientation` prop to set the divider direction. Vertical dividers require a defined height on the divider or its container.
 
-<code-bubble class="not-content">
-
-```html
-<!-- Horizontal (default) -->
-<plus-divider></plus-divider>
-
-<!-- Vertical -->
-<div style="height: 50px; display: flex; align-items: center; gap: 1rem;">
-  Left
-  <plus-divider orientation="vertical"></plus-divider>
-  Right
-</div>
-```
-
-```tsx
-import { PlusDivider } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      {/* Horizontal (default) */}
-      <PlusDivider />
-
-      {/* Vertical */}
-      <div style={{ height: '50px', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        Left
-        <PlusDivider orientation="vertical" />
-        Right
-      </div>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-divider-orientation',
-  template: `
-    <!-- Horizontal (default) -->
+<CodePreview autoGeneration={true}>
+  <div>
     <plus-divider></plus-divider>
-
+    
     <br />
-
-    <!-- Vertical -->
+    
     <div style="height: 50px; display: flex; align-items: center; gap: 1rem;">
       Left
       <plus-divider orientation="vertical"></plus-divider>
       Right
     </div>
-  `
-})
-export class DividerOrientationComponent {}
-```
-
-```vue
-<template>
-  <!-- Horizontal (default) -->
-  <plus-divider></plus-divider>
-
-  <br />
-
-  <!-- Vertical -->
-  <div style="height: 50px; display: flex; align-items: center; gap: 1rem;">
-    Left
-    <plus-divider orientation="vertical"></plus-divider>
-    Right
   </div>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Kind
 
 The `kind` prop changes the line style.
 
-<code-bubble class="not-content">
-
-```html
-Solid (Default)
-<plus-divider kind="solid"></plus-divider>
-Dashed
-<plus-divider kind="dashed"></plus-divider>
-Dotted
-<plus-divider kind="dotted"></plus-divider>
-```
-
-```tsx
-import { PlusDivider } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      Solid (Default)
-      <PlusDivider kind="solid" />
-      Dashed
-      <PlusDivider kind="dashed" />
-      Dotted
-      <PlusDivider kind="dotted" />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-divider-kind',
-  template: `
+<CodePreview autoGeneration={true}>
+  <div>
     Solid (Default)
     <plus-divider kind="solid"></plus-divider>
     Dashed
     <plus-divider kind="dashed"></plus-divider>
     Dotted
     <plus-divider kind="dotted"></plus-divider>
-  `
-})
-export class DividerKindComponent {}
-```
-
-```vue
-<template>
-  Solid (Default)
-  <plus-divider kind="solid"></plus-divider>
-  Dashed
-  <plus-divider kind="dashed"></plus-divider>
-  Dotted
-  <plus-divider kind="dotted"></plus-divider>
-</template>
-```
-
-</code-bubble>
+  </div>
+</CodePreview>
 
 ### Thickness
 
 The `thickness` prop adjusts the line thickness.
 
-<code-bubble class="not-content">
-
-```html
-Thin (Default)
-<plus-divider thickness="thin"></plus-divider>
-Medium
-<plus-divider thickness="medium"></plus-divider>
-Thick
-<plus-divider thickness="thick"></plus-divider>
-```
-
-```tsx
-import { PlusDivider } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      Thin (Default)
-      <PlusDivider thickness="thin" />
-      Medium
-      <PlusDivider thickness="medium" />
-      Thick
-      <PlusDivider thickness="thick" />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-divider-thickness',
-  template: `
+<CodePreview autoGeneration={true}>
+  <div>
     Thin (Default)
     <plus-divider thickness="thin"></plus-divider>
     Medium
     <plus-divider thickness="medium"></plus-divider>
     Thick
     <plus-divider thickness="thick"></plus-divider>
-  `
-})
-export class DividerThicknessComponent {}
-```
-
-```vue
-<template>
-  Thin (Default)
-  <plus-divider thickness="thin"></plus-divider>
-  Medium
-  <plus-divider thickness="medium"></plus-divider>
-  Thick
-  <plus-divider thickness="thick"></plus-divider>
-</template>
-```
-
-</code-bubble>
+  </div>
+</CodePreview>
 
 ### With Text Content
 
-Place text or other elements in the default slot to display content within the divider line. Use `contentPosition` to align the text.
+Place text or other elements in the default slot to display content within the divider line.
 
-<code-bubble class="not-content">
-
-```html
-<plus-divider contentPosition="left">Left</plus-divider>
-<plus-divider contentPosition="center">Center (Default)</plus-divider>
-<plus-divider contentPosition="right">Right</plus-divider>
-<plus-divider>
-  <plus-icon iconName="star"></plus-icon>
-  With Icon
-  <plus-icon iconName="star"></plus-icon>
-</plus-divider>
-```
-
-```tsx
-import { PlusDivider, PlusIcon } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusDivider contentPosition="left">Left</PlusDivider>
-      <PlusDivider contentPosition="center">Center (Default)</PlusDivider>
-      <PlusDivider contentPosition="right">Right</PlusDivider>
-      <PlusDivider>
-        <PlusIcon iconName="star" />
-        With Icon
-        <PlusIcon iconName="star" />
-      </PlusDivider>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-// Assuming PlusIcon is available globally or imported
-
-@Component({
-  selector: 'app-divider-content',
-  template: `
-    <plus-divider contentPosition="left">Left</plus-divider>
-    <plus-divider contentPosition="center">Center (Default)</plus-divider>
-    <plus-divider contentPosition="right">Right</plus-divider>
-    <plus-divider>
-      <plus-icon iconName="star"></plus-icon>
-      With Icon
-      <plus-icon iconName="star"></plus-icon>
-    </plus-divider>
-  `
-})
-export class DividerContentComponent {}
-```
-
-```vue
-<template>
-  <plus-divider contentPosition="left">Left</plus-divider>
-  <plus-divider contentPosition="center">Center (Default)</plus-divider>
-  <plus-divider contentPosition="right">Right</plus-divider>
-  <plus-divider>
-    <plus-icon iconName="star"></plus-icon>
-    With Icon
-    <plus-icon iconName="star"></plus-icon>
-  </plus-divider>
-</template>
-
-<script setup>
-// Assuming plus-icon is registered globally or imported
-</script>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true}>
+  
+    <plus-divider>Text</plus-divider>
+   
+</CodePreview>
 
 ## Visual Sections
 
@@ -382,7 +125,6 @@ export class DividerContentComponent {}
 |-------------------|----------------------------------------------|----------------|------------------------------------------------------------------|----------|
 | `orientation`     | `'horizontal' \| 'vertical'`                 | `'horizontal'` | Sets the orientation of the divider.                             | No       |
 | `kind`            | `'solid' \| 'dashed' \| 'dotted'`               | `'solid'`      | Sets the line style of the divider.                              | No       |
-| `contentPosition` | `'left' \| 'center' \| 'right'`                | `'center'`     | Aligns the content (slot) within the horizontal divider line.    | No       |
 | `thickness`       | `'thin' \| 'medium' \| 'thick'`                | `'thin'`       | Sets the thickness of the divider line.                          | No       |
 
 ### Slots

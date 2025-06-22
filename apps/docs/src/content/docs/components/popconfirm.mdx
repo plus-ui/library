@@ -1,10 +1,14 @@
 ---
 title: Popconfirm
 description: Displays a confirmation dialog in a floating panel near a target element.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/popconfirm/anatomy.png';
@@ -23,339 +27,124 @@ The Popconfirm component displays a small overlay confirmation dialog next to a 
 
 A basic popconfirm triggered by clicking a button.
 
-<code-bubble class="not-content">
-
-```html
-<plus-popconfirm title="Delete Item?" confirm-text="Yes, Delete" cancel-text="No">
-  <div slot="content">This action cannot be undone.</div>
-  <plus-button status="danger">Delete</plus-button>
-</plus-popconfirm>
-```
-
-```tsx
-import { PlusPopconfirm, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusPopconfirm title="Delete Item?" confirmText="Yes, Delete" cancelText="No">
-      <div slot="content">This action cannot be undone.</div>
-      <PlusButton status="danger">Delete</PlusButton>
-    </PlusPopconfirm>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popconfirm-basic',
-  template: `
-    <plus-popconfirm title="Delete Item?" confirm-text="Yes, Delete" cancel-text="No">
-      <div slot="content">This action cannot be undone.</div>
-      <plus-button status="danger">Delete</plus-button>
-    </plus-popconfirm>
-  `
-})
-export class PopconfirmBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-popconfirm title="Delete Item?" confirm-text="Yes, Delete" cancel-text="No">
     <div slot="content">This action cannot be undone.</div>
     <plus-button status="danger">Delete</plus-button>
   </plus-popconfirm>
-</template>
-
-<script setup>
-// Assuming Plus UI components are registered globally or imported locally
-</script>
-```
-</code-bubble>
+</CodePreview>
 
 ### Orientation
 
 Use the `orientation` prop to control where the popconfirm appears relative to the trigger element.
 
-<code-bubble class="not-content horizontal">
+<CodePreview autoGeneration={true}>
+<div>
+  <plus-popconfirm orientation="top-start" title="Position Top Start">
+    <plus-button>Top Start</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm orientation="top" title="Position Top">
+    <plus-button>Top</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm orientation="top-end" title="Position Top End">
+    <plus-button>Top End</plus-button>
+  </plus-popconfirm>
+</div>
+<div class="flex gap-2">
+  <div class="flex flex-col gap-2">
+    <plus-popconfirm orientation="left-start" title="Position Left Start">
+      <plus-button>Left Start</plus-button>
+    </plus-popconfirm>
+    <plus-popconfirm orientation="left" title="Position Left">
+      <plus-button>Left</plus-button>
+    </plus-popconfirm>
+    <plus-popconfirm orientation="left-end" title="Position Left End">
+      <plus-button>Left End</plus-button>
+    </plus-popconfirm>
+  </div>
+  <div class="w-34">
+  </div>
+  <div class="flex flex-col gap-2 items-end">
+    <plus-popconfirm orientation="right-start" title="Position Right Start">
+      <plus-button>Right Start</plus-button>
+    </plus-popconfirm>
+    <plus-popconfirm orientation="right" title="Position Right">
+      <plus-button>Right</plus-button>
+    </plus-popconfirm>
+    <plus-popconfirm orientation="right-end" title="Position Right End">
+      <plus-button>Right End</plus-button>
+    </plus-popconfirm>
+    
+  </div>
+</div>
+<div>
+  <plus-popconfirm orientation="bottom-start" title="Position Bottom Start">
+    <plus-button>Bottom Start</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm orientation="bottom" title="Position Bottom">
+    <plus-button>Bottom</plus-button>
+  </plus-popconfirm>
 
-```html
-<plus-popconfirm orientation="top" title="Top">
-  <plus-button>Top</plus-button>
-</plus-popconfirm>
-<plus-popconfirm orientation="bottom" title="Bottom">
-  <plus-button>Bottom</plus-button>
-</plus-popconfirm>
-<plus-popconfirm orientation="left" title="Left">
-  <plus-button>Left</plus-button>
-</plus-popconfirm>
-<plus-popconfirm orientation="right" title="Right">
-  <plus-button>Right</plus-button>
-</plus-popconfirm>
-<plus-popconfirm orientation="top-start" title="Top Start">
-  <plus-button>Top Start</plus-button>
-</plus-popconfirm>
-<plus-popconfirm orientation="bottom-end" title="Bottom End">
-  <plus-button>Bottom End</plus-button>
-</plus-popconfirm>
-```
-
-```tsx
-import { PlusPopconfirm, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopconfirm orientation="top" title="Top"><PlusButton>Top</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm orientation="bottom" title="Bottom"><PlusButton>Bottom</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm orientation="left" title="Left"><PlusButton>Left</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm orientation="right" title="Right"><PlusButton>Right</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm orientation="top-start" title="Top Start"><PlusButton>Top Start</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm orientation="bottom-end" title="Bottom End"><PlusButton>Bottom End</PlusButton></PlusPopconfirm>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popconfirm-orientation',
-  template: `
-    <plus-popconfirm orientation="top" title="Top"><plus-button>Top</plus-button></plus-popconfirm>
-    <plus-popconfirm orientation="bottom" title="Bottom"><plus-button>Bottom</plus-button></plus-popconfirm>
-    <plus-popconfirm orientation="left" title="Left"><plus-button>Left</plus-button></plus-popconfirm>
-    <plus-popconfirm orientation="right" title="Right"><plus-button>Right</plus-button></plus-popconfirm>
-    <plus-popconfirm orientation="top-start" title="Top Start"><plus-button>Top Start</plus-button></plus-popconfirm>
-    <plus-popconfirm orientation="bottom-end" title="Bottom End"><plus-button>Bottom End</plus-button></plus-popconfirm>
-  `
-})
-export class PopconfirmOrientationComponent {}
-```
-
-```vue
-<template>
-  <plus-popconfirm orientation="top" title="Top"><plus-button>Top</plus-button></plus-popconfirm>
-  <plus-popconfirm orientation="bottom" title="Bottom"><plus-button>Bottom</plus-button></plus-popconfirm>
-  <plus-popconfirm orientation="left" title="Left"><plus-button>Left</plus-button></plus-popconfirm>
-  <plus-popconfirm orientation="right" title="Right"><plus-button>Right</plus-button></plus-popconfirm>
-  <plus-popconfirm orientation="top-start" title="Top Start"><plus-button>Top Start</plus-button></plus-popconfirm>
-  <plus-popconfirm orientation="bottom-end" title="Bottom End"><plus-button>Bottom End</plus-button></plus-popconfirm>
-</template>
-```
-</code-bubble>
+  <plus-popconfirm orientation="bottom-end" title="Position Bottom End">
+    <plus-button>Bottom End</plus-button>
+  </plus-popconfirm>
+</div>
+</CodePreview>
 
 ### Trigger
 
 The `trigger` prop determines how the popconfirm is opened.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-popconfirm trigger="click" title="Click Me">
-  <plus-button>Click Trigger (Default)</plus-button>
-</plus-popconfirm>
-<plus-popconfirm trigger="hover" title="Hover Over Me">
-  <plus-button>Hover Trigger</plus-button>
-</plus-popconfirm>
-```
-
-```tsx
-import { PlusPopconfirm, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopconfirm trigger="click" title="Click Me">
-        <PlusButton>Click Trigger (Default)</PlusButton>
-      </PlusPopconfirm>
-      <PlusPopconfirm trigger="hover" title="Hover Over Me">
-        <PlusButton>Hover Trigger</PlusButton>
-      </PlusPopconfirm>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popconfirm-trigger',
-  template: `
-    <plus-popconfirm trigger="click" title="Click Me">
-      <plus-button>Click Trigger (Default)</plus-button>
-    </plus-popconfirm>
-    <plus-popconfirm trigger="hover" title="Hover Over Me">
-      <plus-button>Hover Trigger</plus-button>
-    </plus-popconfirm>
-  `
-})
-export class PopconfirmTriggerComponent {}
-```
-
-```vue
-<template>
-  <plus-popconfirm trigger="click" title="Click Me">
-    <plus-button>Click Trigger (Default)</plus-button>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-popconfirm trigger="click" title="Trigger Click">
+    <plus-button>Click</plus-button>
   </plus-popconfirm>
-  <plus-popconfirm trigger="hover" title="Hover Over Me">
-    <plus-button>Hover Trigger</plus-button>
+  <plus-popconfirm trigger="hover" title="Trigger Hover">
+    <plus-button>Hover</plus-button>
   </plus-popconfirm>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Status
 
 Use the `status` prop to apply different color schemes, often indicating the severity or type of action being confirmed.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-popconfirm status="default" title="Default">
-  <plus-button>Default</plus-button>
-</plus-popconfirm>
-<plus-popconfirm status="primary" title="Primary">
-  <plus-button status="primary">Primary</plus-button>
-</plus-popconfirm>
-<plus-popconfirm status="success" title="Success">
-  <plus-button status="success">Success</plus-button>
-</plus-popconfirm>
-<plus-popconfirm status="warning" title="Warning">
-  <plus-button status="warning">Warning</plus-button>
-</plus-popconfirm>
-<plus-popconfirm status="danger" title="Danger">
-  <plus-button status="danger">Danger</plus-button>
-</plus-popconfirm>
-<plus-popconfirm status="info" title="Info">
-  <plus-button status="info">Info</plus-button>
-</plus-popconfirm>
-```
-
-```tsx
-import { PlusPopconfirm, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopconfirm status="default" title="Default"><PlusButton>Default</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm status="primary" title="Primary"><PlusButton status="primary">Primary</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm status="success" title="Success"><PlusButton status="success">Success</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm status="warning" title="Warning"><PlusButton status="warning">Warning</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm status="danger" title="Danger"><PlusButton status="danger">Danger</PlusButton></PlusPopconfirm>
-      <PlusPopconfirm status="info" title="Info"><PlusButton status="info">Info</PlusButton></PlusPopconfirm>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popconfirm-status',
-  template: `
-    <plus-popconfirm status="default" title="Default"><plus-button>Default</plus-button></plus-popconfirm>
-    <plus-popconfirm status="primary" title="Primary"><plus-button status="primary">Primary</plus-button></plus-popconfirm>
-    <plus-popconfirm status="success" title="Success"><plus-button status="success">Success</plus-button></plus-popconfirm>
-    <plus-popconfirm status="warning" title="Warning"><plus-button status="warning">Warning</plus-button></plus-popconfirm>
-    <plus-popconfirm status="danger" title="Danger"><plus-button status="danger">Danger</plus-button></plus-popconfirm>
-    <plus-popconfirm status="info" title="Info"><plus-button status="info">Info</plus-button></plus-popconfirm>
-  `
-})
-export class PopconfirmStatusComponent {}
-```
-
-```vue
-<template>
-  <plus-popconfirm status="default" title="Default"><plus-button>Default</plus-button></plus-popconfirm>
-  <plus-popconfirm status="primary" title="Primary"><plus-button status="primary">Primary</plus-button></plus-popconfirm>
-  <plus-popconfirm status="success" title="Success"><plus-button status="success">Success</plus-button></plus-popconfirm>
-  <plus-popconfirm status="warning" title="Warning"><plus-button status="warning">Warning</plus-button></plus-popconfirm>
-  <plus-popconfirm status="danger" title="Danger"><plus-button status="danger">Danger</plus-button></plus-popconfirm>
-  <plus-popconfirm status="info" title="Info"><plus-button status="info">Info</plus-button></plus-popconfirm>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-popconfirm status="default" title="Default">
+    <plus-button>Default</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm status="primary" title="Primary">
+    <plus-button>Primary</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm status="success" title="Success">
+    <plus-button>Success</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm status="warning" title="Warning">
+    <plus-button>Warning</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm status="danger" title="Danger">
+    <plus-button>Danger</plus-button>
+  </plus-popconfirm>
+  <plus-popconfirm status="info" title="Info">
+    <plus-button>Info</plus-button>
+  </plus-popconfirm>
+</CodePreview>
 
 ### Custom Content and Title
 
 Use slots `title` and `content` for more complex content than simple strings.
 
-<code-bubble class="not-content">
-
-```html
-<plus-popconfirm confirm-text="OK" cancel-text="Close">
-  <span slot="title">
-    <i class="fa-solid fa-triangle-exclamation" style="color: orange;"></i>
-    Custom Title
-  </span>
-  <div slot="content">
-    This is <strong>custom</strong> content with <em>HTML</em>.
-  </div>
-  <plus-button>Show Custom</plus-button>
-</plus-popconfirm>
-```
-
-```tsx
-import { PlusPopconfirm, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusPopconfirm confirmText="OK" cancelText="Close">
-      <span slot="title">
-        <i className="fa-solid fa-triangle-exclamation" style={{ color: 'orange' }}></i>
-        Custom Title
-      </span>
-      <div slot="content">
-        This is <strong>custom</strong> content with <em>HTML</em>.
-      </div>
-      <PlusButton>Show Custom</PlusButton>
-    </PlusPopconfirm>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popconfirm-custom',
-  template: `
-    <plus-popconfirm confirm-text="OK" cancel-text="Close">
-      <span slot="title">
-        <i class="fa-solid fa-triangle-exclamation" style="color: orange;"></i>
-        Custom Title
-      </span>
-      <div slot="content">
-        This is <strong>custom</strong> content with <em>HTML</em>.
-      </div>
-      <plus-button>Show Custom</plus-button>
-    </plus-popconfirm>
-  `
-})
-export class PopconfirmCustomComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-popconfirm confirm-text="OK" cancel-text="Close">
-    <span slot="title">
+    <div slot="title" class="flex items-center gap-2">
       <i class="fa-solid fa-triangle-exclamation" style="color: orange;"></i>
-      Custom Title
-    </span>
+      <span>Custom Title</span>
+    </div>
     <div slot="content">
       This is <strong>custom</strong> content with <em>HTML</em>.
     </div>
     <plus-button>Show Custom</plus-button>
   </plus-popconfirm>
-</template>
-```
-</code-bubble>
-
+</CodePreview>
 
 ## Visual Sections
 

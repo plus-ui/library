@@ -1,10 +1,14 @@
 ---
 title: Link
 description: Creates styled anchor elements for navigation or actions.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/link/anatomy.png';
@@ -23,83 +27,41 @@ The Link component renders a styled anchor (`<a>`) tag, providing options for na
 
 A standard link with an `href` attribute.
 
-<code-bubble class="not-content">
-
-```html
-<plus-link href="https://plusui.com">Visit Plus UI</plus-link>
-```
-
-```tsx
-import { PlusLink } from '@plusui/library/react';
-
-export default () => {
-  return <PlusLink href="https://plusui.com">Visit Plus UI</PlusLink>;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-link-basic',
-  template: ` <plus-link href="https://plusui.com">Visit Plus UI</plus-link> `
-})
-export class LinkBasicComponent {
-}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-link href="https://plusui.com">Visit Plus UI</plus-link>
-</template>
-```
-</code-bubble>
+</CodePreview>
+
+### Size
+
+Control the link's text size using the `size` prop.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-link data-variant-size="sm,md,lg" href="https://plusui.com">Link Text</plus-link>
+</CodePreview>
+
+### Underline Behavior
+
+Control when the underline appears using the `underline` prop.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-link data-variant-underline="never,hover,always" href="https://plusui.com">Link Text</plus-link>
+</CodePreview>
 
 ### Disabled
 
-Disabled link component ensures that users receive visual and functional cues when a link cannot be interacted with, maintaining a user-friendly and inclusive experience. You can use its variant as true / false.
+Disabled link component ensures that users receive visual and functional cues when a link cannot be interacted with, maintaining a user-friendly and inclusive experience.
 
-<code-bubble class="not-content">
+<CodePreview autoGeneration={true} horizontal>
+  <plus-link data-variant-disabled="false,true">Link Text</plus-link>
+</CodePreview>
 
-```html
-<plus-link disabled>Disabled Link</plus-link>
-<plus-link disabled="false">Enabled Link</plus-link>
-```
+### External Links
 
-```tsx
-import { PlusLink } from '@plusui/library/react';
+Use the `external` prop to open links in a new tab securely.
 
-export const LinkComponent = () => (
-  <div>
-    <PlusLink disabled={true}>Disabled Link</PlusLink>
-    <PlusLink disabled={false}>Enabled Link</PlusLink>
-  </div>
-);
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-root',
-  template: `<div>
-    <plus-link disabled>Disabled Link</plus-link>
-    <plus-link disabled="false">Enabled Link</plus-link>
-  </div>`
-})
-export class AppComponent {
-}
-```
-
-```vue
-<template>
-  <div>
-    <plus-link disabled>Disabled Link</plus-link>
-    <plus-link disabled="false">Enabled Link</plus-link>
-  </div>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true}>
+  <plus-link href="https://plusui.com" external>External Link (Opens in new tab)</plus-link>
+</CodePreview>
 
 ## Layout & Spacing
 

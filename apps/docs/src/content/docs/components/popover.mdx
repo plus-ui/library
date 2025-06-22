@@ -1,10 +1,14 @@
 ---
 title: Popover
 description: Displays informative content in a floating panel near a target element.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/popover/anatomy.png';
@@ -23,332 +27,115 @@ The Popover component is used to display additional information, options, or act
 
 A basic popover triggered by clicking a button, displaying simple text content.
 
-<code-bubble class="not-content">
-
-```html
-<plus-popover header-text="Information" text="This is the popover content.">
-  <plus-button>Show Popover</plus-button>
-</plus-popover>
-```
-
-```tsx
-import { PlusPopover, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusPopover headerText="Information" text="This is the popover content.">
-      <PlusButton>Show Popover</PlusButton>
-    </PlusPopover>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popover-basic',
-  template: `
-    <plus-popover header-text="Information" text="This is the popover content.">
-      <plus-button>Show Popover</plus-button>
-    </plus-popover>
-  `
-})
-export class PopoverBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-popover header-text="Information" text="This is the popover content.">
     <plus-button>Show Popover</plus-button>
   </plus-popover>
-</template>
-
-<script setup>
-// Assuming Plus UI components are registered globally or imported locally
-</script>
-```
-</code-bubble>
+</CodePreview>
 
 ### Orientation
 
 Use the `orientation` prop to control where the popover appears relative to the trigger element.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-popover orientation="top" header-text="Top">
-  <plus-button>Top</plus-button>
-</plus-popover>
-<plus-popover orientation="bottom" header-text="Bottom">
-  <plus-button>Bottom</plus-button>
-</plus-popover>
-<plus-popover orientation="left" header-text="Left">
-  <plus-button>Left</plus-button>
-</plus-popover>
-<plus-popover orientation="right" header-text="Right">
-  <plus-button>Right</plus-button>
-</plus-popover>
-<plus-popover orientation="top-start" header-text="Top Start">
-  <plus-button>Top Start</plus-button>
-</plus-popover>
-<plus-popover orientation="bottom-end" header-text="Bottom End">
-  <plus-button>Bottom End</plus-button>
-</plus-popover>
-```
-
-```tsx
-import { PlusPopover, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopover orientation="top" headerText="Top"><PlusButton>Top</PlusButton></PlusPopover>
-      <PlusPopover orientation="bottom" headerText="Bottom"><PlusButton>Bottom</PlusButton></PlusPopover>
-      <PlusPopover orientation="left" headerText="Left"><PlusButton>Left</PlusButton></PlusPopover>
-      <PlusPopover orientation="right" headerText="Right"><PlusButton>Right</PlusButton></PlusPopover>
-      <PlusPopover orientation="top-start" headerText="Top Start"><PlusButton>Top Start</PlusButton></PlusPopover>
-      <PlusPopover orientation="bottom-end" headerText="Bottom End"><PlusButton>Bottom End</PlusButton></PlusPopover>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popover-orientation',
-  template: `
-    <plus-popover orientation="top" header-text="Top"><plus-button>Top</plus-button></plus-popover>
-    <plus-popover orientation="bottom" header-text="Bottom"><plus-button>Bottom</plus-button></plus-popover>
-    <plus-popover orientation="left" header-text="Left"><plus-button>Left</plus-button></plus-popover>
-    <plus-popover orientation="right" header-text="Right"><plus-button>Right</plus-button></plus-popover>
-    <plus-popover orientation="top-start" header-text="Top Start"><plus-button>Top Start</plus-button></plus-popover>
-    <plus-popover orientation="bottom-end" header-text="Bottom End"><plus-button>Bottom End</plus-button></plus-popover>
-  `
-})
-export class PopoverOrientationComponent {}
-```
-
-```vue
-<template>
-  <plus-popover orientation="top" header-text="Top"><plus-button>Top</plus-button></plus-popover>
-  <plus-popover orientation="bottom" header-text="Bottom"><plus-button>Bottom</plus-button></plus-popover>
-  <plus-popover orientation="left" header-text="Left"><plus-button>Left</plus-button></plus-popover>
-  <plus-popover orientation="right" header-text="Right"><plus-button>Right</plus-button></plus-popover>
-  <plus-popover orientation="top-start" header-text="Top Start"><plus-button>Top Start</plus-button></plus-popover>
-  <plus-popover orientation="bottom-end" header-text="Bottom End"><plus-button>Bottom End</plus-button></plus-popover>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true}>
+<div>
+  <plus-popover orientation="top-start" header-text="Top Start">
+    <plus-button>Top Start</plus-button>
+  </plus-popover>
+  <plus-popover orientation="top" header-text="Top">
+    <plus-button>Top</plus-button>
+  </plus-popover>
+  <plus-popover orientation="top-end" header-text="Top End">
+    <plus-button>Top End</plus-button>
+  </plus-popover>
+</div>
+<div class="flex gap-2">
+  <div class="flex flex-col gap-2">
+    <plus-popover orientation="left-start" header-text="Left Start">
+      <plus-button>Left Start</plus-button>
+    </plus-popover>
+    <plus-popover orientation="left" header-text="Left">
+      <plus-button>Left</plus-button>
+    </plus-popover>
+    <plus-popover orientation="left-end" header-text="Left End">
+      <plus-button>Left End</plus-button>
+    </plus-popover>
+  </div>
+  <div class="w-34">
+  </div>
+  <div class="flex flex-col gap-2 items-end">
+    <plus-popover orientation="right-start" header-text="Right Start">
+      <plus-button>Right Start</plus-button>
+    </plus-popover>
+    <plus-popover orientation="right" header-text="Right">
+      <plus-button>Right</plus-button>
+    </plus-popover>
+    <plus-popover orientation="right-end" header-text="Right End">
+      <plus-button>Right End</plus-button>
+    </plus-popover>
+  </div>
+</div>
+<div>
+  <plus-popover orientation="bottom-start" header-text="Bottom Start">
+    <plus-button>Bottom Start</plus-button>
+  </plus-popover>
+  <plus-popover orientation="bottom" header-text="Bottom">
+    <plus-button>Bottom</plus-button>
+  </plus-popover>
+  <plus-popover orientation="bottom-end" header-text="Bottom End">
+    <plus-button>Bottom End</plus-button>
+  </plus-popover>
+</div>
+</CodePreview>
 
 ### Trigger
 
 The `trigger` prop determines how the popover is opened.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-popover trigger="click" header-text="Click Me">
-  <plus-button>Click Trigger (Default)</plus-button>
-</plus-popover>
-<plus-popover trigger="hover" header-text="Hover Over Me">
-  <plus-button>Hover Trigger</plus-button>
-</plus-popover>
-```
-
-```tsx
-import { PlusPopover, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopover trigger="click" headerText="Click Me">
-        <PlusButton>Click Trigger (Default)</PlusButton>
-      </PlusPopover>
-      <PlusPopover trigger="hover" headerText="Hover Over Me">
-        <PlusButton>Hover Trigger</PlusButton>
-      </PlusPopover>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popover-trigger',
-  template: `
-    <plus-popover trigger="click" header-text="Click Me">
-      <plus-button>Click Trigger (Default)</plus-button>
-    </plus-popover>
-    <plus-popover trigger="hover" header-text="Hover Over Me">
-      <plus-button>Hover Trigger</plus-button>
-    </plus-popover>
-  `
-})
-export class PopoverTriggerComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-popover trigger="click" header-text="Click Me">
     <plus-button>Click Trigger (Default)</plus-button>
   </plus-popover>
   <plus-popover trigger="hover" header-text="Hover Over Me">
     <plus-button>Hover Trigger</plus-button>
   </plus-popover>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Status
 
 Use the `status` prop to apply different color schemes and default icons.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-popover status="default" header-text="Default">
-  <plus-button>Default</plus-button>
-</plus-popover>
-<plus-popover status="primary" header-text="Primary">
-  <plus-button status="primary">Primary</plus-button>
-</plus-popover>
-<plus-popover status="success" header-text="Success">
-  <plus-button status="success">Success</plus-button>
-</plus-popover>
-<plus-popover status="warning" header-text="Warning">
-  <plus-button status="warning">Warning</plus-button>
-</plus-popover>
-<plus-popover status="danger" header-text="Danger">
-  <plus-button status="danger">Danger</plus-button>
-</plus-popover>
-<plus-popover status="info" header-text="Info">
-  <plus-button status="info">Info</plus-button>
-</plus-popover>
-```
-
-```tsx
-import { PlusPopover, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopover status="default" headerText="Default"><PlusButton>Default</PlusButton></PlusPopover>
-      <PlusPopover status="primary" headerText="Primary"><PlusButton status="primary">Primary</PlusButton></PlusPopover>
-      <PlusPopover status="success" headerText="Success"><PlusButton status="success">Success</PlusButton></PlusPopover>
-      <PlusPopover status="warning" headerText="Warning"><PlusButton status="warning">Warning</PlusButton></PlusPopover>
-      <PlusPopover status="danger" headerText="Danger"><PlusButton status="danger">Danger</PlusButton></PlusPopover>
-      <PlusPopover status="info" headerText="Info"><PlusButton status="info">Info</PlusButton></PlusPopover>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popover-status',
-  template: `
-    <plus-popover status="default" header-text="Default"><plus-button>Default</plus-button></plus-popover>
-    <plus-popover status="primary" header-text="Primary"><plus-button status="primary">Primary</plus-button></plus-popover>
-    <plus-popover status="success" header-text="Success"><plus-button status="success">Success</plus-button></plus-popover>
-    <plus-popover status="warning" header-text="Warning"><plus-button status="warning">Warning</plus-button></plus-popover>
-    <plus-popover status="danger" header-text="Danger"><plus-button status="danger">Danger</plus-button></plus-popover>
-    <plus-popover status="info" header-text="Info"><plus-button status="info">Info</plus-button></plus-popover>
-  `
-})
-export class PopoverStatusComponent {}
-```
-
-```vue
-<template>
-  <plus-popover status="default" header-text="Default"><plus-button>Default</plus-button></plus-popover>
-  <plus-popover status="primary" header-text="Primary"><plus-button status="primary">Primary</plus-button></plus-popover>
-  <plus-popover status="success" header-text="Success"><plus-button status="success">Success</plus-button></plus-popover>
-  <plus-popover status="warning" header-text="Warning"><plus-button status="warning">Warning</plus-button></plus-popover>
-  <plus-popover status="danger" header-text="Danger"><plus-button status="danger">Danger</plus-button></plus-popover>
-  <plus-popover status="info" header-text="Info"><plus-button status="info">Info</plus-button></plus-popover>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-popover status="default" header-text="Default">
+    <plus-button>Default</plus-button>
+  </plus-popover>
+  <plus-popover status="primary" header-text="Primary">
+    <plus-button status="primary">Primary</plus-button>
+  </plus-popover>
+  <plus-popover status="success" header-text="Success">
+    <plus-button status="success">Success</plus-button>
+  </plus-popover>
+  <plus-popover status="warning" header-text="Warning">
+    <plus-button status="warning">Warning</plus-button>
+  </plus-popover>
+  <plus-popover status="danger" header-text="Danger">
+    <plus-button status="danger">Danger</plus-button>
+  </plus-popover>
+  <plus-popover status="info" header-text="Info">
+    <plus-button status="info">Info</plus-button>
+  </plus-popover>
+</CodePreview>
 
 ### Custom Content and Title
 
 Use slots `title` and `content` for more complex content instead of the `header-text` and `text` props.
 
-<code-bubble class="not-content">
-
-```html
-<plus-popover>
-  <span slot="title">
-    <i class="fa-solid fa-star" style="color: gold;"></i>
-    Custom Title Slot
-  </span>
-  <div slot="content">
-    This is <strong>custom popover</strong> content with <em>HTML</em> placed in the content slot.
-    <plus-divider class="my-2"></plus-divider>
-    <plus-button size="sm">Action</plus-button>
-  </div>
-  <plus-button>Show Custom Popover</plus-button>
-</plus-popover>
-```
-
-```tsx
-import { PlusPopover, PlusButton, PlusDivider } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusPopover>
-      <span slot="title">
-        <i className="fa-solid fa-star" style={{ color: 'gold' }}></i>
-        Custom Title Slot
-      </span>
-      <div slot="content">
-        This is <strong>custom popover</strong> content with <em>HTML</em> placed in the content slot.
-        <PlusDivider className="my-2"></PlusDivider>
-        <PlusButton size="sm">Action</PlusButton>
-      </div>
-      <PlusButton>Show Custom Popover</PlusButton>
-    </PlusPopover>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popover-custom',
-  template: `
-    <plus-popover>
-      <span slot="title">
-        <i class="fa-solid fa-star" style="color: gold;"></i>
-        Custom Title Slot
-      </span>
-      <div slot="content">
-        This is <strong>custom popover</strong> content with <em>HTML</em> placed in the content slot.
-        <plus-divider class="my-2"></plus-divider>
-        <plus-button size="sm">Action</plus-button>
-      </div>
-      <plus-button>Show Custom Popover</plus-button>
-    </plus-popover>
-  `
-})
-export class PopoverCustomComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-popover>
-    <span slot="title">
+    <div slot="title" class="flex items-center gap-2">
       <i class="fa-solid fa-star" style="color: gold;"></i>
-      Custom Title Slot
-    </span>
+      <span>Custom Title Slot</span>
+    </div>
     <div slot="content">
       This is <strong>custom popover</strong> content with <em>HTML</em> placed in the content slot.
       <plus-divider class="my-2"></plus-divider>
@@ -356,70 +143,20 @@ export class PopoverCustomComponent {}
     </div>
     <plus-button>Show Custom Popover</plus-button>
   </plus-popover>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Dismissable
 
 Set `dismissable="false"` to hide the default close button.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-popover header-text="Dismissable (Default)">
-  <plus-button>Dismissable</plus-button>
-</plus-popover>
-<plus-popover header-text="Not Dismissable" dismissable=false>
-  <plus-button>Not Dismissable</plus-button>
-</plus-popover>
-```
-
-```tsx
-import { PlusPopover, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusPopover headerText="Dismissable (Default)">
-        <PlusButton>Dismissable</PlusButton>
-      </PlusPopover>
-      <PlusPopover headerText="Not Dismissable" dismissable={false}>
-        <PlusButton>Not Dismissable</PlusButton>
-      </PlusPopover>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-popover-dismissable',
-  template: `
-    <plus-popover header-text="Dismissable (Default)">
-      <plus-button>Dismissable</plus-button>
-    </plus-popover>
-    <plus-popover header-text="Not Dismissable" [attr.dismissable]="false">
-      <plus-button>Not Dismissable</plus-button>
-    </plus-popover>
-  `
-})
-export class PopoverDismissableComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-popover header-text="Dismissable (Default)">
     <plus-button>Dismissable</plus-button>
   </plus-popover>
-  <plus-popover header-text="Not Dismissable" :dismissable="false">
+  <plus-popover header-text="Not Dismissable" dismissable="false">
     <plus-button>Not Dismissable</plus-button>
   </plus-popover>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 
 ## Visual Sections
@@ -480,17 +217,4 @@ export class PopoverDismissableComponent {}
 |-------------------|-----------------------------------------------------------------|
 | `default` (unnamed) | The target element that triggers the popover.                   |
 | `icon`            | Custom icon content in the header, replaces the default status icon. |
-| `title`           | Custom title content in the header, overrides the `headerText` prop. |
-| `actions`         | Content for the right side of the header (e.g., close button).    |
-| `content`         | The main content inside the popover body. Overrides the `text` prop. |
-
-### CSS Shadow Parts
-
-| Part      | Description                          |
-|-----------|--------------------------------------|
-| `popover` | The main popover container element.  |
-| `arrow`   | The arrow element pointing to the trigger. |
-| `title`   | The title element container.         |
-| `close`   | The close button area container.     |
-| `content` | The main content area container.     |
-
+| `title`

@@ -1,10 +1,14 @@
 ---
 title: Avatar
 description: Displays a user or entity image with a fallback option.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/avatar/anatomy.png';
@@ -23,203 +27,36 @@ The `Avatar` component displays an image representing a user or entity. It suppo
 
 ### Basic Example
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-avatar image="https://i.pravatar.cc/50" alt="User Name"></plus-avatar>
-```
-
-```tsx
-import { PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return <PlusAvatar image="https://i.pravatar.cc/50" alt="User Name" />;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-avatar-basic',
-  template: `
-    <plus-avatar image="https://i.pravatar.cc/50" alt="User Name"></plus-avatar>
-  `
-})
-export class AvatarBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-avatar image="https://i.pravatar.cc/50" alt="User Name"></plus-avatar>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Size
 
 The `size` prop controls the dimensions of the avatar. It accepts predefined values (`xs`, `sm`, `md`, `lg`, `xl`) or any valid CSS size unit.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-avatar size="xs"></plus-avatar>
-<plus-avatar size="sm"></plus-avatar>
-<plus-avatar size="md"></plus-avatar>
-<plus-avatar size="lg"></plus-avatar>
-<plus-avatar size="xl"></plus-avatar>
-<plus-avatar size="60px"></plus-avatar>
-```
-
-```tsx
-import { PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return <>
-    <PlusAvatar size="xs" />
-    <PlusAvatar size="sm" />
-    <PlusAvatar size="md" />
-    <PlusAvatar size="lg" />
-    <PlusAvatar size="xl" />
-    <PlusAvatar size="60px" />
-  </>;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-avatar-sizes',
-  template: `
-    <plus-avatar size="xs"></plus-avatar>
-    <plus-avatar size="sm"></plus-avatar>
-    <plus-avatar size="md"></plus-avatar>
-    <plus-avatar size="lg"></plus-avatar>
-    <plus-avatar size="xl"></plus-avatar>
-    <plus-avatar size="60px"></plus-avatar>
-  `
-})
-export class AvatarSizesComponent {}
-```
-
-```vue
-<template>
-  <plus-avatar size="xs"></plus-avatar>
-  <plus-avatar size="sm"></plus-avatar>
-  <plus-avatar size="md"></plus-avatar>
-  <plus-avatar size="lg"></plus-avatar>
-  <plus-avatar size="xl"></plus-avatar>
-  <plus-avatar size="60px"></plus-avatar>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-avatar data-variant-size="xs,sm,md,lg,xl"></plus-avatar>
+</CodePreview>
 
 ### Shape
 
 The `shape` prop determines the overall shape of the avatar.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-avatar shape="circle" image="https://i.pravatar.cc/50"></plus-avatar>
-<plus-avatar shape="square" image="https://i.pravatar.cc/50"></plus-avatar>
-```
-
-```tsx
-import { PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return <>
-    <PlusAvatar shape="circle" image="https://i.pravatar.cc/50" />
-    <PlusAvatar shape="square" image="https://i.pravatar.cc/50" />
-  </>;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-avatar-shapes',
-  template: `
-    <plus-avatar shape="circle" image="https://i.pravatar.cc/50"></plus-avatar>
-    <plus-avatar shape="square" image="https://i.pravatar.cc/50"></plus-avatar>
-  `
-})
-export class AvatarShapesComponent {}
-```
-
-```vue
-<template>
-  <plus-avatar shape="circle" image="https://i.pravatar.cc/50"></plus-avatar>
-  <plus-avatar shape="square" image="https://i.pravatar.cc/50"></plus-avatar>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-avatar data-variant-shape="circle,square" image="https://i.pravatar.cc/50"></plus-avatar>
+</CodePreview>
 
 ### Fallback Behavior
 
 When an `image` is not provided or fails to load, the avatar displays fallback content based on the `fallbackStrategy` prop. You can provide `text` for initials or use the default `icon` (customizable via the `icon` prop).
 
-<code-bubble class="not-content horizontal">
-
-```html
-<!-- Initials Fallback -->
-<plus-avatar text="Murat Polat Özkan" fallback-strategy="text"></plus-avatar>
-<plus-avatar text="Single" fallback-strategy="text"></plus-avatar>
-
-<!-- Icon Fallback -->
-<plus-avatar icon="fa-solid fa-ghost"></plus-avatar>
-<plus-avatar></plus-avatar> <!-- Default icon -->
-```
-
-```tsx
-import { PlusAvatar } from '@plusui/library/react';
-
-export default () => {
-  return <>
-    {/* Initials Fallback */}
-    <PlusAvatar text="Murat Polat Özkan" fallbackStrategy="text" />
-    <PlusAvatar text="Single" fallbackStrategy="text" />
-
-    {/* Icon Fallback */}
-    <PlusAvatar icon="fa-solid fa-ghost" />
-    <PlusAvatar /> {/* Default icon */}
-  </>;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-avatar-fallback',
-  template: `
-    <!-- Initials Fallback -->
-    <plus-avatar text="Murat Polat Özkan" fallback-strategy="text"></plus-avatar>
-    <plus-avatar text="Single" fallback-strategy="text"></plus-avatar>
-
-    <!-- Icon Fallback -->
-    <plus-avatar icon="fa-solid fa-ghost"></plus-avatar>
-    <plus-avatar></plus-avatar> <!-- Default icon -->
-  `
-})
-export class AvatarFallbackComponent {}
-```
-
-```vue
-<template>
-  <!-- Initials Fallback -->
+<CodePreview autoGeneration={true} horizontal>
   <plus-avatar text="Murat Polat Özkan" fallback-strategy="text"></plus-avatar>
   <plus-avatar text="Single" fallback-strategy="text"></plus-avatar>
-
-  <!-- Icon Fallback -->
   <plus-avatar icon="fa-solid fa-ghost"></plus-avatar>
-  <plus-avatar></plus-avatar> <!-- Default icon -->
-</template>
-```
-</code-bubble>
+  <plus-avatar></plus-avatar>
+</CodePreview>
 
 ## Visual Sections
 

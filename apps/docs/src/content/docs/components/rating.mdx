@@ -1,10 +1,14 @@
 ---
 title: Rating
 description: Displays a star rating that allows users to view and set ratings.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/rating/anatomy.png';
@@ -23,314 +27,283 @@ The Rating component allows users to view or interactively select a rating, typi
 
 A simple rating component allowing users to select a value.
 
-<code-bubble class="not-content">
+<CodePreview autoGeneration={false}>
+  <plus-rating value="3"></plus-rating>
 
-```html
-<plus-rating value="3"></plus-rating>
-```
+  <Fragment slot="react">
+    ```tsx
+    import { PlusRating } from '@plusui/react';
+    import { useState } from 'react';
 
-```tsx
-import { PlusRating } from '@plusui/library/react';
-import { useState } from 'react';
+    export default () => {
+      const [rating, setRating] = useState(3);
 
-export default () => {
-  const [rating, setRating] = useState(3);
+      const handleChange = (event: any) => {
+        setRating(event.detail.value);
+      };
 
-  const handleChange = (event: any) => {
-    setRating(event.detail.value);
-  };
+      return <PlusRating value={rating} onPlusChange={handleChange} />;
+    };
+    ```
+  </Fragment>
 
-  return <PlusRating value={rating} onPlusChange={handleChange} />;
-};
-```
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
 
-```ts
-import { Component } from '@angular/core';
+    @Component({
+      selector: 'app-rating-basic',
+      template: `
+        <plus-rating [value]="rating" (plus-change)="handleChange($event)"></plus-rating>
+        <p>Current rating: {{ rating }}</p>
+      `
+    })
+    export class RatingBasicComponent {
+      rating = 3;
 
-@Component({
-  selector: 'app-rating-basic',
-  template: `
-    <plus-rating [value]="rating" (plus-change)="handleChange($event)"></plus-rating>
-    <p>Current rating: {{ rating }}</p>
-  `
-})
-export class RatingBasicComponent {
-  rating = 3;
+      handleChange(event: any) {
+        this.rating = event.detail.value;
+      }
+    }
+    ```
+  </Fragment>
 
-  handleChange(event: any) {
-    this.rating = event.detail.value;
-  }
-}
-```
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-rating :value="rating" @plus-change="handleChange"></plus-rating>
+      <p>Current rating: {{ rating }}</p>
+    </template>
 
-```vue
-<template>
-  <plus-rating :value="rating" @plus-change="handleChange"></plus-rating>
-  <p>Current rating: {{ rating }}</p>
-</template>
+    <script setup>
+    import { ref } from 'vue';
 
-<script setup>
-import { ref } from 'vue';
+    const rating = ref(3);
 
-const rating = ref(3);
+    const handleChange = (event) => {
+      rating.value = event.detail.value;
+    };
+    </script>
+    ```
+  </Fragment>
 
-const handleChange = (event) => {
-  rating.value = event.detail.value;
-};
-</script>
-```
-</code-bubble>
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let rating = 3;
+
+      function handleChange(event) {
+        rating = event.detail.value;
+      }
+    </script>
+
+    <plus-rating value={rating} on:plus-change={handleChange}></plus-rating>
+    <p>Current rating: {rating}</p>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 Use the `size` prop to control the rating item size.
 
-<code-bubble class="not-content horizontal items-center">
-
-```html
-<plus-rating size="sm" value="3"></plus-rating>
-<plus-rating size="md" value="3"></plus-rating>
-<plus-rating size="lg" value="3"></plus-rating>
-```
-
-```tsx
-import { PlusRating } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusRating size="sm" value={3} />
-      <PlusRating size="md" value={3} />
-      <PlusRating size="lg" value={3} />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rating-size',
-  template: `
-    <plus-rating size="sm" value="3"></plus-rating>
-    <plus-rating size="md" value="3"></plus-rating>
-    <plus-rating size="lg" value="3"></plus-rating>
-  `
-})
-export class RatingSizeComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-rating size="sm" value="3"></plus-rating>
   <plus-rating size="md" value="3"></plus-rating>
   <plus-rating size="lg" value="3"></plus-rating>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Precision
 
 The `precision` prop allows for fractional ratings (e.g., half stars).
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-rating value="3.5" precision="0.5"></plus-rating>
-<plus-rating value="2.7" precision="0.1"></plus-rating>
-```
-
-```tsx
-import { PlusRating } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusRating value={3.5} precision={0.5} />
-      <PlusRating value={2.7} precision={0.1} />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rating-precision',
-  template: `
-    <plus-rating value="3.5" precision="0.5"></plus-rating>
-    <plus-rating value="2.7" precision="0.1"></plus-rating>
-  `
-})
-export class RatingPrecisionComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-rating value="3.5" precision="0.5"></plus-rating>
   <plus-rating value="2.7" precision="0.1"></plus-rating>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Max Value
 
 Use the `max` prop to set the maximum number of rating items.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-rating value="7" max="10"></plus-rating>
-```
-
-```tsx
-import { PlusRating } from '@plusui/library/react';
-
-export default () => {
-  return <PlusRating value={7} max={10} />;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rating-max',
-  template: `
-    <plus-rating value="7" max="10"></plus-rating>
-  `
-})
-export class RatingMaxComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-rating value="7" max="10"></plus-rating>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Readonly & Disabled
 
 Set `readonly` to display a rating without allowing changes, or `disabled` to make it visually disabled and non-interactive.
 
-<code-bubble class="not-content horizontal items-center">
-
-```html
-<plus-rating value="4" readonly></plus-rating>
-<plus-rating value="2" disabled></plus-rating>
-```
-
-```tsx
-import { PlusRating } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusRating value={4} readonly />
-      <PlusRating value={2} disabled />
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rating-states',
-  template: `
-    <plus-rating value="4" readonly></plus-rating>
-    <plus-rating value="2" disabled></plus-rating>
-  `
-})
-export class RatingStatesComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-rating value="4" readonly></plus-rating>
   <plus-rating value="2" disabled></plus-rating>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Custom Icons
 
 Use `empty-icon-name` and `filled-icon-name` to specify different icons.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-rating value="3" empty-icon-name="regular-heart" filled-icon-name="solid-heart"></plus-rating>
-```
-
-```tsx
-import { PlusRating } from '@plusui/library/react';
-
-export default () => {
-  return <PlusRating value={3} emptyIconName="regular-heart" filledIconName="solid-heart" />;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rating-icons',
-  template: `
-    <plus-rating value="3" empty-icon-name="regular-heart" filled-icon-name="solid-heart"></plus-rating>
-  `
-})
-export class RatingIconsComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-rating value="3" empty-icon-name="regular-heart" filled-icon-name="solid-heart"></plus-rating>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Label and Caption
 
 Use `label` and `caption` props to add context.
 
-<code-bubble class="not-content">
-
-```html
-<plus-rating value="4" label="Product Rating" caption="Based on user reviews"></plus-rating>
-```
-
-```tsx
-import { PlusRating } from '@plusui/library/react';
-
-export default () => {
-  return <PlusRating value={4} label="Product Rating" caption="Based on user reviews" />;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-rating-label-caption',
-  template: `
-    <plus-rating value="4" label="Product Rating" caption="Based on user reviews"></plus-rating>
-  `
-})
-export class RatingLabelCaptionComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-rating value="4" label="Product Rating" caption="Based on user reviews"></plus-rating>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
+### Handling Events
+
+Listen to rating changes and hover events for interactive feedback.
+
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const rating = document.getElementById('event-rating');
+      if (rating) {
+        rating.addEventListener('plus-change', (event) => {
+          console.log('Rating changed to:', event.detail.value);
+        });
+        
+        rating.addEventListener('plus-hover', (event) => {
+          console.log('Hover event:', event.detail.phase, 'value:', event.detail.value);
+        });
+      }
+    }, 100);
+  `}
+>
+  <plus-rating value="3" id="event-rating"></plus-rating>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusRating } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [rating, setRating] = useState(3);
+
+      const handleChange = (event: any) => {
+        setRating(event.detail.value);
+        console.log('Rating changed to:', event.detail.value);
+      };
+
+      const handleHover = (event: any) => {
+        console.log('Hover event:', event.detail.phase, 'value:', event.detail.value);
+      };
+
+      return (
+        <PlusRating 
+          value={rating} 
+          onPlusChange={handleChange}
+          onPlusHover={handleHover}
+        />
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-rating-events',
+      template: `
+        <plus-rating 
+          [value]="rating" 
+          (plus-change)="handleChange($event)"
+          (plus-hover)="handleHover($event)"
+        ></plus-rating>
+      `
+    })
+    export class RatingEventsComponent {
+      rating = 3;
+
+      handleChange(event: any) {
+        this.rating = event.detail.value;
+        console.log('Rating changed to:', event.detail.value);
+      }
+
+      handleHover(event: any) {
+        console.log('Hover event:', event.detail.phase, 'value:', event.detail.value);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-rating 
+        :value="rating" 
+        @plus-change="handleChange"
+        @plus-hover="handleHover"
+      ></plus-rating>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const rating = ref(3);
+
+    const handleChange = (event) => {
+      rating.value = event.detail.value;
+      console.log('Rating changed to:', event.detail.value);
+    };
+
+    const handleHover = (event) => {
+      console.log('Hover event:', event.detail.phase, 'value:', event.detail.value);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let rating = 3;
+
+      function handleChange(event) {
+        rating = event.detail.value;
+        console.log('Rating changed to:', event.detail.value);
+      }
+
+      function handleHover(event) {
+        console.log('Hover event:', event.detail.phase, 'value:', event.detail.value);
+      }
+    </script>
+
+    <plus-rating 
+      value={rating} 
+      on:plus-change={handleChange}
+      on:plus-hover={handleHover}
+    ></plus-rating>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-rating value="3" id="event-rating"></plus-rating>
+
+    <script>
+      const rating = document.getElementById('event-rating');
+      
+      rating.addEventListener('plus-change', (event) => {
+        console.log('Rating changed to:', event.detail.value);
+      });
+      
+      rating.addEventListener('plus-hover', (event) => {
+        console.log('Hover event:', event.detail.phase, 'value:', event.detail.value);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ## Visual Sections
 
@@ -365,7 +338,7 @@ export class RatingLabelCaptionComponent {}
 
 ## API Reference
 
-### Props
+### Properties
 
 | Name             | Type                   | Default             | Description                                                         | Required |
 |------------------|------------------------|---------------------|---------------------------------------------------------------------|----------|
@@ -391,11 +364,13 @@ export class RatingLabelCaptionComponent {}
 
 ### Slots
 
-_This component does not currently utilize named slots beyond the default slot for potential future extension._
+| Name        | Description                                                   |
+|-------------|---------------------------------------------------------------|
+| `(default)` | Default slot for potential future extension or custom content. |
 
 ### CSS Shadow Parts
 
-| Part             | Description                               |
+| Name             | Description                               |
 |------------------|-------------------------------------------|
 | `host`           | The main container element.               |
 | `star-container` | The container for each star icon.       |

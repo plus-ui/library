@@ -1,9 +1,13 @@
 ---
 title: Chip
 description: Represents tags, categories, attributes, or simple selections in a compact format.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/chip/anatomy.png';
@@ -22,431 +26,174 @@ The Chip component displays information such as tags, categories, attributes, or
 
 A standard chip using default settings.
 
-<code-bubble class="not-content">
-
-```html
-<plus-chip>Default Chip</plus-chip>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return <PlusChip>Default Chip</PlusChip>;
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-basic',
-  template: ` <plus-chip>Default Chip</plus-chip> `
-})
-export class ChipBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-chip>Default Chip</plus-chip>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 ### Kind
 
 The `kind` prop defines the chip's visual style: `filled` (solid background) or `outlined` (transparent with border).
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-chip kind="filled">Filled</plus-chip>
-<plus-chip kind="outlined">Outlined</plus-chip>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusChip kind="filled">Filled</PlusChip>
-      <PlusChip kind="outlined">Outlined</PlusChip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-kind',
-  template: `
-    <plus-chip kind="filled">Filled</plus-chip>
-    <plus-chip kind="outlined">Outlined</plus-chip>
-  `
-})
-export class ChipKindComponent {}
-```
-
-```vue
-<template>
-  <plus-chip kind="filled">Filled</plus-chip>
-  <plus-chip kind="outlined">Outlined</plus-chip>
-</template>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-kind="filled,outlined">Kind</plus-chip>
+</CodePreview>
 
 ### Status
 
 The `status` prop sets the chip's color scheme to convey semantic meaning.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-chip status="default">Default</plus-chip>
-<plus-chip status="info">Info</plus-chip>
-<plus-chip status="success">Success</plus-chip>
-<plus-chip status="warning">Warning</plus-chip>
-<plus-chip status="danger">Danger</plus-chip>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusChip status="default">Default</PlusChip>
-      <PlusChip status="info">Info</PlusChip>
-      <PlusChip status="success">Success</PlusChip>
-      <PlusChip status="warning">Warning</PlusChip>
-      <PlusChip status="danger">Danger</PlusChip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-status',
-  template: `
-    <plus-chip status="default">Default</plus-chip>
-    <plus-chip status="info">Info</plus-chip>
-    <plus-chip status="success">Success</plus-chip>
-    <plus-chip status="warning">Warning</plus-chip>
-    <plus-chip status="danger">Danger</plus-chip>
-  `
-})
-export class ChipStatusComponent {}
-```
-
-```vue
-<template>
-  <plus-chip status="default">Default</plus-chip>
-  <plus-chip status="info">Info</plus-chip>
-  <plus-chip status="success">Success</plus-chip>
-  <plus-chip status="warning">Warning</plus-chip>
-  <plus-chip status="danger">Danger</plus-chip>
-</template>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-status="default,info,success,warning,danger">Status</plus-chip>
+</CodePreview>
 
 ### Size
 
 The `size` prop controls the chip's dimensions.
 
-<code-bubble class="not-content horizontal items-center">
-
-```html
-<plus-chip size="sm">Small</plus-chip>
-<plus-chip size="md">Medium</plus-chip>
-<plus-chip size="lg">Large</plus-chip>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusChip size="sm">Small</PlusChip>
-      <PlusChip size="md">Medium</PlusChip>
-      <PlusChip size="lg">Large</PlusChip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-size',
-  template: `
-    <plus-chip size="sm">Small</plus-chip>
-    <plus-chip size="md">Medium</plus-chip>
-    <plus-chip size="lg">Large</plus-chip>
-  `
-})
-export class ChipSizeComponent {}
-```
-
-```vue
-<template>
-  <plus-chip size="sm">Small</plus-chip>
-  <plus-chip size="md">Medium</plus-chip>
-  <plus-chip size="lg">Large</plus-chip>
-</template>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-size="sm,md,lg">Size</plus-chip>
+</CodePreview>
 
 ### Shape
 
 The `shape` prop controls the border radius: `full` (pill shape) or `rounded` (slightly rounded corners).
 
-<code-bubble class="not-content horizontal items-center">
-
-```html
-<plus-chip shape="full">Full (Default)</plus-chip>
-<plus-chip shape="rounded">Rounded</plus-chip>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusChip shape="full">Full (Default)</PlusChip>
-      <PlusChip shape="rounded">Rounded</PlusChip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-shape',
-  template: `
-    <plus-chip shape="full">Full (Default)</plus-chip>
-    <plus-chip shape="rounded">Rounded</plus-chip>
-  `
-})
-export class ChipShapeComponent {}
-```
-
-```vue
-<template>
-  <plus-chip shape="full">Full (Default)</plus-chip>
-  <plus-chip shape="rounded">Rounded</plus-chip>
-</template>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-chip data-variant-shape="full,rounded">Shape</plus-chip>
+</CodePreview>
 
 ### Invert
 
 Set the `invert` prop to use an inverted color scheme, typically for display on darker backgrounds.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<div style="background-color: var(--plus-color-background-base); padding: 1rem; display: flex; gap: 0.5rem;">
-  <plus-chip status="default" invert>Default</plus-chip>
-  <plus-chip status="info" invert>Info</plus-chip>
-  <plus-chip status="success" invert>Success</plus-chip>
-  <plus-chip status="warning" invert>Warning</plus-chip>
-  <plus-chip status="danger" invert>Danger</plus-chip>
-</div>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <div style={{ backgroundColor: 'var(--plus-color-background-base)', padding: '1rem', display: 'flex', gap: '0.5rem' }}>
-      <PlusChip status="default" invert>Default</PlusChip>
-      <PlusChip status="info" invert>Info</PlusChip>
-      <PlusChip status="success" invert>Success</PlusChip>
-      <PlusChip status="warning" invert>Warning</PlusChip>
-      <PlusChip status="danger" invert>Danger</PlusChip>
-    </div>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-invert',
-  styles: [`
-    .dark-bg {
-      background-color: var(--plus-color-background-base);
-      padding: 1rem;
-      display: flex;
-      gap: 0.5rem;
-    }
-  `],
-  template: `
-    <div class="dark-bg">
-      <plus-chip status="default" invert>Default</plus-chip>
-      <plus-chip status="info" invert>Info</plus-chip>
-      <plus-chip status="success" invert>Success</plus-chip>
-      <plus-chip status="warning" invert>Warning</plus-chip>
-      <plus-chip status="danger" invert>Danger</plus-chip>
-    </div>
-  `
-})
-export class ChipInvertComponent {}
-```
-
-```vue
-<template>
-  <div style="background-color: var(--plus-color-background-base); padding: 1rem; display: flex; gap: 0.5rem;">
-    <plus-chip status="default" invert>Default</plus-chip>
-    <plus-chip status="info" invert>Info</plus-chip>
-    <plus-chip status="success" invert>Success</plus-chip>
-    <plus-chip status="warning" invert>Warning</plus-chip>
-    <plus-chip status="danger" invert>Danger</plus-chip>
-  </div>
-</template>
-```
-
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+    <plus-chip data-variant-status="default,info,success,warning,danger" invert>Inverted</plus-chip>
+</CodePreview>
 
 ### Dismissible
 
 Set the `dismiss` prop to add a close button. Clicking it fires the `dismiss` event.
 
-<code-bubble class="not-content horizontal">
+<CodePreview autoGeneration={false} customScript="document.querySelectorAll('plus-chip[dismiss]').forEach(chip => { chip.addEventListener('dismiss', () => { console.log('Chip dismissed!'); chip.style.display = 'none'; }); });" showConsole horizontal>
+  <plus-chip dismiss>Dismissible</plus-chip>
+  <plus-chip dismiss kind="outlined">Outlined Dismiss</plus-chip>
 
-```html
-<plus-chip dismiss>Dismissible</plus-chip>
-<plus-chip dismiss kind="outlined">Outlined Dismiss</plus-chip>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusChip } from '@plusui/react';
 
-<script>
-  document.querySelectorAll('plus-chip[dismiss]').forEach(chip => {
-    chip.addEventListener('dismiss', () => {
+    export default () => {
+      const handleDismiss = (event) => {
+        console.log('Chip dismissed!');
+        event.target.style.display = 'none'; // Example: hide the chip
+      };
+
+      return (
+        <>
+          <PlusChip dismiss onDismiss={handleDismiss}>Dismissible</PlusChip>
+          <PlusChip dismiss kind="outlined" onDismiss={handleDismiss}>
+            Outlined Dismiss
+          </PlusChip>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-chip-dismiss',
+      template: `
+        <plus-chip dismiss (dismiss)="handleDismiss($event)">Dismissible</plus-chip>
+        <plus-chip dismiss kind="outlined" (dismiss)="handleDismiss($event)">
+          Outlined Dismiss
+        </plus-chip>
+      `
+    })
+    export class ChipDismissComponent {
+      handleDismiss(event: Event) {
+        console.log('Chip dismissed!');
+        (event.target as HTMLElement).style.display = 'none'; // Example: hide the chip
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-chip dismiss @dismiss="handleDismiss">Dismissible</plus-chip>
+      <plus-chip dismiss kind="outlined" @dismiss="handleDismiss">
+        Outlined Dismiss
+      </plus-chip>
+    </template>
+
+    <script setup>
+    const handleDismiss = (event) => {
       console.log('Chip dismissed!');
-      chip.style.display = 'none'; // Example: hide the chip
-    });
-  });
-</script>
-```
+      event.target.style.display = 'none'; // Example: hide the chip
+    };
+    </script>
+    ```
+  </Fragment>
 
-```tsx
-import { PlusChip } from '@plusui/library/react';
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let chipElements = [];
 
-export default () => {
-  const handleDismiss = (event) => {
-    console.log('Chip dismissed!');
-    event.target.style.display = 'none'; // Example: hide the chip
-  };
+      onMount(() => {
+        chipElements.forEach(chip => {
+          if (chip) {
+            chip.addEventListener('dismiss', () => {
+              console.log('Chip dismissed!');
+              chip.style.display = 'none';
+            });
+          }
+        });
+      });
+    </script>
 
-  return (
-    <>
-      <PlusChip dismiss onDismiss={handleDismiss}>Dismissible</PlusChip>
-      <PlusChip dismiss kind="outlined" onDismiss={handleDismiss}>Outlined Dismiss</PlusChip>
-    </>
-  );
-};
-```
+    <plus-chip bind:this={chipElements[0]} dismiss>Dismissible</plus-chip>
+    <plus-chip bind:this={chipElements[1]} dismiss kind="outlined">
+      Outlined Dismiss
+    </plus-chip>
+    ```
+  </Fragment>
 
-```ts
-import { Component } from '@angular/core';
+  <Fragment slot="html">
+    ```html
+    <plus-chip dismiss id="dismissible-chip">Dismissible</plus-chip>
+    <plus-chip dismiss kind="outlined" id="outlined-dismiss-chip">
+      Outlined Dismiss
+    </plus-chip>
 
-@Component({
-  selector: 'app-chip-dismiss',
-  template: `
-    <plus-chip dismiss (dismiss)="handleDismiss($event)">Dismissible</plus-chip>
-    <plus-chip dismiss kind="outlined" (dismiss)="handleDismiss($event)">Outlined Dismiss</plus-chip>
-  `
-})
-export class ChipDismissComponent {
-  handleDismiss(event: Event) {
-    console.log('Chip dismissed!');
-    (event.target as HTMLElement).style.display = 'none'; // Example: hide the chip
-  }
-}
-```
-
-```vue
-<template>
-  <plus-chip dismiss @dismiss="handleDismiss">Dismissible</plus-chip>
-  <plus-chip dismiss kind="outlined" @dismiss="handleDismiss">Outlined Dismiss</plus-chip>
-</template>
-
-<script setup>
-const handleDismiss = (event) => {
-  console.log('Chip dismissed!');
-  event.target.style.display = 'none'; // Example: hide the chip
-};
-</script>
-```
-
-</code-bubble>
+    <script>
+      document.querySelectorAll('plus-chip[dismiss]').forEach(chip => {
+        chip.addEventListener('dismiss', () => {
+          console.log('Chip dismissed!');
+          chip.style.display = 'none'; // Example: hide the chip
+        });
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Disabled State
 
 Set the `disabled` prop to prevent user interaction, including dismissing.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-chip disabled>Disabled</plus-chip>
-<plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
-<plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
-```
-
-```tsx
-import { PlusChip } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusChip disabled>Disabled</PlusChip>
-      <PlusChip kind="outlined" disabled>Disabled Outlined</PlusChip>
-      <PlusChip dismiss disabled>Disabled Dismissible</PlusChip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-chip-disabled',
-  template: `
-    <plus-chip disabled>Disabled</plus-chip>
-    <plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
-    <plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
-  `
-})
-export class ChipDisabledComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-chip disabled>Disabled</plus-chip>
   <plus-chip kind="outlined" disabled>Disabled Outlined</plus-chip>
   <plus-chip dismiss disabled>Disabled Dismissible</plus-chip>
-</template>
-```
-
-</code-bubble>
+</CodePreview>
 
 <Aside type="note">
 <p>The `type="avatar"` prop is available but its specific usage and styling require integration with the Avatar component or custom styling. Examples are omitted here as they depend on external components or custom CSS.</p>

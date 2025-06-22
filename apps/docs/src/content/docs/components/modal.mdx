@@ -1,10 +1,14 @@
 ---
 title: Modal
 description: Displays dialog content on top of the main page, requiring user interaction.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/modal/anatomy.png';
@@ -23,272 +27,689 @@ The Modal component displays a dialog window on top of the main content. It's us
 
 To use the modal, you typically need a trigger element (like a button) to open it and controls within the modal to close it. The modal's visibility is controlled programmatically using its `show()` and `hide()` methods.
 
-<code-bubble class="not-content">
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const modal = document.getElementById('my-modal');
+      const openButton = document.getElementById('open-modal-basic');
+      const closeButton = document.getElementById('close-modal-basic');
 
-```html
-<plus-button id="open-modal-basic">Open Modal</plus-button>
+      openButton.addEventListener('plus-click', () => modal.show());
+      closeButton.addEventListener('plus-click', () => modal.hide());
 
-<plus-modal id="my-modal">
-  <div slot="header">Modal Title</div>
-  <div slot="body">This is the main content of the modal.</div>
-  <div slot="footer">
-    <plus-button id="close-modal-basic" kind="text">Close</plus-button>
-    <plus-button status="primary">Save Changes</plus-button>
-  </div>
-</plus-modal>
+      modal.addEventListener('plus-modal-hide', () => {
+        console.log('Modal hidden');
+      });
+    }, 100);
+  `}
+>
+  <plus-button id="open-modal-basic">Open Modal</plus-button>
 
-<script>
-  const modal = document.getElementById('my-modal');
-  const openButton = document.getElementById('open-modal-basic');
-  const closeButton = document.getElementById('close-modal-basic');
-
-  openButton.addEventListener('plus-click', () => modal.show());
-  closeButton.addEventListener('plus-click', () => modal.hide());
-
-  modal.addEventListener('plus-modal-hide', () => {
-    console.log('Modal hidden');
-  });
-</script>
-```
-
-```tsx
-import { PlusModal, PlusButton } from '@plusui/library/react';
-import { useRef } from 'react';
-
-export default () => {
-  const modalRef = useRef<HTMLPlusModalElement>(null);
-
-  const openModal = () => {
-    modalRef.current?.show();
-  };
-
-  const closeModal = () => {
-    modalRef.current?.hide();
-  };
-
-  const handleHide = () => {
-    console.log('Modal hidden');
-  };
-
-  return (
-    <>
-      <PlusButton onClick={openModal}>Open Modal</PlusButton>
-      <PlusModal ref={modalRef} onPlusModalHide={handleHide}>
-        <div slot="header">Modal Title</div>
-        <div slot="body">This is the main content of the modal.</div>
-        <div slot="footer">
-          <PlusButton kind="text" onClick={closeModal}>
-            Close
-          </PlusButton>
-          <PlusButton status="primary">Save Changes</PlusButton>
-        </div>
-      </PlusModal>
-    </>
-  );
-};
-```
-
-```ts
-import { Component, ViewChild, ElementRef } from '@angular/core';
-
-@Component({
-  selector: 'app-modal-basic',
-  template: `
-    <plus-button (plus-click)="openModal()">Open Modal</plus-button>
-    <plus-modal #modal (plus-modal-hide)="handleHide()">
-      <div slot="header">Modal Title</div>
-      <div slot="body">This is the main content of the modal.</div>
-      <div slot="footer">
-        <plus-button kind="text" (plus-click)="closeModal()">Close</plus-button>
-        <plus-button status="primary">Save Changes</plus-button>
-      </div>
-    </plus-modal>
-  `
-})
-export class ModalBasicComponent {
-  @ViewChild('modal') modalRef: ElementRef<HTMLPlusModalElement>;
-
-  openModal() {
-    this.modalRef.nativeElement.show();
-  }
-
-  closeModal() {
-    this.modalRef.nativeElement.hide();
-  }
-
-  handleHide() {
-    console.log('Modal hidden');
-  }
-}
-```
-
-```vue
-<template>
-  <plus-button @plus-click="openModal">Open Modal</plus-button>
-  <plus-modal ref="modalRef" @plus-modal-hide="handleHide">
+  <plus-modal id="my-modal">
     <div slot="header">Modal Title</div>
     <div slot="body">This is the main content of the modal.</div>
     <div slot="footer">
-      <plus-button kind="text" @plus-click="closeModal">Close</plus-button>
+      <plus-button id="close-modal-basic" kind="text">Close</plus-button>
       <plus-button status="primary">Save Changes</plus-button>
     </div>
   </plus-modal>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusModal, PlusButton } from '@plusui/react';
+    import { useRef } from 'react';
 
-const modalRef = ref(null);
+    export default () => {
+      const modalRef = useRef<HTMLPlusModalElement>(null);
 
-const openModal = () => {
-  modalRef.value?.show();
-};
+      const openModal = () => {
+        modalRef.current?.show();
+      };
 
-const closeModal = () => {
-  modalRef.value?.hide();
-};
+      const closeModal = () => {
+        modalRef.current?.hide();
+      };
 
-const handleHide = () => {
-  console.log('Modal hidden');
-};
-</script>
-```
+      const handleHide = () => {
+        console.log('Modal hidden');
+      };
 
-</code-bubble>
+      return (
+        <>
+          <PlusButton onClick={openModal}>Open Modal</PlusButton>
+          <PlusModal ref={modalRef} onPlusModalHide={handleHide}>
+            <div slot="header">Modal Title</div>
+            <div slot="body">This is the main content of the modal.</div>
+            <div slot="footer">
+              <PlusButton kind="text" onClick={closeModal}>
+                Close
+              </PlusButton>
+              <PlusButton status="primary">Save Changes</PlusButton>
+            </div>
+          </PlusModal>
+        </>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+
+    @Component({
+      selector: 'app-modal-basic',
+      template: \`
+        <plus-button (plus-click)="openModal()">Open Modal</plus-button>
+        <plus-modal #modal (plus-modal-hide)="handleHide()">
+          <div slot="header">Modal Title</div>
+          <div slot="body">This is the main content of the modal.</div>
+          <div slot="footer">
+            <plus-button kind="text" (plus-click)="closeModal()">Close</plus-button>
+            <plus-button status="primary">Save Changes</plus-button>
+          </div>
+        </plus-modal>
+      \`
+    })
+    export class ModalBasicComponent {
+      @ViewChild('modal') modalRef!: ElementRef<HTMLPlusModalElement>;
+
+      openModal() {
+        this.modalRef.nativeElement.show();
+      }
+
+      closeModal() {
+        this.modalRef.nativeElement.hide();
+      }
+
+      handleHide() {
+        console.log('Modal hidden');
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="openModal">Open Modal</plus-button>
+      <plus-modal ref="modalRef" @plus-modal-hide="handleHide">
+        <div slot="header">Modal Title</div>
+        <div slot="body">This is the main content of the modal.</div>
+        <div slot="footer">
+          <plus-button kind="text" @plus-click="closeModal">Close</plus-button>
+          <plus-button status="primary">Save Changes</plus-button>
+        </div>
+      </plus-modal>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const modalRef = ref(null);
+
+    const openModal = () => {
+      modalRef.value?.show();
+    };
+
+    const closeModal = () => {
+      modalRef.value?.hide();
+    };
+
+    const handleHide = () => {
+      console.log('Modal hidden');
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { PlusModal, PlusButton } from '@plusui/svelte';
+      
+      let modalRef;
+
+      const openModal = () => {
+        modalRef?.show();
+      };
+
+      const closeModal = () => {
+        modalRef?.hide();
+      };
+
+      const handleHide = () => {
+        console.log('Modal hidden');
+      };
+    </script>
+
+    <PlusButton on:plus-click={openModal}>Open Modal</PlusButton>
+    <PlusModal bind:this={modalRef} on:plus-modal-hide={handleHide}>
+      <div slot="header">Modal Title</div>
+      <div slot="body">This is the main content of the modal.</div>
+      <div slot="footer">
+        <PlusButton kind="text" on:plus-click={closeModal}>Close</PlusButton>
+        <PlusButton status="primary">Save Changes</PlusButton>
+      </div>
+    </PlusModal>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="open-modal-basic">Open Modal</plus-button>
+
+    <plus-modal id="my-modal">
+      <div slot="header">Modal Title</div>
+      <div slot="body">This is the main content of the modal.</div>
+      <div slot="footer">
+        <plus-button id="close-modal-basic" kind="text">Close</plus-button>
+        <plus-button status="primary">Save Changes</plus-button>
+      </div>
+    </plus-modal>
+
+    <script>
+      const modal = document.getElementById('my-modal');
+      const openButton = document.getElementById('open-modal-basic');
+      const closeButton = document.getElementById('close-modal-basic');
+
+      openButton.addEventListener('plus-click', () => modal.show());
+      closeButton.addEventListener('plus-click', () => modal.hide());
+
+      modal.addEventListener('plus-modal-hide', () => {
+        console.log('Modal hidden');
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 The `size` prop controls the width of the modal dialog.
 
-<code-bubble class="not-content">
-```html
-<plus-button id="open-sm">Small</plus-button>
-<plus-modal id="modal-sm" size="sm">
-  <div slot="header">Small Modal</div>
-  <div slot="body">...</div>
-  <div slot="footer"><plus-button id="close-sm">Close</plus-button></div>
-</plus-modal>
+<CodePreview 
+  autoGeneration={false}
+  customScript={`
+    setTimeout(() => {
+      document.getElementById('open-sm-2').addEventListener('plus-click', () => document.getElementById('modal-sm-2').show());
+      document.getElementById('close-sm-2').addEventListener('plus-click', () => document.getElementById('modal-sm-2').hide());
+      document.getElementById('open-lg-2').addEventListener('plus-click', () => document.getElementById('modal-lg-2').show());
+      document.getElementById('close-lg-2').addEventListener('plus-click', () => document.getElementById('modal-lg-2').hide());
+      document.getElementById('open-full-2').addEventListener('plus-click', () => document.getElementById('modal-full-2').show());
+      document.getElementById('close-full-2').addEventListener('plus-click', () => document.getElementById('modal-full-2').hide());
+    }, 200);
+  `}
+  horizontal
+>
+  <plus-button id="open-sm-2">Small</plus-button>
+  <plus-modal id="modal-sm-2" size="sm">
+    <div slot="header">Small Modal</div>
+    <div slot="body">Content for small modal...</div>
+    <div slot="footer"><plus-button id="close-sm-2">Close</plus-button></div>
+  </plus-modal>
 
-<plus-button id="open-lg">Large</plus-button>
-<plus-modal id="modal-lg" size="lg">
-   <div slot="header">Large Modal</div>
-   <div slot="body">...</div>
-   <div slot="footer"><plus-button id="close-lg">Close</plus-button></div>
-</plus-modal>
+  <plus-button id="open-lg-2">Large</plus-button>
+  <plus-modal id="modal-lg-2" size="lg">
+     <div slot="header">Large Modal</div>
+     <div slot="body">Content for large modal...</div>
+     <div slot="footer"><plus-button id="close-lg-2">Close</plus-button></div>
+  </plus-modal>
 
-<plus-button id="open-full">Full Width</plus-button>
-<plus-modal id="modal-full" size="full">
-   <div slot="header">Full Width Modal</div>
-   <div slot="body">...</div>
-   <div slot="footer"><plus-button id="close-full">Close</plus-button></div>
-</plus-modal>
+  <plus-button id="open-full-2">Full Width</plus-button>
+  <plus-modal id="modal-full-2" size="full">
+     <div slot="header">Full Width Modal</div>
+     <div slot="body">Content for full width modal...</div>
+     <div slot="footer"><plus-button id="close-full-2">Close</plus-button></div>
+  </plus-modal>
 
-<script>
-  document.getElementById('open-sm').addEventListener('plus-click', () => document.getElementById('modal-sm').show());
-  document.getElementById('close-sm').addEventListener('plus-click', () => document.getElementById('modal-sm').hide());
-  document.getElementById('open-lg').addEventListener('plus-click', () => document.getElementById('modal-lg').show());
-  document.getElementById('close-lg').addEventListener('plus-click', () => document.getElementById('modal-lg').hide());
-  document.getElementById('open-full').addEventListener('plus-click', () => document.getElementById('modal-full').show());
-  document.getElementById('close-full').addEventListener('plus-click', () => document.getElementById('modal-full').hide());
-</script>
-```
+  <Fragment slot="react">
+    ```tsx
+    import { PlusModal, PlusButton } from '@plusui/react';
+    import { useRef } from 'react';
 
-```tsx
-import { PlusModal, PlusButton } from '@plusui/library/react';
-import { useRef } from 'react';
+    export default () => {
+      const smallModalRef = useRef<HTMLPlusModalElement>(null);
+      const largeModalRef = useRef<HTMLPlusModalElement>(null);
+      const fullModalRef = useRef<HTMLPlusModalElement>(null);
 
-export default () => {
-  const smallModalRef = useRef<HTMLPlusModalElement>(null);
-  const largeModalRef = useRef<HTMLPlusModalElement>(null);
-  const fullModalRef = useRef<HTMLPlusModalElement>(null);
+      return (
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <PlusButton onClick={() => smallModalRef.current?.show()}>Small</PlusButton>
+          <PlusModal ref={smallModalRef} size="sm">
+            <div slot="header">Small Modal</div>
+            <div slot="body">Content for small modal...</div>
+            <div slot="footer">
+              <PlusButton onClick={() => smallModalRef.current?.hide()}>Close</PlusButton>
+            </div>
+          </PlusModal>
 
-  return (
-    <div style={{ display: 'flex', gap: '10px' }}>
-      <PlusButton onClick={() => smallModalRef.current?.show()}>Small</PlusButton>
-      <PlusModal ref={smallModalRef} size="sm">
+          <PlusButton onClick={() => largeModalRef.current?.show()}>Large</PlusButton>
+          <PlusModal ref={largeModalRef} size="lg">
+            <div slot="header">Large Modal</div>
+            <div slot="body">Content for large modal...</div>
+            <div slot="footer">
+              <PlusButton onClick={() => largeModalRef.current?.hide()}>Close</PlusButton>
+            </div>
+          </PlusModal>
+
+          <PlusButton onClick={() => fullModalRef.current?.show()}>Full Width</PlusButton>
+          <PlusModal ref={fullModalRef} size="full">
+            <div slot="header">Full Width Modal</div>
+            <div slot="body">Content for full width modal...</div>
+            <div slot="footer">
+              <PlusButton onClick={() => fullModalRef.current?.hide()}>Close</PlusButton>
+            </div>
+          </PlusModal>
+        </div>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+
+    @Component({
+      selector: 'app-modal-sizes',
+      template: \`
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <plus-button (plus-click)="openSmallModal()">Small</plus-button>
+          <plus-button (plus-click)="openLargeModal()">Large</plus-button>
+          <plus-button (plus-click)="openFullModal()">Full Width</plus-button>
+        </div>
+        
+        <plus-modal #smallModal size="sm">
+          <div slot="header">Small Modal</div>
+          <div slot="body">Content for small modal...</div>
+          <div slot="footer">
+            <plus-button (plus-click)="closeSmallModal()">Close</plus-button>
+          </div>
+        </plus-modal>
+
+        <plus-modal #largeModal size="lg">
+          <div slot="header">Large Modal</div>
+          <div slot="body">Content for large modal...</div>
+          <div slot="footer">
+            <plus-button (plus-click)="closeLargeModal()">Close</plus-button>
+          </div>
+        </plus-modal>
+
+        <plus-modal #fullModal size="full">
+          <div slot="header">Full Width Modal</div>
+          <div slot="body">Content for full width modal...</div>
+          <div slot="footer">
+            <plus-button (plus-click)="closeFullModal()">Close</plus-button>
+          </div>
+        </plus-modal>
+      \`
+    })
+    export class ModalSizesComponent {
+      @ViewChild('smallModal') smallModalRef!: ElementRef<HTMLPlusModalElement>;
+      @ViewChild('largeModal') largeModalRef!: ElementRef<HTMLPlusModalElement>;
+      @ViewChild('fullModal') fullModalRef!: ElementRef<HTMLPlusModalElement>;
+
+      openSmallModal() { this.smallModalRef.nativeElement.show(); }
+      closeSmallModal() { this.smallModalRef.nativeElement.hide(); }
+      openLargeModal() { this.largeModalRef.nativeElement.show(); }
+      closeLargeModal() { this.largeModalRef.nativeElement.hide(); }
+      openFullModal() { this.fullModalRef.nativeElement.show(); }
+      closeFullModal() { this.fullModalRef.nativeElement.hide(); }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <plus-button @plus-click="openSmallModal">Small</plus-button>
+        <plus-button @plus-click="openLargeModal">Large</plus-button>
+        <plus-button @plus-click="openFullModal">Full Width</plus-button>
+      </div>
+      
+      <plus-modal ref="smallModalRef" size="sm">
         <div slot="header">Small Modal</div>
-        <div slot="body">Content...</div>
-        <div slot="footer"><PlusButton onClick={() => smallModalRef.current?.hide()}>Close</PlusButton></div>
-      </PlusModal>
+        <div slot="body">Content for small modal...</div>
+        <div slot="footer">
+          <plus-button @plus-click="closeSmallModal">Close</plus-button>
+        </div>
+      </plus-modal>
 
-      <PlusButton onClick={() => largeModalRef.current?.show()}>Large</PlusButton>
-      <PlusModal ref={largeModalRef} size="lg">
+      <plus-modal ref="largeModalRef" size="lg">
         <div slot="header">Large Modal</div>
-        <div slot="body">Content...</div>
-        <div slot="footer"><PlusButton onClick={() => largeModalRef.current?.hide()}>Close</PlusButton></div>
-      </PlusModal>
+        <div slot="body">Content for large modal...</div>
+        <div slot="footer">
+          <plus-button @plus-click="closeLargeModal">Close</plus-button>
+        </div>
+      </plus-modal>
 
-      <PlusButton onClick={() => fullModalRef.current?.show()}>Full Width</PlusButton>
-      <PlusModal ref={fullModalRef} size="full">
+      <plus-modal ref="fullModalRef" size="full">
         <div slot="header">Full Width Modal</div>
-        <div slot="body">Content...</div>
-        <div slot="footer"><PlusButton onClick={() => fullModalRef.current?.hide()}>Close</PlusButton></div>
-      </PlusModal>
+        <div slot="body">Content for full width modal...</div>
+        <div slot="footer">
+          <plus-button @plus-click="closeFullModal">Close</plus-button>
+        </div>
+      </plus-modal>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const smallModalRef = ref(null);
+    const largeModalRef = ref(null);
+    const fullModalRef = ref(null);
+
+    const openSmallModal = () => smallModalRef.value?.show();
+    const closeSmallModal = () => smallModalRef.value?.hide();
+    const openLargeModal = () => largeModalRef.value?.show();
+    const closeLargeModal = () => largeModalRef.value?.hide();
+    const openFullModal = () => fullModalRef.value?.show();
+    const closeFullModal = () => fullModalRef.value?.hide();
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { PlusModal, PlusButton } from '@plusui/svelte';
+      
+      let smallModalRef, largeModalRef, fullModalRef;
+
+      const openSmallModal = () => smallModalRef?.show();
+      const closeSmallModal = () => smallModalRef?.hide();
+      const openLargeModal = () => largeModalRef?.show();
+      const closeLargeModal = () => largeModalRef?.hide();
+      const openFullModal = () => fullModalRef?.show();
+      const closeFullModal = () => fullModalRef?.hide();
+    </script>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+      <PlusButton on:plus-click={openSmallModal}>Small</PlusButton>
+      <PlusButton on:plus-click={openLargeModal}>Large</PlusButton>
+      <PlusButton on:plus-click={openFullModal}>Full Width</PlusButton>
     </div>
-  );
-};
-```
 
-```ts
-// Angular and Vue examples would follow a similar pattern,
-// using multiple modal instances/refs and buttons.
-// Due to length, only TSX is fully shown here.
-```
-```vue
-// Angular and Vue examples would follow a similar pattern,
-// using multiple modal instances/refs and buttons.
-// Due to length, only TSX is fully shown here.
-```
+    <PlusModal bind:this={smallModalRef} size="sm">
+      <div slot="header">Small Modal</div>
+      <div slot="body">Content for small modal...</div>
+      <div slot="footer">
+        <PlusButton on:plus-click={closeSmallModal}>Close</PlusButton>
+      </div>
+    </PlusModal>
 
-</code-bubble>
+    <PlusModal bind:this={largeModalRef} size="lg">
+      <div slot="header">Large Modal</div>
+      <div slot="body">Content for large modal...</div>
+      <div slot="footer">
+        <PlusButton on:plus-click={closeLargeModal}>Close</PlusButton>
+      </div>
+    </PlusModal>
 
+    <PlusModal bind:this={fullModalRef} size="full">
+      <div slot="header">Full Width Modal</div>
+      <div slot="body">Content for full width modal...</div>
+      <div slot="footer">
+        <PlusButton on:plus-click={closeFullModal}>Close</PlusButton>
+      </div>
+    </PlusModal>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="open-sm-2">Small</plus-button>
+    <plus-modal id="modal-sm-2" size="sm">
+      <div slot="header">Small Modal</div>
+      <div slot="body">Content for small modal...</div>
+      <div slot="footer"><plus-button id="close-sm-2">Close</plus-button></div>
+    </plus-modal>
+
+    <plus-button id="open-lg-2">Large</plus-button>
+    <plus-modal id="modal-lg-2" size="lg">
+       <div slot="header">Large Modal</div>
+       <div slot="body">Content for large modal...</div>
+       <div slot="footer"><plus-button id="close-lg-2">Close</plus-button></div>
+    </plus-modal>
+
+    <plus-button id="open-full-2">Full Width</plus-button>
+    <plus-modal id="modal-full-2" size="full">
+       <div slot="header">Full Width Modal</div>
+       <div slot="body">Content for full width modal...</div>
+       <div slot="footer"><plus-button id="close-full-2">Close</plus-button></div>
+    </plus-modal>
+
+    <script>
+      document.getElementById('open-sm-2').addEventListener('plus-click', () => document.getElementById('modal-sm-2').show());
+      document.getElementById('close-sm-2').addEventListener('plus-click', () => document.getElementById('modal-sm-2').hide());
+      document.getElementById('open-lg-2').addEventListener('plus-click', () => document.getElementById('modal-lg-2').show());
+      document.getElementById('close-lg-2').addEventListener('plus-click', () => document.getElementById('modal-lg-2').hide());
+      document.getElementById('open-full-2').addEventListener('plus-click', () => document.getElementById('modal-full-2').show());
+      document.getElementById('close-full-2').addEventListener('plus-click', () => document.getElementById('modal-full-2').hide());
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Closing Behavior
 
 Control how the modal closes using `close-on-backdrop` and `close-on-esc`.
 
-<code-bubble class="not-content">
-```html
-<!-- This modal won't close by clicking the background -->
-<plus-button id="open-no-backdrop">No Backdrop Close</plus-button>
-<plus-modal id="modal-no-backdrop" close-on-backdrop="false">
-  <div slot="header">No Backdrop Close</div>
-  <div slot="body">You must use the close button or Esc key.</div>
-  <div slot="footer"><plus-button id="close-no-backdrop">Close</plus-button></div>
-</plus-modal>
+<CodePreview 
+  autoGeneration={false}
+  customScript={`
+    setTimeout(() => {
+      document.getElementById('open-no-backdrop-3').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop-3').show());
+      document.getElementById('close-no-backdrop-3').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop-3').hide());
+      document.getElementById('open-no-esc-3').addEventListener('plus-click', () => document.getElementById('modal-no-esc-3').show());
+      document.getElementById('close-no-esc-3').addEventListener('plus-click', () => document.getElementById('modal-no-esc-3').hide());
+    }, 300);
+  `}
+  horizontal
+>
+  <plus-button id="open-no-backdrop-3">No Backdrop Close</plus-button>
+  <plus-modal id="modal-no-backdrop-3" close-on-backdrop="false">
+    <div slot="header">No Backdrop Close</div>
+    <div slot="body">You must use the close button or Esc key.</div>
+    <div slot="footer"><plus-button id="close-no-backdrop-3">Close</plus-button></div>
+  </plus-modal>
 
-<!-- This modal won't close by pressing Escape -->
-<plus-button id="open-no-esc">No Esc Close</plus-button>
-<plus-modal id="modal-no-esc" close-on-esc="false">
-  <div slot="header">No Esc Close</div>
-  <div slot="body">You must use the close button or click the backdrop.</div>
-  <div slot="footer"><plus-button id="close-no-esc">Close</plus-button></div>
-</plus-modal>
+  <plus-button id="open-no-esc-3">No Esc Close</plus-button>
+  <plus-modal id="modal-no-esc-3" close-on-esc="false">
+    <div slot="header">No Esc Close</div>
+    <div slot="body">You must use the close button or click the backdrop.</div>
+    <div slot="footer"><plus-button id="close-no-esc-3">Close</plus-button></div>
+  </plus-modal>
 
-<script>
-  document.getElementById('open-no-backdrop').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop').show());
-  document.getElementById('close-no-backdrop').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop').hide());
-  document.getElementById('open-no-esc').addEventListener('plus-click', () => document.getElementById('modal-no-esc').show());
-  document.getElementById('close-no-esc').addEventListener('plus-click', () => document.getElementById('modal-no-esc').hide());
-</script>
-```
-```tsx
-// React, Angular, Vue examples would set the boolean props accordingly:
-// <PlusModal closeOnBackdrop={false}>...</PlusModal>
-// <PlusModal closeOnEsc={false}>...</PlusModal>
-```
-```ts
-// React, Angular, Vue examples would set the boolean props accordingly:
-// <PlusModal closeOnBackdrop={false}>...</PlusModal>
-// <PlusModal closeOnEsc={false}>...</PlusModal>
-```
-```vue
-// React, Angular, Vue examples would set the boolean props accordingly:
-// <PlusModal :close-on-backdrop="false">...</PlusModal>
-// <PlusModal :close-on-esc="false">...</PlusModal>
-```
-</code-bubble>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusModal, PlusButton } from '@plusui/react';
+    import { useRef } from 'react';
 
+    export default () => {
+      const noBackdropModalRef = useRef<HTMLPlusModalElement>(null);
+      const noEscModalRef = useRef<HTMLPlusModalElement>(null);
+
+      return (
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <PlusButton onClick={() => noBackdropModalRef.current?.show()}>
+            No Backdrop Close
+          </PlusButton>
+          <PlusModal ref={noBackdropModalRef} closeOnBackdrop={false}>
+            <div slot="header">No Backdrop Close</div>
+            <div slot="body">You must use the close button or Esc key.</div>
+            <div slot="footer">
+              <PlusButton onClick={() => noBackdropModalRef.current?.hide()}>
+                Close
+              </PlusButton>
+            </div>
+          </PlusModal>
+
+          <PlusButton onClick={() => noEscModalRef.current?.show()}>
+            No Esc Close
+          </PlusButton>
+          <PlusModal ref={noEscModalRef} closeOnEsc={false}>
+            <div slot="header">No Esc Close</div>
+            <div slot="body">You must use the close button or click the backdrop.</div>
+            <div slot="footer">
+              <PlusButton onClick={() => noEscModalRef.current?.hide()}>
+                Close
+              </PlusButton>
+            </div>
+          </PlusModal>
+        </div>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component, ViewChild, ElementRef } from '@angular/core';
+
+    @Component({
+      selector: 'app-modal-closing',
+      template: \`
+        <div style="display: flex; gap: 10px;">
+          <plus-button (plus-click)="openNoBackdropModal()">No Backdrop Close</plus-button>
+          <plus-button (plus-click)="openNoEscModal()">No Esc Close</plus-button>
+        </div>
+        
+        <plus-modal #noBackdropModal [close-on-backdrop]="false">
+          <div slot="header">No Backdrop Close</div>
+          <div slot="body">You must use the close button or Esc key.</div>
+          <div slot="footer">
+            <plus-button (plus-click)="closeNoBackdropModal()">Close</plus-button>
+          </div>
+        </plus-modal>
+
+        <plus-modal #noEscModal [close-on-esc]="false">
+          <div slot="header">No Esc Close</div>
+          <div slot="body">You must use the close button or click the backdrop.</div>
+          <div slot="footer">
+            <plus-button (plus-click)="closeNoEscModal()">Close</plus-button>
+          </div>
+        </plus-modal>
+      \`
+    })
+    export class ModalClosingComponent {
+      @ViewChild('noBackdropModal') noBackdropModalRef!: ElementRef<HTMLPlusModalElement>;
+      @ViewChild('noEscModal') noEscModalRef!: ElementRef<HTMLPlusModalElement>;
+
+      openNoBackdropModal() { this.noBackdropModalRef.nativeElement.show(); }
+      closeNoBackdropModal() { this.noBackdropModalRef.nativeElement.hide(); }
+      openNoEscModal() { this.noEscModalRef.nativeElement.show(); }
+      closeNoEscModal() { this.noEscModalRef.nativeElement.hide(); }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <div style="display: flex; gap: 10px;">
+        <plus-button @plus-click="openNoBackdropModal">No Backdrop Close</plus-button>
+        <plus-button @plus-click="openNoEscModal">No Esc Close</plus-button>
+      </div>
+      
+      <plus-modal ref="noBackdropModalRef" :close-on-backdrop="false">
+        <div slot="header">No Backdrop Close</div>
+        <div slot="body">You must use the close button or Esc key.</div>
+        <div slot="footer">
+          <plus-button @plus-click="closeNoBackdropModal">Close</plus-button>
+        </div>
+      </plus-modal>
+
+      <plus-modal ref="noEscModalRef" :close-on-esc="false">
+        <div slot="header">No Esc Close</div>
+        <div slot="body">You must use the close button or click the backdrop.</div>
+        <div slot="footer">
+          <plus-button @plus-click="closeNoEscModal">Close</plus-button>
+        </div>
+      </plus-modal>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const noBackdropModalRef = ref(null);
+    const noEscModalRef = ref(null);
+
+    const openNoBackdropModal = () => noBackdropModalRef.value?.show();
+    const closeNoBackdropModal = () => noBackdropModalRef.value?.hide();
+    const openNoEscModal = () => noEscModalRef.value?.show();
+    const closeNoEscModal = () => noEscModalRef.value?.hide();
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { PlusModal, PlusButton } from '@plusui/svelte';
+      
+      let noBackdropModalRef, noEscModalRef;
+
+      const openNoBackdropModal = () => noBackdropModalRef?.show();
+      const closeNoBackdropModal = () => noBackdropModalRef?.hide();
+      const openNoEscModal = () => noEscModalRef?.show();
+      const closeNoEscModal = () => noEscModalRef?.hide();
+    </script>
+
+    <div style="display: flex; gap: 10px;">
+      <PlusButton on:plus-click={openNoBackdropModal}>No Backdrop Close</PlusButton>
+      <PlusButton on:plus-click={openNoEscModal}>No Esc Close</PlusButton>
+    </div>
+
+    <PlusModal bind:this={noBackdropModalRef} closeOnBackdrop={false}>
+      <div slot="header">No Backdrop Close</div>
+      <div slot="body">You must use the close button or Esc key.</div>
+      <div slot="footer">
+        <PlusButton on:plus-click={closeNoBackdropModal}>Close</PlusButton>
+      </div>
+    </PlusModal>
+
+    <PlusModal bind:this={noEscModalRef} closeOnEsc={false}>
+      <div slot="header">No Esc Close</div>
+      <div slot="body">You must use the close button or click the backdrop.</div>
+      <div slot="footer">
+        <PlusButton on:plus-click={closeNoEscModal}>Close</PlusButton>
+      </div>
+    </PlusModal>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <!-- This modal won't close by clicking the background -->
+    <plus-button id="open-no-backdrop-3">No Backdrop Close</plus-button>
+    <plus-modal id="modal-no-backdrop-3" close-on-backdrop="false">
+      <div slot="header">No Backdrop Close</div>
+      <div slot="body">You must use the close button or Esc key.</div>
+      <div slot="footer"><plus-button id="close-no-backdrop-3">Close</plus-button></div>
+    </plus-modal>
+
+    <!-- This modal won't close by pressing Escape -->
+    <plus-button id="open-no-esc-3">No Esc Close</plus-button>
+    <plus-modal id="modal-no-esc-3" close-on-esc="false">
+      <div slot="header">No Esc Close</div>
+      <div slot="body">You must use the close button or click the backdrop.</div>
+      <div slot="footer"><plus-button id="close-no-esc-3">Close</plus-button></div>
+    </plus-modal>
+
+    <script>
+      document.getElementById('open-no-backdrop-3').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop-3').show());
+      document.getElementById('close-no-backdrop-3').addEventListener('plus-click', () => document.getElementById('modal-no-backdrop-3').hide());
+      document.getElementById('open-no-esc-3').addEventListener('plus-click', () => document.getElementById('modal-no-esc-3').show());
+      document.getElementById('close-no-esc-3').addEventListener('plus-click', () => document.getElementById('modal-no-esc-3').hide());
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ## Visual Sections
 

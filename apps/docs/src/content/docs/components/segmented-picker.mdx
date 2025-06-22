@@ -1,10 +1,14 @@
 ---
 title: Segmented Picker
 description: A control allowing users to select one option from a linear set, often used for view switching.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/segmented-picker/anatomy.png';
@@ -23,178 +27,143 @@ The Segmented Picker (`plus-segmented-picker`) presents a set of related options
 
 A simple segmented picker with three options.
 
-<code-bubble class="not-content">
-
-```html
-<plus-segmented-picker status="primary" shape="circle">
-  <plus-segmented-picker-item value="list" checked>
-    <i class="fa-solid fa-list"></i> List
-  </plus-segmented-picker-item>
-  <plus-segmented-picker-item value="grid">
-    <i class="fa-solid fa-grip"></i> Grid
-  </plus-segmented-picker-item>
-  <plus-segmented-picker-item value="map">
-    <i class="fa-solid fa-map"></i> Map
-  </plus-segmented-picker-item>
-</plus-segmented-picker>
-```
-
-```tsx
-import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/library/react';
-import { useState } from 'react';
-
-export default () => {
-  const [selectedValue, setSelectedValue] = useState('list');
-
-  const handleChange = (event: any) => {
-    setSelectedValue(event.detail.value);
-    console.log('Selected:', event.detail.value);
-  };
-
-  return (
-    <PlusSegmentedPicker status="primary" shape="circle" onPlusSegmentedPickerItemChanged={handleChange}>
-      <PlusSegmentedPickerItem value="list" checked={selectedValue === 'list'}>
-        <i className="fa-solid fa-list"></i> List
-      </PlusSegmentedPickerItem>
-      <PlusSegmentedPickerItem value="grid" checked={selectedValue === 'grid'}>
-        <i className="fa-solid fa-grip"></i> Grid
-      </PlusSegmentedPickerItem>
-      <PlusSegmentedPickerItem value="map" checked={selectedValue === 'map'}>
-        <i className="fa-solid fa-map"></i> Map
-      </PlusSegmentedPickerItem>
-    </PlusSegmentedPicker>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-segmented-basic',
-  template: `
-    <plus-segmented-picker status="primary" shape="circle" (plus-segmented-picker-item-changed)="handleChange($event)">
-      <plus-segmented-picker-item value="list" checked>
-        <i class="fa-solid fa-list"></i> List
-      </plus-segmented-picker-item>
-      <plus-segmented-picker-item value="grid">
-        <i class="fa-solid fa-grip"></i> Grid
-      </plus-segmented-picker-item>
-      <plus-segmented-picker-item value="map">
-        <i class="fa-solid fa-map"></i> Map
-      </plus-segmented-picker-item>
-    </plus-segmented-picker>
-    <p>Selected: {{ selectedValue }}</p>
-  `
-})
-export class SegmentedBasicComponent {
-  selectedValue = 'list';
-
-  handleChange(event: any) {
-    this.selectedValue = event.detail.value;
-    console.log('Selected:', event.detail.value);
-  }
-}
-```
-
-```vue
-<template>
-  <plus-segmented-picker status="primary" shape="circle" @plus-segmented-picker-item-changed="handleChange">
-    <plus-segmented-picker-item value="list" :checked="selectedValue === 'list'">
+<CodePreview autoGeneration={false}>
+  <plus-segmented-picker status="primary" shape="circle">
+    <plus-segmented-picker-item value="list" checked>
       <i class="fa-solid fa-list"></i> List
     </plus-segmented-picker-item>
-    <plus-segmented-picker-item value="grid" :checked="selectedValue === 'grid'">
+    <plus-segmented-picker-item value="grid">
       <i class="fa-solid fa-grip"></i> Grid
     </plus-segmented-picker-item>
-    <plus-segmented-picker-item value="map" :checked="selectedValue === 'map'">
+    <plus-segmented-picker-item value="map">
       <i class="fa-solid fa-map"></i> Map
     </plus-segmented-picker-item>
   </plus-segmented-picker>
-  <p>Selected: {{ selectedValue }}</p>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/react';
+    import { useState } from 'react';
 
-const selectedValue = ref('list');
+    export default () => {
+      const [selectedValue, setSelectedValue] = useState('list');
 
-const handleChange = (event) => {
-  selectedValue.value = event.detail.value;
-  console.log('Selected:', event.detail.value);
-};
-</script>
-```
-</code-bubble>
+      const handleChange = (event: any) => {
+        setSelectedValue(event.detail.value);
+        console.log('Selected:', event.detail.value);
+      };
+
+      return (
+        <PlusSegmentedPicker status="primary" shape="circle" onPlusSegmentedPickerItemChanged={handleChange}>
+          <PlusSegmentedPickerItem value="list" checked={selectedValue === 'list'}>
+            <i className="fa-solid fa-list"></i> List
+          </PlusSegmentedPickerItem>
+          <PlusSegmentedPickerItem value="grid" checked={selectedValue === 'grid'}>
+            <i className="fa-solid fa-grip"></i> Grid
+          </PlusSegmentedPickerItem>
+          <PlusSegmentedPickerItem value="map" checked={selectedValue === 'map'}>
+            <i className="fa-solid fa-map"></i> Map
+          </PlusSegmentedPickerItem>
+        </PlusSegmentedPicker>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-segmented-basic',
+      template: `
+        <plus-segmented-picker status="primary" shape="circle" (plus-segmented-picker-item-changed)="handleChange($event)">
+          <plus-segmented-picker-item value="list" checked>
+            <i class="fa-solid fa-list"></i> List
+          </plus-segmented-picker-item>
+          <plus-segmented-picker-item value="grid">
+            <i class="fa-solid fa-grip"></i> Grid
+          </plus-segmented-picker-item>
+          <plus-segmented-picker-item value="map">
+            <i class="fa-solid fa-map"></i> Map
+          </plus-segmented-picker-item>
+        </plus-segmented-picker>
+        <p>Selected: {{ selectedValue }}</p>
+      `
+    })
+    export class SegmentedBasicComponent {
+      selectedValue = 'list';
+
+      handleChange(event: any) {
+        this.selectedValue = event.detail.value;
+        console.log('Selected:', event.detail.value);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-segmented-picker status="primary" shape="circle" @plus-segmented-picker-item-changed="handleChange">
+        <plus-segmented-picker-item value="list" :checked="selectedValue === 'list'">
+          <i class="fa-solid fa-list"></i> List
+        </plus-segmented-picker-item>
+        <plus-segmented-picker-item value="grid" :checked="selectedValue === 'grid'">
+          <i class="fa-solid fa-grip"></i> Grid
+        </plus-segmented-picker-item>
+        <plus-segmented-picker-item value="map" :checked="selectedValue === 'map'">
+          <i class="fa-solid fa-map"></i> Map
+        </plus-segmented-picker-item>
+      </plus-segmented-picker>
+      <p>Selected: {{ selectedValue }}</p>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedValue = ref('list');
+
+    const handleChange = (event) => {
+      selectedValue.value = event.detail.value;
+      console.log('Selected:', event.detail.value);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let selectedValue = 'list';
+
+      function handleChange(event) {
+        selectedValue = event.detail.value;
+        console.log('Selected:', event.detail.value);
+      }
+    </script>
+
+    <plus-segmented-picker status="primary" shape="circle" on:plus-segmented-picker-item-changed={handleChange}>
+      <plus-segmented-picker-item value="list" checked={selectedValue === 'list'}>
+        <i class="fa-solid fa-list"></i> List
+      </plus-segmented-picker-item>
+      <plus-segmented-picker-item value="grid" checked={selectedValue === 'grid'}>
+        <i class="fa-solid fa-grip"></i> Grid
+      </plus-segmented-picker-item>
+      <plus-segmented-picker-item value="map" checked={selectedValue === 'map'}>
+        <i class="fa-solid fa-map"></i> Map
+      </plus-segmented-picker-item>
+    </plus-segmented-picker>
+    <p>Selected: {selectedValue}</p>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 Set the `size` prop on the `plus-segmented-picker` to control the size of all items.
 
-<code-bubble class="not-content">
-
-```html
-<plus-segmented-picker size="sm" status="primary">
-  <plus-segmented-picker-item value="a" checked>Sm A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Sm B</plus-segmented-picker-item>
-</plus-segmented-picker>
-<plus-segmented-picker size="md" status="primary">
-  <plus-segmented-picker-item value="a" checked>Md A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Md B</plus-segmented-picker-item>
-</plus-segmented-picker>
-<plus-segmented-picker size="lg" status="primary">
-  <plus-segmented-picker-item value="a" checked>Lg A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Lg B</plus-segmented-picker-item>
-</plus-segmented-picker>
-```
-
-```tsx
-import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusSegmentedPicker size="sm" status="primary">
-        <PlusSegmentedPickerItem value="a" checked>Sm A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Sm B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-      <PlusSegmentedPicker size="md" status="primary">
-        <PlusSegmentedPickerItem value="a" checked>Md A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Md B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-      <PlusSegmentedPicker size="lg" status="primary">
-        <PlusSegmentedPickerItem value="a" checked>Lg A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Lg B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-segmented-size',
-  template: `
-    <plus-segmented-picker size="sm" status="primary">
-      <plus-segmented-picker-item value="a" checked>Sm A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Sm B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-    <plus-segmented-picker size="md" status="primary">
-      <plus-segmented-picker-item value="a" checked>Md A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Md B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-    <plus-segmented-picker size="lg" status="primary">
-      <plus-segmented-picker-item value="a" checked>Lg A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Lg B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-  `
-})
-export class SegmentedSizeComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-segmented-picker size="sm" status="primary">
     <plus-segmented-picker-item value="a" checked>Sm A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b">Sm B</plus-segmented-picker-item>
@@ -207,67 +176,13 @@ export class SegmentedSizeComponent {}
     <plus-segmented-picker-item value="a" checked>Lg A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b">Lg B</plus-segmented-picker-item>
   </plus-segmented-picker>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Shape
 
 The `shape` prop on `plus-segmented-picker` controls the rounding of the container and the selection overlay.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-segmented-picker shape="square" status="primary">
-  <plus-segmented-picker-item value="a" checked>Square A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Square B</plus-segmented-picker-item>
-</plus-segmented-picker>
-<plus-segmented-picker shape="circle" status="primary">
-  <plus-segmented-picker-item value="a" checked>Circle A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Circle B</plus-segmented-picker-item>
-</plus-segmented-picker>
-```
-
-```tsx
-import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusSegmentedPicker shape="square" status="primary">
-        <PlusSegmentedPickerItem value="a" checked>Square A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Square B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-      <PlusSegmentedPicker shape="circle" status="primary">
-        <PlusSegmentedPickerItem value="a" checked>Circle A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Circle B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-segmented-shape',
-  template: `
-    <plus-segmented-picker shape="square" status="primary">
-      <plus-segmented-picker-item value="a" checked>Square A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Square B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-    <plus-segmented-picker shape="circle" status="primary">
-      <plus-segmented-picker-item value="a" checked>Circle A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Circle B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-  `
-})
-export class SegmentedShapeComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-segmented-picker shape="square" status="primary">
     <plus-segmented-picker-item value="a" checked>Square A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b">Square B</plus-segmented-picker-item>
@@ -276,67 +191,13 @@ export class SegmentedShapeComponent {}
     <plus-segmented-picker-item value="a" checked>Circle A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b">Circle B</plus-segmented-picker-item>
   </plus-segmented-picker>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Status
 
 The `status` prop changes the color scheme, typically used to highlight the picker or match a theme.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-segmented-picker status="default" shape="circle">
-  <plus-segmented-picker-item value="a" checked>Default A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Default B</plus-segmented-picker-item>
-</plus-segmented-picker>
-<plus-segmented-picker status="primary" shape="circle">
-  <plus-segmented-picker-item value="a" checked>Primary A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b">Primary B</plus-segmented-picker-item>
-</plus-segmented-picker>
-```
-
-```tsx
-import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusSegmentedPicker status="default" shape="circle">
-        <PlusSegmentedPickerItem value="a" checked>Default A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Default B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-      <PlusSegmentedPicker status="primary" shape="circle">
-        <PlusSegmentedPickerItem value="a" checked>Primary A</PlusSegmentedPickerItem>
-        <PlusSegmentedPickerItem value="b">Primary B</PlusSegmentedPickerItem>
-      </PlusSegmentedPicker>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-segmented-status',
-  template: `
-    <plus-segmented-picker status="default" shape="circle">
-      <plus-segmented-picker-item value="a" checked>Default A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Default B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-    <plus-segmented-picker status="primary" shape="circle">
-      <plus-segmented-picker-item value="a" checked>Primary A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b">Primary B</plus-segmented-picker-item>
-    </plus-segmented-picker>
-  `
-})
-export class SegmentedStatusComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-segmented-picker status="default" shape="circle">
     <plus-segmented-picker-item value="a" checked>Default A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b">Default B</plus-segmented-picker-item>
@@ -345,64 +206,177 @@ export class SegmentedStatusComponent {}
     <plus-segmented-picker-item value="a" checked>Primary A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b">Primary B</plus-segmented-picker-item>
   </plus-segmented-picker>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Disabled Items
 
 Set the `disabled` attribute on individual `plus-segmented-picker-item` components to prevent their selection.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-segmented-picker status="primary">
-  <plus-segmented-picker-item value="a" checked>Enabled A</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="b" disabled>Disabled B</plus-segmented-picker-item>
-  <plus-segmented-picker-item value="c">Enabled C</plus-segmented-picker-item>
-</plus-segmented-picker>
-```
-
-```tsx
-import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusSegmentedPicker status="primary">
-      <PlusSegmentedPickerItem value="a" checked>Enabled A</PlusSegmentedPickerItem>
-      <PlusSegmentedPickerItem value="b" disabled>Disabled B</PlusSegmentedPickerItem>
-      <PlusSegmentedPickerItem value="c">Enabled C</PlusSegmentedPickerItem>
-    </PlusSegmentedPicker>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-segmented-disabled',
-  template: `
-    <plus-segmented-picker status="primary">
-      <plus-segmented-picker-item value="a" checked>Enabled A</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="b" disabled>Disabled B</plus-segmented-picker-item>
-      <plus-segmented-picker-item value="c">Enabled C</plus-segmented-picker-item>
-    </plus-segmented-picker>
-  `
-})
-export class SegmentedDisabledComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-segmented-picker status="primary">
     <plus-segmented-picker-item value="a" checked>Enabled A</plus-segmented-picker-item>
     <plus-segmented-picker-item value="b" disabled>Disabled B</plus-segmented-picker-item>
     <plus-segmented-picker-item value="c">Enabled C</plus-segmented-picker-item>
   </plus-segmented-picker>
-</template>
-```
-</code-bubble>
+</CodePreview>
+
+### Handling Events
+
+Listen to selection changes for dynamic behavior.
+
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const picker = document.getElementById('event-segmented-picker');
+      if (picker) {
+        picker.addEventListener('plus-segmented-picker-item-changed', (event) => {
+          console.log('Selection changed to:', event.detail.value);
+        });
+      }
+    }, 100);
+  `}
+>
+  <plus-segmented-picker status="primary" id="event-segmented-picker">
+    <plus-segmented-picker-item value="option1" checked>Option 1</plus-segmented-picker-item>
+    <plus-segmented-picker-item value="option2">Option 2</plus-segmented-picker-item>
+    <plus-segmented-picker-item value="option3">Option 3</plus-segmented-picker-item>
+  </plus-segmented-picker>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusSegmentedPicker, PlusSegmentedPickerItem } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [selectedValue, setSelectedValue] = useState('option1');
+
+      const handleChange = (event: any) => {
+        setSelectedValue(event.detail.value);
+        console.log('Selection changed to:', event.detail.value);
+      };
+
+      return (
+        <PlusSegmentedPicker status="primary" onPlusSegmentedPickerItemChanged={handleChange}>
+          <PlusSegmentedPickerItem value="option1" checked={selectedValue === 'option1'}>
+            Option 1
+          </PlusSegmentedPickerItem>
+          <PlusSegmentedPickerItem value="option2" checked={selectedValue === 'option2'}>
+            Option 2
+          </PlusSegmentedPickerItem>
+          <PlusSegmentedPickerItem value="option3" checked={selectedValue === 'option3'}>
+            Option 3
+          </PlusSegmentedPickerItem>
+        </PlusSegmentedPicker>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-segmented-events',
+      template: `
+        <plus-segmented-picker status="primary" (plus-segmented-picker-item-changed)="handleChange($event)">
+          <plus-segmented-picker-item value="option1" [checked]="selectedValue === 'option1'">
+            Option 1
+          </plus-segmented-picker-item>
+          <plus-segmented-picker-item value="option2" [checked]="selectedValue === 'option2'">
+            Option 2
+          </plus-segmented-picker-item>
+          <plus-segmented-picker-item value="option3" [checked]="selectedValue === 'option3'">
+            Option 3
+          </plus-segmented-picker-item>
+        </plus-segmented-picker>
+      `
+    })
+    export class SegmentedEventsComponent {
+      selectedValue = 'option1';
+
+      handleChange(event: any) {
+        this.selectedValue = event.detail.value;
+        console.log('Selection changed to:', event.detail.value);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-segmented-picker status="primary" @plus-segmented-picker-item-changed="handleChange">
+        <plus-segmented-picker-item value="option1" :checked="selectedValue === 'option1'">
+          Option 1
+        </plus-segmented-picker-item>
+        <plus-segmented-picker-item value="option2" :checked="selectedValue === 'option2'">
+          Option 2
+        </plus-segmented-picker-item>
+        <plus-segmented-picker-item value="option3" :checked="selectedValue === 'option3'">
+          Option 3
+        </plus-segmented-picker-item>
+      </plus-segmented-picker>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const selectedValue = ref('option1');
+
+    const handleChange = (event) => {
+      selectedValue.value = event.detail.value;
+      console.log('Selection changed to:', event.detail.value);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let selectedValue = 'option1';
+
+      function handleChange(event) {
+        selectedValue = event.detail.value;
+        console.log('Selection changed to:', event.detail.value);
+      }
+    </script>
+
+    <plus-segmented-picker status="primary" on:plus-segmented-picker-item-changed={handleChange}>
+      <plus-segmented-picker-item value="option1" checked={selectedValue === 'option1'}>
+        Option 1
+      </plus-segmented-picker-item>
+      <plus-segmented-picker-item value="option2" checked={selectedValue === 'option2'}>
+        Option 2
+      </plus-segmented-picker-item>
+      <plus-segmented-picker-item value="option3" checked={selectedValue === 'option3'}>
+        Option 3
+      </plus-segmented-picker-item>
+    </plus-segmented-picker>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-segmented-picker status="primary" id="event-segmented-picker">
+      <plus-segmented-picker-item value="option1" checked>Option 1</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="option2">Option 2</plus-segmented-picker-item>
+      <plus-segmented-picker-item value="option3">Option 3</plus-segmented-picker-item>
+    </plus-segmented-picker>
+
+    <script>
+      const picker = document.getElementById('event-segmented-picker');
+      
+      picker.addEventListener('plus-segmented-picker-item-changed', (event) => {
+        console.log('Selection changed to:', event.detail.value);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ## Visual Sections
 
@@ -436,29 +410,29 @@ export class SegmentedDisabledComponent {}
 
 ### plus-segmented-picker
 
-#### Props
+#### Properties
 
-| Name     | Type                         | Default     | Description                                                   |
-|----------|------------------------------|-------------|---------------------------------------------------------------|
-| `status` | `'default' \| 'primary'`    | `'default'` | Color scheme of the picker. Passed to items.                  |
-| `shape`  | `'square' \| 'circle'`     | `'square'`  | Overall shape (rounding) of the picker. Passed to items.    |
-| `size`   | `'sm' \| 'md' \| 'lg'`       | `'md'`      | Size of the picker and its items. Passed to items.          |
+| Name     | Type                         | Default     | Description                                                   | Required |
+|----------|------------------------------|-------------|---------------------------------------------------------------|----------|
+| `status` | `'default' \| 'primary'`    | `'default'` | Color scheme of the picker. Passed to items.                  | No       |
+| `shape`  | `'square' \| 'circle'`     | `'square'`  | Overall shape (rounding) of the picker. Passed to items.    | No       |
+| `size`   | `'sm' \| 'md' \| 'lg'`       | `'md'`      | Size of the picker and its items. Passed to items.          | No       |
 
 #### Events
 
 | Name                                | Payload Type                                             | Description                             |
 |-------------------------------------|----------------------------------------------------------|-----------------------------------------|
-| `plus-segmented-picker-item-changed`| `CustomEvent`                                            | Fired when the selected item changes. |
+| `plus-segmented-picker-item-changed`| `CustomEvent<{value: string}>`                          | Fired when the selected item changes. |
 
 #### Slots
 
-| Name              | Description                                                  |
-|-------------------|--------------------------------------------------------------|
-| `default` (unnamed) | Contains the `plus-segmented-picker-item` elements for the picker. |
+| Name        | Description                                                  |
+|-------------|--------------------------------------------------------------|
+| `(default)` | Contains the `plus-segmented-picker-item` elements for the picker. |
 
 #### CSS Shadow Parts
 
-| Part                | Description                                |
+| Name                | Description                                |
 |---------------------|--------------------------------------------|
 | `host`              | The main host container element.           |
 | `animation-overlay` | The overlay element used for selection animation. |
@@ -467,31 +441,31 @@ export class SegmentedDisabledComponent {}
 
 ### plus-segmented-picker-item
 
-#### Props
+#### Properties
 
-| Name       | Type                       | Default    | Description                                               |
-|------------|----------------------------|------------|-----------------------------------------------------------|
-| `checked`  | `boolean`                  | `false`    | Whether the item is currently selected.                   |
-| `status`   | `'default' \| 'primary'`  | `'default'`| Color scheme (inherited from parent picker).              |
-| `disabled` | `boolean`                  | `false`    | Disables the item, preventing selection.                |
-| `shape`    | `'square' \| 'circle'`   | `'square'` | Shape (rounding) (inherited from parent picker).        |
-| `size`     | `'sm' \| 'md' \| 'lg'`     | `'md'`     | Size (inherited from parent picker).                    |
-| `groupName`| `string`                   | `''`       | Internal property to group items (set by parent picker). |
-| `value`    | `string`                   | `''`       | The value associated with this item. Required.          |
+| Name       | Type                       | Default    | Description                                               | Required |
+|------------|----------------------------|------------|-----------------------------------------------------------|----------|
+| `checked`  | `boolean`                  | `false`    | Whether the item is currently selected.                   | No       |
+| `status`   | `'default' \| 'primary'`  | `'default'`| Color scheme (inherited from parent picker).              | No       |
+| `disabled` | `boolean`                  | `false`    | Disables the item, preventing selection.                | No       |
+| `shape`    | `'square' \| 'circle'`   | `'square'` | Shape (rounding) (inherited from parent picker).        | No       |
+| `size`     | `'sm' \| 'md' \| 'lg'`     | `'md'`     | Size (inherited from parent picker).                    | No       |
+| `groupName`| `string`                   | `''`       | Internal property to group items (set by parent picker). | No       |
+| `value`    | `string`                   | `''`       | The value associated with this item.                     | Yes      |
 
 #### Events
 
-_This component primarily communicates selection changes through the parent `plus-segmented-picker`'s `plus-segmented-picker-item-changed` event._
+This component primarily communicates selection changes through the parent `plus-segmented-picker`'s `plus-segmented-picker-item-changed` event.
 
 #### Slots
 
-| Name              | Description                          |
-|-------------------|--------------------------------------|
-| `default` (unnamed) | The content displayed inside the item (text, icon, etc.). |
+| Name        | Description                          |
+|-------------|--------------------------------------|
+| `(default)` | The content displayed inside the item (text, icon, etc.). |
 
 #### CSS Shadow Parts
 
-| Part    | Description                 |
+| Name    | Description                 |
 |---------|-----------------------------|
 | `label` | The label element wrapping the slot content. |
 | `input` | The hidden radio input element. |
