@@ -1,0 +1,620 @@
+---
+/**
+ * CodePreview Component
+ * =====================
+ *
+ * This component is used to display code examples in Plus UI documentation.
+ * It automatically generates code examples for all frameworks (React, Angular, Vue, Svelte, HTML)
+ * and provides an interactive playground.
+ *
+ * Key Features:
+ * ------------
+ * 1. **Auto Code Generation**: Generates code for all frameworks from a single HTML example
+ * 2. **Variant System**: Automatic variants with data-variant-* attributes
+ * 3. **Interactive Playground**: Real-time preview and controls
+ * 4. **Multiple Component Support**: Multiple components in a single CodePreview
+ * 5. **Smart Formatting**: Each component on separate lines with proper indentation
+ *
+ * Usage Examples:
+ * --------------
+ *
+ * 1. Basic Usage:
+ * ```astro
+ * <CodePreview>
+ *   <plus-button>Click Me</plus-button>
+ * </CodePreview>
+ * ```
+ *
+ * 2. Variant System:
+ * ```astro
+ * <CodePreview horizontal>
+ *   <plus-button data-variant-kind="filled,outlined,text">Button</plus-button>
+ * </CodePreview>
+ * ```
+ *
+ * 3. Interactive Playground:
+ * ```astro
+ * <CodePreview
+ *   horizontal
+ *   showPlayground
+ *   controls="kind,size,status"
+ *   controlValues={{
+ *     size: ["sm", "md", "lg"],
+ *     status: ["default", "primary", "success"]
+ *   }}
+ * >
+ *   <plus-button kind="filled" size="md">Button</plus-button>
+ * </CodePreview>
+ * ```
+ *
+ * 4. Multiple Components:
+ * ```astro
+ * <CodePreview horizontal>
+ *   <plus-button><i slot="prefix" class="fa-download"></i>Download</plus-button>
+ *   <plus-button>Upload<i slot="suffix" class="fa-upload"></i></plus-button>
+ * </CodePreview>
+ * ```
+ *
+ * Props:
+ * ------
+ * @param title - Preview title (optional)
+ * @param className - Additional CSS classes (optional)
+ * @param id - Unique ID, auto-generated if not provided
+ * @param horizontal - Display components side by side (default: false)
+ * @param showCodeSandbox - Show CodeSandbox link (default: false)
+ * @param showPlayground - Enable interactive playground (default: false)
+ * @param controls - Playground controls in "kind,size,status" format
+ * @param controlValues - Custom control values Record<string, string[]>
+ *
+ * How It Works:
+ * ------------
+ * 1. **parseVariants()**: Parses data-variant-* attributes
+ * 2. **generateExamples()**: Creates example combinations from variants
+ * 3. **formatCodeExamples()**: Formats multiple components properly
+ * 4. **convertTo*()**: Performs syntax conversion for each framework
+ * 5. **generateImports()**: Creates necessary import statements
+ *
+ * Framework Conversion:
+ * --------------------
+ * - HTML → React: plus-button → PlusButton, class → className
+ * - HTML → Angular: Uses web components directly
+ * - HTML → Vue: Uses web components directly
+ * - HTML → Svelte: Uses web components directly
+ *
+ * Future Improvements:
+ * -------------------
+ * - [ ] Copy to clipboard feature
+ * - [ ] CodeSandbox integration
+ * - [ ] Custom framework slots support
+ * - [ ] Real-time code updates (on playground changes)
+ * - [ ] CSS custom properties playground
+ *
+ * Last Update: 2025.06.22 - Added multiple component formatting
+ */
+
+import { Tabs, TabItem, Code } from "@astrojs/starlight/components";
+
+export interface Props {
+  title?: string;
+  className?: string;
+  id?: string;
+  horizontal?: boolean;
+  showCodeSandbox?: boolean;
+  showPlayground?: boolean;
+  controls?: string; // "kind,size,status" - props to control in playground
+  controlValues?: Record<string, string[]>; // Custom control values
+}
+
+const {
+  title,
+  className,
+  id = "preview-" + Math.random().toString(36).substring(2, 15),
+  horizontal = false,
+  showCodeSandbox = false,
+  showPlayground = false,
+  controls = "",
+  controlValues = {},
+} = Astro.props;
+
+// Parse slot content for variants
+const slotContent = await Astro.slots.render("default");
+
+/**
+ * Variant Parser
+ * --------------
+ * Parses data-variant-* attributes from HTML.
+ *
+ * Example: data-variant-kind="filled,outlined,text"
+ * → { kind: ["filled", "outlined", "text"] }
+ */
+function parseVariants(html: string) {
+  const variants: Record<string, string[]> = {};
+  const variantRegex = /data-variant-(\w+)="([^"]+)"/g;
+  let match;
+
+  while ((match = variantRegex.exec(html)) !== null) {
+    const [, propName, values] = match;
+    variants[propName] = values.split(",").map((v) => v.trim());
+  }
+
+  return variants;
+}
+
+/**
+ * Example Generator
+ * -----------------
+ * Creates example combinations from variants.
+ * Currently supports single prop (multiple prop support can be added in the future).
+ */
+function generateExamples(html: string, variants: Record<string, string[]>) {
+  if (Object.keys(variants).length === 0) {
+    return [{ html, name: "default" }];
+  }
+
+  const examples: Array<{
+    html: string;
+    name: string;
+    propName?: string;
+    propValue?: string;
+  }> = [];
+  const propName = Object.keys(variants)[0]; // Start with single prop support
+  const values = variants[propName];
+
+  values.forEach((value) => {
+    const processedHtml = html.replace(
+      new RegExp(`data-variant-${propName}="[^"]*"`, "g"),
+      `${propName}="${value}"`
+    );
+    examples.push({
+      html: processedHtml,
+      name: value,
+      propName,
+      propValue: value,
+    });
+  });
+
+  return examples;
+}
+
+/**
+ * Framework Converters
+ * --------------------
+ * Converts HTML web component syntax to different frameworks.
+ */
+
+// React conversion: plus-button → PlusButton, class → className, etc.
+function convertToReact(html: string) {
+  return html
+    .replace(/<plus-(\w+)/g, "<Plus$1")
+    .replace(/<\/plus-(\w+)>/g, "</Plus$1>")
+    .replace(/class="/g, 'className="')
+    .replace(/full-width/g, "fullWidth")
+    .replace(/(\w+)-(\w+)="/g, (match, p1, p2) => {
+      return p1 + p2.charAt(0).toUpperCase() + p2.slice(1) + '="';
+    });
+}
+
+// Angular conversion: uses web components directly
+function convertToAngular(html: string) {
+  return html; // Angular uses web components directly
+}
+
+// Vue conversion: uses web components directly
+function convertToVue(html: string) {
+  return html; // Vue uses web components directly
+}
+
+// Svelte conversion: uses web components directly
+function convertToSvelte(html: string) {
+  return html; // Svelte uses web components directly
+}
+
+/**
+ * Import Generator
+ * ----------------
+ * Detects components from HTML and creates framework-appropriate import statements.
+ * Example: <plus-button> → import { PlusButton } from '@plusui/react'
+ */
+function generateImports(html: string, framework: string) {
+  const components: string[] = [];
+  const componentRegex = /<plus-(\w+)/g;
+  let match;
+
+  while ((match = componentRegex.exec(html)) !== null) {
+    const componentName = match[1]
+      .split("-")
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join("");
+    if (!components.includes(componentName)) {
+      components.push("Plus" + componentName);
+    }
+  }
+
+  switch (framework) {
+    case "react":
+      return `import { ${components.join(", ")} } from '@plusui/react';
+
+export default () => {
+  return (
+    <>
+      %content%
+    </>
+  );
+};`;
+    case "angular":
+      return `import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-example',
+  template: \`
+    %content%
+  \`
+})
+export class ExampleComponent {}`;
+    case "vue":
+      return `<template>
+  %content%
+</template>`;
+    case "svelte":
+      return `%content%`;
+    default:
+      return "%content%";
+  }
+}
+
+const variants = parseVariants(slotContent);
+const examples = generateExamples(slotContent, variants);
+
+/**
+ * Smart Code Formatter
+ * --------------------
+ * Formats multiple components with proper indentation.
+ * First component gets no indentation, others get consistent indentation.
+ */
+function formatCodeExamples(
+  examples: any[],
+  converter: (html: string) => string,
+  baseIndent: string = ""
+): string {
+  if (examples.length === 1) {
+    // Check if the single example contains multiple components
+    const singleHtml = examples[0].html;
+    const componentMatches = singleHtml.match(
+      /<plus-\w+[^>]*>[\s\S]*?<\/plus-\w+>/g
+    );
+
+    if (componentMatches && componentMatches.length > 1) {
+      // Multiple components in single example - format each on new line
+      const formattedComponents = componentMatches.map((component: string) =>
+        converter(component.trim())
+      );
+
+      // For multiple components, we want consistent indentation
+      return formattedComponents
+        .map((converted: string, index: number) =>
+          index === 0 ? converted : baseIndent + converted
+        )
+        .join("\n");
+    } else {
+      // Single component
+      return converter(singleHtml);
+    }
+  }
+
+  return examples.map((ex) => baseIndent + converter(ex.html)).join("\n");
+}
+
+// Generate code strings for each framework
+const codeStrings = {
+  react: generateImports(examples[0]?.html || "", "react").replace(
+    "%content%",
+    formatCodeExamples(examples, convertToReact, "      ")
+  ),
+  angular: generateImports(examples[0]?.html || "", "angular").replace(
+    "%content%",
+    formatCodeExamples(examples, convertToAngular, "    ")
+  ),
+  vue: generateImports(examples[0]?.html || "", "vue").replace(
+    "%content%",
+    formatCodeExamples(examples, convertToVue, "  ")
+  ),
+  svelte: formatCodeExamples(examples, convertToSvelte),
+  html: formatCodeExamples(examples, (html) => html),
+};
+
+// Extract default values from component in slotContent
+function extractDefaultValues(
+  html: string,
+  controls: string[]
+): Record<string, string> {
+  const defaults: Record<string, string> = {};
+
+  controls.forEach((control) => {
+    const regex = new RegExp(`${control}="([^"]*)"`, "i");
+    const match = html.match(regex);
+    if (match && match[1]) {
+      defaults[control] = match[1];
+    }
+  });
+
+  return defaults;
+}
+
+// Generate playground config
+const defaultControlValues: Record<string, string[]> = {
+  kind: ["filled", "outlined", "dashed", "text"],
+  size: ["sm", "md", "lg"],
+  status: ["default", "primary", "success", "warning", "danger", "info"],
+  disabled: ["false", "true"],
+  loading: ["false", "true"],
+  "full-width": ["false", "true"],
+};
+
+const mergedControlValues = { ...defaultControlValues, ...controlValues };
+
+const playgroundConfig =
+  showPlayground && controls
+    ? {
+        component: slotContent.match(/<plus-(\w+)/)?.[1],
+        controls: controls.split(",").map((c) => c.trim()),
+        controlValues: mergedControlValues as Record<string, string[]>,
+        defaultValues: extractDefaultValues(
+          slotContent,
+          controls.split(",").map((c) => c.trim())
+        ),
+      }
+    : Object.keys(variants).length > 0
+      ? {
+          component: slotContent.match(/<plus-(\w+)/)?.[1],
+          props: variants,
+          defaultValues: Object.fromEntries(
+            Object.entries(variants).map(([key, values]) => [key, values[0]])
+          ) as Record<string, string>,
+        }
+      : null;
+---
+
+<div
+  class={`not-content bg-color-default-default px-4 pt-4 pb-2 flex flex-col gap-2 rounded ${className}`}
+>
+  <div class="flex flex-row items-stretch">
+    <div
+      class="bg-color-surface p-2 rounded flex flex-col gap-6 group/preview flex-1"
+    >
+      <div class="flex justify-end h-6 invisible group-hover/preview:visible">
+        {
+          showCodeSandbox && (
+            <plus-tooltip orientation="left" message="View in CodeSandbox">
+              <plus-button kind="text">
+                <span class="text-color-placeholder">
+                  <i class="fa-solid fa-up-right-from-square" />
+                </span>
+              </plus-button>
+            </plus-tooltip>
+          )
+        }
+      </div>
+      <div
+        class={horizontal
+          ? "flex flex-row gap-4 items-center justify-center flex-wrap mb-12"
+          : "flex flex-col gap-4 items-center justify-center flex-wrap mb-12"}
+        id={`preview-content-${id}`}
+      >
+        {examples.map((example) => <Fragment set:html={example.html} />)}
+      </div>
+    </div>
+    <!-- playground -->
+    {
+      showPlayground && playgroundConfig && (
+        <div class="flex flex-col gap-4 bg-color-surface p-4 border-l-2 border-(--background-color-color-disabled-default) min-w-[200px]">
+          {playgroundConfig.controls
+            ? // New controls system
+              playgroundConfig.controls.map((control: string) => (
+                <div class="flex flex-col gap-2">
+                  <label class="text-xs font-medium text-color-foreground-secondary">
+                    {control}
+                  </label>
+                  <select
+                    class="px-2 py-1 text-xs border border-color-default rounded bg-color-surface"
+                    data-prop={control}
+                    data-component={playgroundConfig.component}
+                    data-preview-id={id}
+                  >
+                    {playgroundConfig.controlValues[control]?.map(
+                      (value: string) => (
+                        <option
+                          value={value}
+                          selected={
+                            value ===
+                            (playgroundConfig.defaultValues?.[control] ||
+                              playgroundConfig.controlValues[control]?.[0])
+                          }
+                        >
+                          {value}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+              ))
+            : playgroundConfig.props
+              ? // Legacy variant system
+                Object.entries(playgroundConfig.props).map(
+                  ([propName, values]: [string, string[]]) => (
+                    <div class="flex flex-col gap-2">
+                      <label class="text-xs font-medium text-color-foreground-secondary">
+                        {propName}
+                      </label>
+                      <select
+                        class="px-2 py-1 text-xs border border-color-default rounded bg-color-surface"
+                        data-prop={propName}
+                        data-component={playgroundConfig.component}
+                        data-preview-id={id}
+                      >
+                        {values.map((value: string) => (
+                          <option
+                            value={value}
+                            selected={
+                              value ===
+                              playgroundConfig.defaultValues?.[propName]
+                            }
+                          >
+                            {value}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )
+                )
+              : null}
+        </div>
+      )
+    }
+  </div>
+  <div class="flex flex-col gap-2 w-full">
+    <plus-button
+      kind="text"
+      size="sm"
+      class="w-full"
+      full-width="true"
+      id={`toggle-button-${id}`}
+    >
+      <div class="flex flex-row gap-2 items-center justify-between w-25">
+        <span id={`toggle-text-${id}`}>Show code</span>
+        <i id={`toggle-icon-${id}`} class="fa-solid fa-chevron-down"></i>
+      </div>
+    </plus-button>
+    <div id={`code-section-${id}`} class="hidden mt-4 mb-2">
+      <Tabs syncKey="code-tab">
+        <TabItem label="React">
+          {
+            codeStrings.react && codeStrings.react.length > 0 ? (
+              <Code code={codeStrings.react} lang="tsx" />
+            ) : (
+              <p>No React code available</p>
+            )
+          }
+        </TabItem>
+        <TabItem label="Angular">
+          {
+            codeStrings.angular && codeStrings.angular.length > 0 ? (
+              <Code code={codeStrings.angular} lang="ts" />
+            ) : (
+              <p>No Angular code available</p>
+            )
+          }
+        </TabItem>
+        <TabItem label="Vue">
+          {
+            codeStrings.vue && codeStrings.vue.length > 0 ? (
+              <Code code={codeStrings.vue} lang="vue" />
+            ) : (
+              <p>No Vue code available</p>
+            )
+          }
+        </TabItem>
+        <TabItem label="Svelte">
+          {
+            codeStrings.svelte && codeStrings.svelte.length > 0 ? (
+              <Code code={codeStrings.svelte} lang="svelte" />
+            ) : (
+              <p>No Svelte code available</p>
+            )
+          }
+        </TabItem>
+        <TabItem label="HTML">
+          {
+            codeStrings.html && codeStrings.html.length > 0 ? (
+              <Code code={codeStrings.html} lang="html" />
+            ) : (
+              <p>No HTML code available</p>
+            )
+          }
+        </TabItem>
+      </Tabs>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ id, playgroundConfig }}>
+  // Client-side script for interactivity
+  const toggleButton = document.getElementById(`toggle-button-${id}`);
+  const toggleIcon = document.getElementById(`toggle-icon-${id}`);
+  const toggleText = document.getElementById(`toggle-text-${id}`);
+  const codeSection = document.getElementById(`code-section-${id}`);
+
+  let isCodeVisible = false;
+
+  const toggleCode = () => {
+    isCodeVisible = !isCodeVisible;
+
+    if (isCodeVisible) {
+      codeSection.classList.remove("hidden");
+      toggleIcon.className = "fa-solid fa-chevron-up";
+      toggleText.textContent = "Hide code";
+    } else {
+      codeSection.classList.add("hidden");
+      toggleIcon.className = "fa-solid fa-chevron-down";
+      toggleText.textContent = "Show code";
+    }
+  };
+
+  // Event listener for the plus-button
+  toggleButton.addEventListener("plus-click", toggleCode);
+
+  // Playground functionality - Each component isolated
+  if (playgroundConfig) {
+    // Select only this component's playground
+    const playgroundSelects = document.querySelectorAll(
+      `[data-preview-id="${id}"]`
+    );
+    const previewContentArea =
+      document.querySelector(`#preview-content-${id}`) ||
+      document.querySelector(`.group\\/preview > div:last-child`);
+
+    playgroundSelects.forEach((select) => {
+      select.addEventListener("change", updatePreview);
+    });
+
+    function updatePreview() {
+      const currentProps = {};
+      playgroundSelects.forEach((select) => {
+        currentProps[select.dataset.prop] = select.value;
+      });
+
+      // Find the component in THIS preview area and update its properties
+      const component = previewContentArea?.querySelector(
+        `plus-${playgroundConfig.component}`
+      );
+
+      if (component) {
+        // Clear all controlled attributes first
+        playgroundConfig.controls?.forEach((control) => {
+          component.removeAttribute(control);
+        });
+
+        // Set new values
+        Object.entries(currentProps).forEach(([prop, value]) => {
+          if (value === "true") {
+            component.setAttribute(prop, "");
+          } else if (value === "false") {
+            component.removeAttribute(prop);
+          } else if (value && value !== "") {
+            component.setAttribute(prop, value);
+          }
+        });
+
+        console.log("Preview updated:", component.outerHTML);
+      } else {
+        console.error("Component not found for preview update");
+      }
+
+      // Code examples are static - playground only updates preview
+      // This keeps Starlight's complex Code component structure intact
+    }
+
+    // Code examples are static and generated server-side by Starlight
+    // This preserves syntax highlighting, copy functionality, and UI structure
+    // The playground only updates the preview component for interactive testing
+  }
+</script>
