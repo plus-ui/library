@@ -1,10 +1,14 @@
 ---
 title: Select
 description: Displays a collapsible menu with a list of selectable options.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/select/anatomy.png';
@@ -23,116 +27,124 @@ The Select (`plus-select`) component provides a dropdown menu (`plus-select-item
 
 A simple select component with several options. The value displayed corresponds to the `text` property or the slotted content of the selected `plus-select-item`.
 
-<code-bubble class="not-content">
-
-```html
-<plus-select label="Choose an option" placeholder="Select...">
-  <plus-select-item value="1">Option 1</plus-select-item>
-  <plus-select-item value="2" selected>Option 2</plus-select-item>
-  <plus-select-item value="3">Option 3</plus-select-item>
-</plus-select>
-
-<script>
-  document.querySelector('plus-select').addEventListener('plus-select-selected-item', (event) => {
-    console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
-  });
-</script>
-```
-
-```tsx
-import { PlusSelect, PlusSelectItem } from '@plusui/library/react';
-
-export default () => {
-  const handleSelect = (event: CustomEvent<{ selectedItem: any }>) => {
-    console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
-  };
-
-  return (
-    <PlusSelect label="Choose an option" placeholder="Select..." onPlusSelectSelectedItem={handleSelect}>
-      <PlusSelectItem value="1">Option 1</PlusSelectItem>
-      <PlusSelectItem value="2" selected>Option 2</PlusSelectItem>
-      <PlusSelectItem value="3">Option 3</PlusSelectItem>
-    </PlusSelect>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-select-basic',
-  template: `
-    <plus-select label="Choose an option" placeholder="Select..." (plus-select-selected-item)="handleSelect($event)">
-      <plus-select-item value="1">Option 1</plus-select-item>
-      <plus-select-item value="2" selected>Option 2</plus-select-item>
-      <plus-select-item value="3">Option 3</plus-select-item>
-    </plus-select>
-  `
-})
-export class SelectBasicComponent {
-  handleSelect(event: any) {
-    console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
-  }
-}
-```
-
-```vue
-<template>
-  <plus-select label="Choose an option" placeholder="Select..." @plus-select-selected-item="handleSelect">
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const select = document.getElementById('basic-select');
+      if (select) {
+        select.addEventListener('plus-select-selected-item', (event) => {
+          console.log('Selected item:', event.detail.selectedItem.textContent);
+        });
+      }
+    }, 100);
+  `}
+>
+  <plus-select label="Choose an option" placeholder="Select..." id="basic-select">
     <plus-select-item value="1">Option 1</plus-select-item>
     <plus-select-item value="2" selected>Option 2</plus-select-item>
     <plus-select-item value="3">Option 3</plus-select-item>
   </plus-select>
-</template>
 
-<script setup>
-const handleSelect = (event) => {
-  console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
-};
-</script>
-```
-</code-bubble>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusSelect, PlusSelectItem } from '@plusui/react';
+
+    export default () => {
+      const handleSelect = (event: CustomEvent<{ selectedItem: any }>) => {
+        console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
+      };
+
+      return (
+        <PlusSelect label="Choose an option" placeholder="Select..." onPlusSelectSelectedItem={handleSelect}>
+          <PlusSelectItem value="1">Option 1</PlusSelectItem>
+          <PlusSelectItem value="2" selected>Option 2</PlusSelectItem>
+          <PlusSelectItem value="3">Option 3</PlusSelectItem>
+        </PlusSelect>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-select-basic',
+      template: `
+        <plus-select label="Choose an option" placeholder="Select..." (plus-select-selected-item)="handleSelect($event)">
+          <plus-select-item value="1">Option 1</plus-select-item>
+          <plus-select-item value="2" selected>Option 2</plus-select-item>
+          <plus-select-item value="3">Option 3</plus-select-item>
+        </plus-select>
+      `
+    })
+    export class SelectBasicComponent {
+      handleSelect(event: any) {
+        console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-select label="Choose an option" placeholder="Select..." @plus-select-selected-item="handleSelect">
+        <plus-select-item value="1">Option 1</plus-select-item>
+        <plus-select-item value="2" selected>Option 2</plus-select-item>
+        <plus-select-item value="3">Option 3</plus-select-item>
+      </plus-select>
+    </template>
+
+    <script setup>
+    const handleSelect = (event) => {
+      console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      function handleSelect(event) {
+        console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
+      }
+    </script>
+
+    <plus-select label="Choose an option" placeholder="Select..." on:plus-select-selected-item={handleSelect}>
+      <plus-select-item value="1">Option 1</plus-select-item>
+      <plus-select-item value="2" selected>Option 2</plus-select-item>
+      <plus-select-item value="3">Option 3</plus-select-item>
+    </plus-select>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-select label="Choose an option" placeholder="Select..." id="basic-select">
+      <plus-select-item value="1">Option 1</plus-select-item>
+      <plus-select-item value="2" selected>Option 2</plus-select-item>
+      <plus-select-item value="3">Option 3</plus-select-item>
+    </plus-select>
+
+    <script>
+      document.querySelector('plus-select').addEventListener('plus-select-selected-item', (event) => {
+        console.log('Selected item:', event.detail.selectedItem.value, event.detail.selectedItem.textContent);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 Control the size using the `size` prop.
 
-<code-bubble class="not-content vertical">
-
-```html
-<plus-select size="sm" placeholder="Small">
-  <plus-select-item value="1">Option 1</plus-select-item>
-</plus-select>
-<plus-select size="md" placeholder="Medium">
-  <plus-select-item value="1">Option 1</plus-select-item>
-</plus-select>
-<plus-select size="lg" placeholder="Large">
-  <plus-select-item value="1">Option 1</plus-select-item>
-</plus-select>
-```
-
-```tsx
-import { PlusSelect, PlusSelectItem } from '@plusui/library/react';
-
-export default () => (
-  <>
-    <PlusSelect size="sm" placeholder="Small">
-      <PlusSelectItem value="1">Option 1</PlusSelectItem>
-    </PlusSelect>
-    <PlusSelect size="md" placeholder="Medium">
-      <PlusSelectItem value="1">Option 1</PlusSelectItem>
-    </PlusSelect>
-    <PlusSelect size="lg" placeholder="Large">
-      <PlusSelectItem value="1">Option 1</PlusSelectItem>
-    </PlusSelect>
-  </>
-);
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-select size="sm" placeholder="Small">
     <plus-select-item value="1">Option 1</plus-select-item>
   </plus-select>
@@ -142,135 +154,35 @@ template: `
   <plus-select size="lg" placeholder="Large">
     <plus-select-item value="1">Option 1</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select size="sm" placeholder="Small">
-    <plus-select-item value="1">Option 1</plus-select-item>
-  </plus-select>
-  <plus-select size="md" placeholder="Medium">
-    <plus-select-item value="1">Option 1</plus-select-item>
-  </plus-select>
-  <plus-select size="lg" placeholder="Large">
-    <plus-select-item value="1">Option 1</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Label & Caption
 
 Use `label` for the select title and `caption` for hint text below.
 
-<code-bubble class="not-content">
-
-```html
-<plus-select label="Country" caption="Select your country of residence">
-  <plus-select-item value="us">United States</plus-select-item>
-  <plus-select-item value="ca">Canada</plus-select-item>
-</plus-select>
-```
-
-```tsx
-<PlusSelect label="Country" caption="Select your country of residence">
-  <PlusSelectItem value="us">United States</PlusSelectItem>
-  <PlusSelectItem value="ca">Canada</PlusSelectItem>
-</PlusSelect>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-select label="Country" caption="Select your country of residence">
     <plus-select-item value="us">United States</plus-select-item>
     <plus-select-item value="ca">Canada</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select label="Country" caption="Select your country of residence">
-    <plus-select-item value="us">United States</plus-select-item>
-    <plus-select-item value="ca">Canada</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Placeholder
 
 The `placeholder` is shown when no item is selected.
 
-<code-bubble class="not-content">
-
-```html
-<plus-select placeholder="Select a fruit...">
-  <plus-select-item value="apple">Apple</plus-select-item>
-  <plus-select-item value="banana">Banana</plus-select-item>
-</plus-select>
-```
-
-```tsx
-<PlusSelect placeholder="Select a fruit...">
-  <PlusSelectItem value="apple">Apple</PlusSelectItem>
-  <PlusSelectItem value="banana">Banana</PlusSelectItem>
-</PlusSelect>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-select placeholder="Select a fruit...">
     <plus-select-item value="apple">Apple</plus-select-item>
     <plus-select-item value="banana">Banana</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select placeholder="Select a fruit...">
-    <plus-select-item value="apple">Apple</plus-select-item>
-    <plus-select-item value="banana">Banana</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Disabled & Readonly
 
 Use `disabled` to prevent all interaction or `readonly` to prevent changing the selection.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-select placeholder="Disabled" disabled>
-  <plus-select-item value="1">Option 1</plus-select-item>
-</plus-select>
-<plus-select placeholder="Readonly" readonly>
-  <plus-select-item value="1" selected>Option 1</plus-select-item>
-  <plus-select-item value="2">Option 2</plus-select-item>
-</plus-select>
-```
-
-```tsx
-<>
-  <PlusSelect placeholder="Disabled" disabled>
-    <PlusSelectItem value="1">Option 1</PlusSelectItem>
-  </PlusSelect>
-  <PlusSelect placeholder="Readonly" readonly>
-    <PlusSelectItem value="1" selected>Option 1</PlusSelectItem>
-    <PlusSelectItem value="2">Option 2</PlusSelectItem>
-  </PlusSelect>
-</>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true} horizontal>
   <plus-select placeholder="Disabled" disabled>
     <plus-select-item value="1">Option 1</plus-select-item>
   </plus-select>
@@ -278,142 +190,40 @@ template: `
     <plus-select-item value="1" selected>Option 1</plus-select-item>
     <plus-select-item value="2">Option 2</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select placeholder="Disabled" disabled>
-    <plus-select-item value="1">Option 1</plus-select-item>
-  </plus-select>
-  <plus-select placeholder="Readonly" readonly>
-    <plus-select-item value="1" selected>Option 1</plus-select-item>
-    <plus-select-item value="2">Option 2</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Error State
 
 Set `error` to indicate validation errors. Often combined with `caption`.
 
-<code-bubble class="not-content">
-
-```html
-<plus-select label="Required Field" error caption="This field is required">
-  <plus-select-item value="1">Option 1</plus-select-item>
-</plus-select>
-```
-
-```tsx
-<PlusSelect label="Required Field" error caption="This field is required">
-  <PlusSelectItem value="1">Option 1</PlusSelectItem>
-</PlusSelect>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-select label="Required Field" error caption="This field is required">
     <plus-select-item value="1">Option 1</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select label="Required Field" error caption="This field is required">
-    <plus-select-item value="1">Option 1</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Clearable
 
 Allows the user to deselect the current option.
 
-<code-bubble class="not-content">
-
-```html
-<plus-select placeholder="Select..." clearable>
-  <plus-select-item value="1" selected>Option 1</plus-select-item>
-  <plus-select-item value="2">Option 2</plus-select-item>
-</plus-select>
-```
-
-```tsx
-<PlusSelect placeholder="Select..." clearable>
-  <PlusSelectItem value="1" selected>Option 1</PlusSelectItem>
-  <PlusSelectItem value="2">Option 2</PlusSelectItem>
-</PlusSelect>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-select placeholder="Select..." clearable>
     <plus-select-item value="1" selected>Option 1</plus-select-item>
     <plus-select-item value="2">Option 2</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select placeholder="Select..." clearable>
-    <plus-select-item value="1" selected>Option 1</plus-select-item>
-    <plus-select-item value="2">Option 2</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Disabled Items
 
 Set the `disabled` attribute on individual `plus-select-item` components to prevent their selection.
 
-<code-bubble class="not-content">
-
-```html
-<plus-select placeholder="Select...">
-  <plus-select-item value="1">Enabled Option</plus-select-item>
-  <plus-select-item value="2" disabled>Disabled Option</plus-select-item>
-  <plus-select-item value="3">Another Enabled</plus-select-item>
-</plus-select>
-```
-
-```tsx
-<PlusSelect placeholder="Select...">
-  <PlusSelectItem value="1">Enabled Option</PlusSelectItem>
-  <PlusSelectItem value="2" disabled>Disabled Option</PlusSelectItem>
-  <PlusSelectItem value="3">Another Enabled</PlusSelectItem>
-</PlusSelect>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-select placeholder="Select...">
     <plus-select-item value="1">Enabled Option</plus-select-item>
     <plus-select-item value="2" disabled>Disabled Option</plus-select-item>
     <plus-select-item value="3">Another Enabled</plus-select-item>
   </plus-select>
-`
-```
-
-```vue
-<template>
-  <plus-select placeholder="Select...">
-    <plus-select-item value="1">Enabled Option</plus-select-item>
-    <plus-select-item value="2" disabled>Disabled Option</plus-select-item>
-    <plus-select-item value="3">Another Enabled</plus-select-item>
-  </plus-select>
-</template>
-```
-</code-bubble>
-
+</CodePreview>
 
 ## Visual Sections
 
@@ -452,7 +262,7 @@ template: `
 
 ### plus-select
 
-#### Props
+#### Properties
 
 | Name          | Type                   | Default | Description                                         | Required |
 |---------------|------------------------|---------|-----------------------------------------------------|----------|
@@ -463,7 +273,7 @@ template: `
 | `disabled`    | `boolean`              | `false` | Disables the select, preventing interaction.        | No       |
 | `required`    | `boolean`              | `false` | Marks the select as required.                       | No       |
 | `readonly`    | `boolean`              | `false` | Makes the select read-only, preventing changes.     | No       |
-| `caption`     | `string`               | —       | Caption text displayed below the select.            | No       |
+| `caption`     | `string`               | `undefined` | Caption text displayed below the select.            | No       |
 | `clearable`   | `boolean`              | `false` | Enables a clear button to reset the selection.      | No       |
 
 #### Events
@@ -476,15 +286,15 @@ template: `
 
 #### Slots
 
-| Name              | Description                                               |
-|-------------------|-----------------------------------------------------------|
-| `default` (unnamed) | Content for the select trigger button (overrides default).|
-| `suffix`          | Content for the right side of the trigger button.         |
-| `select-item`     | Contains the `plus-select-item` elements for the menu.    |
+| Name        | Description                                               |
+|-------------|-----------------------------------------------------------|
+| `(default)` | Content for the select trigger button (overrides default).|
+| `suffix`    | Content for the right side of the trigger button.         |
+| `select-item` | Contains the `plus-select-item` elements for the menu.    |
 
 #### CSS Shadow Parts
 
-| Part         | Description                             |
+| Name         | Description                             |
 |--------------|-----------------------------------------|
 | `base`       | The component's base wrapper (`div`).     |
 | `select`     | The select trigger (`plus-input`).      |
@@ -494,29 +304,29 @@ template: `
 
 ### plus-select-item
 
-#### Props
+#### Properties
 
 | Name       | Type                   | Default | Description                                                          | Required |
 |------------|------------------------|---------|----------------------------------------------------------------------|----------|
 | `size`     | `'sm' \| 'md' \| 'lg'` | `'md'`  | Size of the select item (usually inherited from `plus-select`).      | No       |
 | `disabled` | `boolean`              | `false` | Disables the item, preventing selection.                             | No       |
 | `selected` | `boolean`              | `false` | Indicates if the item is currently selected (managed by parent).   | No       |
-| `text`     | `string`               | —       | Text content override. If set, used for display and `aria-label`. | No       |
+| `text`     | `string`               | `undefined` | Text content override. If set, used for display and `aria-label`. | No       |
 | `value`    | `string`               | `''`    | The value associated with this item.                                 | Yes      |
 
 #### Events
 
-_Selection events are handled by the parent `plus-select` component (`plus-select-selected-item`)._
+Selection events are handled by the parent `plus-select` component (`plus-select-selected-item`).
 
 #### Slots
 
-| Name              | Description                                               |
-|-------------------|-----------------------------------------------------------|
-| `default` (unnamed) | The content displayed inside the item (text, icons, etc.). |
+| Name        | Description                                               |
+|-------------|-----------------------------------------------------------|
+| `(default)` | The content displayed inside the item (text, icons, etc.). |
 
 #### CSS Shadow Parts
 
-| Part   | Description                                    |
+| Name   | Description                                    |
 |--------|------------------------------------------------|
 | `base` | The component's base wrapper (`div`).          |
 | `item` | The listbox item element (`plus-list-box-item`).|

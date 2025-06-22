@@ -1,10 +1,14 @@
 ---
 title: Tooltip
 description: Displays brief, informative text when a user hovers over or focuses on an element.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/tooltip/anatomy.png';
@@ -23,238 +27,63 @@ The Tooltip component provides brief informational text that appears when a user
 
 A simple tooltip triggered by hovering over a button.
 
-<code-bubble class="not-content">
-
-```html
-<plus-tooltip message="This button saves your work.">
-  <plus-button aria-label="Save">
-    Save
-  </plus-button>
-</plus-tooltip>
-```
-
-```tsx
-import { PlusTooltip, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <PlusTooltip message="This button saves your work.">
-      <PlusButton aria-label="Save">
-        Save
-      </PlusButton>
-    </PlusTooltip>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-// Assuming PlusUiModule is imported
-
-@Component({
-  selector: 'app-tooltip-basic',
-  template: `
-    <plus-tooltip message="This button saves your work.">
-      <plus-button aria-label="Save">
-        Save
-      </plus-button>
-    </plus-tooltip>
-  `
-})
-export class TooltipBasicComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-tooltip message="This button saves your work.">
     <plus-button aria-label="Save">
       Save
     </plus-button>
   </plus-tooltip>
-</template>
-
-<script setup>
-// Assuming Plus UI components are registered globally or imported locally
-</script>
-```
-</code-bubble>
+</CodePreview>
 
 ### Orientation
 
 Use the `orientation` prop to control where the tooltip appears relative to the trigger element.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-tooltip orientation="top" message="Top Tooltip">
-  <plus-button>Top</plus-button>
-</plus-tooltip>
-<plus-tooltip orientation="bottom" message="Bottom Tooltip">
-  <plus-button>Bottom</plus-button>
-</plus-tooltip>
-<plus-tooltip orientation="left" message="Left Tooltip">
-  <plus-button>Left</plus-button>
-</plus-tooltip>
-<plus-tooltip orientation="right" message="Right Tooltip">
-  <plus-button>Right</plus-button>
-</plus-tooltip>
-```
-
-```tsx
-import { PlusTooltip, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusTooltip orientation="top" message="Top Tooltip"><PlusButton>Top</PlusButton></PlusTooltip>
-      <PlusTooltip orientation="bottom" message="Bottom Tooltip"><PlusButton>Bottom</PlusButton></PlusTooltip>
-      <PlusTooltip orientation="left" message="Left Tooltip"><PlusButton>Left</PlusButton></PlusTooltip>
-      <PlusTooltip orientation="right" message="Right Tooltip"><PlusButton>Right</PlusButton></PlusTooltip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-tooltip-orientation',
-  template: `
-    <plus-tooltip orientation="top" message="Top Tooltip"><plus-button>Top</plus-button></plus-tooltip>
-    <plus-tooltip orientation="bottom" message="Bottom Tooltip"><plus-button>Bottom</plus-button></plus-tooltip>
-    <plus-tooltip orientation="left" message="Left Tooltip"><plus-button>Left</plus-button></plus-tooltip>
-    <plus-tooltip orientation="right" message="Right Tooltip"><plus-button>Right</plus-button></plus-tooltip>
-  `
-})
-export class TooltipOrientationComponent {}
-```
-
-```vue
-<template>
-  <plus-tooltip orientation="top" message="Top Tooltip"><plus-button>Top</plus-button></plus-tooltip>
-  <plus-tooltip orientation="bottom" message="Bottom Tooltip"><plus-button>Bottom</plus-button></plus-tooltip>
-  <plus-tooltip orientation="left" message="Left Tooltip"><plus-button>Left</plus-button></plus-tooltip>
-  <plus-tooltip orientation="right" message="Right Tooltip"><plus-button>Right</plus-button></plus-tooltip>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <div class="flex flex-wrap gap-4 justify-center">
+    <plus-tooltip orientation="top" message="Top Tooltip">
+      <plus-button>Top</plus-button>
+    </plus-tooltip>
+    <plus-tooltip orientation="bottom" message="Bottom Tooltip">
+      <plus-button>Bottom</plus-button>
+    </plus-tooltip>
+    <plus-tooltip orientation="left" message="Left Tooltip">
+      <plus-button>Left</plus-button>
+    </plus-tooltip>
+    <plus-tooltip orientation="right" message="Right Tooltip">
+      <plus-button>Right</plus-button>
+    </plus-tooltip>
+  </div>
+</CodePreview>
 
 ### Trigger
 
 The `trigger` prop determines how the tooltip is opened.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-tooltip trigger="hover" message="Opens on hover (default)">
-  <plus-button>Hover Me</plus-button>
-</plus-tooltip>
-<plus-tooltip trigger="click" message="Opens on click">
-  <plus-button>Click Me</plus-button>
-</plus-tooltip>
-```
-
-```tsx
-import { PlusTooltip, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusTooltip trigger="hover" message="Opens on hover (default)">
-        <PlusButton>Hover Me</PlusButton>
-      </PlusTooltip>
-      <PlusTooltip trigger="click" message="Opens on click">
-        <PlusButton>Click Me</PlusButton>
-      </PlusTooltip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-tooltip-trigger',
-  template: `
-    <plus-tooltip trigger="hover" message="Opens on hover (default)">
-      <plus-button>Hover Me</plus-button>
-    </plus-tooltip>
-    <plus-tooltip trigger="click" message="Opens on click">
-      <plus-button>Click Me</plus-button>
-    </plus-tooltip>
-  `
-})
-export class TooltipTriggerComponent {}
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true} horizontal>
   <plus-tooltip trigger="hover" message="Opens on hover (default)">
     <plus-button>Hover Me</plus-button>
   </plus-tooltip>
   <plus-tooltip trigger="click" message="Opens on click">
     <plus-button>Click Me</plus-button>
   </plus-tooltip>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Size
 
 Control the tooltip size with the `size` prop.
 
-<code-bubble class="not-content horizontal">
-
-```html
-<plus-tooltip size="sm" message="Small tooltip">
-  <plus-button>Small</plus-button>
-</plus-tooltip>
-<plus-tooltip size="md" message="Medium tooltip (default)">
-  <plus-button>Medium</plus-button>
-</plus-tooltip>
-<plus-tooltip size="lg" message="Large tooltip">
-  <plus-button>Large</plus-button>
-</plus-tooltip>
-```
-
-```tsx
-import { PlusTooltip, PlusButton } from '@plusui/library/react';
-
-export default () => {
-  return (
-    <>
-      <PlusTooltip size="sm" message="Small tooltip"><PlusButton>Small</PlusButton></PlusTooltip>
-      <PlusTooltip size="md" message="Medium tooltip (default)"><PlusButton>Medium</PlusButton></PlusTooltip>
-      <PlusTooltip size="lg" message="Large tooltip"><PlusButton>Large</PlusButton></PlusTooltip>
-    </>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-tooltip-size',
-  template: `
-    <plus-tooltip size="sm" message="Small tooltip"><plus-button>Small</plus-button></plus-tooltip>
-    <plus-tooltip size="md" message="Medium tooltip (default)"><plus-button>Medium</plus-button></plus-tooltip>
-    <plus-tooltip size="lg" message="Large tooltip"><plus-button>Large</plus-button></plus-tooltip>
-  `
-})
-export class TooltipSizeComponent {}
-```
-
-```vue
-<template>
-  <plus-tooltip size="sm" message="Small tooltip"><plus-button>Small</plus-button></plus-tooltip>
-  <plus-tooltip size="md" message="Medium tooltip (default)"><plus-button>Medium</plus-button></plus-tooltip>
-  <plus-tooltip size="lg" message="Large tooltip"><plus-button>Large</plus-button></plus-tooltip>
-</template>
-```
-</code-bubble>
+<CodePreview autoGeneration={true} horizontal>
+  <plus-tooltip size="sm" message="Small tooltip">
+    <plus-button>Small</plus-button>
+  </plus-tooltip>
+  <plus-tooltip size="md" message="Medium tooltip (default)">
+    <plus-button>Medium</plus-button>
+  </plus-tooltip>
+  <plus-tooltip size="lg" message="Large tooltip">
+    <plus-button>Large</plus-button>
+  </plus-tooltip>
+</CodePreview>
 
 ## Visual Sections
 
@@ -283,12 +112,12 @@ export class TooltipSizeComponent {}
 
 ## API Reference
 
-### Props
+### Properties
 
 | Name          | Type                    | Default    | Description                                                   | Required |
 |---------------|-------------------------|------------|---------------------------------------------------------------|----------|
 | `size`        | `'sm' \| 'md' \| 'lg'`    | `'md'`     | Size of the tooltip panel.                                    | No       |
-| `message`     | `string`                | `''`       | The text content displayed inside the tooltip.                | Yes      |
+| `message`     | `string`                | `''`       | The text content displayed inside the tooltip.                | No       |
 | `trigger`     | `'hover' \| 'click'`   | `'hover'`  | How the tooltip is opened (hover or click).                   | No       |
 | `orientation` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'`    | Position relative to the trigger element.                     | No       |
 | `hideDelay`   | `number`                | `0`        | Delay in milliseconds before hiding the tooltip on hover out. | No       |
@@ -304,11 +133,11 @@ export class TooltipSizeComponent {}
 
 | Name              | Description                             |
 |-------------------|-----------------------------------------|
-| `default` (unnamed) | The target element that triggers the tooltip. |
+| `(default)` | The target element that triggers the tooltip. |
 
 ### CSS Shadow Parts
 
-| Part      | Description                          |
+| Name      | Description                          |
 |-----------|--------------------------------------|
 | `tooltip` | The main tooltip container element.  |
 | `arrow`   | The arrow element pointing to the trigger. |

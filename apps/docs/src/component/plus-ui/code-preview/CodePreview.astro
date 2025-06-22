@@ -550,6 +550,7 @@ const playgroundConfig =
         id={`preview-content-${id}`}
       >
         {examples.map((example) => <Fragment set:html={example.html} />)}
+        <slot name="preview" />
       </div>
     </div>
     <!-- playground -->

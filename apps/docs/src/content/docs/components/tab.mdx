@@ -1,10 +1,14 @@
 ---
 title: Tab
 description: Organizes content into separate views that users can switch between.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
 ---
 
 import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import { EmbedContent } from '../../../component';
+import { CodePreview, EmbedContent } from '../../../component';
 import { Image } from 'astro:assets';
 
 import anatomy from '../../../assets/components/tab/anatomy.png';
@@ -23,104 +27,26 @@ The Tab component system (`plus-tab-group`, `plus-tab`, `plus-tab-panel`) allows
 
 Structure your tabs by placing `plus-tab` elements in the `tablist` slot and `plus-tab-panel` elements in the `panels` slot of the `plus-tab-group`. Ensure each `plus-tab` has a unique `value` attribute matching the `value` attribute of its corresponding `plus-tab-panel`.
 
-<code-bubble class="not-content">
-
-```html
-<plus-tab-group>
-  <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
-  <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
-  <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
-
-  <plus-tab-panel slot="panels" value="tab-1" active>Content for Tab 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
-</plus-tab-group>
-
-<script>
-  const tabGroup = document.querySelector('plus-tab-group');
-  tabGroup.addEventListener('plus-tab-activate', event => {
-    console.log(`Activated panel: ${event.detail.value}`);
-  });
-  tabGroup.addEventListener('plus-tab-deactivate', event => {
-     console.log(`Deactivated panel: ${event.detail.value}`);
-  });
-  // Example for dismissible tabs
-  tabGroup.addEventListener('plus-tab-dismiss', event => {
-    console.log(`Dismissed tab: ${event.detail.value}`);
-    // Remove the tab and panel
-    event.target.remove();
-    tabGroup.querySelector(`plus-tab-panel[value="${event.detail.value}"]`)?.remove();
-  });
-
-</script>
-```
-
-```tsx
-import { PlusTabGroup, PlusTab, PlusTabPanel } from '@plusui/library/react';
-
-export default () => {
-  const handleTabActivate = (event: CustomEvent<{ value: string }>) => {
-    console.log(`Activated panel: ${event.detail.value}`);
-  };
-
-  const handleTabDeactivate = (event: CustomEvent<{ value: string }>) => {
-    console.log(`Deactivated panel: ${event.detail.value}`);
-  };
-
-  const handleTabDismiss = (event: CustomEvent<{ value: string }>) => {
-    console.log(`Dismissed tab: ${event.detail.value}`);
-    // In React, you'd typically manage tabs/panels in state and filter them out
-  };
-
-
-  return (
-    <PlusTabGroup onPlusTabActivate={handleTabActivate} onPlusTabDeactivate={handleTabDeactivate} onPlusTabDismiss={handleTabDismiss}>
-      <PlusTab slot="tablist" value="tab-1" active>Tab 1</PlusTab>
-      <PlusTab slot="tablist" value="tab-2">Tab 2</PlusTab>
-      <PlusTab slot="tablist" value="tab-3">Tab 3</PlusTab>
-
-      <PlusTabPanel slot="panels" value="tab-1" active>Content for Tab 1</PlusTabPanel>
-      <PlusTabPanel slot="panels" value="tab-2">Content for Tab 2</PlusTabPanel>
-      <PlusTabPanel slot="panels" value="tab-3">Content for Tab 3</PlusTabPanel>
-    </PlusTabGroup>
-  );
-};
-```
-
-```ts
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-tab-basic',
-  template: `
-    <plus-tab-group (plus-tab-activate)="handleTabActivate($event)" (plus-tab-deactivate)="handleTabDeactivate($event)" (plus-tab-dismiss)="handleTabDismiss($event)">
-      <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
-      <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
-      <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
-
-      <plus-tab-panel slot="panels" value="tab-1" active>Content for Tab 1</plus-tab-panel>
-      <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
-      <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
-    </plus-tab-group>
-  `
-})
-export class TabBasicComponent {
-  handleTabActivate(event: any) {
-    console.log(`Activated panel: ${event.detail.value}`);
-  }
-  handleTabDeactivate(event: any) {
-     console.log(`Deactivated panel: ${event.detail.value}`);
-  }
-  handleTabDismiss(event: any) {
-    console.log(`Dismissed tab: ${event.detail.value}`);
-    // In Angular, manage tabs/panels in component state and update the template
-  }
-}
-```
-
-```vue
-<template>
-  <plus-tab-group @plus-tab-activate="handleTabActivate" @plus-tab-deactivate="handleTabDeactivate" @plus-tab-dismiss="handleTabDismiss">
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const tabGroup = document.getElementById('basic-tab-group');
+      if (tabGroup) {
+        tabGroup.addEventListener('plus-tabs-change', event => {
+          console.log('Tab changed to:', event.detail.value);
+        });
+        tabGroup.addEventListener('plus-tab-dismiss', event => {
+          console.log('Dismissed tab:', event.detail.value);
+          event.target.remove();
+          tabGroup.querySelector(\`plus-tab-panel[value="\${event.detail.value}"]\`)?.remove();
+        });
+      }
+    }, 100);
+  `}
+>
+  <plus-tab-group id="basic-tab-group">
     <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
     <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
     <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
@@ -129,74 +55,148 @@ export class TabBasicComponent {
     <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
     <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
   </plus-tab-group>
-</template>
 
-<script setup>
-const handleTabActivate = (event) => {
-  console.log(`Activated panel: ${event.detail.value}`);
-};
-const handleTabDeactivate = (event) => {
-   console.log(`Deactivated panel: ${event.detail.value}`);
-};
-const handleTabDismiss = (event) => {
-  console.log(`Dismissed tab: ${event.detail.value}`);
-  // In Vue, manage tabs/panels in component state (e.g., ref or reactive array) and filter them out
-};
-</script>
-```
-</code-bubble>
+  <Fragment slot="react">
+    ```tsx
+    import { PlusTabGroup, PlusTab, PlusTabPanel } from '@plusui/react';
+
+    export default () => {
+      const handleTabChange = (event: CustomEvent<{ value: string }>) => {
+        console.log(`Tab changed to: ${event.detail.value}`);
+      };
+
+      const handleTabDismiss = (event: CustomEvent<{ value: string }>) => {
+        console.log(`Dismissed tab: ${event.detail.value}`);
+        // In React, you'd typically manage tabs/panels in state and filter them out
+      };
+
+      return (
+        <PlusTabGroup onPlusTabsChange={handleTabChange} onPlusTabDismiss={handleTabDismiss}>
+          <PlusTab slot="tablist" value="tab-1" active>Tab 1</PlusTab>
+          <PlusTab slot="tablist" value="tab-2">Tab 2</PlusTab>
+          <PlusTab slot="tablist" value="tab-3">Tab 3</PlusTab>
+
+          <PlusTabPanel slot="panels" value="tab-1" active>Content for Tab 1</PlusTabPanel>
+          <PlusTabPanel slot="panels" value="tab-2">Content for Tab 2</PlusTabPanel>
+          <PlusTabPanel slot="panels" value="tab-3">Content for Tab 3</PlusTabPanel>
+        </PlusTabGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-tab-basic',
+      template: `
+        <plus-tab-group (plus-tabs-change)="handleTabChange($event)" (plus-tab-dismiss)="handleTabDismiss($event)">
+          <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
+          <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
+          <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
+
+          <plus-tab-panel slot="panels" value="tab-1" active>Content for Tab 1</plus-tab-panel>
+          <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
+          <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
+        </plus-tab-group>
+      `
+    })
+    export class TabBasicComponent {
+      handleTabChange(event: any) {
+        console.log(`Tab changed to: ${event.detail.value}`);
+      }
+      handleTabDismiss(event: any) {
+        console.log(`Dismissed tab: ${event.detail.value}`);
+        // In Angular, manage tabs/panels in component state and update the template
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-tab-group @plus-tabs-change="handleTabChange" @plus-tab-dismiss="handleTabDismiss">
+        <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
+        <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
+        <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
+
+        <plus-tab-panel slot="panels" value="tab-1" active>Content for Tab 1</plus-tab-panel>
+        <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
+        <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
+      </plus-tab-group>
+    </template>
+
+    <script setup>
+    const handleTabChange = (event) => {
+      console.log(`Tab changed to: ${event.detail.value}`);
+    };
+    const handleTabDismiss = (event) => {
+      console.log(`Dismissed tab: ${event.detail.value}`);
+      // In Vue, manage tabs/panels in component state (e.g., ref or reactive array) and filter them out
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      function handleTabChange(event) {
+        console.log(`Tab changed to: ${event.detail.value}`);
+      }
+      function handleTabDismiss(event) {
+        console.log(`Dismissed tab: ${event.detail.value}`);
+        // In Svelte, manage tabs/panels in component state and filter them out
+      }
+    </script>
+
+    <plus-tab-group on:plus-tabs-change={handleTabChange} on:plus-tab-dismiss={handleTabDismiss}>
+      <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
+      <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
+      <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
+
+      <plus-tab-panel slot="panels" value="tab-1" active>Content for Tab 1</plus-tab-panel>
+      <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
+      <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
+    </plus-tab-group>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-tab-group id="basic-tab-group">
+      <plus-tab slot="tablist" value="tab-1" active>Tab 1</plus-tab>
+      <plus-tab slot="tablist" value="tab-2">Tab 2</plus-tab>
+      <plus-tab slot="tablist" value="tab-3">Tab 3</plus-tab>
+
+      <plus-tab-panel slot="panels" value="tab-1" active>Content for Tab 1</plus-tab-panel>
+      <plus-tab-panel slot="panels" value="tab-2">Content for Tab 2</plus-tab-panel>
+      <plus-tab-panel slot="panels" value="tab-3">Content for Tab 3</plus-tab-panel>
+    </plus-tab-group>
+
+    <script>
+      const tabGroup = document.querySelector('plus-tab-group');
+      tabGroup.addEventListener('plus-tabs-change', event => {
+        console.log(`Tab changed to: ${event.detail.value}`);
+      });
+      tabGroup.addEventListener('plus-tab-dismiss', event => {
+        console.log(`Dismissed tab: ${event.detail.value}`);
+        event.target.remove();
+        tabGroup.querySelector(`plus-tab-panel[value="${event.detail.value}"]`)?.remove();
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Size
 
 Adjust the size of the tabs using the `size` prop on `plus-tab-group`.
 
-<code-bubble class="not-content vertical">
-
-```html
-<plus-tab-group size="sm">
-  <plus-tab slot="tablist" value="s1" active>Small 1</plus-tab>
-  <plus-tab slot="tablist" value="s2">Small 2</plus-tab>
-  <plus-tab-panel slot="panels" value="s1" active>Small Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="s2">Small Content 2</plus-tab-panel>
-</plus-tab-group>
-<plus-tab-group size="md">
-  <plus-tab slot="tablist" value="m1" active>Medium 1</plus-tab>
-  <plus-tab slot="tablist" value="m2">Medium 2</plus-tab>
-  <plus-tab-panel slot="panels" value="m1" active>Medium Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="m2">Medium Content 2</plus-tab-panel>
-</plus-tab-group>
-<plus-tab-group size="lg">
-  <plus-tab slot="tablist" value="l1" active>Large 1</plus-tab>
-  <plus-tab slot="tablist" value="l2">Large 2</plus-tab>
-  <plus-tab-panel slot="panels" value="l1" active>Large Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="l2">Large Content 2</plus-tab-panel>
-</plus-tab-group>
-```
-
-```tsx
-<>\n  <PlusTabGroup size="sm">
-    <PlusTab slot="tablist" value="s1" active>Small 1</PlusTab>
-    <PlusTab slot="tablist" value="s2">Small 2</PlusTab>
-    <PlusTabPanel slot="panels" value="s1" active>Small Content 1</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="s2">Small Content 2</PlusTabPanel>
-  </PlusTabGroup>
-  <PlusTabGroup size="md">
-    <PlusTab slot="tablist" value="m1" active>Medium 1</PlusTab>
-    <PlusTab slot="tablist" value="m2">Medium 2</PlusTab>
-    <PlusTabPanel slot="panels" value="m1" active>Medium Content 1</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="m2">Medium Content 2</PlusTabPanel>
-  </PlusTabGroup>
-  <PlusTabGroup size="lg">
-    <PlusTab slot="tablist" value="l1" active>Large 1</PlusTab>
-    <PlusTab slot="tablist" value="l2">Large 2</PlusTab>
-    <PlusTabPanel slot="panels" value="l1" active>Large Content 1</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="l2">Large Content 2</PlusTabPanel>
-  </PlusTabGroup>\n</>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-tab-group size="sm">
     <plus-tab slot="tablist" value="s1" active>Small 1</plus-tab>
     <plus-tab slot="tablist" value="s2">Small 2</plus-tab>
@@ -215,107 +215,13 @@ template: `
     <plus-tab-panel slot="panels" value="l1" active>Large Content 1</plus-tab-panel>
     <plus-tab-panel slot="panels" value="l2">Large Content 2</plus-tab-panel>
   </plus-tab-group>
-`
-```
-
-```vue
-<template>
-  <plus-tab-group size="sm">
-    <plus-tab slot="tablist" value="s1" active>Small 1</plus-tab>
-    <plus-tab slot="tablist" value="s2">Small 2</plus-tab>
-    <plus-tab-panel slot="panels" value="s1" active>Small Content 1</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="s2">Small Content 2</plus-tab-panel>
-  </plus-tab-group>
-  <plus-tab-group size="md">
-    <plus-tab slot="tablist" value="m1" active>Medium 1</plus-tab>
-    <plus-tab slot="tablist" value="m2">Medium 2</plus-tab>
-    <plus-tab-panel slot="panels" value="m1" active>Medium Content 1</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="m2">Medium Content 2</plus-tab-panel>
-  </plus-tab-group>
-  <plus-tab-group size="lg">
-    <plus-tab slot="tablist" value="l1" active>Large 1</plus-tab>
-    <plus-tab slot="tablist" value="l2">Large 2</plus-tab>
-    <plus-tab-panel slot="panels" value="l1" active>Large Content 1</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="l2">Large Content 2</plus-tab-panel>
-  </plus-tab-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Alignment
 
 Use the `alignment` prop on `plus-tab-group` to position the tabs (`start`, `center`, `end`).
 
-<code-bubble class="not-content vertical">
-
-```html
-<plus-tab-group alignment="start">
-  <plus-tab slot="tablist" value="a1" active>Start 1</plus-tab>
-  <plus-tab slot="tablist" value="a2">Start 2</plus-tab>
-  <plus-tab-panel slot="panels" value="a1" active>Panel</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="a2">Panel</plus-tab-panel>
-</plus-tab-group>
-<plus-tab-group alignment="center">
-  <plus-tab slot="tablist" value="b1" active>Center 1</plus-tab>
-  <plus-tab slot="tablist" value="b2">Center 2</plus-tab>
-  <plus-tab-panel slot="panels" value="b1" active>Panel</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="b2">Panel</plus-tab-panel>
-</plus-tab-group>
-<plus-tab-group alignment="end">
-  <plus-tab slot="tablist" value="c1" active>End 1</plus-tab>
-  <plus-tab slot="tablist" value="c2">End 2</plus-tab>
-  <plus-tab-panel slot="panels" value="c1" active>Panel</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="c2">Panel</plus-tab-panel>
-</plus-tab-group>
-```
-
-```tsx
-<>\n  <PlusTabGroup alignment="start">
-    <PlusTab slot="tablist" value="a1" active>Start 1</PlusTab>
-    <PlusTab slot="tablist" value="a2">Start 2</PlusTab>
-    <PlusTabPanel slot="panels" value="a1" active>Panel</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="a2">Panel</PlusTabPanel>
-  </PlusTabGroup>
-  <PlusTabGroup alignment="center">
-    <PlusTab slot="tablist" value="b1" active>Center 1</PlusTab>
-    <PlusTab slot="tablist" value="b2">Center 2</PlusTab>
-    <PlusTabPanel slot="panels" value="b1" active>Panel</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="b2">Panel</PlusTabPanel>
-  </PlusTabGroup>
-  <PlusTabGroup alignment="end">
-    <PlusTab slot="tablist" value="c1" active>End 1</PlusTab>
-    <PlusTab slot="tablist" value="c2">End 2</PlusTab>
-    <PlusTabPanel slot="panels" value="c1" active>Panel</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="c2">Panel</PlusTabPanel>
-  </PlusTabGroup>\n</>
-```
-
-```ts
-// Angular template
-template: `
-  <plus-tab-group alignment="start">
-     <plus-tab slot="tablist" value="a1" active>Start 1</plus-tab>
-     <plus-tab slot="tablist" value="a2">Start 2</plus-tab>
-     <plus-tab-panel slot="panels" value="a1" active>Panel</plus-tab-panel>
-     <plus-tab-panel slot="panels" value="a2">Panel</plus-tab-panel>
-  </plus-tab-group>
-  <plus-tab-group alignment="center">
-     <plus-tab slot="tablist" value="b1" active>Center 1</plus-tab>
-     <plus-tab slot="tablist" value="b2">Center 2</plus-tab>
-     <plus-tab-panel slot="panels" value="b1" active>Panel</plus-tab-panel>
-     <plus-tab-panel slot="panels" value="b2">Panel</Plus-tab-panel>
-  </plus-tab-group>
-  <plus-tab-group alignment="end">
-     <plus-tab slot="tablist" value="c1" active>End 1</plus-tab>
-     <plus-tab slot="tablist" value="c2">End 2</plus-tab>
-     <plus-tab-panel slot="panels" value="c1" active>Panel</plus-tab-panel>
-     <plus-tab-panel slot="panels" value="c2">Panel</plus-tab-panel>
-  </plus-tab-group>
-`
-```
-
-```vue
-<template>
+<CodePreview autoGeneration={true}>
   <plus-tab-group alignment="start">
     <plus-tab slot="tablist" value="a1" active>Start 1</plus-tab>
     <plus-tab slot="tablist" value="a2">Start 2</plus-tab>
@@ -334,402 +240,321 @@ template: `
     <plus-tab-panel slot="panels" value="c1" active>Panel</plus-tab-panel>
     <plus-tab-panel slot="panels" value="c2">Panel</plus-tab-panel>
   </plus-tab-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Vertical Orientation
 
 Set the `orientation` prop to `vertical` on `plus-tab-group` to arrange tabs vertically.
 
-<code-bubble class="not-content">
-
-```html
-<plus-tab-group orientation="vertical">
-  <plus-tab slot="tablist" value="v1" active>Vertical 1</plus-tab>
-  <plus-tab slot="tablist" value="v2">Vertical 2</plus-tab>
-  <plus-tab slot="tablist" value="v3">Vertical 3</plus-tab>
-
-  <plus-tab-panel slot="panels" value="v1" active>Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="v2">Content 2</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="v3">Content 3</plus-tab-panel>
-</plus-tab-group>
-```
-
-```tsx
-<PlusTabGroup orientation="vertical">
-  <PlusTab slot="tablist" value="v1" active>Vertical 1</PlusTab>
-  <PlusTab slot="tablist" value="v2">Vertical 2</PlusTab>
-  <PlusTab slot="tablist" value="v3">Vertical 3</PlusTab>
-  <PlusTabPanel slot="panels" value="v1" active>Content 1</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="v2">Content 2</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="v3">Content 3</PlusTabPanel>
-</PlusTabGroup>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-tab-group orientation="vertical">
     <plus-tab slot="tablist" value="v1" active>Vertical 1</plus-tab>
     <plus-tab slot="tablist" value="v2">Vertical 2</plus-tab>
     <plus-tab slot="tablist" value="v3">Vertical 3</plus-tab>
-    <plus-tab-panel slot="panels" value="v1" active>Content 1</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="v2">Content 2</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="v3">Content 3</plus-tab-panel>
-  </plus-tab-group>
-`
-```
 
-```vue
-<template>
-  <plus-tab-group orientation="vertical">
-    <plus-tab slot="tablist" value="v1" active>Vertical 1</plus-tab>
-    <plus-tab slot="tablist" value="v2">Vertical 2</plus-tab>
-    <plus-tab slot="tablist" value="v3">Vertical 3</plus-tab>
     <plus-tab-panel slot="panels" value="v1" active>Content 1</plus-tab-panel>
     <plus-tab-panel slot="panels" value="v2">Content 2</plus-tab-panel>
     <plus-tab-panel slot="panels" value="v3">Content 3</plus-tab-panel>
   </plus-tab-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Animated Indicator
 
 Add the `animated` attribute to `plus-tab-group` for a sliding indicator effect. Works for both horizontal and vertical orientations.
 
-<code-bubble class="not-content">
+<CodePreview autoGeneration={true}>
+  <plus-tab-group animated>
+    <plus-tab slot="tablist" value="a1" active>Animated Tab 1</plus-tab>
+    <plus-tab slot="tablist" value="a2">Animated Tab 2</plus-tab>
+    <plus-tab-panel slot="panels" value="a1" active>Content 1</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="a2">Content 2</plus-tab-panel>
+  </plus-tab-group>
 
-```html
-<plus-tab-group animated>
-  <plus-tab slot="tablist" value="a1" active>Animated Tab 1</plus-tab>
-  <plus-tab slot="tablist" value="a2">Animated Tab 2</plus-tab>
-  <plus-tab-panel slot="panels" value="a1" active>Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="a2">Content 2</plus-tab-panel>
-</plus-tab-group>
-
-<plus-tab-group orientation="vertical" animated>
-  <plus-tab slot="tablist" value="v1" active>Vertical Animated 1</plus-tab>
-  <plus-tab slot="tablist" value="v2">Vertical Animated 2</plus-tab>
-  <plus-tab-panel slot="panels" value="v1" active>Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="v2">Content 2</plus-tab-panel>
-</plus-tab-group>
-```
-
-```tsx
-<>
-  <PlusTabGroup animated>
-    <PlusTab slot="tablist" value="a1" active>Animated Tab 1</PlusTab>
-    <PlusTab slot="tablist" value="a2">Animated Tab 2</PlusTab>
-    <PlusTabPanel slot="panels" value="a1" active>Content 1</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="a2">Content 2</PlusTabPanel>
-  </PlusTabGroup>
-
-  <PlusTabGroup orientation="vertical" animated>
-    <PlusTab slot="tablist" value="v1" active>Vertical Animated 1</PlusTab>
-    <PlusTab slot="tablist" value="v2">Vertical Animated 2</PlusTab>
-    <PlusTabPanel slot="panels" value="v1" active>Content 1</PlusTabPanel>
-    <PlusTabPanel slot="panels" value="v2">Content 2</PlusTabPanel>
-  </PlusTabGroup>
-</>
-```
-
-```ts
-// Angular template
-template: `
-  <plus-tab-group animated> ... </plus-tab-group>
-  <plus-tab-group orientation="vertical" animated> ... </plus-tab-group>
-`
-```
-
-```vue
-<template>
-  <plus-tab-group animated> ... </plus-tab-group>
-  <plus-tab-group orientation="vertical" animated> ... </plus-tab-group>
-</template>
-```
-</code-bubble>
+  <plus-tab-group orientation="vertical" animated>
+    <plus-tab slot="tablist" value="v1" active>Vertical Animated 1</plus-tab>
+    <plus-tab slot="tablist" value="v2">Vertical Animated 2</plus-tab>
+    <plus-tab-panel slot="panels" value="v1" active>Content 1</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="v2">Content 2</plus-tab-panel>
+  </plus-tab-group>
+</CodePreview>
 
 ### Dismissible Tabs
 
 Add the `dismissible` attribute to `plus-tab-group` to allow closing tabs. You need to handle the `plus-tab-dismiss` event to remove the tab and its corresponding panel.
 
-<code-bubble class="not-content">
+<CodePreview 
+  autoGeneration={false} 
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const dismissibleGroup = document.getElementById('dismissible-tabs');
+      if (dismissibleGroup) {
+        dismissibleGroup.addEventListener('plus-tab-dismiss', event => {
+          const tabValue = event.detail.value;
+          const tabToRemove = dismissibleGroup.querySelector(\`plus-tab[value="\${tabValue}"]\`);
+          const panelToRemove = dismissibleGroup.querySelector(\`plus-tab-panel[value="\${tabValue}"]\`);
 
-```html
-<plus-tab-group dismissible id="dismissible-tabs">
-  <plus-tab slot="tablist" value="d1" active>Dismissible 1</plus-tab>
-  <plus-tab slot="tablist" value="d2">Dismissible 2</plus-tab>
-  <plus-tab slot="tablist" value="d3">Dismissible 3</plus-tab>
+          if (tabToRemove) tabToRemove.remove();
+          if (panelToRemove) panelToRemove.remove();
 
-  <plus-tab-panel slot="panels" value="d1" active>Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="d2">Content 2</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="d3">Content 3</plus-tab-panel>
-</plus-tab-group>
-
-<script>
-  const dismissibleGroup = document.getElementById('dismissible-tabs');
-  dismissibleGroup.addEventListener('plus-tab-dismiss', event => {
-    const tabValue = event.detail.value;
-    const tabToRemove = dismissibleGroup.querySelector(`plus-tab[value="${tabValue}"]`);
-    const panelToRemove = dismissibleGroup.querySelector(`plus-tab-panel[value="${tabValue}"]`);
-
-    if (tabToRemove) tabToRemove.remove();
-    if (panelToRemove) panelToRemove.remove();
-
-    console.log(`Dismissed and removed tab: ${tabValue}`);
-  });
-</script>
-```
-
-```tsx
-import { PlusTabGroup, PlusTab, PlusTabPanel } from '@plusui/library/react';
-import { useState } from 'react';
-
-export default () => {
-  const initialTabs = [
-    { value: 'd1', label: 'Dismissible 1', content: 'Content 1' },
-    { value: 'd2', label: 'Dismissible 2', content: 'Content 2' },
-    { value: 'd3', label: 'Dismissible 3', content: 'Content 3' },
-  ];
-  const [tabs, setTabs] = useState(initialTabs);
-  const [activeTab, setActiveTab] = useState('d1');
-
-  const handleDismiss = (event: CustomEvent<{ value: string }>) => {
-    const valueToRemove = event.detail.value;
-    setTabs(currentTabs => currentTabs.filter(tab => tab.value !== valueToRemove));
-    console.log(`Dismissed tab: ${valueToRemove}`);
-    // Optionally, update activeTab if the dismissed tab was active
-    if (activeTab === valueToRemove) {
-      const remainingTabs = tabs.filter(tab => tab.value !== valueToRemove);
-      if (remainingTabs.length > 0) {
-        setActiveTab(remainingTabs[0].value); // Or implement more complex logic
-      } else {
-        setActiveTab(null);
+          console.log('Dismissed and removed tab:', tabValue);
+        });
       }
-    }
-  };
+    }, 200);
+  `}
+>
+  <plus-tab-group dismissible id="dismissible-tabs">
+    <plus-tab slot="tablist" value="d1" active>Dismissible 1</plus-tab>
+    <plus-tab slot="tablist" value="d2">Dismissible 2</plus-tab>
+    <plus-tab slot="tablist" value="d3">Dismissible 3</plus-tab>
 
-   const handleActivate = (event: CustomEvent<{ value: string }>) => {
-    setActiveTab(event.detail.value);
-  };
-
-
-  return (
-    <PlusTabGroup dismissible onPlusTabDismiss={handleDismiss} onPlusTabActivate={handleActivate}>
-      {tabs.map(tab => (
-        <PlusTab key={tab.value} slot="tablist" value={tab.value} active={activeTab === tab.value}>
-          {tab.label}
-        </PlusTab>
-      ))}
-      {tabs.map(tab => (
-        <PlusTabPanel key={tab.value} slot="panels" value={tab.value} active={activeTab === tab.value}>
-          {tab.content}
-        </PlusTabPanel>
-      ))}
-    </PlusTabGroup>
-  );
-};
-```
-
-```ts
-// Angular example requires managing tab data in the component class
-// and using *ngFor in the template. The dismiss event handler would
-// filter the data array.
-// component.ts
-// tabs = [...];
-// handleDismiss(event: any) {
-//   this.tabs = this.tabs.filter(t => t.value !== event.detail.value);
-//   // Handle active tab change if necessary
-// }
-
-// template.html
-/*
-<plus-tab-group dismissible (plus-tab-dismiss)="handleDismiss($event)">
-  <plus-tab *ngFor="let tab of tabs" slot="tablist" [value]="tab.value" [active]="isActive(tab.value)">
-    {{ tab.label }}
-  </plus-tab>
-  <plus-tab-panel *ngFor="let tab of tabs" slot="panels" [value]="tab.value" [active]="isActive(tab.value)">
-    {{ tab.content }}
-  </plus-tab-panel>
-</plus-tab-group>
-*/
-```
-
-```vue
-<template>
-  <plus-tab-group dismissible @plus-tab-dismiss="handleDismiss">
-    <plus-tab v-for="tab in tabs" :key="tab.value" slot="tablist" :value="tab.value" :active="activeTab === tab.value">
-      {{ tab.label }}
-    </plus-tab>
-    <plus-tab-panel v-for="tab in tabs" :key="tab.value" slot="panels" :value="tab.value" :active="activeTab === tab.value">
-      {{ tab.content }}
-    </plus-tab-panel>
+    <plus-tab-panel slot="panels" value="d1" active>Content 1</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="d2">Content 2</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="d3">Content 3</plus-tab-panel>
   </plus-tab-group>
-</template>
 
-<script setup>
-import { ref } from 'vue';
+  <Fragment slot="react">
+    ```tsx
+    import { PlusTabGroup, PlusTab, PlusTabPanel } from '@plusui/react';
+    import { useState } from 'react';
 
-const initialTabs = [
-  { value: 'd1', label: 'Dismissible 1', content: 'Content 1' },
-  { value: 'd2', label: 'Dismissible 2', content: 'Content 2' },
-  { value: 'd3', label: 'Dismissible 3', content: 'Content 3' },
-];
-const tabs = ref(initialTabs);
-const activeTab = ref('d1'); // Manage active state
+    export default () => {
+      const initialTabs = [
+        { value: 'd1', label: 'Dismissible 1', content: 'Content 1' },
+        { value: 'd2', label: 'Dismissible 2', content: 'Content 2' },
+        { value: 'd3', label: 'Dismissible 3', content: 'Content 3' },
+      ];
+      const [tabs, setTabs] = useState(initialTabs);
+      const [activeTab, setActiveTab] = useState('d1');
 
-const handleDismiss = (event) => {
-  const valueToRemove = event.detail.value;
-  tabs.value = tabs.value.filter(tab => tab.value !== valueToRemove);
-  console.log(`Dismissed tab: ${valueToRemove}`);
-  // Handle active tab change if necessary
-  if (activeTab.value === valueToRemove) {
-      if (tabs.value.length > 0) {
-        activeTab.value = tabs.value[0].value; // Or implement more complex logic
-      } else {
-        activeTab.value = null;
+      const handleDismiss = (event: CustomEvent<{ value: string }>) => {
+        const valueToRemove = event.detail.value;
+        setTabs(currentTabs => currentTabs.filter(tab => tab.value !== valueToRemove));
+        console.log(`Dismissed tab: ${valueToRemove}`);
+        if (activeTab === valueToRemove) {
+          const remainingTabs = tabs.filter(tab => tab.value !== valueToRemove);
+          if (remainingTabs.length > 0) {
+            setActiveTab(remainingTabs[0].value);
+          } else {
+            setActiveTab(null);
+          }
+        }
+      };
+
+      const handleTabChange = (event: CustomEvent<{ value: string }>) => {
+        setActiveTab(event.detail.value);
+      };
+
+      return (
+        <PlusTabGroup dismissible onPlusTabDismiss={handleDismiss} onPlusTabsChange={handleTabChange}>
+          {tabs.map(tab => (
+            <PlusTab key={tab.value} slot="tablist" value={tab.value} active={activeTab === tab.value}>
+              {tab.label}
+            </PlusTab>
+          ))}
+          {tabs.map(tab => (
+            <PlusTabPanel key={tab.value} slot="panels" value={tab.value} active={activeTab === tab.value}>
+              {tab.content}
+            </PlusTabPanel>
+          ))}
+        </PlusTabGroup>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-dismissible-tabs',
+      template: `
+        <plus-tab-group dismissible (plus-tab-dismiss)="handleDismiss($event)" (plus-tabs-change)="handleTabChange($event)">
+          <plus-tab *ngFor="let tab of tabs" slot="tablist" [value]="tab.value" [active]="activeTab === tab.value">
+            {{ tab.label }}
+          </plus-tab>
+          <plus-tab-panel *ngFor="let tab of tabs" slot="panels" [value]="tab.value" [active]="activeTab === tab.value">
+            {{ tab.content }}
+          </plus-tab-panel>
+        </plus-tab-group>
+      `
+    })
+    export class DismissibleTabsComponent {
+      tabs = [
+        { value: 'd1', label: 'Dismissible 1', content: 'Content 1' },
+        { value: 'd2', label: 'Dismissible 2', content: 'Content 2' },
+        { value: 'd3', label: 'Dismissible 3', content: 'Content 3' },
+      ];
+      activeTab = 'd1';
+
+      handleDismiss(event: any) {
+        const valueToRemove = event.detail.value;
+        this.tabs = this.tabs.filter(tab => tab.value !== valueToRemove);
+        console.log(`Dismissed tab: ${valueToRemove}`);
+        if (this.activeTab === valueToRemove && this.tabs.length > 0) {
+          this.activeTab = this.tabs[0].value;
+        }
+      }
+
+      handleTabChange(event: any) {
+        this.activeTab = event.detail.value;
       }
     }
-};
+    ```
+  </Fragment>
 
-// Add handler for @plus-tab-activate if you need to update activeTab
-</script>
-```
-</code-bubble>
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-tab-group dismissible @plus-tab-dismiss="handleDismiss" @plus-tabs-change="handleTabChange">
+        <plus-tab v-for="tab in tabs" :key="tab.value" slot="tablist" :value="tab.value" :active="activeTab === tab.value">
+          {{ tab.label }}
+        </plus-tab>
+        <plus-tab-panel v-for="tab in tabs" :key="tab.value" slot="panels" :value="tab.value" :active="activeTab === tab.value">
+          {{ tab.content }}
+        </plus-tab-panel>
+      </plus-tab-group>
+    </template>
 
+    <script setup>
+    import { ref } from 'vue';
+
+    const initialTabs = [
+      { value: 'd1', label: 'Dismissible 1', content: 'Content 1' },
+      { value: 'd2', label: 'Dismissible 2', content: 'Content 2' },
+      { value: 'd3', label: 'Dismissible 3', content: 'Content 3' },
+    ];
+    const tabs = ref(initialTabs);
+    const activeTab = ref('d1');
+
+    const handleDismiss = (event) => {
+      const valueToRemove = event.detail.value;
+      tabs.value = tabs.value.filter(tab => tab.value !== valueToRemove);
+      console.log(`Dismissed tab: ${valueToRemove}`);
+      if (activeTab.value === valueToRemove) {
+        if (tabs.value.length > 0) {
+          activeTab.value = tabs.value[0].value;
+        } else {
+          activeTab.value = null;
+        }
+      }
+    };
+
+    const handleTabChange = (event) => {
+      activeTab.value = event.detail.value;
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let tabs = [
+        { value: 'd1', label: 'Dismissible 1', content: 'Content 1' },
+        { value: 'd2', label: 'Dismissible 2', content: 'Content 2' },
+        { value: 'd3', label: 'Dismissible 3', content: 'Content 3' },
+      ];
+      let activeTab = 'd1';
+
+      function handleDismiss(event) {
+        const valueToRemove = event.detail.value;
+        tabs = tabs.filter(tab => tab.value !== valueToRemove);
+        console.log(`Dismissed tab: ${valueToRemove}`);
+        if (activeTab === valueToRemove) {
+          if (tabs.length > 0) {
+            activeTab = tabs[0].value;
+          } else {
+            activeTab = null;
+          }
+        }
+      }
+
+      function handleTabChange(event) {
+        activeTab = event.detail.value;
+      }
+    </script>
+
+    <plus-tab-group dismissible on:plus-tab-dismiss={handleDismiss} on:plus-tabs-change={handleTabChange}>
+      {#each tabs as tab (tab.value)}
+        <plus-tab slot="tablist" value={tab.value} active={activeTab === tab.value}>
+          {tab.label}
+        </plus-tab>
+      {/each}
+      {#each tabs as tab (tab.value)}
+        <plus-tab-panel slot="panels" value={tab.value} active={activeTab === tab.value}>
+          {tab.content}
+        </plus-tab-panel>
+      {/each}
+    </plus-tab-group>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-tab-group dismissible id="dismissible-tabs">
+      <plus-tab slot="tablist" value="d1" active>Dismissible 1</plus-tab>
+      <plus-tab slot="tablist" value="d2">Dismissible 2</plus-tab>
+      <plus-tab slot="tablist" value="d3">Dismissible 3</plus-tab>
+
+      <plus-tab-panel slot="panels" value="d1" active>Content 1</plus-tab-panel>
+      <plus-tab-panel slot="panels" value="d2">Content 2</plus-tab-panel>
+      <plus-tab-panel slot="panels" value="d3">Content 3</plus-tab-panel>
+    </plus-tab-group>
+
+    <script>
+      const dismissibleGroup = document.getElementById('dismissible-tabs');
+      dismissibleGroup.addEventListener('plus-tab-dismiss', event => {
+        const tabValue = event.detail.value;
+        const tabToRemove = dismissibleGroup.querySelector(`plus-tab[value="${tabValue}"]`);
+        const panelToRemove = dismissibleGroup.querySelector(`plus-tab-panel[value="${tabValue}"]`);
+
+        if (tabToRemove) tabToRemove.remove();
+        if (panelToRemove) panelToRemove.remove();
+
+        console.log(`Dismissed and removed tab: ${tabValue}`);
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
 
 ### Disabled Tabs
 
 Add the `disabled` attribute to a `plus-tab` to prevent its selection.
 
-<code-bubble class="not-content">
-
-```html
-<plus-tab-group>
-  <plus-tab slot="tablist" value="d1" active>Enabled</plus-tab>
-  <plus-tab slot="tablist" value="d2" disabled>Disabled</plus-tab>
-  <plus-tab slot="tablist" value="d3">Another Enabled</plus-tab>
-
-  <plus-tab-panel slot="panels" value="d1" active>Content 1</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="d2">Content 2 (won't be shown via click)</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="d3">Content 3</plus-tab-panel>
-</plus-tab-group>
-```
-
-```tsx
-<PlusTabGroup>
-  <PlusTab slot="tablist" value="d1" active>Enabled</PlusTab>
-  <PlusTab slot="tablist" value="d2" disabled>Disabled</PlusTab>
-  <PlusTab slot="tablist" value="d3">Another Enabled</PlusTab>
-  <PlusTabPanel slot="panels" value="d1" active>Content 1</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="d2">Content 2 (won't be shown via click)</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="d3">Content 3</PlusTabPanel>
-</PlusTabGroup>
-```
-
-```ts
-// Angular template
-template: `
+<CodePreview autoGeneration={true}>
   <plus-tab-group>
     <plus-tab slot="tablist" value="d1" active>Enabled</plus-tab>
     <plus-tab slot="tablist" value="d2" disabled>Disabled</plus-tab>
     <plus-tab slot="tablist" value="d3">Another Enabled</plus-tab>
-    <plus-tab-panel slot="panels" value="d1" active>Content 1</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="d2">Content 2 (won't be shown via click)</plus-tab-panel>
-    <plus-tab-panel slot="panels" value="d3">Content 3</plus-tab-panel>
-  </plus-tab-group>
-`
-```
 
-```vue
-<template>
-  <plus-tab-group>
-    <plus-tab slot="tablist" value="d1" active>Enabled</plus-tab>
-    <plus-tab slot="tablist" value="d2" disabled>Disabled</plus-tab>
-    <plus-tab slot="tablist" value="d3">Another Enabled</plus-tab>
     <plus-tab-panel slot="panels" value="d1" active>Content 1</plus-tab-panel>
     <plus-tab-panel slot="panels" value="d2">Content 2 (won't be shown via click)</plus-tab-panel>
     <plus-tab-panel slot="panels" value="d3">Content 3</plus-tab-panel>
   </plus-tab-group>
-</template>
-```
-</code-bubble>
+</CodePreview>
 
 ### Tabs with Icons
 
 Use the `prefix-icon` or `suffix-icon` attributes on `plus-tab`, or place icons directly in the default slot.
 
-<code-bubble class="not-content">
-```html
-<plus-tab-group>
-  <plus-tab slot="tablist" value="home" prefix-icon="fas fa-home" active>Home</plus-tab>
-  <plus-tab slot="tablist" value="cart" prefix-icon="fas fa-shopping-cart">Cart</plus-tab>
-  <plus-tab slot="tablist" value="info" suffix-icon="fas fa-info-circle">Info</plus-tab>
-  <plus-tab slot="tablist" value="contact">
-      <i class="fa-solid fa-envelope"></i> Contact (Slot)
-  </plus-tab>
+<CodePreview autoGeneration={true}>
+  <plus-tab-group>
+    <plus-tab slot="tablist" value="home" prefix-icon="fas fa-home" active>Home</plus-tab>
+    <plus-tab slot="tablist" value="cart" prefix-icon="fas fa-shopping-cart">Cart</plus-tab>
+    <plus-tab slot="tablist" value="info" suffix-icon="fas fa-info-circle">Info</plus-tab>
+    <plus-tab slot="tablist" value="contact">
+        <i class="fa-solid fa-envelope"></i> Contact (Slot)
+    </plus-tab>
 
-  <plus-tab-panel slot="panels" value="home" active>Home Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="cart">Cart Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="info">Info Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="contact">Contact Content</plus-tab-panel>
-</plus-tab-group>
-```
-
-```tsx
-<PlusTabGroup>
-  <PlusTab slot="tablist" value="home" prefixIcon="fas fa-home" active>Home</PlusTab>
-  <PlusTab slot="tablist" value="cart" prefixIcon="fas fa-shopping-cart">Cart</PlusTab>
-  <PlusTab slot="tablist" value="info" suffixIcon="fas fa-info-circle">Info</PlusTab>
-   <PlusTab slot="tablist" value="contact">
-      <i className="fa-solid fa-envelope"></i> Contact (Slot)
-  </PlusTab>
-  <PlusTabPanel slot="panels" value="home" active>Home Content</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="cart">Cart Content</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="info">Info Content</PlusTabPanel>
-  <PlusTabPanel slot="panels" value="contact">Contact Content</PlusTabPanel>
-</PlusTabGroup>
-```
-
-```ts
-// Angular template
-template: `
-<plus-tab-group>
-  <plus-tab slot="tablist" value="home" prefix-icon="fas fa-home" active>Home</plus-tab>
-  <plus-tab slot="tablist" value="cart" prefix-icon="fas fa-shopping-cart">Cart</plus-tab>
-  <plus-tab slot="tablist" value="info" suffix-icon="fas fa-info-circle">Info</plus-tab>
-  <plus-tab slot="tablist" value="contact">
-      <i class="fa-solid fa-envelope"></i> Contact (Slot)
-  </plus-tab>
-  <plus-tab-panel slot="panels" value="home" active>Home Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="cart">Cart Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="info">Info Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="contact">Contact Content</plus-tab-panel>
-</plus-tab-group>
-`
-```
-
-```vue
-<template>
-<plus-tab-group>
-  <plus-tab slot="tablist" value="home" prefix-icon="fas fa-home" active>Home</plus-tab>
-  <plus-tab slot="tablist" value="cart" prefix-icon="fas fa-shopping-cart">Cart</plus-tab>
-  <plus-tab slot="tablist" value="info" suffix-icon="fas fa-info-circle">Info</plus-tab>
-  <plus-tab slot="tablist" value="contact">
-      <i class="fa-solid fa-envelope"></i> Contact (Slot)
-  </plus-tab>
-  <plus-tab-panel slot="panels" value="home" active>Home Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="cart">Cart Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="info">Info Content</plus-tab-panel>
-  <plus-tab-panel slot="panels" value="contact">Contact Content</plus-tab-panel>
-</plus-tab-group>
-</template>
-```
-
-</code-bubble>
-
+    <plus-tab-panel slot="panels" value="home" active>Home Content</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="cart">Cart Content</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="info">Info Content</plus-tab-panel>
+    <plus-tab-panel slot="panels" value="contact">Contact Content</plus-tab-panel>
+  </plus-tab-group>
+</CodePreview>
 
 ## Visual Sections
 
@@ -764,52 +589,50 @@ template: `
 
 ### plus-tab-group
 
-#### Props
+#### Properties
 
-| Name          | Type                             | Default        | Description                                                            |
-|---------------|----------------------------------|----------------|------------------------------------------------------------------------|
-| `size`        | `\'sm\' \\| \'md\' \\| \'lg\'`           | `\'md\'`       | Size of the tabs within the group.                                     |
-| `orientation` | `\'horizontal\' \\| \'vertical\'` | `\'horizontal\'` | Displays tabs vertically or horizontally.                            |
-| `alignment`   | `\'start\' \\| \'center\' \\| \'end\'`    | `\'start\'`    | Horizontal alignment of the tabs within the tab list.                  |
-| `noScroll`    | `boolean`                        | `false`        | Disables the scroll buttons when tabs overflow the container width.    |
-| `animated`    | `boolean`                        | `false`        | Enables the animated (sliding) indicator.                              |
-| `dismissible` | `boolean`                        | `false`        | Allows tabs to be closed via a dismiss button. Requires event handling.|
+| Name          | Type                             | Default        | Description                                                            | Required |
+|---------------|----------------------------------|----------------|------------------------------------------------------------------------|----------|
+| `size`        | `'sm' \| 'md' \| 'lg'`           | `'md'`         | Size of the tabs within the group.                                     | No       |
+| `orientation` | `'horizontal' \| 'vertical'`     | `'horizontal'` | Displays tabs vertically or horizontally.                              | No       |
+| `alignment`   | `'start' \| 'center' \| 'end'`   | `'start'`      | Horizontal alignment of the tabs within the tab list.                  | No       |
+| `noScroll`    | `boolean`                        | `false`        | Disables the scroll buttons when tabs overflow the container width.    | No       |
+| `animated`    | `boolean`                        | `false`        | Enables the animated (sliding) indicator.                              | No       |
+| `dismissible` | `boolean`                        | `false`        | Allows tabs to be closed via a dismiss button. Requires event handling.| No       |
 
 #### Events
 
-| Name                   | Payload Type                  | Description                                                            |
-|------------------------|-------------------------------|------------------------------------------------------------------------|
-| `plus-tab-activate`    | `CustomEvent<{ value: string }>` | Fired when a tab panel is activated. `event.detail.value` is the panel's value. |
-| `plus-tab-deactivate`  | `CustomEvent<{ value: string }>` | Fired when a tab panel is deactivated. `event.detail.value` is the panel's value. |
+| Name                   | Payload Type                     | Description                                                            |
+|------------------------|----------------------------------|------------------------------------------------------------------------|
+| `plus-tabs-change`     | `CustomEvent<{ value: string }>` | Fired when a tab panel is activated. `event.detail.value` is the panel's value. |
 | `plus-tab-dismiss`     | `CustomEvent<{ value: string }>` | Fired when a dismissible tab is closed. `event.detail.value` is the tab's value.   |
-
 
 #### Slots
 
-| Name              | Description                                           |
-|-------------------|-------------------------------------------------------|
-| `tablist`         | Contains the `plus-tab` elements for navigation.       |
-| `panels`          | Contains the `plus-tab-panel` elements for content. |
+| Name      | Description                                           |
+|-----------|-------------------------------------------------------|
+| `tablist` | Contains the `plus-tab` elements for navigation.       |
+| `panels`  | Contains the `plus-tab-panel` elements for content.   |
 
 #### Methods
 
-| Name         | Parameters       | Returns      | Description                                    |
-|--------------|------------------|--------------|------------------------------------------------|
+| Name         | Parameters       | Returns         | Description                                    |
+|--------------|------------------|-----------------|------------------------------------------------|
 | `show(panel)`| `panel: string`  | `Promise<void>` | Programmatically shows the specified tab panel. |
 
 #### CSS Shadow Parts
 
-| Part          | Description                                         |
-|---------------|-----------------------------------------------------|
-| `base`        | The main container element.                         |
-| `nav`         | The container for the navigation tabs (`role="tablist"`). |
-| `tabs`        | The scrollable container for the tabs.              |
-| `active-tab-indicator` | The indicator showing the active tab.        |
-| `body`        | The container for the tab panels.                   |
-| `scroll-button` | The scroll buttons (visible when tabs overflow).   |
-| `scroll-button--start` | The scroll button at the start.               |
-| `scroll-button--end`   | The scroll button at the end.                 |
-| `scroll-button__base` | The base element of a scroll button.            |
+| Name                      | Description                                         |
+|---------------------------|-----------------------------------------------------|
+| `base`                    | The main container element.                         |
+| `nav`                     | The container for the navigation tabs (`role="tablist"`). |
+| `tabs`                    | The scrollable container for the tabs.              |
+| `active-tab-indicator`    | The indicator showing the active tab.               |
+| `body`                    | The container for the tab panels.                   |
+| `scroll-button`           | The scroll buttons (visible when tabs overflow).   |
+| `scroll-button--start`    | The scroll button at the start.                    |
+| `scroll-button--end`      | The scroll button at the end.                      |
+| `scroll-button__base`     | The base element of a scroll button.               |
 
 #### CSS Custom Properties
 
@@ -826,33 +649,33 @@ template: `
 
 ### plus-tab
 
-#### Props
+#### Properties
 
 | Name         | Type      | Default | Description                                                                    | Required |
 |--------------|-----------|---------|--------------------------------------------------------------------------------|----------|
-| `value`      | `string`  | `\'\'`    | Unique value identifying the tab and linking it to a `plus-tab-panel`.        | Yes      |
+| `value`      | `string`  | `''`    | Unique value identifying the tab and linking it to a `plus-tab-panel`.        | Yes      |
 | `active`     | `boolean` | `false` | Indicates if the tab is currently active. Managed by the parent `plus-tab-group`. | No       |
 | `disabled`   | `boolean` | `false` | Disables the tab, preventing selection.                                        | No       |
-| `prefix-icon`| `string`  | —       | Class name(s) for an icon to display before the tab text.                      | No       |
-| `suffix-icon`| `string`  | —       | Class name(s) for an icon to display after the tab text.                       | No       |
+| `prefix-icon`| `string`  | `undefined` | Class name(s) for an icon to display before the tab text.                      | No       |
+| `suffix-icon`| `string`  | `undefined` | Class name(s) for an icon to display after the tab text.                       | No       |
 
 #### Events
 
-| Name               | Payload Type                  | Description                                                         |
-|--------------------|-------------------------------|---------------------------------------------------------------------|
-| `plus-tab-dismiss` | `CustomEvent<{ value: string }>` | Fired from parent when this tab is dismissed (if `dismissible`). |
+| Name               | Payload Type                     | Description                                                         |
+|--------------------|----------------------------------|---------------------------------------------------------------------|
+| `plus-tab-dismiss` | `CustomEvent<{ value: string }>` | Fired from parent when this tab is dismissed (if `dismissible`).   |
 
 #### Slots
 
-| Name              | Description                                    |
-|-------------------|------------------------------------------------|
-| `default` (unnamed) | The content of the tab (text, icons, etc.).    |
+| Name        | Description                                    |
+|-------------|------------------------------------------------|
+| `(default)` | The content of the tab (text, icons, etc.).    |
 
 #### CSS Shadow Parts
 
-| Part          | Description                           |
-|---------------|---------------------------------------|
-| `base`        | The main tab button element.          |
+| Name             | Description                           |
+|------------------|---------------------------------------|
+| `base`           | The main tab button element.          |
 | `dismiss-button` | The dismiss button (if group is `dismissible`). |
 
 #### CSS Custom Properties
@@ -873,21 +696,21 @@ template: `
 
 ### plus-tab-panel
 
-#### Props
+#### Properties
 
 | Name     | Type      | Default | Description                                                               | Required |
 |----------|-----------|---------|---------------------------------------------------------------------------|----------|
-| `value`  | `string`  | `\'\'`    | Unique value matching the `value` attribute of its controlling `plus-tab`. | Yes      |
+| `value`  | `string`  | `''`    | Unique value matching the `value` attribute of its controlling `plus-tab`. | Yes      |
 | `active` | `boolean` | `false` | Indicates if the panel is currently active. Managed by the parent `plus-tab-group`. | No       |
 
 #### Slots
 
-| Name              | Description                   |
-|-------------------|-------------------------------|
-| `default` (unnamed) | The content of the tab panel. |
+| Name        | Description                   |
+|-------------|-------------------------------|
+| `(default)` | The content of the tab panel. |
 
 #### CSS Shadow Parts
 
-| Part   | Description                      |
+| Name   | Description                      |
 |--------|----------------------------------|
 | `base` | The main panel container element. |
