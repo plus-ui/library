@@ -190,6 +190,10 @@
     --sl-color-bg-nav: var(--background-color-color-surface);
     --sl-color-hairline-shade: var(--border-color-color-disabled);
   }
+
+  body {
+    background-color: var(--background-color-color-surface);
+  }
   /* 1400px üzerindeki ekranlarda özel layout */
   @media (min-width: 1400px) {
     /* Ana sayfa container'ını ortala */
@@ -244,6 +248,7 @@
 
     .sidebar-pane {
       /* border: none; */
+      background-color: transparent;
     }
 
     .sidebar-content ul ul li {
