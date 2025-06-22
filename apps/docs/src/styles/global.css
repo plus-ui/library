@@ -1,0 +1,23 @@
+@layer base, starlight, starlight-overrides, theme, components, utilities;
+
+/* @import "@astrojs/starlight-tailwind"; */
+@import "./starlight-overrides/tailwind.css";
+@import "tailwindcss/theme.css";
+@import "tailwindcss/utilities.css";
+
+@import "./theme/brand.css";
+@import "./theme/light.css";
+@import "./theme/dark.css";
+
+@import "./starlight-overrides/theme.css";
+/* 
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/inter-tight"; */
+
+@theme {
+  --font-sans: "Inter Variable", sans-serif;
+  --font-sans-tight: "Inter Tight Variable", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}

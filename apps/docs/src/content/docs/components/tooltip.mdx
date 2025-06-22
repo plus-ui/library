@@ -1,0 +1,143 @@
+---
+title: Tooltip
+description: Displays brief, informative text when a user hovers over or focuses on an element.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/tooltip/anatomy.png';
+import layoutSpacing from '../../../assets/components/tooltip/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/tooltip/light-dark-mode.png';
+
+The Tooltip component provides brief informational text that appears when a user interacts (hovers, focuses, or clicks) with a target element. It's commonly used for clarifying icons, providing context, or displaying truncated text.
+
+## Anatomy
+
+<Image src={anatomy} alt="Tooltip - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A simple tooltip triggered by hovering over a button.
+
+<CodePreview autoGeneration={true}>
+  <plus-tooltip message="This button saves your work.">
+    <plus-button aria-label="Save">
+      Save
+    </plus-button>
+  </plus-tooltip>
+</CodePreview>
+
+### Orientation
+
+Use the `orientation` prop to control where the tooltip appears relative to the trigger element.
+
+<CodePreview autoGeneration={true} horizontal>
+  <div class="flex flex-wrap gap-4 justify-center">
+    <plus-tooltip orientation="top" message="Top Tooltip">
+      <plus-button>Top</plus-button>
+    </plus-tooltip>
+    <plus-tooltip orientation="bottom" message="Bottom Tooltip">
+      <plus-button>Bottom</plus-button>
+    </plus-tooltip>
+    <plus-tooltip orientation="left" message="Left Tooltip">
+      <plus-button>Left</plus-button>
+    </plus-tooltip>
+    <plus-tooltip orientation="right" message="Right Tooltip">
+      <plus-button>Right</plus-button>
+    </plus-tooltip>
+  </div>
+</CodePreview>
+
+### Trigger
+
+The `trigger` prop determines how the tooltip is opened.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-tooltip trigger="hover" message="Opens on hover (default)">
+    <plus-button>Hover Me</plus-button>
+  </plus-tooltip>
+  <plus-tooltip trigger="click" message="Opens on click">
+    <plus-button>Click Me</plus-button>
+  </plus-tooltip>
+</CodePreview>
+
+### Size
+
+Control the tooltip size with the `size` prop.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-tooltip size="sm" message="Small tooltip">
+    <plus-button>Small</plus-button>
+  </plus-tooltip>
+  <plus-tooltip size="md" message="Medium tooltip (default)">
+    <plus-button>Medium</plus-button>
+  </plus-tooltip>
+  <plus-tooltip size="lg" message="Large tooltip">
+    <plus-button>Large</plus-button>
+  </plus-tooltip>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Tooltip - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Tooltip - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   When the trigger element receives focus (via `Tab`), the tooltip appears if the `trigger` is `hover` (or `click` if already clicked).
+    *   When focus moves away from the trigger, the tooltip hides.
+    *   If `trigger` is `click`, `Escape` key hides the tooltip when it is visible.
+*   **Screen Reader:**
+    *   The component uses `role="tooltip"` on the tooltip container.
+    *   The trigger element should have `aria-describedby` pointing to the `id` of the tooltip container (this is handled automatically by the component setting `aria-describedby="tooltip-content"` on the trigger).
+    *   The tooltip content (`message` prop) provides the accessible description.
+*   **Required Developer Actions:**
+    *   Ensure the trigger element (passed into the default slot) is inherently focusable (like a button or input) or has `tabindex="0"`.
+    *   Provide a clear and concise `message` for the tooltip content.
+    *   If the trigger element is icon-only or lacks descriptive text, provide an `aria-label` on the trigger element itself for screen reader users (e.g., `<plus-button aria-label="Save">`).
+
+## API Reference
+
+### Properties
+
+| Name          | Type                    | Default    | Description                                                   | Required |
+|---------------|-------------------------|------------|---------------------------------------------------------------|----------|
+| `size`        | `'sm' \| 'md' \| 'lg'`    | `'md'`     | Size of the tooltip panel.                                    | No       |
+| `message`     | `string`                | `''`       | The text content displayed inside the tooltip.                | No       |
+| `trigger`     | `'hover' \| 'click'`   | `'hover'`  | How the tooltip is opened (hover or click).                   | No       |
+| `orientation` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'`    | Position relative to the trigger element.                     | No       |
+| `hideDelay`   | `number`                | `0`        | Delay in milliseconds before hiding the tooltip on hover out. | No       |
+
+### Events
+
+| Name                | Payload Type        | Description                        |
+|---------------------|---------------------|------------------------------------|
+| `plus-tooltip-show` | `CustomEvent<void>` | Fired when the tooltip is shown.   |
+| `plus-tooltip-hide` | `CustomEvent<void>` | Fired when the tooltip is hidden.  |
+
+### Slots
+
+| Name              | Description                             |
+|-------------------|-----------------------------------------|
+| `(default)` | The target element that triggers the tooltip. |
+
+### CSS Shadow Parts
+
+| Name      | Description                          |
+|-----------|--------------------------------------|
+| `tooltip` | The main tooltip container element.  |
+| `arrow`   | The arrow element pointing to the trigger. |

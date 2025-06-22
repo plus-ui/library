@@ -1,0 +1,33 @@
+@layer base, plus-ui-core, theme, components, utilities;
+@import 'tailwindcss/theme' layer(theme);
+@import 'tailwindcss/utilities' layer(utilities);
+@config '../../tailwind.config.js';
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@import './theme/brand.css';
+@import './theme/light.css';
+@import './theme/dark.css';
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --animate-spin: spin 2s linear infinite;
+}
+
+@theme {
+  --plus-border-radius-none: 0;
+  --plus-border-radius-default: var(--radius-sm);
+  --plus-border-radius-modal: var(--radius-lg);
+  --plus-border-radius-full: 9999px;
+
+  --radius-default: var(--plus-border-radius-default);
+  --radius-modal: var(--plus-border-radius-modal);
+}
+
+@utility ring-default {
+  @apply ring-2 ring-[var(--plus-color-border-ring)] outline-0 ring-offset-2;
+}
+
+@utility plus-ui-element {
+  @apply antialiased font-sans;
+}

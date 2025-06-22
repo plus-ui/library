@@ -1,0 +1,273 @@
+/* @layer starlight-overrides { */
+/* @media (min-width: 82rem) {
+    :root {
+      --sl-content-width: 53.25rem;
+      --sl-sidebar-width: 12.5rem;
+      --sl-sidebar-item-padding-inline: 0;
+    }
+    header .header {
+      max-width: 100%;
+      margin-inline: auto;
+    }
+    .header-container {
+      max-width: 80rem;
+      margin-inline: auto;
+    }
+    .page {
+      width: 100%;
+      max-width: 80rem;
+      margin-inline: auto;
+    }
+    .sidebar-pane {
+      margin-inline-start: calc(
+        calc((100vw - var(--sl-content-width)) / 2) - 220px
+      );
+      border: none;
+    }
+    .sidebar-content {
+      padding: 1.5rem 0 0 0;
+    }
+    .main-frame {
+      max-width: 80rem;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .main-frame .main-pane {
+      width: calc(100% - 1.5rem);
+      padding-inline: 1.5rem;
+    }
+    .right-sidebar {
+      border: none;
+    }
+    .right-sidebar .right-sidebar-panel {
+      padding: 0;
+    }
+    .right-sidebar .right-sidebar-panel .sl-container {
+      width: 180px;
+    }
+    starlight-toc nav {
+      padding: 1.5rem;
+      padding-left: 0;
+      border-bottom: 1px solid var(--background-color-color-disabled-default);
+    } */
+/* } */
+
+/* .content-panel + .content-panel {
+    border: none;
+    margin-top: 3rem;
+  } */
+
+/* starlight-toc nav h2 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: var(--text-color-color-default);
+  }
+  starlight-toc nav a {
+    color: var(--text-color-color-placeholder);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+  }
+  starlight-toc nav a[aria-current] {
+    color: var(--text-color-color-primary);
+  } */
+
+/* :root {
+    --sl-nav-height: 10rem;
+  } */
+
+/* .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  header {
+    padding: 0;
+    margin: 0;
+    background-color: var(--background-color-color-surface);
+    height: auto;
+    border: none;
+  }
+  header .header {
+    height: auto;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color-color-disabled);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  } */
+
+/* .header-secondary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--background-color-color-disabled-default);
+    padding-top: calc(var(--sl-nav-height) / 2 + var(--sl-mobile-toc-height));
+    padding-bottom: 1rem;
+  } */
+
+/* .right-sidebar {
+    position: sticky;
+    top: 90px;
+    padding: 0;
+    height: auto;
+  } */
+
+/* .sidebar-pane {
+    background-color: transparent;
+  } */
+
+/* .header-site-search {
+    flex: auto;
+    margin-inline-start: calc(
+      var(--sl-sidebar-width) - calc(var(--__sidebar-pad) * 2)
+    );
+  } */
+/* } */
+
+@layer theme {
+  starlight-tabs [role="tablist"] {
+    border-bottom: 2px solid var(--background-color-color-disabled-default);
+  }
+  starlight-tabs .tab > [role="tab"] {
+    border-bottom: 2px solid var(--background-color-color-disabled-default);
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
+  starlight-tabs .tab [role="tab"][aria-selected="true"] {
+    color: var(--text-color-color-default);
+    border-color: var(--border-color-color-default);
+  }
+
+  .content-panel {
+    padding: 1.5rem var(--sl-content-pad-x) 0;
+  }
+  .content-panel + .content-panel {
+    border-top: none;
+    padding-top: 3rem;
+  }
+  /* .sl-container {
+    max-width: var(--sl-content-width);
+  }
+
+  .sl-container > :global(* + *) {
+    margin-top: 1.5rem;
+  }
+
+  */
+  /* @media (min-width: 72rem) {
+    .sl-container {
+      margin-inline: 0;
+    }
+  } */
+
+  .component-header-block .expressive-code .frame {
+    --code-background: transparent !important;
+  }
+  /* .component-header-block
+    .expressive-code
+    .frame
+    pre[data-language="bash"]
+    code {
+    padding: 0;
+  } */
+
+  .main-pane {
+    isolation: auto !important;
+  }
+  :root {
+    --sl-color-bg-nav: var(--background-color-color-surface);
+    --sl-color-hairline-shade: var(--border-color-color-disabled);
+  }
+
+  body {
+    background-color: var(--background-color-color-surface);
+  }
+  /* 1400px üzerindeki ekranlarda özel layout */
+  @media (min-width: 1400px) {
+    /* Ana sayfa container'ını ortala */
+    .page {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Sol sidebar'ı logoyla hizala */
+    .sidebar-pane {
+      width: 16rem;
+      left: calc((100vw - 1400px) / 2);
+    }
+
+    /* Main content alanını tam genişlikte yap */
+    .main-frame {
+      margin-left: 16rem;
+      max-width: calc(1400px - 16rem); /* Sadece sol sidebar düşülsün */
+      padding-left: 1rem;
+      padding-right: 2rem;
+    }
+
+    .main-pane {
+      width: calc(
+        53.5rem + (100% - var(--sl-content-width) - var(--sl-sidebar-width)) / 2
+      );
+    }
+
+    .sl-container {
+      margin-inline: 0;
+      max-width: 100%;
+    }
+
+    /* TOC'u sayfanın sağ tarafına fixed pozisyonda yerleştir */
+    .right-sidebar-container {
+      position: fixed;
+      right: calc((100vw - 1400px) / 2); /* Sağ kenardan container hizası */
+      top: var(--sl-nav-height);
+      width: 14rem;
+      height: calc(100vh - var(--sl-nav-height));
+      z-index: 1;
+    }
+
+    .right-sidebar {
+      position: static;
+      width: 100%;
+      height: 100%;
+      /* border: none; */
+      overflow-y: auto;
+      padding-top: 0;
+    }
+
+    .sidebar-pane {
+      /* border: none; */
+      background-color: transparent;
+    }
+
+    .sidebar-content ul ul li {
+      /* margin: 0;
+    padding: 0; */
+      /* border: none; */
+    }
+    .sidebar-content ul ul li a {
+      color: var(--text-color-color-default);
+    }
+    .sidebar-content ul ul li a[aria-current="page"] {
+      background-color: var(--background-color-color-default-default);
+      color: var(--text-color-color-primary);
+      border-radius: 0.25rem;
+      font-weight: 400;
+      /* padding: 0.25rem 0.5rem; */
+    }
+    .sidebar-content ul.top-level > li:not(:first-child) {
+      /* margin-top: 2.25rem; */
+    }
+  }
+}

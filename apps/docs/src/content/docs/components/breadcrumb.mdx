@@ -1,0 +1,132 @@
+---
+title: Breadcrumb
+description: Displays hierarchical navigation path, allowing users to trace their steps back to the starting point.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/breadcrumb/anatomy.png';
+import layoutSpacing from '../../../assets/components/breadcrumb/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/breadcrumb/light-dark-mode.png';
+
+The Breadcrumb component provides a navigational aid that displays the user's current location within the site hierarchy and allows them to easily navigate back to previous levels. It's typically placed horizontally before the page title or main content.
+
+## Anatomy
+
+<Image src={anatomy} alt="Breadcrumb - anatomy" />
+
+## Usage
+
+### Basic Example
+
+Create a breadcrumb trail by nesting `plus-breadcrumb-item` components within the `plus-breadcrumb`. The last item is automatically considered the current page.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-breadcrumb>
+    <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+    <plus-breadcrumb-item href="#">Category</plus-breadcrumb-item>
+    <plus-breadcrumb-item>Current Page</plus-breadcrumb-item>
+  </plus-breadcrumb>
+</CodePreview>
+
+### Separator Style
+
+Use the `separator` property to change the visual separator between items. Allowed values are `'arrow'` (default) and `'slash'`.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-breadcrumb data-variant-separator="arrow,slash">
+    <plus-breadcrumb-item href="#">Home</plus-breadcrumb-item>
+    <plus-breadcrumb-item href="#">Products</plus-breadcrumb-item>
+    <plus-breadcrumb-item>Gadgets</plus-breadcrumb-item>
+  </plus-breadcrumb>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Breadcrumb - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Breadcrumb - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Users can navigate through the breadcrumb links using the `Tab` key.
+    *   Each link can be activated using `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component is wrapped in a `<nav>` element with `aria-label="breadcrumb"` to identify it as a navigation landmark.
+    *   The current page item (the last item without an `href`) includes `aria-current="page"` to indicate its status.
+    *   Separators are hidden from screen readers using `aria-hidden="true"`.
+*   **Required Developer Actions:**
+    *   Ensure that `href` attributes are provided for all navigable `plus-breadcrumb-item` elements.
+    *   Provide meaningful text content for each `plus-breadcrumb-item`.
+
+## API Reference
+
+### `<plus-breadcrumb>` Properties
+
+| Name         | Type                               | Default | Description                                                                                                | Required |
+|--------------|------------------------------------|---------|------------------------------------------------------------------------------------------------------------|----------|
+| `label`      | `string`                           | `'breadcrumb'` | The `aria-label` for the underlying `<nav>` element. Override for internationalization or specific context. | No       |
+| `separator`  | `'arrow' \| 'slash'`              | `'arrow'` | Defines the visual separator between items.                                                              | No       |
+
+### `<plus-breadcrumb>` Slots
+
+| Name        | Description                                                                |
+|-------------|----------------------------------------------------------------------------|
+| (default)   | Container for `plus-breadcrumb-item` elements.                             |
+
+### `<plus-breadcrumb-item>` Properties
+
+| Name   | Type     | Default     | Description                                          | Required               |
+|--------|----------|-------------|------------------------------------------------------|------------------------|
+| `href` | `string` | `undefined` | The URL to navigate to when the item is clicked. If omitted, the item is treated as the current page (non-interactive). | No (Required for links) |
+
+### `<plus-breadcrumb-item>` Slots
+
+| Name      | Description                           |
+|-----------|---------------------------------------|
+| (default) | The text content of the breadcrumb item. |
+
+### `<plus-breadcrumb>` CSS Shadow Parts
+
+| Part        | Description                        |
+|-------------|------------------------------------|
+| `base`      | The main container (`<nav>`) element. |
+| `list`      | The list (`<ol>`) wrapping the items. |
+| `separator` | The separator element displayed between items. |
+
+### `<plus-breadcrumb-item>` CSS Shadow Parts
+
+| Part        | Description                               |
+|-------------|-------------------------------------------|
+| `base`      | The list item (`<li>`) element.           |
+| `link`      | The anchor (`<a>`) element (if `href` exists). |
+| `text`      | The non-interactive text span (if no `href`). |
+
+### `<plus-breadcrumb>` CSS Custom Properties
+
+| Name                     | Description                      |
+|--------------------------|----------------------------------|
+| `--separator-color`      | Color of the default separator. |
+| `--gap`                  | Space between items and separators. |
+
+### `<plus-breadcrumb-item>` CSS Custom Properties
+
+| Name                          | Description                      |
+|-------------------------------|----------------------------------|
+| `--color`                     | Text color of the item.          |
+| `--color-hover`               | Text color on hover (links only). |
+| `--text-decoration`           | Text decoration (links only).     |
+| `--text-decoration-hover`     | Text decoration on hover (links only). |
+| `--color-current`             | Text color of the current item (last item without `href`). |
+| `--text-decoration-current`   | Text decoration of the current item. |
+

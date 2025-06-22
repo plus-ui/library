@@ -1,0 +1,220 @@
+---
+title: Popover
+description: Displays informative content in a floating panel near a target element.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Image } from 'astro:assets';
+
+import anatomy from '../../../assets/components/popover/anatomy.png';
+import layoutSpacing from '../../../assets/components/popover/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/popover/light-dark-mode.png';
+
+The Popover component is used to display additional information, options, or actions in a floating panel that appears near a trigger element. It's useful for tooltips with rich content, dropdown menus, or contextual information displays.
+
+## Anatomy
+
+<Image src={anatomy} alt="Popover - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A basic popover triggered by clicking a button, displaying simple text content.
+
+<CodePreview autoGeneration={true}>
+  <plus-popover header-text="Information" text="This is the popover content.">
+    <plus-button>Show Popover</plus-button>
+  </plus-popover>
+</CodePreview>
+
+### Orientation
+
+Use the `orientation` prop to control where the popover appears relative to the trigger element.
+
+<CodePreview autoGeneration={true}>
+<div>
+  <plus-popover orientation="top-start" header-text="Top Start">
+    <plus-button>Top Start</plus-button>
+  </plus-popover>
+  <plus-popover orientation="top" header-text="Top">
+    <plus-button>Top</plus-button>
+  </plus-popover>
+  <plus-popover orientation="top-end" header-text="Top End">
+    <plus-button>Top End</plus-button>
+  </plus-popover>
+</div>
+<div class="flex gap-2">
+  <div class="flex flex-col gap-2">
+    <plus-popover orientation="left-start" header-text="Left Start">
+      <plus-button>Left Start</plus-button>
+    </plus-popover>
+    <plus-popover orientation="left" header-text="Left">
+      <plus-button>Left</plus-button>
+    </plus-popover>
+    <plus-popover orientation="left-end" header-text="Left End">
+      <plus-button>Left End</plus-button>
+    </plus-popover>
+  </div>
+  <div class="w-34">
+  </div>
+  <div class="flex flex-col gap-2 items-end">
+    <plus-popover orientation="right-start" header-text="Right Start">
+      <plus-button>Right Start</plus-button>
+    </plus-popover>
+    <plus-popover orientation="right" header-text="Right">
+      <plus-button>Right</plus-button>
+    </plus-popover>
+    <plus-popover orientation="right-end" header-text="Right End">
+      <plus-button>Right End</plus-button>
+    </plus-popover>
+  </div>
+</div>
+<div>
+  <plus-popover orientation="bottom-start" header-text="Bottom Start">
+    <plus-button>Bottom Start</plus-button>
+  </plus-popover>
+  <plus-popover orientation="bottom" header-text="Bottom">
+    <plus-button>Bottom</plus-button>
+  </plus-popover>
+  <plus-popover orientation="bottom-end" header-text="Bottom End">
+    <plus-button>Bottom End</plus-button>
+  </plus-popover>
+</div>
+</CodePreview>
+
+### Trigger
+
+The `trigger` prop determines how the popover is opened.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-popover trigger="click" header-text="Click Me">
+    <plus-button>Click Trigger (Default)</plus-button>
+  </plus-popover>
+  <plus-popover trigger="hover" header-text="Hover Over Me">
+    <plus-button>Hover Trigger</plus-button>
+  </plus-popover>
+</CodePreview>
+
+### Status
+
+Use the `status` prop to apply different color schemes and default icons.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-popover status="default" header-text="Default">
+    <plus-button>Default</plus-button>
+  </plus-popover>
+  <plus-popover status="primary" header-text="Primary">
+    <plus-button status="primary">Primary</plus-button>
+  </plus-popover>
+  <plus-popover status="success" header-text="Success">
+    <plus-button status="success">Success</plus-button>
+  </plus-popover>
+  <plus-popover status="warning" header-text="Warning">
+    <plus-button status="warning">Warning</plus-button>
+  </plus-popover>
+  <plus-popover status="danger" header-text="Danger">
+    <plus-button status="danger">Danger</plus-button>
+  </plus-popover>
+  <plus-popover status="info" header-text="Info">
+    <plus-button status="info">Info</plus-button>
+  </plus-popover>
+</CodePreview>
+
+### Custom Content and Title
+
+Use slots `title` and `content` for more complex content instead of the `header-text` and `text` props.
+
+<CodePreview autoGeneration={true}>
+  <plus-popover>
+    <div slot="title" class="flex items-center gap-2">
+      <i class="fa-solid fa-star" style="color: gold;"></i>
+      <span>Custom Title Slot</span>
+    </div>
+    <div slot="content">
+      This is <strong>custom popover</strong> content with <em>HTML</em> placed in the content slot.
+      <plus-divider class="my-2"></plus-divider>
+      <plus-button size="sm">Action</plus-button>
+    </div>
+    <plus-button>Show Custom Popover</plus-button>
+  </plus-popover>
+</CodePreview>
+
+### Dismissable
+
+Set `dismissable="false"` to hide the default close button.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-popover header-text="Dismissable (Default)">
+    <plus-button>Dismissable</plus-button>
+  </plus-popover>
+  <plus-popover header-text="Not Dismissable" dismissable="false">
+    <plus-button>Not Dismissable</plus-button>
+  </plus-popover>
+</CodePreview>
+
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Popover - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Popover - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   When the popover is opened, focus is typically moved inside the popover panel, often to the first focusable element or the close button if available.
+    *   `Tab` and `Shift+Tab` navigate between focusable elements within the popover. Focus is trapped within the popover when open.
+    *   `Escape` closes the popover and returns focus to the trigger element.
+*   **Screen Reader:**
+    *   The component uses `role="dialog"`, `aria-labelledby` (pointing to the title element), and `aria-describedby` (pointing to the content element).
+    *   `aria-hidden` is used to hide the popover content from screen readers when it is closed.
+    *   When opened, screen readers announce the dialog's role, title, and description.
+    *   The close button (if present) has an appropriate `aria-label`.
+*   **Required Developer Actions:**
+    *   Ensure the trigger element (in the default slot) is inherently focusable or has `tabindex="0"`.
+    *   Provide clear and concise text for the `header-text` prop or `title` slot.
+    *   Provide descriptive content via the `text` prop or `content` slot.
+    *   If using custom content in slots, ensure it is accessible.
+    *   Use appropriate `status` values if they convey semantic meaning beyond presentation.
+
+## API Reference
+
+### Props
+
+| Name         | Type                                                                                             | Default     | Description                                                                | Required |
+|--------------|--------------------------------------------------------------------------------------------------|-------------|----------------------------------------------------------------------------|----------|
+| `size`       | `'sm' \| 'md' \| 'lg'`                                                                           | `'md'`      | Size of the popover panel.                                                 | No       |
+| `orientation`| `'top' \| 'top-start' \| 'top-end' \| 'bottom' \| 'bottom-start' \| 'bottom-end' \| 'left' \| 'left-start' \| 'left-end' \| 'right' \| 'right-start' \| 'right-end'` | `'top'`     | Position relative to the trigger element.                                  | No       |
+| `trigger`    | `'click' \| 'hover'`                                                                             | `'click'`   | How the popover is opened.                                                 | No       |
+| `text`       | `string`                                                                                         | `undefined` | Main text content. Ignored if `content` slot is used.                        | No       |
+| `headerText` | `string`                                                                                         | `'Title'`   | Header title text. Ignored if `title` slot is used.                        | No       |
+| `status`     | `'success' \| 'warning' \| 'danger' \| 'info' \| 'primary' \| 'default'`                         | `'default'` | Color scheme and default icon based on status.                             | No       |
+| `dismissable`| `boolean`                                                                                        | `true`      | Whether to show the default close button in the header.                   | No       |
+| `statusIcon` | `boolean`                                                                                        | `true`      | Whether to show the default status icon in the header.                    | No       |
+| `showArrow`  | `boolean`                                                                                        | `true`      | Whether to display the arrow pointing to the trigger element.              | No       |
+
+### Events
+
+| Name                   | Payload Type        | Description                                         |
+|------------------------|---------------------|-----------------------------------------------------|
+| `plus-popover-open`    | `CustomEvent<void>` | Fired when the popover opens.                     |
+| `plus-popover-close`   | `CustomEvent<void>` | Fired when the popover closes (for any reason).     |
+| `plus-popover-dismiss` | `CustomEvent<void>` | Fired specifically when closed via the close button. |
+
+### Slots
+
+| Name              | Description                                                     |
+|-------------------|-----------------------------------------------------------------|
+| `default` (unnamed) | The target element that triggers the popover.                   |
+| `icon`            | Custom icon content in the header, replaces the default status icon. |
+| `title`

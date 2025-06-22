@@ -1,0 +1,233 @@
+---
+title: Alert
+description: Displays important messages or notifications to users in a prominent way.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+import { Image } from 'astro:assets';
+import { CodePreview, EmbedContent } from '../../../component';
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+import anatomy from '../../../assets/components/alert/anatomy.png';
+import layoutSpacing from '../../../assets/components/alert/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/alert/light-dark-mode.png';
+
+The Alert component is used to convey important information to users, such as success messages, warnings, errors, or general information. It typically includes a status icon, a message, an optional description, and a dismiss button.
+
+## Anatomy
+
+<Image src={anatomy} alt="Alert - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A basic alert displays a message with a default status icon.
+
+<CodePreview autoGeneration={true}>
+  <plus-alert status="info">
+    <div slot="message">This is an informational alert.</div>
+  </plus-alert>
+</CodePreview>
+
+### Status
+
+Use the `status` prop to indicate the type of message: `info` (default), `success`, `warning`, or `danger`. This affects the color scheme and the default icon.
+
+<CodePreview autoGeneration={true}>
+  <plus-alert data-variant-status="success,warning,danger">
+    <div slot="message">Operation successful!</div>
+  </plus-alert>
+</CodePreview>
+
+### Kind
+
+The `kind` prop controls the visual appearance: `filled` (default), `outlined`, or `dashed`.
+
+<CodePreview autoGeneration={true}>
+  <plus-alert status="info" data-variant-kind="filled,outlined,dashed">
+    <div slot="message">Filled (Default)</div>
+  </plus-alert>
+</CodePreview>
+
+### Closable
+
+Set the `dismissible` attribute (or `dismissible={true}`) to add a close button. The alert fires a `plus-dismiss` event when closed.
+
+<CodePreview
+  autoGeneration={false}
+  showConsole={true}
+  customScript={`
+    const alert = document.getElementById('alert-dismiss-example');
+    if (alert) {
+      alert.addEventListener('plus-dismiss', () => {
+        console.log('Alert dismissed!');
+      });
+    }
+  `}
+>
+  <plus-alert id="alert-dismiss-example" status="warning" dismissible>
+    <div slot="message">This alert can be closed.</div>
+    <div slot="description">Click the X button to dismiss.</div>
+  </plus-alert>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusAlert } from '@plusui/react';
+
+    export default () => {
+      const handleDismiss = () => {
+        console.log('Alert dismissed!');
+      };
+
+      return (
+        <PlusAlert status="warning" dismissible onPlusDismiss={handleDismiss}>
+          <div slot="message">This alert can be closed.</div>
+          <div slot="description">Click the X button to dismiss.</div>
+        </PlusAlert>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-example',
+      template: `
+        <plus-alert status="warning" dismissible (plus-dismiss)="handleDismiss()">
+          <div slot="message">This alert can be closed.</div>
+          <div slot="description">Click the X button to dismiss.</div>
+        </plus-alert>
+      `
+    })
+    export class ExampleComponent {
+      handleDismiss() {
+        console.log('Alert dismissed!');
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-alert status="warning" dismissible @plus-dismiss="handleDismiss">
+        <div slot="message">This alert can be closed.</div>
+        <div slot="description">Click the X button to dismiss.</div>
+      </plus-alert>
+    </template>
+
+    <script>
+    export default {
+      methods: {
+        handleDismiss() {
+          console.log('Alert dismissed!');
+        }
+      }
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      function handleDismiss() {
+        console.log('Alert dismissed!');
+      }
+    </script>
+
+    <plus-alert status="warning" dismissible on:plus-dismiss={handleDismiss}>
+      <div slot="message">This alert can be closed.</div>
+      <div slot="description">Click the X button to dismiss.</div>
+    </plus-alert>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-alert id="alert-dismiss-example" status="warning" dismissible>
+      <div slot="message">This alert can be closed.</div>
+      <div slot="description">Click the X button to dismiss.</div>
+    </plus-alert>
+
+    <script>
+      document.getElementById('alert-dismiss-example').addEventListener('plus-dismiss', () => {
+        console.log('Alert dismissed!');
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Alert - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Alert - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   If the alert is `dismissible`, the close button is focusable and can be activated using `Enter` or `Space`.
+*   **Screen Reader:**
+    *   The component uses `role="alert"` to announce its presence and content automatically to screen reader users.
+    *   `aria-live="polite"` ensures that updates are announced without interrupting the user, though critical alerts might warrant `aria-live="assertive"` if implemented via JavaScript.
+    *   The dismiss button should have an appropriate `aria-label` (e.g., "Close alert").
+*   **Required Developer Actions:**
+    *   Ensure the content provided in the `message` and `description` slots is clear and concise.
+    *   If using custom icons via the `prefix` slot, ensure they have appropriate alternative text or are marked as decorative (`aria-hidden="true"`) if the status prop already conveys the meaning.
+
+## API Reference
+
+### Properties
+
+| Name             | Type                                                         | Default     | Description                                                            | Required |
+|------------------|--------------------------------------------------------------|-------------|------------------------------------------------------------------------|----------|
+| `kind`           | `'filled' | 'outlined' | 'dashed'`                     | `'filled'`  | Visual style of the alert.                                             | No       |
+| `size`           | `'sm' | 'md' | 'lg'`                                  | `'md'`      | Size of the alert.                                                    | No       |
+| `status`         | `'default' | 'success' | 'warning' | 'danger' | 'info'` | `'default'` | Status/color variant. Affects color and default icon.                 | No       |
+| `invert`         | `boolean`                                                    | `false`     | Use inverted color scheme.                                             | No       |
+| `dismissible`    | `boolean`                                                    | `true`      | Show dismiss button.                                                   | No       |
+| `message`        | `string`                                                     | `''`        | Main message content (can also be provided via slot).                   | No       |
+| `description`    | `string`                                                     | `''`        | Additional description (can also be provided via slot).                 | No       |
+| `statusIcon`     | `string`                                                     | `undefined` | Name of the SVG icon to use for status (overrides default).            | No       |
+| `dismissIcon`    | `string`                                                     | `undefined` | Name of the SVG icon to use for the dismiss button (overrides default). | No       |
+| `fullWidth`      | `boolean`                                                    | `false`     | Make the alert span the full width of its container.                    | No       |
+
+### Events
+
+| Name           | Payload Type                  | Description                       |
+|----------------|-------------------------------|-----------------------------------|
+| `plus-dismiss` | `CustomEvent<{ status: string }>` | Fired when the alert is dismissed. |
+
+### Slots
+
+| Name          | Description                                |
+|---------------|--------------------------------------------|
+| `message`     | The main message content.                    |
+| `description` | Additional descriptive content.              |
+| `prefix`      | Custom status icon content.                |
+| `dismiss`     | Custom dismiss button content.             |
+
+### CSS Shadow Parts
+
+| Part          | Description                         |
+|---------------|-------------------------------------|
+| `base`        | The main container element.         |
+| `status-icon` | The status icon container.        |
+| `content`     | The content container.              |
+| `message`     | The message container.              |
+| `description` | The description container.          |
+| `dismiss`     | The dismiss button container.       |
+
+

@@ -1,0 +1,288 @@
+---
+title: Button
+description: Button component allows users to take actions variants.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+import { Image } from 'astro:assets';
+import { CodePreview, CodePreviewBasic, EmbedContent } from '../../../component';
+
+import anatomy from '../../../assets/components/button/anatomy.png';
+import layoutSpacing from '../../../assets/components/button/layout-spacing.png';
+import lightDarkMode from '../../../assets/components/button/light-dark-mode.png';
+
+The Button component enables users to perform actions and make choices with a single tap. It's a fundamental interactive element used throughout applications.
+
+## Anatomy
+
+<Image src={anatomy} alt="Button - anatomy" />
+
+## Usage
+
+### Basic Example
+
+A standard button using default settings.
+
+<CodePreview 
+  autoGeneration={true}
+  horizontal 
+  showPlayground
+  controls="kind,size,status"
+  controlValues={{
+    size: ["sm", "md", "lg"],
+    status: ["default", "primary", "success"]
+  }}
+>
+  <plus-button kind="filled" size="md" status="default">Button</plus-button>
+</CodePreview>
+
+### Kind
+
+The `kind` prop defines the button's visual style.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button data-variant-kind="filled,outlined,dashed,text">Button</plus-button>
+</CodePreview>
+
+### Status
+
+The `status` prop sets the button's color scheme to convey semantic meaning.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button data-variant-status="default,primary,success,warning,danger,info">Button</plus-button>
+</CodePreview>
+
+### Size
+
+The `size` prop controls the button's dimensions.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button data-variant-size="sm,md,lg">Button</plus-button>
+</CodePreview>
+
+### Disabled State
+
+Set the `disabled` attribute or prop to prevent user interaction.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button disabled>Disabled Filled</plus-button>
+  <plus-button kind="outlined" disabled>Disabled Outlined</plus-button>
+  <plus-button kind="text" disabled>Disabled Text</plus-button>
+</CodePreview>
+
+### Loading State
+
+Set the `loading` attribute or prop to indicate an ongoing background process. This also disables the button.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button loading>Loading Filled</plus-button>
+  <plus-button kind="outlined" loading>Loading Outlined</plus-button>
+  <plus-button kind="text" loading>Loading Text</plus-button>
+</CodePreview>
+
+### Full Width
+
+Set the `full-width` attribute or `fullWidth` prop to make the button span the full width of its container.
+
+<CodePreview autoGeneration={true}>
+  <plus-button full-width>Full Width Button</plus-button>
+</CodePreview>
+
+### With Icons
+
+Use the `prefix` and `suffix` slots to add icons or other elements alongside the button text.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button>
+    <i class="fa-solid fa-download" slot="prefix"></i>
+    Download
+  </plus-button>
+  <plus-button>
+    Upload
+    <i class="fa-solid fa-upload" slot="suffix"></i>
+  </plus-button>
+  <plus-button>
+    <i class="fa-solid fa-cog" slot="prefix"></i>
+    Settings
+    <i class="fa-solid fa-chevron-down" slot="suffix"></i>
+  </plus-button>
+  <plus-button aria-label="Search">
+    <i class="fa-solid fa-search"></i>
+  </plus-button>
+</CodePreview>
+
+### Handling Clicks
+
+Listen for the `plus-click` event to trigger actions when the button is clicked.
+
+<CodePreview
+  autoGeneration={false}
+  showConsole={true}
+  customScript={`
+    const button = document.getElementById('button-click-example');
+    if (button) {
+      button.addEventListener('plus-click', () => {
+        console.log('Button clicked');
+      });
+    }
+  `}
+>
+  <plus-button id="button-click-example">Click Me</plus-button>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusButton } from '@plusui/react';
+
+    export default () => {
+      const handleClick = () => {
+        console.log('Button clicked');
+      };
+
+      return (
+        <PlusButton onClick={handleClick}>
+          Click Me
+        </PlusButton>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-example',
+      template: `
+        <plus-button (plus-click)="handleClick()">Click Me</plus-button>
+      `
+    })
+    export class ExampleComponent {
+      handleClick() {
+        console.log('Button clicked');
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-button @plus-click="handleClick">Click Me</plus-button>
+    </template>
+
+    <script>
+    export default {
+      methods: {
+        handleClick() {
+          console.log('Button clicked');
+        }
+      }
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      function handleClick() {
+        console.log('Button clicked');
+      }
+    </script>
+
+    <plus-button on:plus-click={handleClick}>Click Me</plus-button>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-button id="my-button">Click Me</plus-button>
+
+    <script>
+      const button = document.getElementById('my-button');
+      button.addEventListener('plus-click', () => {
+        console.log('Button clicked');
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+
+## Visual Sections
+
+### Layout & Spacing
+
+<Image src={layoutSpacing} alt="Button - layout spacing" />
+
+### Light & Dark Mode
+
+<Image src={lightDarkMode} alt="Button - light & dark mode" />
+
+## Accessibility (a11y)
+
+*   **Keyboard Behavior:**
+    *   Buttons are focusable via the `Tab` key.
+    *   Buttons can be activated using `Enter` or `Space` keys when focused.
+*   **Screen Reader:**
+    *   The component uses the native `<button>` element, which has an implicit `role="button"`.
+    *   The text content provided within the button (default slot) serves as the accessible name.
+    *   If the button contains only an icon, provide a descriptive `aria-label` attribute on the `plus-button` element itself.
+*   **Required Developer Actions:**
+    *   Ensure button text clearly indicates the action that will occur upon activation.
+    *   For icon-only buttons, **always** provide an `aria-label` attribute to describe the button's purpose (e.g., `<plus-button aria-label="Settings"><i class="fas fa-cog"></i></plus-button>`).
+    *   Ensure sufficient color contrast between the button's text/icon and its background, especially when customizing colors with CSS properties.
+
+## Design System
+
+<EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" />
+
+## API Reference
+
+### Properties
+
+| Name      | Type                                                              | Default     | Description                                     | Required |
+|-----------|-------------------------------------------------------------------|-------------|-------------------------------------------------|----------|
+| `kind`    | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                      | `'filled'`  | Visual style of the button.                     | No       |
+| `status`  | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Status/color variant of the button.             | No       |
+| `size`    | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Size of the button.                             | No       |
+| `disabled`| `boolean`                                                         | `false`     | Disables button interaction.                    | No       |
+| `loading` | `boolean`                                                         | `false`     | Shows loading spinner and disables interaction. | No       |
+| `fullWidth` | `boolean`                                                       | `false`     | Makes the button span the full width.           | No       |
+
+### Events
+
+| Name         | Payload Type        | Description                            |
+|--------------|---------------------|----------------------------------------|
+| `plus-click` | `CustomEvent<void>` | Fired when the button is clicked.      |
+| `plus-focus` | `CustomEvent<void>` | Fired when the button receives focus.  |
+| `plus-blur`  | `CustomEvent<void>` | Fired when the button loses focus.     |
+
+### Slots
+
+| Name              | Description                                      |
+|-------------------|--------------------------------------------------|
+| `default` (unnamed) | The main content of the button (text, etc.). |
+| `prefix`          | Content placed before the default slot content.  |
+| `suffix`          | Content placed after the default slot content.   |
+
+### CSS Custom Properties
+
+| Name           | Description                          |
+|----------------|--------------------------------------|
+| `--text-color` | Controls the text color.             |
+| `--border-color` | Controls the border color.           |
+| `--bg-default` | Controls the default background color. |
+| `--bg-hovered` | Controls the background on hover.    |
+| `--bg-pressed` | Controls the background when pressed. |
+| `--bg-focused` | Controls the background when focused. |
+| `--bg-loading` | Controls the background when loading. |
+
+### CSS Shadow Parts
+
+| Part     | Description                |
+|----------|----------------------------|
+| `button` | The main button container. |

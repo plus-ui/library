@@ -1,0 +1,34 @@
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs syncKey="installation">
+  <TabItem label="npm">
+```sh
+npm install @plusui/core
+```
+  </TabItem>
+
+  <TabItem label="yarn">
+```sh
+yarn add @plusui/core
+```
+  </TabItem>
+
+  <TabItem label="pnpm">
+```sh 
+pnpm add @plusui/core
+```
+  </TabItem>
+
+  <TabItem label="bun">
+```shell
+bun add @plusui/core
+```
+  </TabItem>
+
+  <TabItem label="cdn">
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@plusui/core/dist/style.css" />
+<script type="module" src="https://cdn.jsdelivr.net/npm/@plusui/core/+esm"></script>
+```
+  </TabItem>
+</Tabs> 

@@ -1,0 +1,61 @@
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+  /* Restore crucial styles from Tailwind Preflight: https://tailwindcss.com/docs/preflight */
+  /* Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116) */
+  *,
+  ::after,
+  ::before {
+    border: 0 solid;
+  }
+  /* Keep base font-family styles even in non-Starlight pages. */
+  html,
+  :host {
+    font-family: var(--font-sans);
+  }
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--font-mono);
+  }
+}
+
+@layer utilities {
+  /* Wire up Starlight theme to use Tailwind config. */
+  :root {
+    /* Use Tailwind-configured font families. */
+    --sl-font: var(--font-sans);
+    --sl-font-mono: var(--font-mono);
+    /* Dark mode Starlight theme variables. */
+    --sl-color-white: var(--color-white);
+    --sl-color-gray-1: var(--color-neutral-200);
+    --sl-color-gray-2: var(--color-neutral-300);
+    --sl-color-gray-3: var(--color-neutral-400);
+    --sl-color-gray-4: var(--color-neutral-600);
+    --sl-color-gray-5: var(--color-neutral-700);
+    --sl-color-gray-6: var(--color-neutral-800);
+    --sl-color-black: var(--color-neutral-900);
+    --sl-color-accent-low: var(
+      --color-primary-950,
+      var(--color-primary-900, #1e1b4b)
+    );
+    --sl-color-accent: var(--color-primary-600, #4f46e5);
+    --sl-color-accent-high: var(--color-primary-200, #c7d2fe);
+    /* Light mode Starlight theme variables. */
+    &[data-theme="light"] {
+      --sl-color-white: var(--color-neutral-900);
+      --sl-color-gray-1: var(--color-neutral-800);
+      --sl-color-gray-2: var(--color-neutral-700);
+      --sl-color-gray-3: var(--color-neutral-500);
+      --sl-color-gray-4: var(--color-neutral-400);
+      --sl-color-gray-5: var(--color-neutral-300);
+      --sl-color-gray-6: var(--color-neutral-200);
+      --sl-color-gray-7: var(--color-neutral-100);
+      --sl-color-black: var(--color-white);
+      --sl-color-accent-low: var(--color-primary-200, #c7d2fe);
+      --sl-color-accent: var(--color-primary-600, #4f46e5);
+      --sl-color-accent-high: var(--color-primary-900, #312e81);
+    }
+  }
+}
