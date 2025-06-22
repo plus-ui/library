@@ -6,10 +6,8 @@ since: 1.0.0
 updated: 2025-06-14
 version: 1.0.0
 ---
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
-import EmbedContent from '../../../components/EmbedContent.astro';
 import { Image } from 'astro:assets';
-import CodePreview from '../../../component/plus-ui/CodePreview.astro';
+import { CodePreview, EmbedContent } from '../../../component';
 
 import anatomy from '../../../assets/components/button/anatomy.png';
 import layoutSpacing from '../../../assets/components/button/layout-spacing.png';
@@ -118,9 +116,6 @@ Use the `prefix` and `suffix` slots to add icons or other elements alongside the
 
 Listen for the `plus-click` event to trigger actions when the button is clicked.
 
-<CodePreview>
-  <plus-button>Click Me</plus-button>
-</CodePreview>
 
 ## Visual Sections
 
