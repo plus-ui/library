@@ -4,35 +4,52 @@
  * =====================
  *
  * This component is used to display code examples in Plus UI documentation.
- * It automatically generates code examples for all frameworks (React, Angular, Vue, Svelte, HTML)
- * and provides an interactive playground.
+ * It supports both auto code generation and manual slot-based content.
+ * It also provides an interactive playground and console output capture.
  *
  * Key Features:
  * ------------
  * 1. **Auto Code Generation**: Generates code for all frameworks from a single HTML example
- * 2. **Variant System**: Automatic variants with data-variant-* attributes
- * 3. **Interactive Playground**: Real-time preview and controls
- * 4. **Multiple Component Support**: Multiple components in a single CodePreview
- * 5. **Smart Formatting**: Each component on separate lines with proper indentation
+ * 2. **Manual Slot Mode**: Use custom slot content for each framework
+ * 3. **Variant System**: Automatic variants with data-variant-* attributes
+ * 4. **Interactive Playground**: Real-time preview and controls
+ * 5. **Console Output**: Capture and display console.log messages
+ * 6. **Custom Scripts**: Execute custom JavaScript for interactions
+ * 7. **Multiple Component Support**: Multiple components in a single CodePreview
+ * 8. **Smart Formatting**: Each component on separate lines with proper indentation
  *
  * Usage Examples:
  * --------------
  *
- * 1. Basic Usage:
+ * 1. Auto Generation Mode (default):
  * ```astro
- * <CodePreview>
+ * <CodePreview autoGeneration={true}>
  *   <plus-button>Click Me</plus-button>
  * </CodePreview>
  * ```
  *
- * 2. Variant System:
+ * 2. Manual Slot Mode:
  * ```astro
- * <CodePreview horizontal>
+ * <CodePreview autoGeneration={false} customScript="console.log('clicked')">
+ *   <plus-button id="my-button">Click Me</plus-button>
+ *
+ *   <Fragment slot="react">
+ *     ```tsx
+ *     import { PlusButton } from '@plusui/react';
+ *     export default () => <PlusButton onClick={() => console.log('clicked')}>Click Me</PlusButton>;
+ *     ```
+ *   </Fragment>
+ * </CodePreview>
+ * ```
+ *
+ * 3. Variant System (auto generation only):
+ * ```astro
+ * <CodePreview horizontal autoGeneration={true}>
  *   <plus-button data-variant-kind="filled,outlined,text">Button</plus-button>
  * </CodePreview>
  * ```
  *
- * 3. Interactive Playground:
+ * 4. Interactive Playground:
  * ```astro
  * <CodePreview
  *   horizontal
@@ -47,16 +64,11 @@
  * </CodePreview>
  * ```
  *
- * 4. Multiple Components:
- * ```astro
- * <CodePreview horizontal>
- *   <plus-button><i slot="prefix" class="fa-download"></i>Download</plus-button>
- *   <plus-button>Upload<i slot="suffix" class="fa-upload"></i></plus-button>
- * </CodePreview>
- * ```
- *
  * Props:
  * ------
+ * @param autoGeneration - Enable auto code generation (default: true)
+ * @param customScript - Custom JavaScript to execute for interactions
+ * @param showConsole - Show console output section (default: true when customScript provided)
  * @param title - Preview title (optional)
  * @param className - Additional CSS classes (optional)
  * @param id - Unique ID, auto-generated if not provided
@@ -95,6 +107,9 @@
 import { Tabs, TabItem, Code } from "@astrojs/starlight/components";
 
 export interface Props {
+  autoGeneration?: boolean;
+  customScript?: string;
+  showConsole?: boolean;
   title?: string;
   className?: string;
   id?: string;
@@ -106,6 +121,9 @@ export interface Props {
 }
 
 const {
+  autoGeneration = true,
+  customScript,
+  showConsole = false,
   title,
   className,
   id = "preview-" + Math.random().toString(36).substring(2, 15),
@@ -141,14 +159,27 @@ function parseVariants(html: string) {
 }
 
 /**
+ * ID Remover for Auto Generation
+ * --------------------------------
+ * Removes ID attributes from HTML for auto generation
+ * (IDs should be used in custom scripts, not in generated code examples)
+ */
+function removeIds(html: string): string {
+  return html.replace(/\s+id="[^"]*"/g, "");
+}
+
+/**
  * Example Generator
  * -----------------
  * Creates example combinations from variants.
- * Currently supports single prop (multiple prop support can be added in the future).
+ * Supports multiple variant properties with Cartesian product combinations.
  */
 function generateExamples(html: string, variants: Record<string, string[]>) {
+  // Remove IDs for auto-generated examples
+  const cleanHtml = removeIds(html);
+
   if (Object.keys(variants).length === 0) {
-    return [{ html, name: "default" }];
+    return [{ html: cleanHtml, name: "default" }];
   }
 
   const examples: Array<{
@@ -157,19 +188,47 @@ function generateExamples(html: string, variants: Record<string, string[]>) {
     propName?: string;
     propValue?: string;
   }> = [];
-  const propName = Object.keys(variants)[0]; // Start with single prop support
-  const values = variants[propName];
 
-  values.forEach((value) => {
-    const processedHtml = html.replace(
-      new RegExp(`data-variant-${propName}="[^"]*"`, "g"),
-      `${propName}="${value}"`
-    );
+  // Get all variant property names and their values
+  const variantEntries = Object.entries(variants);
+  
+  // Generate Cartesian product of all variant combinations
+  function generateCombinations(entries: [string, string[]][], index = 0, current: Record<string, string> = {}): Record<string, string>[] {
+    if (index === entries.length) {
+      return [{ ...current }];
+    }
+    
+    const [propName, values] = entries[index];
+    const results: Record<string, string>[] = [];
+    
+    for (const value of values) {
+      const newCurrent = { ...current, [propName]: value };
+      results.push(...generateCombinations(entries, index + 1, newCurrent));
+    }
+    
+    return results;
+  }
+
+  const combinations = generateCombinations(variantEntries);
+
+  combinations.forEach((combination) => {
+    let processedHtml = cleanHtml;
+    const nameparts: string[] = [];
+    
+    // Apply all variant properties to the HTML
+    for (const [propName, value] of Object.entries(combination)) {
+      processedHtml = processedHtml.replace(
+        new RegExp(`data-variant-${propName}="[^"]*"`, "g"),
+        `${propName}="${value}"`
+      );
+      nameparts.push(`${propName}-${value}`);
+    }
+    
     examples.push({
       html: processedHtml,
-      name: value,
-      propName,
-      propValue: value,
+      name: nameparts.join(", "),
+      propName: Object.keys(combination)[0], // For backward compatibility
+      propValue: Object.values(combination)[0], // For backward compatibility
     });
   });
 
@@ -184,29 +243,121 @@ function generateExamples(html: string, variants: Record<string, string[]>) {
 
 // React conversion: plus-button → PlusButton, class → className, etc.
 function convertToReact(html: string) {
-  return html
-    .replace(/<plus-(\w+)/g, "<Plus$1")
-    .replace(/<\/plus-(\w+)>/g, "</Plus$1>")
+  // First do basic conversions
+  let converted = html
+    .replace(/<plus-([\w-]+)/g, (match, componentName) => {
+      const pascalCase = componentName
+        .split("-")
+        .map((part: string) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join("");
+      return "<Plus" + pascalCase;
+    })
+    .replace(/<\/plus-([\w-]+)>/g, (match, componentName) => {
+      const pascalCase = componentName
+        .split("-")
+        .map((part: string) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join("");
+      return "</Plus" + pascalCase + ">";
+    })
     .replace(/class="/g, 'className="')
     .replace(/full-width/g, "fullWidth")
     .replace(/(\w+)-(\w+)="/g, (match, p1, p2) => {
       return p1 + p2.charAt(0).toUpperCase() + p2.slice(1) + '="';
     });
+
+  // Return without formatting - formatCode will be called elsewhere
+  return converted;
 }
+
+/**
+ * Improved Code Formatter
+ * ------------------------
+ * Better HTML/JSX parsing that preserves structure
+ */
+function formatCode(codeString: string, framework: string): string {
+  // Framework-specific base indentations
+  const baseIndents: Record<string, string> = {
+    react: "      ", // Inside return() statement
+    angular: "    ", // Inside template string
+    vue: "  ", // Inside <template>
+    svelte: "", // Root level
+    html: "" // Root level
+  };
+  
+  const baseIndent = baseIndents[framework] || "";
+  
+  // Clean up and normalize
+  let cleaned = codeString.trim().replace(/\s+/g, ' ');
+  
+  // Format with proper indentation
+  const lines: string[] = [];
+  let indentLevel = 0;
+  let i = 0;
+  
+  while (i < cleaned.length) {
+    if (cleaned[i] === '<') {
+      // Find the end of this tag
+      let tagEnd = i;
+      while (tagEnd < cleaned.length && cleaned[tagEnd] !== '>') {
+        tagEnd++;
+      }
+      tagEnd++; // Include the '>'
+      
+      const tag = cleaned.substring(i, tagEnd);
+      
+      if (tag.startsWith('</')) {
+        // Closing tag
+        indentLevel = Math.max(0, indentLevel - 1);
+        lines.push(baseIndent + '  '.repeat(indentLevel) + tag);
+      } else if (tag.endsWith('/>')) {
+        // Self-closing tag
+        lines.push(baseIndent + '  '.repeat(indentLevel) + tag);
+      } else {
+        // Opening tag
+        lines.push(baseIndent + '  '.repeat(indentLevel) + tag);
+        indentLevel++;
+      }
+      
+      i = tagEnd;
+    } else {
+      // Text content - find next tag or end
+      let textEnd = i;
+      while (textEnd < cleaned.length && cleaned[textEnd] !== '<') {
+        textEnd++;
+      }
+      
+      const text = cleaned.substring(i, textEnd).trim();
+      if (text) {
+        lines.push(baseIndent + '  '.repeat(indentLevel) + text);
+      }
+      
+      i = textEnd;
+    }
+  }
+  
+  return lines.join('\n');
+}
+
+
 
 // Angular conversion: uses web components directly
 function convertToAngular(html: string) {
-  return html; // Angular uses web components directly
+  return html;
 }
 
 // Vue conversion: uses web components directly
 function convertToVue(html: string) {
-  return html; // Vue uses web components directly
+  return html;
 }
 
 // Svelte conversion: uses web components directly
 function convertToSvelte(html: string) {
-  return html; // Svelte uses web components directly
+  return html;
+}
+
+// HTML formatting
+function convertToHtml(html: string) {
+  return html;
 }
 
 /**
@@ -216,8 +367,8 @@ function convertToSvelte(html: string) {
  * Example: <plus-button> → import { PlusButton } from '@plusui/react'
  */
 function generateImports(html: string, framework: string) {
-  const components: string[] = [];
-  const componentRegex = /<plus-(\w+)/g;
+  const components: Set<string> = new Set();
+  const componentRegex = /<plus-([\w-]+)/g;
   let match;
 
   while ((match = componentRegex.exec(html)) !== null) {
@@ -225,19 +376,17 @@ function generateImports(html: string, framework: string) {
       .split("-")
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
       .join("");
-    if (!components.includes(componentName)) {
-      components.push("Plus" + componentName);
-    }
+    components.add("Plus" + componentName);
   }
 
   switch (framework) {
     case "react":
-      return `import { ${components.join(", ")} } from '@plusui/react';
+      return `import { ${Array.from(components).join(", ")} } from '@plusui/react';
 
 export default () => {
   return (
     <>
-      %content%
+%content%
     </>
   );
 };`;
@@ -247,13 +396,13 @@ export default () => {
 @Component({
   selector: 'app-example',
   template: \`
-    %content%
+%content%
   \`
 })
 export class ExampleComponent {}`;
     case "vue":
       return `<template>
-  %content%
+%content%
 </template>`;
     case "svelte":
       return `%content%`;
@@ -262,8 +411,45 @@ export class ExampleComponent {}`;
   }
 }
 
-const variants = parseVariants(slotContent);
-const examples = generateExamples(slotContent, variants);
+// Auto generation logic (only when autoGeneration is true)
+let variants: Record<string, string[]> = {};
+let examples: Array<{ html: string; name: string }> = [];
+let codeStrings: Record<string, string>;
+
+if (autoGeneration) {
+  variants = parseVariants(slotContent);
+  examples = generateExamples(slotContent, variants);
+
+  // Generate code strings for each framework (auto generation)
+  codeStrings = {
+    react: generateImports(examples[0]?.html || "", "react").replace(
+      "%content%",
+      formatCode(formatCodeExamples(examples, convertToReact, ""), "react")
+    ),
+    angular: generateImports(examples[0]?.html || "", "angular").replace(
+      "%content%",
+      formatCode(formatCodeExamples(examples, convertToAngular, ""), "angular")
+    ),
+    vue: generateImports(examples[0]?.html || "", "vue").replace(
+      "%content%",
+      formatCode(formatCodeExamples(examples, convertToVue, ""), "vue")
+    ),
+    svelte: formatCode(formatCodeExamples(examples, convertToSvelte, ""), "svelte"),
+    html: formatCode(formatCodeExamples(examples, convertToHtml, ""), "html"),
+  };
+} else {
+  // Manual slot mode - use original content for preview
+  examples = [{ html: slotContent, name: "default" }];
+
+  // Code strings will be provided via slots
+  codeStrings = {
+    react: "",
+    angular: "",
+    vue: "",
+    svelte: "",
+    html: "",
+  };
+}
 
 /**
  * Smart Code Formatter
@@ -277,50 +463,13 @@ function formatCodeExamples(
   baseIndent: string = ""
 ): string {
   if (examples.length === 1) {
-    // Check if the single example contains multiple components
-    const singleHtml = examples[0].html;
-    const componentMatches = singleHtml.match(
-      /<plus-\w+[^>]*>[\s\S]*?<\/plus-\w+>/g
-    );
-
-    if (componentMatches && componentMatches.length > 1) {
-      // Multiple components in single example - format each on new line
-      const formattedComponents = componentMatches.map((component: string) =>
-        converter(component.trim())
-      );
-
-      // For multiple components, we want consistent indentation
-      return formattedComponents
-        .map((converted: string, index: number) =>
-          index === 0 ? converted : baseIndent + converted
-        )
-        .join("\n");
-    } else {
-      // Single component
-      return converter(singleHtml);
-    }
+    // Just convert the whole HTML as-is
+    // Let formatCode handle the formatting
+    return converter(examples[0].html);
   }
 
-  return examples.map((ex) => baseIndent + converter(ex.html)).join("\n");
+  return examples.map((ex) => converter(ex.html)).join("\n");
 }
-
-// Generate code strings for each framework
-const codeStrings = {
-  react: generateImports(examples[0]?.html || "", "react").replace(
-    "%content%",
-    formatCodeExamples(examples, convertToReact, "      ")
-  ),
-  angular: generateImports(examples[0]?.html || "", "angular").replace(
-    "%content%",
-    formatCodeExamples(examples, convertToAngular, "    ")
-  ),
-  vue: generateImports(examples[0]?.html || "", "vue").replace(
-    "%content%",
-    formatCodeExamples(examples, convertToVue, "  ")
-  ),
-  svelte: formatCodeExamples(examples, convertToSvelte),
-  html: formatCodeExamples(examples, (html) => html),
-};
 
 // Extract default values from component in slotContent
 function extractDefaultValues(
@@ -487,56 +636,100 @@ const playgroundConfig =
     <div id={`code-section-${id}`} class="hidden mt-4 mb-2">
       <Tabs syncKey="code-tab">
         <TabItem label="React">
-          {
+          {autoGeneration ? (
             codeStrings.react && codeStrings.react.length > 0 ? (
               <Code code={codeStrings.react} lang="tsx" />
             ) : (
               <p>No React code available</p>
             )
-          }
+          ) : (
+            <slot name="react" />
+          )}
         </TabItem>
         <TabItem label="Angular">
-          {
+          {autoGeneration ? (
             codeStrings.angular && codeStrings.angular.length > 0 ? (
               <Code code={codeStrings.angular} lang="ts" />
             ) : (
               <p>No Angular code available</p>
             )
-          }
+          ) : (
+            <slot name="angular" />
+          )}
         </TabItem>
         <TabItem label="Vue">
-          {
+          {autoGeneration ? (
             codeStrings.vue && codeStrings.vue.length > 0 ? (
               <Code code={codeStrings.vue} lang="vue" />
             ) : (
               <p>No Vue code available</p>
             )
-          }
+          ) : (
+            <slot name="vue" />
+          )}
         </TabItem>
         <TabItem label="Svelte">
-          {
+          {autoGeneration ? (
             codeStrings.svelte && codeStrings.svelte.length > 0 ? (
               <Code code={codeStrings.svelte} lang="svelte" />
             ) : (
               <p>No Svelte code available</p>
             )
-          }
+          ) : (
+            <slot name="svelte" />
+          )}
         </TabItem>
         <TabItem label="HTML">
-          {
+          {autoGeneration ? (
             codeStrings.html && codeStrings.html.length > 0 ? (
               <Code code={codeStrings.html} lang="html" />
             ) : (
               <p>No HTML code available</p>
             )
-          }
+          ) : (
+            <slot name="html" />
+          )}
         </TabItem>
       </Tabs>
     </div>
+
+    <!-- Show Console Button -->
+    {showConsole && (
+      <plus-button
+        kind="text"
+        size="sm"
+        class="w-full"
+        full-width="true"
+        id={`toggle-console-button-${id}`}
+      >
+        <div class="flex flex-row gap-2 items-center justify-between w-30">
+          <span id={`toggle-console-text-${id}`}>Show console</span>
+          <i id={`toggle-console-icon-${id}`} class="fa-solid fa-chevron-down"></i>
+        </div>
+      </plus-button>
+      
+      <!-- Console Section -->
+      <div id={`console-section-${id}`} class="hidden mb-2">
+        <div class="bg-color-default-invert-pressed text-color-success p-4 rounded-md font-mono text-xs">
+          <div class="mb-2 text-color-base">Console Output:</div>
+          <div id={`console-output-${id}`} class="whitespace-pre-wrap min-h-[60px]">
+            <div class="text-color-caption italic">No console output yet. Try interacting with the components above.</div>
+          </div>
+          <plus-button
+            kind="outlined"
+            size="sm"
+            id={`clear-console-${id}`}
+            class="mt-2"
+          >
+            Clear Console
+          </plus-button>
+        </div>
+      </div>
+    )}
   </div>
 </div>
 
-<script define:vars={{ id, playgroundConfig }}>
+<script define:vars={{ id, playgroundConfig, showConsole, customScript }}>
   // Client-side script for interactivity
   const toggleButton = document.getElementById(`toggle-button-${id}`);
   const toggleIcon = document.getElementById(`toggle-icon-${id}`);
@@ -561,6 +754,109 @@ const playgroundConfig =
 
   // Event listener for the plus-button
   toggleButton.addEventListener("plus-click", toggleCode);
+
+  // Console functionality
+  let addConsoleMessage = null;
+  
+  if (showConsole) {
+    const toggleConsoleButton = document.getElementById(`toggle-console-button-${id}`);
+    const toggleConsoleIcon = document.getElementById(`toggle-console-icon-${id}`);
+    const toggleConsoleText = document.getElementById(`toggle-console-text-${id}`);
+    const consoleSection = document.getElementById(`console-section-${id}`);
+    const consoleOutput = document.getElementById(`console-output-${id}`);
+    const clearConsoleButton = document.getElementById(`clear-console-${id}`);
+
+    let isConsoleVisible = false;
+    let consoleMessages = [];
+
+    const toggleConsole = () => {
+      isConsoleVisible = !isConsoleVisible;
+
+      if (isConsoleVisible) {
+        consoleSection.classList.remove("hidden");
+        toggleConsoleIcon.className = "fa-solid fa-chevron-up";
+        toggleConsoleText.textContent = "Hide console";
+      } else {
+        consoleSection.classList.add("hidden");
+        toggleConsoleIcon.className = "fa-solid fa-chevron-down";
+        toggleConsoleText.textContent = "Show console";
+      }
+    };
+
+    addConsoleMessage = (message, type = 'log') => {
+      const timestamp = new Date().toLocaleTimeString();
+      const colorClass = type === 'error' ? 'text-color-danger-invert' : 
+                        type === 'warn' ? 'text-color-warning-invert' : 'text-color-success-invert';
+      
+      consoleMessages.push({ message, type, timestamp, colorClass });
+      updateConsoleDisplay();
+    };
+
+    const updateConsoleDisplay = () => {
+      if (consoleMessages.length === 0) {
+        consoleOutput.innerHTML = '<div class="text-color-base italic">No console output yet. Try interacting with the components above.</div>';
+      } else {
+        consoleOutput.innerHTML = consoleMessages
+          .map(msg => `<div class="${msg.colorClass}">[${msg.timestamp}] ${msg.message}</div>`)
+          .join('');
+      }
+    };
+
+    const clearConsole = () => {
+      consoleMessages = [];
+      updateConsoleDisplay();
+    };
+
+    // Event listeners
+    toggleConsoleButton.addEventListener("plus-click", toggleConsole);
+    clearConsoleButton.addEventListener("plus-click", clearConsole);
+
+    // Add a debug message to test console
+    setTimeout(() => {
+      addConsoleMessage('Console initialized for preview', 'log');
+    }, 100);
+  }
+
+  // Execute custom script if provided (independent of showConsole)
+  if (customScript) {
+    try {
+      // Create console wrapper functions that capture output if console is enabled
+      const captureConsole = (originalMethod, type) => {
+        return (...args) => {
+          // Always call original console (don't break browser console)
+          originalMethod.apply(console, args);
+          
+          // Capture for our preview only if console is enabled
+          if (addConsoleMessage) {
+            const message = args.map(arg => 
+              typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' ');
+            addConsoleMessage(message, type);
+          }
+        };
+      };
+
+      // Create console override for script execution
+      const scriptConsole = {
+        log: captureConsole(console.log, 'log'),
+        error: captureConsole(console.error, 'error'),
+        warn: captureConsole(console.warn, 'warn')
+      };
+
+      // Execute script with our console wrapper
+      const func = new Function('console', customScript);
+      func(scriptConsole);
+      
+    } catch (error) {
+      // Log error to browser console
+      console.error(`Script error in preview ${id}:`, error.message);
+      
+      // Also add to preview console if available
+      if (addConsoleMessage) {
+        addConsoleMessage(`Script error: ${error.message}`, 'error');
+      }
+    }
+  }
 
   // Playground functionality - Each component isolated
   if (playgroundConfig) {
@@ -618,3 +914,5 @@ const playgroundConfig =
     // The playground only updates the preview component for interactive testing
   }
 </script>
+
+

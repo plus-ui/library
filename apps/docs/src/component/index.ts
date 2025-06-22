@@ -12,7 +12,7 @@
  */
 
 // Plus UI Components - Organized in dedicated folders
-export { default as CodePreview } from "./plus-ui/codepreview/CodePreview.astro";
+export { default as CodePreview } from "./plus-ui/code-preview/CodePreview.astro";
 export { default as ComponentHeader } from "./plus-ui/component-header/ComponentHeader.astro";
 export { default as Changelog } from "./plus-ui/changelog/Changelog.astro";
 export { default as Breadcrumb } from "./plus-ui/breadcrumb/Breadcrumb.astro";
@@ -27,4 +27,4 @@ export { default as PageTitle } from "./starlight-overrides/PageTitle.astro";
 export { default as SocialIcons } from "./starlight-overrides/SocialIcons.astro";
 
 // Re-export types if needed
-export type { Props as CodePreviewProps } from "./plus-ui/codepreview/CodePreview.astro";
+export type { Props as CodePreviewProps } from "./plus-ui/code-preview/CodePreview.astro";

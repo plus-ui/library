@@ -304,7 +304,7 @@ const getTypeColor = (type: string) => {
                   <div class="group">
                     <div class="flex items-start gap-2">
                        <div class="flex-1">
-                        <div class="flex items-center gap-2">
+                        <div class="">
                           {/* <plus-tooltip size="sm" orientation="left" message={entry.type}>
                             <span class={`text-lg font-semibold uppercase tracking-wider ${getTypeColor(entry.type)}`}>
                               {getTypeIcon(entry.type)}
@@ -314,11 +314,11 @@ const getTypeColor = (type: string) => {
                              {getTypeLabel(entry.type)}
                            </span>
                           {!componentFilter && (
-                            <span class="text-xs bg-color-default-default text-color-default px-2 py-1 rounded">
+                            <span class="text-xs bg-color-default-default text-color-default px-2 py-1 ml-2 rounded">
                               {entry.component}
                             </span>
                           )}
-                        <h4 class="font-semibold text-color-default text-lg">{entry.description}</h4>
+                        <h4 class="inline font-semibold text-color-default text-lg ml-2">{entry.description}</h4>
                         </div>
                         
                         {entry.details && entry.details.length > 0 && (
