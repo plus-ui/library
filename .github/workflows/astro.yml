@@ -50,7 +50,7 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build CDN
-        run: pnpm run build
+        run: pnpm run core:build
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: pnpm run docs:build
