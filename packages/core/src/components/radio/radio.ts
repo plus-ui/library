@@ -47,7 +47,7 @@ export default class PlusRadio extends Tailwind {
   checked = false;
 
   /** Whether the radio is in an error state. */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   error = false;
 
   /** Whether the radio is disabled. */

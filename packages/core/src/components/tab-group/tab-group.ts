@@ -103,6 +103,7 @@ export default class PlusTabGroup extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   disabled = false;
 
@@ -113,6 +114,7 @@ export default class PlusTabGroup extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   dismissible = false;
 

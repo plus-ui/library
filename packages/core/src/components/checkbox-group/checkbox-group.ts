@@ -25,7 +25,8 @@ export class PlusCheckboxGroup extends Tailwind {
   value: string[] = [];
 
   /** Whether to display the checkboxes vertically. */
-  @property({ type: Boolean, converter: booleanConverter }) vertical = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  vertical = false;
 
   /** The size of the checkboxes in the group. */
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';

@@ -82,7 +82,7 @@ export default class PlusDropdown extends Tailwind {
    * Disables the dropdown interaction
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**

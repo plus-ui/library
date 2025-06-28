@@ -35,11 +35,11 @@ export default class PlusListBoxItem extends Tailwind {
   size: 'sm' | 'md' | 'lg' = 'md';
 
   /** Disables the item, making it non-interactive. */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /** Indicates whether the item is currently selected. */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   selected = false;
 
   /**

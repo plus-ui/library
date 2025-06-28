@@ -42,6 +42,7 @@ export default class PlusButtonGroup extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   override = false;
 
@@ -84,14 +85,14 @@ export default class PlusButtonGroup extends Tailwind {
    * Disables the button interaction
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**
    * Shows loading spinner and disables interaction
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   loading = false;
 
   @state()

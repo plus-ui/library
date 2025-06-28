@@ -86,7 +86,7 @@ export default class PlusLink extends Tailwind {
    * When true, displays loading state and disables interaction
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   loading = false;
 
   /**
@@ -94,7 +94,7 @@ export default class PlusLink extends Tailwind {
    * Automatically sets target="_blank" and rel="noopener noreferrer"
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   external = false;
 
   /**

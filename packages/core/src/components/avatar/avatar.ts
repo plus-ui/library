@@ -59,7 +59,8 @@ export default class PlusAvatar extends Tailwind {
    * Toggles inverted color scheme
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter }) invert = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  invert = false;
 
   /**
    * Text to display as initials when no image is available

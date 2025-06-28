@@ -134,6 +134,7 @@ export default class PlusAlert extends Tailwind {
     type: Boolean,
     attribute: 'full-width',
     converter: booleanConverter,
+    reflect: true,
   })
   fullWidth = false;
 

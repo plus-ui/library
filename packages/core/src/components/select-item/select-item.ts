@@ -34,7 +34,7 @@ export default class PlusSelectItem extends Tailwind {
    * When disabled, the item cannot be clicked or selected.
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled: boolean = false;
 
   /**
@@ -42,7 +42,7 @@ export default class PlusSelectItem extends Tailwind {
    * The selected state is managed by the parent PlusSelect component.
    * @default false
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   selected: boolean = false;
 
   /**

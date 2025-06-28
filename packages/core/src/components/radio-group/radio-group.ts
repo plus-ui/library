@@ -33,7 +33,7 @@ export default class PlusRadioGroup extends Tailwind {
   size: 'sm' | 'md' | 'lg' = 'md';
 
   /** Displays the radio buttons in an error state. */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   error = false;
 
   /**

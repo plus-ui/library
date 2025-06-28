@@ -31,8 +31,10 @@ export default class PlusRating extends Tailwind {
   @property({ type: Number, reflect: true }) value = 0;
   @property({ type: Number }) max = 5;
   @property({ type: Number }) precision = 1; // Steps: 1 for full stars, 0.5 for half, 0.1 etc.
-  @property({ type: Boolean, converter: booleanConverter }) readonly = false;
-  @property({ type: Boolean, converter: booleanConverter }) disabled = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  readonly = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  disabled = false;
   @property({ type: String }) size: 'sm' | 'md' | 'lg' = 'md';
   @property() name?: string; // For potential form integration later
 
@@ -48,7 +50,8 @@ export default class PlusRating extends Tailwind {
   /** The caption text displayed below the rating. */
   @property({ type: String }) caption?: string;
 
-  @property({ type: Boolean, converter: booleanConverter }) required = false; // Add required property if not already present
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  required = false; // Add required property if not already present
 
   // Internal state for hover effect
   @state() private hoverValue = 0;

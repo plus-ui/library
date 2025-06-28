@@ -12,7 +12,26 @@ import {
 import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popconfirmStyle } from './popconfirm.style';
-import { PopconfirmPosition, PopconfirmTrigger } from './popconfirm.model';
+
+enum PopconfirmTrigger {
+  Hover = 'hover',
+  Click = 'click',
+}
+
+enum PopconfirmPosition {
+  Top = 'top',
+  TopStart = 'top-start',
+  TopEnd = 'top-end',
+  Bottom = 'bottom',
+  BottomStart = 'bottom-start',
+  BottomEnd = 'bottom-end',
+  Left = 'left',
+  LeftStart = 'left-start',
+  LeftEnd = 'left-end',
+  Right = 'right',
+  RightStart = 'right-start',
+  RightEnd = 'right-end',
+}
 
 /**
  * @tag plus-popconfirm
@@ -155,6 +174,7 @@ export default class PlusPopconfirm extends Tailwind {
     type: Boolean,
     converter: booleanConverter,
     attribute: 'status-icon',
+    reflect: true,
   })
   statusIcon = true;
 
@@ -168,6 +188,7 @@ export default class PlusPopconfirm extends Tailwind {
     type: Boolean,
     converter: booleanConverter,
     attribute: 'show-arrow',
+    reflect: true,
   })
   showArrow = true;
 

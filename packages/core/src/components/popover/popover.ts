@@ -165,6 +165,7 @@ export default class PlusPopover extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   dismissable = true;
 
@@ -181,6 +182,7 @@ export default class PlusPopover extends Tailwind {
     type: Boolean,
     converter: booleanConverter,
     attribute: 'status-icon',
+    reflect: true,
   })
   statusIcon = true;
 
@@ -197,6 +199,7 @@ export default class PlusPopover extends Tailwind {
     type: Boolean,
     converter: booleanConverter,
     attribute: 'show-arrow',
+    reflect: true,
   })
   showArrow = true;
 

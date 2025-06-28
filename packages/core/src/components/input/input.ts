@@ -126,43 +126,49 @@ export default class PlusInput extends Tailwind {
    * Whether the input should have a clear button
    * @type {boolean}
    * @default false
+   * @attr clearable
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   clearable = false;
 
   /**
    * Whether the input is disabled
    * @type {boolean}
    * @default false
+   * @attr disabled
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**
    * Whether the input is readonly
    * @type {boolean}
    * @default false
+   * @attr readonly
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   readonly = false;
 
   /**
    * Whether the input is required
    * @type {boolean}
    * @default false
+   * @attr required
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   required = false;
 
   /**
    * Whether to show a password toggle button
    * @type {boolean}
    * @default false
+   * @attr password-toggle
    */
   @property({
     attribute: 'password-toggle',
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   passwordToggle = false;
 
@@ -170,11 +176,13 @@ export default class PlusInput extends Tailwind {
    * Whether the password is visible
    * @type {boolean}
    * @default false
+   * @attr password-visible
    */
   @property({
     attribute: 'password-visible',
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   passwordVisible = false;
 
@@ -235,8 +243,10 @@ export default class PlusInput extends Tailwind {
   /**
    * Whether the input should automatically get focus
    * @type {boolean}
+   * @default undefined
+   * @attr autofocus
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   autoFocus?: boolean;
 
   /**
@@ -269,8 +279,10 @@ export default class PlusInput extends Tailwind {
   /**
    * Whether spellcheck is enabled
    * @type {boolean}
+   * @default undefined
+   * @attr spellcheck
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   spellCheck?: boolean;
 
   /**
@@ -283,8 +295,9 @@ export default class PlusInput extends Tailwind {
    * Whether the input is in an error state
    * @type {boolean}
    * @default false
+   * @attr error
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   error = false;
 
   /**
@@ -311,8 +324,10 @@ export default class PlusInput extends Tailwind {
    * Whether the input is used as part of a select component
    * @type {boolean}
    * @default false
+   * @internal
+   * @attr isSelect
    */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   isSelect = false;
 
   /**

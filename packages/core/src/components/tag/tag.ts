@@ -122,7 +122,7 @@ export default class PlusTag extends Tailwind {
   size: 'sm' | 'md' | 'lg' = 'md';
 
   /** Inverts the color scheme of the tag. */
-  @property({ type: Boolean, converter: booleanConverter })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   invert = false;
 
   /**

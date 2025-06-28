@@ -107,6 +107,7 @@ export default class PlusTab extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   dismissible = false;
 
@@ -117,6 +118,7 @@ export default class PlusTab extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   truncate = false;
 
@@ -128,6 +130,7 @@ export default class PlusTab extends Tailwind {
   @property({
     type: Boolean,
     converter: booleanConverter,
+    reflect: true,
   })
   animated = false;
 
@@ -147,13 +150,25 @@ export default class PlusTab extends Tailwind {
   }
 
   override render() {
-    const { size, active, disabled, orientation, prefixIcon, suffixIcon, dismissible, truncate, animated } = this;
+    const {
+      size,
+      active,
+      disabled,
+      orientation,
+      prefixIcon,
+      suffixIcon,
+      dismissible,
+      truncate,
+      animated,
+    } = this;
 
     const dynamicStyles = {
       '--tab-text-color': 'var(--text-color, var(--plus-color-text-default))',
-      '--tab-active-color': 'var(--active-color, var(--plus-color-primary-default))',
+      '--tab-active-color':
+        'var(--active-color, var(--plus-color-primary-default))',
       '--tab-bg-default': 'var(--bg-default, transparent)',
-      '--tab-bg-hovered': 'var(--bg-hovered, var(--plus-color-background-default-hovered))',
+      '--tab-bg-hovered':
+        'var(--bg-hovered, var(--plus-color-background-default-hovered))',
     };
 
     // Create tab style properties from component state
@@ -178,12 +193,29 @@ export default class PlusTab extends Tailwind {
         tabindex=${disabled ? -1 : active ? 0 : -1}
         style=${styleMap(dynamicStyles)}
       >
-        ${prefixIcon ? html`<span class="tab-prefix-icon"><i class="${prefixIcon}"></i></span>` : ''}
+        ${prefixIcon
+          ? html`<span class="tab-prefix-icon"
+              ><i class="${prefixIcon}"></i
+            ></span>`
+          : ''}
         <slot></slot>
-        ${suffixIcon ? html`<span class="tab-suffix-icon"><i class="${suffixIcon}"></i></span>` : ''}
+        ${suffixIcon
+          ? html`<span class="tab-suffix-icon"
+              ><i class="${suffixIcon}"></i
+            ></span>`
+          : ''}
         ${dismissible
-          ? html`<button type="button" class="tab-dismiss-button" aria-label="Dismiss tab" @click=${this.handleDismiss}>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="h-3 w-3 fill-current">
+          ? html`<button
+              type="button"
+              class="tab-dismiss-button"
+              aria-label="Dismiss tab"
+              @click=${this.handleDismiss}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 384 512"
+                class="h-3 w-3 fill-current"
+              >
                 <path
                   d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
                 />
