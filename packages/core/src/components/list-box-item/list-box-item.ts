@@ -3,6 +3,7 @@ import Tailwind from '../base/tailwind-base';
 import { html } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
 import { listBoxItemStyle } from './list-box-item.style';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 /**
  * @tag plus-list-box-item
@@ -33,20 +34,12 @@ export default class PlusListBoxItem extends Tailwind {
   @property({ type: String })
   size: 'sm' | 'md' | 'lg' = 'md';
 
-  /**
-   * Disables the list box item interaction
-   * When disabled, the item cannot be clicked or selected
-   * @default false
-   */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  /** Disables the item, making it non-interactive. */
+  @property({ type: Boolean, converter: booleanConverter })
   disabled = false;
 
-  /**
-   * Sets the selected state of the list box item
-   * When selected, the item will display with a highlighted background
-   * @default false
-   */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  /** Indicates whether the item is currently selected. */
+  @property({ type: Boolean, converter: booleanConverter })
   selected = false;
 
   /**

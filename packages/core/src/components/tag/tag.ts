@@ -1,4 +1,5 @@
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { html, css } from 'lit';
 import { tagStyle } from './tag.style';
@@ -120,11 +121,8 @@ export default class PlusTag extends Tailwind {
   @property({ type: String })
   size: 'sm' | 'md' | 'lg' = 'md';
 
-  /**
-   * Toggles between light/dark color themes
-   * @default false
-   */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  /** Inverts the color scheme of the tag. */
+  @property({ type: Boolean, converter: booleanConverter })
   invert = false;
 
   /**

@@ -1,5 +1,6 @@
 import { property } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { SlotController } from '../../controllers/slot-controller.js';
 import Tailwind from '../base/tailwind-base';
 import { breadcrumbItemStyle } from './breadcrumb-item.style';
@@ -39,7 +40,7 @@ export class PlusBreadcrumbItem extends Tailwind {
 
   // Internal properties managed by the parent breadcrumb
   /** @internal */
-  @property({ type: Boolean, attribute: false })
+  @property({ type: Boolean, attribute: false, converter: booleanConverter })
   isLastItemInternal = false;
 
   /** @internal */

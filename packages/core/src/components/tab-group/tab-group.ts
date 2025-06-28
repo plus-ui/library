@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { tabStyle } from '../tab/styles';
 
@@ -101,17 +102,17 @@ export default class PlusTabGroup extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
   })
   disabled = false;
 
   /**
-   * Enables the dismiss button on all tabs
+   * Allows individual tabs to be dismissed (closed).
    * @default false
    */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
   })
   dismissible = false;
 
@@ -128,7 +129,7 @@ export default class PlusTabGroup extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
   })
   animated = false;
 

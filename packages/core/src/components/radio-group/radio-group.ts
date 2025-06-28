@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { PlusRadio } from '../radio/radio';
 import { radioGroupStyle } from './radio-group.style';
@@ -13,10 +14,12 @@ export default class PlusRadioGroup extends Tailwind {
   @property()
   value = '';
 
-  @property({ type: Boolean, reflect: true })
+  /** Disables all radio buttons in the group. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   disabled = false;
 
-  @property({ type: Boolean, reflect: true })
+  /** Makes the radio group required for form submission. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   required = false;
 
   /**
@@ -29,10 +32,8 @@ export default class PlusRadioGroup extends Tailwind {
   @property({ type: String })
   size: 'sm' | 'md' | 'lg' = 'md';
 
-  /**
-   * Shows error styling on the radio group
-   */
-  @property({ type: Boolean })
+  /** Displays the radio buttons in an error state. */
+  @property({ type: Boolean, converter: booleanConverter })
   error = false;
 
   /**

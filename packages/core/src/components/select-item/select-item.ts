@@ -3,6 +3,7 @@ import Tailwind from '../base/tailwind-base';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 /**
  * A select item component that represents a selectable option within a select menu.
@@ -33,7 +34,7 @@ export default class PlusSelectItem extends Tailwind {
    * When disabled, the item cannot be clicked or selected.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter })
   disabled: boolean = false;
 
   /**
@@ -41,7 +42,7 @@ export default class PlusSelectItem extends Tailwind {
    * The selected state is managed by the parent PlusSelect component.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter })
   selected: boolean = false;
 
   /**

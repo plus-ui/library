@@ -1,4 +1,5 @@
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { Tailwind } from '../base/tailwind-base';
 import { html, PropertyValues } from 'lit';
 import {
@@ -81,7 +82,7 @@ export default class PlusDropdown extends Tailwind {
    * Disables the dropdown interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter })
   disabled = false;
 
   /**

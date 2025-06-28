@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { tabStyle } from '../tab/styles';
 
@@ -34,14 +35,13 @@ export default class PlusTabPanel extends Tailwind {
   value = '';
 
   /**
-   * Indicates if the panel is currently visible
-   * @default false
+   * Indicates whether the panel is currently active/visible.
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   active = false;
 
   /**
-   * Custom CSS class to apply to the panel
+   * An optional class to apply to the panel container.
    */
   @property({ type: String })
   panelClass = '';

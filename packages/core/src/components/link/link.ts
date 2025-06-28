@@ -2,6 +2,7 @@ import { html } from 'lit';
 import Tailwind from '../base/tailwind-base';
 import { property } from 'lit/decorators.js';
 import { linkStyle } from './link.style';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 /**
  * @tag plus-link
@@ -35,7 +36,7 @@ export default class PlusLink extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   disabled = false;
 
@@ -46,7 +47,7 @@ export default class PlusLink extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   readonly = false;
 
@@ -85,7 +86,7 @@ export default class PlusLink extends Tailwind {
    * When true, displays loading state and disables interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter })
   loading = false;
 
   /**
@@ -93,7 +94,7 @@ export default class PlusLink extends Tailwind {
    * Automatically sets target="_blank" and rel="noopener noreferrer"
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter })
   external = false;
 
   /**

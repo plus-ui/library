@@ -9,28 +9,10 @@ import {
   Placement,
   flip,
 } from '@floating-ui/dom';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popconfirmStyle } from './popconfirm.style';
-
-enum PopconfirmTrigger {
-  Hover = 'hover',
-  Click = 'click',
-}
-
-enum PopconfirmPosition {
-  Top = 'top',
-  TopStart = 'top-start',
-  TopEnd = 'top-end',
-  Bottom = 'bottom',
-  BottomStart = 'bottom-start',
-  BottomEnd = 'bottom-end',
-  Left = 'left',
-  LeftStart = 'left-start',
-  LeftEnd = 'left-end',
-  Right = 'right',
-  RightStart = 'right-start',
-  RightEnd = 'right-end',
-}
+import { PopconfirmPosition, PopconfirmTrigger } from './popconfirm.model';
 
 /**
  * @tag plus-popconfirm
@@ -166,15 +148,12 @@ export default class PlusPopconfirm extends Tailwind {
   /**
    * Determines whether a status icon should be displayed in the popconfirm.
    *
-   * - `true` (default) - An icon representing the status will be displayed.
-   * - `false` - No icon will be displayed.
-   *
    * @type {boolean}
    * @default true
    */
   @property({
     type: Boolean,
-    converter: (value) => value !== 'false',
+    converter: booleanConverter,
     attribute: 'status-icon',
   })
   statusIcon = true;
@@ -182,15 +161,12 @@ export default class PlusPopconfirm extends Tailwind {
   /**
    * Determines whether the arrow should be displayed.
    *
-   * - `true` (default) - Arrow will be displayed.
-   * - `false` - Arrow will be hidden.
-   *
    * @type {boolean}
    * @default true
    */
   @property({
     type: Boolean,
-    converter: (value) => value !== 'false',
+    converter: booleanConverter,
     attribute: 'show-arrow',
   })
   showArrow = true;
