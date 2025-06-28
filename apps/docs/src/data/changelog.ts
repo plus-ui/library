@@ -18,7 +18,20 @@ export interface ChangelogEntry {
 const changelogData: ChangelogEntry[] = [
   {
     version: "1.0.0",
-    date: "2025-02-01",
+    date: "2025-01-01",
+    component: "global",
+    type: "refactor",
+    description: "Standardized boolean property reflection to attributes.",
+    details: [
+      "Applied `reflect: true` to all state-affecting boolean properties across multiple components.",
+      "Ensures component state (e.g., `disabled`, `checked`, `readonly`) is mirrored to a DOM attribute.",
+      "Improves styleability with CSS and component interoperability.",
+      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-01-01",
     component: "global",
     type: "refactor",
     description:
