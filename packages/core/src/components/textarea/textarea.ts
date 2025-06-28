@@ -1,5 +1,6 @@
 import { html, css, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -66,16 +67,15 @@ export class PlusTextarea extends Tailwind {
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
 
   /** Whether the textarea is disabled. */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   disabled = false;
 
   /** Whether the textarea is readonly. */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   readonly = false;
 
   /** Whether the textarea is required. */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
-  required = false;
+  @property({ type: Boolean, converter: booleanConverter }) required = false;
 
   /** The label for the textarea. */
   @property({ type: String }) label?: string;
@@ -87,31 +87,31 @@ export class PlusTextarea extends Tailwind {
   @property({ type: Number }) maxlength?: number;
 
   /** Whether the textarea should automatically get focus. */
-  @property({ type: Boolean }) autoFocus?: boolean;
+  @property({ type: Boolean, converter: booleanConverter }) autoFocus?: boolean;
 
   /** Caption text to display below the textarea. */
   @property({ type: String }) caption?: string;
 
   /** Whether the textarea is in an error state. */
-  @property({ type: Boolean, converter: (value) => value != 'false' }) error =
-    false;
+  @property({ type: Boolean, converter: booleanConverter }) error = false;
 
   /** The error message to display (overrides default validation messages). */
   @property({ type: String, attribute: 'error-message' }) errorMessage = '';
 
   /** Whether the textarea should take up full width. */
-  @property({ reflect: true, attribute: 'full-width', type: Boolean })
+  @property({
+    reflect: true,
+    attribute: 'full-width',
+    type: Boolean,
+    converter: booleanConverter,
+  })
   fullWidth = false;
 
   /** Specifies the visible number of lines in a text area. */
   @property({ type: Number }) rows = 4;
 
   /** Controls how the textarea can be resized. */
-  @property({ reflect: true }) resize:
-    | 'none'
-    | 'vertical'
-    | 'horizontal'
-    | 'both' = 'vertical';
+  @property({ reflect: true }) resize: 'none' | 'vertical' | 'horizontal' | 'both' = 'vertical';
 
   /** Specifies how the text in a text area is to be wrapped when submitted in a form. */
   @property() wrap: 'hard' | 'soft' | 'off' = 'soft';
@@ -184,10 +184,8 @@ export class PlusTextarea extends Tailwind {
       // Basic messages (can be expanded)
       const validity = this.textarea.validity;
       if (validity.valueMissing) return 'This field is required';
-      if (validity.tooLong)
-        return `Please use no more than ${this.maxlength} characters`;
-      if (validity.tooShort)
-        return `Please use at least ${this.minlength} characters`;
+      if (validity.tooLong) return `Please use no more than ${this.maxlength} characters`;
+      if (validity.tooShort) return `Please use at least ${this.minlength} characters`;
       return this.textarea.validationMessage || 'Please correct the error';
     }
 
@@ -217,19 +215,12 @@ export class PlusTextarea extends Tailwind {
     });
 
     const LabelTemplate = () =>
-      label
-        ? html`<label class=${labelStyle({ size, required })} for="textarea"
-            >${label}</label
-          >`
-        : nothing;
+      label ? html`<label class=${labelStyle({ size, required })} for="textarea">${label}</label>` : nothing;
 
     const CaptionTemplate = () => {
-      const textToShow =
-        error && validationMessage ? validationMessage : caption;
+      const textToShow = error && validationMessage ? validationMessage : caption;
       return textToShow
-        ? html`<div class=${captionStyle({ error, size })} id="help-text">
-            ${textToShow}
-          </div>`
+        ? html`<div class=${captionStyle({ error, size })} id="help-text">${textToShow}</div>`
         : nothing;
     };
 
@@ -251,9 +242,7 @@ export class PlusTextarea extends Tailwind {
             rows=${ifDefined(this.rows)}
             wrap=${ifDefined(this.wrap)}
             ?autofocus=${this.autoFocus}
-            aria-describedby=${ifDefined(
-              caption || validationMessage ? 'help-text' : undefined
-            )}
+            aria-describedby=${ifDefined(caption || validationMessage ? 'help-text' : undefined)}
             aria-invalid=${this.error}
             aria-required=${this.required}
             @change=${this.handleChange}
