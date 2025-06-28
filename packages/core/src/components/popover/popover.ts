@@ -1,14 +1,7 @@
 import { html, nothing } from 'lit';
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
-import {
-  computePosition,
-  autoUpdate,
-  offset,
-  shift,
-  arrow,
-  Placement,
-  flip,
-} from '@floating-ui/dom';
+import { computePosition, autoUpdate, offset, shift, arrow, Placement, flip } from '@floating-ui/dom';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popoverStyle } from './popover.style';
 
@@ -149,8 +142,7 @@ export default class PlusPopover extends Tailwind {
    * @default 'default'
    */
   @property({ type: String })
-  status: 'success' | 'warning' | 'danger' | 'info' | 'primary' | 'default' =
-    'default';
+  status: 'success' | 'warning' | 'danger' | 'info' | 'primary' | 'default' = 'default';
 
   /**
    * Determines whether the popover can be dismissed by clicking the close button.
@@ -161,7 +153,7 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   dismissable = true;
 
   /**
@@ -173,7 +165,7 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   statusIcon = true;
 
   /**
@@ -185,7 +177,7 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   showArrow = true;
 
   /**
@@ -243,9 +235,7 @@ export default class PlusPopover extends Tailwind {
           padding: 8,
         }),
         shift({ padding: 8 }),
-        this.showArrow
-          ? arrow({ element: this.arrowElement!, padding: 4 })
-          : undefined,
+        this.showArrow ? arrow({ element: this.arrowElement!, padding: 4 }) : undefined,
       ].filter(Boolean),
     }).then(({ x, y, middlewareData, placement }) => {
       // Apply the computed position
@@ -277,11 +267,7 @@ export default class PlusPopover extends Tailwind {
   private handleMouseEnter = () => {
     this.isVisible = true;
     this.updatePosition();
-    this.cleanup = autoUpdate(
-      this.targetElement!,
-      this.getPopover()!,
-      this.updatePosition
-    );
+    this.cleanup = autoUpdate(this.targetElement!, this.getPopover()!, this.updatePosition);
     this.emit('plus-popover-open');
   };
 
@@ -293,11 +279,7 @@ export default class PlusPopover extends Tailwind {
     this.isVisible = !this.isVisible;
     if (this.isVisible) {
       this.updatePosition();
-      this.cleanup = autoUpdate(
-        this.targetElement!,
-        this.getPopover()!,
-        this.updatePosition
-      );
+      this.cleanup = autoUpdate(this.targetElement!, this.getPopover()!, this.updatePosition);
       this.emit('plus-popover-open');
     } else {
       this.cleanupAutoUpdate();
@@ -324,14 +306,8 @@ export default class PlusPopover extends Tailwind {
 
   private _cleanupTarget() {
     if (this.targetElement) {
-      this.targetElement.removeEventListener(
-        'mouseenter',
-        this.handleMouseEnter
-      );
-      this.targetElement.removeEventListener(
-        'mouseleave',
-        this.handleMouseLeave
-      );
+      this.targetElement.removeEventListener('mouseenter', this.handleMouseEnter);
+      this.targetElement.removeEventListener('mouseleave', this.handleMouseLeave);
       this.targetElement.removeEventListener('click', this.handleClick);
     }
 
@@ -345,11 +321,7 @@ export default class PlusPopover extends Tailwind {
     const path = event.composedPath();
     const popover = this.getPopover();
 
-    if (
-      popover &&
-      !path.includes(popover) &&
-      !path.includes(this.targetElement!)
-    ) {
+    if (popover && !path.includes(popover) && !path.includes(this.targetElement!)) {
       this.isVisible = false;
       this.cleanupAutoUpdate();
     }
@@ -389,15 +361,7 @@ export default class PlusPopover extends Tailwind {
   }
 
   override render() {
-    const {
-      host,
-      arrow,
-      headerWrapper,
-      headerLeft,
-      content,
-      headerRight,
-      title,
-    } = popoverStyle({
+    const { host, arrow, headerWrapper, headerLeft, content, headerRight, title } = popoverStyle({
       isVisible: this.isVisible,
       size: this.size,
       status: this.status,
@@ -425,9 +389,7 @@ export default class PlusPopover extends Tailwind {
           <div class=${headerLeft()}>
             <slot name="icon">
               ${this.statusIcon
-                ? html`<plus-svg-icon
-                    iconName=${statusIconMap[this.status]}
-                  ></plus-svg-icon>`
+                ? html`<plus-svg-icon iconName=${statusIconMap[this.status]}></plus-svg-icon>`
                 : nothing}
             </slot>
             <div class="${title()}" part="title" id="popover-title">
@@ -451,9 +413,7 @@ export default class PlusPopover extends Tailwind {
         <main class="${content()}" part="content" id="popover-content">
           <slot name="content">${this.text}</slot>
         </main>
-        ${this.showArrow
-          ? html`<div class=${arrow()} part="arrow"></div>`
-          : nothing}
+        ${this.showArrow ? html`<div class=${arrow()} part="arrow"></div>` : nothing}
       </div>
     `;
   }
