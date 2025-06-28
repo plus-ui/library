@@ -16,10 +16,24 @@ export interface ChangelogEntry {
 }
 
 const changelogData: ChangelogEntry[] = [
+  {
+    version: "1.0.0",
+    date: "2025-02-01",
+    component: "global",
+    type: "refactor",
+    description:
+      "Standardized boolean property handling via `booleanConverter` utility.",
+    details: [
+      "Refactored all components with boolean properties to use a single, consistent converter.",
+      "Eliminated 4 different patterns for boolean conversion, improving maintainability.",
+      "Ensures correct behavior for both property binding and HTML attributes (e.g., `<plus-button disabled>`).",
+      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+    ],
+  },
   // 🚀 INITIAL RELEASE - v1.0.0
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "global",
     type: "release",
     description: "🎉 Plus UI Library Initial Release",
@@ -36,7 +50,7 @@ const changelogData: ChangelogEntry[] = [
   // FORM COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "button",
     type: "feature",
     description: "Added Button component with multiple variants",
@@ -51,7 +65,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "input",
     type: "feature",
     description: "Added Input component with validation support",
@@ -66,7 +80,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "textarea",
     type: "feature",
     description: "Added Textarea component for multi-line input",
@@ -80,7 +94,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "checkbox",
     type: "feature",
     description: "Added Checkbox component with group support",
@@ -94,7 +108,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "checkbox-group",
     type: "feature",
     description: "Added Checkbox Group for multiple selections",
@@ -108,7 +122,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "radio",
     type: "feature",
     description: "Added Radio component for single selection",
@@ -121,7 +135,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "radio-group",
     type: "feature",
     description: "Added Radio Group for single selection groups",
@@ -134,7 +148,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "select",
     type: "feature",
     description: "Added Select component with dropdown",
@@ -148,7 +162,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "toggle",
     type: "feature",
     description: "Added Toggle component for boolean states",
@@ -162,7 +176,7 @@ const changelogData: ChangelogEntry[] = [
   // NAVIGATION COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "tab",
     type: "feature",
     description: "Added Tab component for navigation",
@@ -176,7 +190,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "tab-group",
     type: "feature",
     description: "Added Tab Group for tab management",
@@ -189,7 +203,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "breadcrumb",
     type: "feature",
     description: "Added Breadcrumb component for navigation",
@@ -202,7 +216,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "accordion",
     type: "feature",
     description: "Added Accordion component for collapsible content",
@@ -216,7 +230,7 @@ const changelogData: ChangelogEntry[] = [
   // FEEDBACK COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "alert",
     type: "feature",
     description: "Added Alert component for user feedback",
@@ -229,7 +243,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "toast",
     type: "feature",
     description: "Added Toast component for notifications",
@@ -243,7 +257,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "tooltip",
     type: "feature",
     description: "Added Tooltip component for contextual help",
@@ -256,7 +270,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "popover",
     type: "feature",
     description: "Added Popover component for rich content",
@@ -270,7 +284,7 @@ const changelogData: ChangelogEntry[] = [
   // DISPLAY COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "avatar",
     type: "feature",
     description: "Added Avatar component for user representation",
@@ -283,7 +297,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "badge",
     type: "feature",
     description: "Added Badge component for status indicators",
@@ -296,7 +310,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "chip",
     type: "feature",
     description: "Added Chip component for tags and labels",
@@ -309,7 +323,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "rating",
     type: "feature",
     description: "Added Rating component for star ratings",
@@ -324,7 +338,7 @@ const changelogData: ChangelogEntry[] = [
   // OVERLAY COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "modal",
     type: "feature",
     description: "Added Modal component for dialogs",
@@ -338,7 +352,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "drawer",
     type: "feature",
     description: "Added Drawer component for side panels",
@@ -352,7 +366,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "dropdown",
     type: "feature",
     description: "Added Dropdown component for menus",
@@ -366,7 +380,7 @@ const changelogData: ChangelogEntry[] = [
   // UTILITY COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "divider",
     type: "feature",
     description: "Added Divider component for content separation",
@@ -379,7 +393,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "link",
     type: "feature",
     description: "Added Link component for navigation",
@@ -392,7 +406,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "text",
     type: "feature",
     description: "Added Text component for typography",
@@ -406,7 +420,7 @@ const changelogData: ChangelogEntry[] = [
   // SPECIALIZED COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "segmented-picker",
     type: "feature",
     description: "Added Segmented Picker for option selection",
@@ -419,7 +433,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "popconfirm",
     type: "feature",
     description: "Added Popconfirm for confirmation dialogs",
@@ -433,7 +447,7 @@ const changelogData: ChangelogEntry[] = [
   // TECHNICAL IMPROVEMENTS
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "global",
     type: "improvement",
     description: "Design system foundation",
@@ -447,7 +461,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "global",
     type: "improvement",
     description: "Accessibility features",
@@ -461,7 +475,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-15",
+    date: "2025-01-01",
     component: "global",
     type: "improvement",
     description: "Performance optimizations",
