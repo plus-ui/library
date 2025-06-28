@@ -1,5 +1,6 @@
 import { html, css, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -126,7 +127,7 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   clearable = false;
 
   /**
@@ -134,7 +135,7 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   disabled = false;
 
   /**
@@ -142,7 +143,7 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   readonly = false;
 
   /**
@@ -150,7 +151,7 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   required = false;
 
   /**
@@ -158,16 +159,24 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ attribute: 'password-toggle', type: Boolean }) passwordToggle =
-    false;
+  @property({
+    attribute: 'password-toggle',
+    type: Boolean,
+    converter: booleanConverter,
+  })
+  passwordToggle = false;
 
   /**
    * Whether the password is visible
    * @type {boolean}
    * @default false
    */
-  @property({ attribute: 'password-visible', type: Boolean }) passwordVisible =
-    false;
+  @property({
+    attribute: 'password-visible',
+    type: Boolean,
+    converter: booleanConverter,
+  })
+  passwordVisible = false;
 
   /**
    * The label for the input
@@ -227,7 +236,8 @@ export default class PlusInput extends Tailwind {
    * Whether the input should automatically get focus
    * @type {boolean}
    */
-  @property({ type: Boolean }) autoFocus?: boolean;
+  @property({ type: Boolean, converter: booleanConverter })
+  autoFocus?: boolean;
 
   /**
    * The enterkeyhint attribute
@@ -260,7 +270,8 @@ export default class PlusInput extends Tailwind {
    * Whether spellcheck is enabled
    * @type {boolean}
    */
-  @property({ type: Boolean }) spellCheck?: boolean;
+  @property({ type: Boolean, converter: booleanConverter })
+  spellCheck?: boolean;
 
   /**
    * Caption text to display below the input
@@ -273,8 +284,8 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' }) error =
-    false;
+  @property({ type: Boolean, converter: booleanConverter })
+  error = false;
 
   /**
    * The error message to display
@@ -288,7 +299,12 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ reflect: true, attribute: 'full-width', type: Boolean })
+  @property({
+    reflect: true,
+    attribute: 'full-width',
+    type: Boolean,
+    converter: booleanConverter,
+  })
   fullWidth = false;
 
   /**
@@ -296,7 +312,7 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   isSelect = false;
 
   /**
@@ -625,7 +641,7 @@ export default class PlusInput extends Tailwind {
             tabindex="0"
           >
             <plus-svg-icon
-              iconName=${passwordVisible ? 'eye' : 'eye-slash'}
+              iconName=${passwordVisible ? 'eye-slash' : 'eye'}
             ></plus-svg-icon>
           </div>`
         : nothing;
