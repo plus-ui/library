@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit';
 import Tailwind from '../base/tailwind-base';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { chipStyle } from './chip.style';
 import { styleMap } from 'lit/directives/style-map.js';
 
@@ -78,21 +79,21 @@ export default class PlusChip extends Tailwind {
    * Toggles inverted color scheme
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   invert = false;
 
   /**
    * Shows/hides the dismiss button
    * @default false
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({ type: Boolean, converter: booleanConverter })
   dismiss = false;
 
   /**
    * Disables the chip interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter })
   disabled = false;
 
   /**
