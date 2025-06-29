@@ -20,6 +20,20 @@ const changelogData: ChangelogEntry[] = [
     version: "1.0.0",
     date: "2025-01-01",
     component: "global",
+    type: "breaking",
+    description:
+      'Changed boolean attribute handling: `attr="false"` now correctly evaluates to `false`.',
+    details: [
+      'Previously, the presence of a boolean attribute (e.g., `<plus-button disabled="false">`) was treated as `true`. Now, the string `"false"` correctly evaluates to `false`.',
+      "This change makes component behavior more predictable and aligned with web standards.",
+      "This is a breaking change for any implementation that relied on the old behavior.",
+      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-01-01",
+    component: "global",
     type: "refactor",
     description: "Standardized boolean property reflection to attributes.",
     details: [
