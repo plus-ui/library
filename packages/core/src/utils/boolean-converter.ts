@@ -15,10 +15,10 @@
  * - String values are considered `true` unless they are exactly equal to the string 'false'.
  *   This means that an empty string (like in `<my-element disabled>`) is correctly interpreted as `true`.
  *
- * @param {string | boolean | null} value The attribute value to convert.
+ * @param {string | boolean | null | undefined} value The attribute value to convert.
  * @returns {boolean} The boolean representation of the value.
  */
-export const booleanConverter = (value: string | boolean | null): boolean => {
+export const booleanConverter = (value: string | boolean | null | undefined): boolean => {
   if (value === null || value === undefined) {
     return false;
   }
