@@ -11,6 +11,7 @@ import {
 } from '@floating-ui/dom';
 import { selectStyle } from './select.style';
 import { PlusSelectItem } from '../select-item';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 /**
  * A select component that provides a collapsible menu with selectable options.
@@ -81,28 +82,28 @@ export default class PlusSelect extends Tailwind {
    * Indicates if the select is in an error state.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   error: boolean = false;
 
   /**
    * Disables the select, preventing interaction.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled: boolean = false;
 
   /**
    * Marks the select as required.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   required: boolean = false;
 
   /**
    * Makes the select read-only, preventing changes.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   readonly: boolean = false;
 
   /**
@@ -115,7 +116,7 @@ export default class PlusSelect extends Tailwind {
    * Enables a clear button to reset the selection.
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   clearable: boolean = false;
 
   /**

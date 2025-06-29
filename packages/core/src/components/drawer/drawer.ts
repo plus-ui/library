@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { drawerStyle } from './drawer.style';
 import Tailwind from '../base/tailwind-base';
 
@@ -47,7 +48,12 @@ export default class PlusDrawer extends Tailwind {
    * @default false
    * @attr is-open
    */
-  @property({ type: Boolean, reflect: true, attribute: 'is-open' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'is-open',
+    converter: booleanConverter,
+  })
   isOpen = false;
 
   /**

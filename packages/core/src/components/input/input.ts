@@ -1,5 +1,6 @@
 import { html, css, nothing } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -125,49 +126,65 @@ export default class PlusInput extends Tailwind {
    * Whether the input should have a clear button
    * @type {boolean}
    * @default false
+   * @attr clearable
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   clearable = false;
 
   /**
    * Whether the input is disabled
    * @type {boolean}
    * @default false
+   * @attr disabled
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**
    * Whether the input is readonly
    * @type {boolean}
    * @default false
+   * @attr readonly
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   readonly = false;
 
   /**
    * Whether the input is required
    * @type {boolean}
    * @default false
+   * @attr required
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   required = false;
 
   /**
    * Whether to show a password toggle button
    * @type {boolean}
    * @default false
+   * @attr password-toggle
    */
-  @property({ attribute: 'password-toggle', type: Boolean }) passwordToggle =
-    false;
+  @property({
+    attribute: 'password-toggle',
+    type: Boolean,
+    converter: booleanConverter,
+    reflect: true,
+  })
+  passwordToggle = false;
 
   /**
    * Whether the password is visible
    * @type {boolean}
    * @default false
+   * @attr password-visible
    */
-  @property({ attribute: 'password-visible', type: Boolean }) passwordVisible =
-    false;
+  @property({
+    attribute: 'password-visible',
+    type: Boolean,
+    converter: booleanConverter,
+    reflect: true,
+  })
+  passwordVisible = false;
 
   /**
    * The label for the input
@@ -225,9 +242,9 @@ export default class PlusInput extends Tailwind {
 
   /**
    * Whether the input should automatically get focus
-   * @type {boolean}
    */
-  @property({ type: Boolean }) autoFocus?: boolean;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  autoFocus?: boolean;
 
   /**
    * The enterkeyhint attribute
@@ -258,9 +275,9 @@ export default class PlusInput extends Tailwind {
 
   /**
    * Whether spellcheck is enabled
-   * @type {boolean}
    */
-  @property({ type: Boolean }) spellCheck?: boolean;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  spellCheck?: boolean;
 
   /**
    * Caption text to display below the input
@@ -272,9 +289,10 @@ export default class PlusInput extends Tailwind {
    * Whether the input is in an error state
    * @type {boolean}
    * @default false
+   * @attr error
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' }) error =
-    false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  error = false;
 
   /**
    * The error message to display
@@ -288,15 +306,22 @@ export default class PlusInput extends Tailwind {
    * @type {boolean}
    * @default false
    */
-  @property({ reflect: true, attribute: 'full-width', type: Boolean })
+  @property({
+    reflect: true,
+    attribute: 'full-width',
+    type: Boolean,
+    converter: booleanConverter,
+  })
   fullWidth = false;
 
   /**
    * Whether the input is used as part of a select component
    * @type {boolean}
    * @default false
+   * @internal
+   * @attr isSelect
    */
-  @property({ type: Boolean, converter: (value) => value != 'false' })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   isSelect = false;
 
   /**
@@ -625,7 +650,7 @@ export default class PlusInput extends Tailwind {
             tabindex="0"
           >
             <plus-svg-icon
-              iconName=${passwordVisible ? 'eye' : 'eye-slash'}
+              iconName=${passwordVisible ? 'eye-slash' : 'eye'}
             ></plus-svg-icon>
           </div>`
         : nothing;

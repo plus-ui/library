@@ -3,13 +3,8 @@ const { head } = Astro.locals.starlightRoute;
 ---
 
 <script>
-  // import "./code-bubble-setup.js";
-  // import "@plusui/core/cdn/components/index.js";
+  import "@plusui/core/cdn/components/index.js";
 </script>
-<!-- <script src="@plusui/core/public/html/index.js"></script> -->
-<script
-  src="https://cdn.jsdelivr.net/npm/@plusui/library@0.1.3/cdn/components/index.js"
-></script>
 {
   head.map(({ tag: Tag, attrs, content }) => (
     <Tag {...attrs} set:html={content} />

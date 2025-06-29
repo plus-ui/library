@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 
 import { isValidSize, Size, Sizes } from '../../model/plus';
@@ -58,7 +59,8 @@ export default class PlusAvatar extends Tailwind {
    * Toggles inverted color scheme
    * @default false
    */
-  @property({ type: Boolean }) invert = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  invert = false;
 
   /**
    * Text to display as initials when no image is available

@@ -1,6 +1,7 @@
 import { property, query, state } from 'lit/decorators.js';
 import { html } from 'lit';
 import { live } from 'lit/directives/live.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { checkboxStyle } from './checkbox.style';
 import '../svg-icon/index.js'; // Changed import from icon to svg-icon
@@ -49,15 +50,15 @@ export class PlusCheckbox extends Tailwind {
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
 
   /** Whether the checkbox is checked. */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   checked = false;
 
   /** Whether the checkbox is in an indeterminate state. */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   indeterminate = false;
 
   /** Whether the checkbox is disabled. */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   disabled = false;
 
   /** The value associated with the checkbox. Submitted with the form data if checked. */
@@ -65,7 +66,8 @@ export class PlusCheckbox extends Tailwind {
   value: string = 'on';
 
   /** Whether the checkbox is in an error state. */
-  @property({ type: Boolean, reflect: true }) error = false;
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  error = false;
 
   /** The text label displayed next to the checkbox. If not provided, use the default slot. */
   @property()
@@ -169,11 +171,7 @@ export class PlusCheckbox extends Tailwind {
             role="checkbox"
             class="sr-only"
             name=${this.name ?? ''}
-            aria-checked=${this.indeterminate
-              ? 'mixed'
-              : this.checked
-                ? 'true'
-                : 'false'}
+            aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
             aria-disabled=${this.disabled ? 'true' : 'false'}
             aria-invalid=${this.error ? 'true' : 'false'}
             .value=${this.value}

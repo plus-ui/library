@@ -3,6 +3,7 @@ import { property } from 'lit/decorators.js';
 import { toastStyle } from './toast.style.js';
 import Tailwind from '../base/tailwind-base.js';
 import { SlotController } from '../../controllers/slot-controller.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 // Import svg icon component definition
 import '../svg-icon/svg-icon.js';
@@ -63,7 +64,7 @@ export class PlusToast extends Tailwind {
   /** Determines if the dismiss button is shown. */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
     reflect: true,
   })
   dismiss = true;
@@ -71,7 +72,7 @@ export class PlusToast extends Tailwind {
   /** Shows the default status icon. */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
     attribute: 'status-icon',
     reflect: true,
   })

@@ -9,6 +9,7 @@ import {
   Placement,
   flip,
 } from '@floating-ui/dom';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popoverStyle } from './popover.style';
 
@@ -161,7 +162,11 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: booleanConverter,
+    reflect: true,
+  })
   dismissable = true;
 
   /**
@@ -173,7 +178,12 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: booleanConverter,
+    attribute: 'status-icon',
+    reflect: true,
+  })
   statusIcon = true;
 
   /**
@@ -185,7 +195,12 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: booleanConverter,
+    attribute: 'show-arrow',
+    reflect: true,
+  })
   showArrow = true;
 
   /**

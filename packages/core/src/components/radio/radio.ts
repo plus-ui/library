@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { radioStyle } from './radio.style';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -41,49 +42,31 @@ export default class PlusRadio extends Tailwind {
   @property({ type: String })
   text?: string;
 
-  /**
-   * Indicates whether the radio button is checked
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
+  /** Whether the radio is checked. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   checked = false;
 
-  /**
-   * Indicates if the radio button is in an error state
-   * @default false
-   */
-  @property({ type: Boolean })
+  /** Whether the radio is in an error state. */
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   error = false;
 
-  /**
-   * Disables the radio button interaction
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
+  /** Whether the radio is disabled. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   disabled = false;
 
-  /**
-   * Makes the radio button readonly (non-interactive but not disabled)
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
+  /** Whether the radio is readonly. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   readonly = false;
 
-  /**
-   * The name of the radio button, used for form submission and radio grouping
-   */
+  /** The radio's name attribute. */
   @property()
   name = '';
 
-  /**
-   * Indicates if the radio input is required
-   */
-  @property({ type: Boolean, reflect: true })
+  /** Whether the radio is required. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   required = false;
 
-  /**
-   * The value associated with the radio button
-   */
+  /** The radio's value attribute. */
   @property()
   value = '';
 

@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import style from './alert.styles';
 import { alertStyle } from './alert.style';
@@ -72,7 +73,7 @@ export default class PlusAlert extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   invert = false;
 
@@ -84,7 +85,7 @@ export default class PlusAlert extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   dismissible = true;
 
@@ -129,7 +130,12 @@ export default class PlusAlert extends Tailwind {
    * @default false
    * @type {boolean}
    */
-  @property({ type: Boolean, attribute: 'full-width' })
+  @property({
+    type: Boolean,
+    attribute: 'full-width',
+    converter: booleanConverter,
+    reflect: true,
+  })
   fullWidth = false;
 
   /**
@@ -137,7 +143,12 @@ export default class PlusAlert extends Tailwind {
    * @default false
    * @type {boolean}
    */
-  @property({ type: Boolean, reflect: true, attribute: 'hidden' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'hidden',
+    converter: booleanConverter,
+  })
   hiddenAlert = false;
 
   /**

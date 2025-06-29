@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { tabStyle } from './styles';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -54,7 +55,7 @@ export default class PlusTab extends Tailwind {
    * Indicates if the tab is currently selected
    * @default false
    */
-  @property({ type: Boolean, reflect: true })
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   active = false;
 
   /**
@@ -74,7 +75,7 @@ export default class PlusTab extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value === 'false' ? false : Boolean(value)),
+    converter: booleanConverter,
   })
   disabled = false;
 
@@ -105,7 +106,8 @@ export default class PlusTab extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (value) => (value === 'false' ? false : Boolean(value)),
+    converter: booleanConverter,
+    reflect: true,
   })
   dismissible = false;
 
@@ -115,7 +117,8 @@ export default class PlusTab extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (value) => (value === 'false' ? false : Boolean(value)),
+    converter: booleanConverter,
+    reflect: true,
   })
   truncate = false;
 
@@ -126,7 +129,8 @@ export default class PlusTab extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (value) => (value === 'false' ? false : Boolean(value)),
+    converter: booleanConverter,
+    reflect: true,
   })
   animated = false;
 

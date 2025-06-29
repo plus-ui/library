@@ -9,6 +9,7 @@ import '../svg-icon/index.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type { PropertyValues } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 /**
  * @tag plus-toggle
@@ -70,7 +71,8 @@ export class PlusToggle extends Tailwind {
 
   @property({ type: String }) name = '';
   @property({ type: String }) value = 'on';
-  @property({ type: Boolean, reflect: true }) checked = false;
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  checked = false;
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
   @property({ type: String }) label?: string;
   @property({ type: String }) caption?: string;
@@ -84,12 +86,21 @@ export class PlusToggle extends Tailwind {
   toggleInActiveIcon?: string;
   @property({ type: Number, attribute: 'icon-size' }) iconSize?: number;
 
-  @property({ type: Boolean, reflect: true }) error = false;
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  error = false;
   @property({ type: String, attribute: 'error-message' }) errorMessage = '';
-  @property({ type: Boolean, reflect: true }) disabled = false;
-  @property({ type: Boolean, reflect: true }) readonly = false;
-  @property({ type: Boolean, reflect: true }) required = false;
-  @property({ type: Boolean, reflect: true, attribute: 'full-width' })
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  disabled = false;
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  readonly = false;
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  required = false;
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'full-width',
+    converter: booleanConverter,
+  })
   fullWidth = false;
   @property({ type: String, attribute: 'animation' })
   animation: 'default' | 'bounce' | 'smooth' = 'default';

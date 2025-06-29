@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { buttonGroupStyle } from './button-group.style';
 import Tailwind from '../base/tailwind-base';
 
@@ -36,11 +37,12 @@ export default class PlusButtonGroup extends Tailwind {
    * Determines whether the button group's properties override the properties of its child buttons.
    * When true, all buttons in the group will have the same appearance.
    * When false, each button can have its own properties.
-   * @default true
+   * @default false
    */
   @property({
     type: Boolean,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
+    reflect: true,
   })
   override = false;
 
@@ -83,14 +85,14 @@ export default class PlusButtonGroup extends Tailwind {
    * Disables the button interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**
    * Shows loading spinner and disables interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   loading = false;
 
   @state()

@@ -1,5 +1,6 @@
 import { property, queryAssignedElements } from 'lit/decorators.js';
 import { html } from 'lit';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { checkboxGroupStyle } from './checkbox-group.style';
 import type { PlusCheckbox } from '../checkbox/checkbox.js';
@@ -24,13 +25,15 @@ export class PlusCheckboxGroup extends Tailwind {
   value: string[] = [];
 
   /** Whether to display the checkboxes vertically. */
-  @property({ type: Boolean }) vertical = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  vertical = false;
 
   /** The size of the checkboxes in the group. */
   @property({ reflect: true }) size: 'sm' | 'md' | 'lg' = 'md';
 
   /** Whether the entire group is disabled. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
+  disabled = false;
 
   private handleSlotChange() {
     this.updateCheckboxes();

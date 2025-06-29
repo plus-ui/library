@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  base: "/library",
   integrations: [
     starlight({
       title: "Plus UI",
@@ -161,7 +162,7 @@ export default defineConfig({
       ],
       lastUpdated: true,
       editLink: {
-        baseUrl: "https://github.com/plus-ui/library/edit/main/",
+        baseUrl: "https://github.com/plus-ui/library/edit/main/apps/docs/",
       },
       components: {
         SiteTitle: "./src/component/starlight-overrides/SiteTitle.astro",

@@ -9,6 +9,7 @@ import {
   Placement,
   flip,
 } from '@floating-ui/dom';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popconfirmStyle } from './popconfirm.style';
 
@@ -166,32 +167,28 @@ export default class PlusPopconfirm extends Tailwind {
   /**
    * Determines whether a status icon should be displayed in the popconfirm.
    *
-   * - `true` (default) - An icon representing the status will be displayed.
-   * - `false` - No icon will be displayed.
-   *
    * @type {boolean}
    * @default true
    */
   @property({
     type: Boolean,
-    converter: (value) => value !== 'false',
+    converter: booleanConverter,
     attribute: 'status-icon',
+    reflect: true,
   })
   statusIcon = true;
 
   /**
    * Determines whether the arrow should be displayed.
    *
-   * - `true` (default) - Arrow will be displayed.
-   * - `false` - Arrow will be hidden.
-   *
    * @type {boolean}
    * @default true
    */
   @property({
     type: Boolean,
-    converter: (value) => value !== 'false',
+    converter: booleanConverter,
     attribute: 'show-arrow',
+    reflect: true,
   })
   showArrow = true;
 
