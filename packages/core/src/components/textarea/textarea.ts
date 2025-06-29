@@ -111,7 +111,11 @@ export class PlusTextarea extends Tailwind {
   @property({ type: Number }) rows = 4;
 
   /** Controls how the textarea can be resized. */
-  @property({ reflect: true }) resize: 'none' | 'vertical' | 'horizontal' | 'both' = 'vertical';
+  @property({ reflect: true }) resize:
+    | 'none'
+    | 'vertical'
+    | 'horizontal'
+    | 'both' = 'vertical';
 
   /** Specifies how the text in a text area is to be wrapped when submitted in a form. */
   @property() wrap: 'hard' | 'soft' | 'off' = 'soft';
@@ -184,8 +188,10 @@ export class PlusTextarea extends Tailwind {
       // Basic messages (can be expanded)
       const validity = this.textarea.validity;
       if (validity.valueMissing) return 'This field is required';
-      if (validity.tooLong) return `Please use no more than ${this.maxlength} characters`;
-      if (validity.tooShort) return `Please use at least ${this.minlength} characters`;
+      if (validity.tooLong)
+        return `Please use no more than ${this.maxlength} characters`;
+      if (validity.tooShort)
+        return `Please use at least ${this.minlength} characters`;
       return this.textarea.validationMessage || 'Please correct the error';
     }
 
@@ -215,12 +221,19 @@ export class PlusTextarea extends Tailwind {
     });
 
     const LabelTemplate = () =>
-      label ? html`<label class=${labelStyle({ size, required })} for="textarea">${label}</label>` : nothing;
+      label
+        ? html`<label class=${labelStyle({ size, required })} for="textarea"
+            >${label}</label
+          >`
+        : nothing;
 
     const CaptionTemplate = () => {
-      const textToShow = error && validationMessage ? validationMessage : caption;
+      const textToShow =
+        error && validationMessage ? validationMessage : caption;
       return textToShow
-        ? html`<div class=${captionStyle({ error, size })} id="help-text">${textToShow}</div>`
+        ? html`<div class=${captionStyle({ error, size })} id="help-text">
+            ${textToShow}
+          </div>`
         : nothing;
     };
 
@@ -242,7 +255,9 @@ export class PlusTextarea extends Tailwind {
             rows=${ifDefined(this.rows)}
             wrap=${ifDefined(this.wrap)}
             ?autofocus=${this.autoFocus}
-            aria-describedby=${ifDefined(caption || validationMessage ? 'help-text' : undefined)}
+            aria-describedby=${ifDefined(
+              caption || validationMessage ? 'help-text' : undefined
+            )}
             aria-invalid=${this.error}
             aria-required=${this.required}
             @change=${this.handleChange}

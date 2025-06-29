@@ -242,9 +242,6 @@ export default class PlusInput extends Tailwind {
 
   /**
    * Whether the input should automatically get focus
-   * @type {boolean}
-   * @default undefined
-   * @attr autofocus
    */
   @property({ type: Boolean, converter: booleanConverter, reflect: true })
   autoFocus?: boolean;
@@ -278,9 +275,6 @@ export default class PlusInput extends Tailwind {
 
   /**
    * Whether spellcheck is enabled
-   * @type {boolean}
-   * @default undefined
-   * @attr spellcheck
    */
   @property({ type: Boolean, converter: booleanConverter, reflect: true })
   spellCheck?: boolean;
