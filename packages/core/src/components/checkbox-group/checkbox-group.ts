@@ -36,6 +36,7 @@ export class PlusCheckboxGroup extends Tailwind {
   disabled = false;
 
   override updated(changedProperties: Map<string, unknown>) {
+    super.updated(changedProperties);
     if (changedProperties.has('disabled') || changedProperties.has('size')) {
       this.updateCheckboxes();
     }
