@@ -3,389 +3,241 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plus Icon Registry System Test</title>
-
+    <title>Component Test Page</title>
+    <!-- Font Awesome needed if using i tags for icons in slots -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       body {
-        font-family:
-          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        max-width: 1200px;
-        margin: 0 auto;
         padding: 2rem;
-        line-height: 1.6;
-        background: #f8fafc;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
       }
 
-      h1 {
-        color: #1e293b;
-        margin-bottom: 2rem;
-        border-bottom: 2px solid #e2e8f0;
-        padding-bottom: 0.5rem;
+      .example-section {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+      }
+
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
       }
 
       h2 {
-        color: #334155;
-        margin: 2rem 0 1rem 0;
+        margin: 0 0 1rem 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 0.5rem;
+      }
+      h3 {
+        margin: 0 0 0.5rem 0;
         font-size: 1.25rem;
+        font-weight: 500;
       }
-
-      .demo-section {
-        background: white;
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 2rem;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-      }
-
-      .icon-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        margin: 1rem 0;
-      }
-
-      .icon-example {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.75rem;
-        border: 1px solid #e2e8f0;
-        border-radius: 6px;
-        background: #fafafa;
-      }
-
-      .icon-example code {
-        font-size: 0.875rem;
-        color: #475569;
-        background: #f1f5f9;
-        padding: 0.25rem 0.5rem;
+      pre {
+        background-color: #f5f5f5;
+        padding: 0.5rem 1rem;
         border-radius: 4px;
-      }
-
-      .size-demo {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin: 1rem 0;
-        padding: 1rem;
-        background: #f8fafc;
-        border-radius: 6px;
-      }
-
-      .style-demo {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin: 1rem 0;
-        padding: 1rem;
-        background: #f8fafc;
-        border-radius: 6px;
-      }
-
-      .color-demo {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin: 1rem 0;
-      }
-
-      .color-example {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 1rem;
-        border-radius: 6px;
-      }
-
-      .red {
-        color: #dc2626;
-      }
-      .blue {
-        color: #2563eb;
-      }
-      .green {
-        color: #16a34a;
-      }
-      .purple {
-        color: #9333ea;
-      }
-      .orange {
-        color: #ea580c;
-      }
-
-      .fallback-demo {
-        padding: 1rem;
-        border: 2px dashed #cbd5e1;
-        border-radius: 6px;
-        margin: 1rem 0;
-        background: #f1f5f9;
-      }
-
-      .usage-info {
-        background: #dbeafe;
-        padding: 1rem;
-        border-radius: 6px;
-        border-left: 4px solid #3b82f6;
-        margin: 1rem 0;
-      }
-
-      .usage-info code {
-        background: rgba(59, 130, 246, 0.1);
-        padding: 0.25rem 0.5rem;
-        border-radius: 4px;
-        font-family: 'SF Mono', Monaco, monospace;
+        font-family: monospace;
       }
     </style>
   </head>
   <body>
-    <h1>🎯 Plus Icon Registry System</h1>
-
-    <div class="usage-info">
-      <strong>New Features:</strong><br />
-      • <code>solid</code>, <code>regular</code>, <code>light</code> style
-      variants<br />
-      • Organized icon categories (UI, Navigation, Status, etc.)<br />
-      • CDN fallback system for missing icons<br />
-      • Better performance with local registry
-    </div>
-
-    <div class="demo-section">
-      <h2>📋 Core Icon Set (Always Available)</h2>
-      <div class="icon-grid">
-        <div class="icon-example">
-          <plus-icon icon-name="star" size="lg"></plus-icon>
-          <code>icon-name="star"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="heart" size="lg"></plus-icon>
-          <code>icon-name="heart"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="home" size="lg"></plus-icon>
-          <code>icon-name="home"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="user" size="lg"></plus-icon>
-          <code>icon-name="user"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="check" size="lg"></plus-icon>
-          <code>icon-name="check"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="xmark" size="lg"></plus-icon>
-          <code>icon-name="xmark"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="circle-check" size="lg"></plus-icon>
-          <code>icon-name="circle-check"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="circle-xmark" size="lg"></plus-icon>
-          <code>icon-name="circle-xmark"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="circle-info" size="lg"></plus-icon>
-          <code>icon-name="circle-info"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="circle-exclamation" size="lg"></plus-icon>
-          <code>icon-name="circle-exclamation"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="chevron-up" size="lg"></plus-icon>
-          <code>icon-name="chevron-up"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="chevron-down" size="lg"></plus-icon>
-          <code>icon-name="chevron-down"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="angle-up" size="lg"></plus-icon>
-          <code>icon-name="angle-up"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="angle-down" size="lg"></plus-icon>
-          <code>icon-name="angle-down"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="eye" size="lg"></plus-icon>
-          <code>icon-name="eye"</code>
-        </div>
-        <div class="icon-example">
-          <plus-icon icon-name="eye-slash" size="lg"></plus-icon>
-          <code>icon-name="eye-slash"</code>
-        </div>
+    <!-- Checkbox Examples -->
+    <div class="example-section">
+      <h2>Checkbox Examples</h2>
+      <div class="row">
+        <plus-checkbox error>Error State</plus-checkbox>
+        <plus-checkbox error checked>Error State Checked</plus-checkbox>
+        <plus-checkbox>Default</plus-checkbox>
+        <plus-checkbox checked>Checked</plus-checkbox>
+        <plus-checkbox indeterminate>Indeterminate</plus-checkbox>
+        <plus-checkbox disabled>Disabled</plus-checkbox>
+        <plus-checkbox disabled checked>Disabled Checked</plus-checkbox>
+        <plus-checkbox disabled indeterminate
+          >Disabled Indeterminate</plus-checkbox
+        >
+      </div>
+      <div class="row">
+        <plus-checkbox size="sm">Small</plus-checkbox>
+        <plus-checkbox size="md">Medium</plus-checkbox>
+        <plus-checkbox size="lg">Large</plus-checkbox>
       </div>
     </div>
 
-    <div class="demo-section">
-      <h2>🎨 Style Variants</h2>
-      <div class="style-demo">
-        <div style="text-align: center">
-          <plus-icon icon-name="star" icon-style="solid" size="xl"></plus-icon>
-          <br /><code>solid</code>
-        </div>
-        <div style="text-align: center">
-          <plus-icon
-            icon-name="star"
-            icon-style="regular"
-            size="xl"
-          ></plus-icon>
-          <br /><code>regular</code>
-        </div>
-        <div style="text-align: center">
-          <plus-icon icon-name="star" icon-style="light" size="xl"></plus-icon>
-          <br /><code>light</code>
-        </div>
+    <!-- Checkbox Group Examples -->
+    <div class="example-section">
+      <h2>Checkbox Group Examples</h2>
+
+      <div class="col">
+        <h3>Horizontal (Default)</h3>
+        <plus-checkbox-group id="group1">
+          <plus-checkbox value="apple">Apple</plus-checkbox>
+          <plus-checkbox value="banana">Banana</plus-checkbox>
+          <plus-checkbox value="orange">Orange</plus-checkbox>
+          <plus-checkbox value="grape" disabled>Grape (Disabled)</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group1-value">[]</span></pre>
       </div>
 
-      <div class="style-demo">
-        <div style="text-align: center">
-          <plus-icon icon-name="heart" icon-style="solid" size="xl"></plus-icon>
-          <br /><code>solid</code>
-        </div>
-        <div style="text-align: center">
-          <plus-icon
-            icon-name="heart"
-            icon-style="regular"
-            size="xl"
-          ></plus-icon>
-          <br /><code>regular</code>
-        </div>
-        <div style="text-align: center">
-          <plus-icon icon-name="heart" icon-style="light" size="xl"></plus-icon>
-          <br /><code>light</code>
-        </div>
+      <div class="col">
+        <h3>Vertical</h3>
+        <plus-checkbox-group id="group2" vertical size="lg">
+          <plus-checkbox value="red">Red</plus-checkbox>
+          <plus-checkbox value="green">Green</plus-checkbox>
+          <plus-checkbox value="blue">Blue</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group2-value">[]</span></pre>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h2>📏 Size Variants</h2>
-      <div class="size-demo">
-        <plus-icon icon-name="star" size="xs"></plus-icon>
-        <code>xs</code>
-        <plus-icon icon-name="star" size="sm"></plus-icon>
-        <code>sm</code>
-        <plus-icon icon-name="star" size="md"></plus-icon>
-        <code>md</code>
-        <plus-icon icon-name="star" size="lg"></plus-icon>
-        <code>lg</code>
-        <plus-icon icon-name="star" size="xl"></plus-icon>
-        <code>xl</code>
-        <plus-icon icon-name="star" size="2xl"></plus-icon>
-        <code>2xl</code>
-        <plus-icon icon-name="star" size="3xl"></plus-icon>
-        <code>3xl</code>
+      <div class="col">
+        <h3>With Initial Value</h3>
+        <plus-checkbox-group id="group3" value='["email", "sms"]'>
+          <plus-checkbox value="email">Email</plus-checkbox>
+          <plus-checkbox value="sms">SMS</plus-checkbox>
+          <plus-checkbox value="push">Push Notification</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group3-value">[]</span></pre>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h2>🎨 Color Inheritance</h2>
-      <div class="color-demo">
-        <div class="color-example red">
-          <plus-icon icon-name="heart" size="xl"></plus-icon>
-          <code>red</code>
-        </div>
-        <div class="color-example blue">
-          <plus-icon icon-name="circle-info" size="xl"></plus-icon>
-          <code>blue</code>
-        </div>
-        <div class="color-example green">
-          <plus-icon icon-name="circle-check" size="xl"></plus-icon>
-          <code>green</code>
-        </div>
-        <div class="color-example purple">
-          <plus-icon icon-name="star" size="xl"></plus-icon>
-          <code>purple</code>
-        </div>
-        <div class="color-example orange">
-          <plus-icon icon-name="home" size="xl"></plus-icon>
-          <code>orange</code>
-        </div>
-      </div>
-    </div>
-
-    <div class="demo-section">
-      <h2>🌐 CDN Fallback Test</h2>
-      <div class="fallback-demo">
+      <div class="col">
+        <h3>Disabled Group</h3>
+        <plus-checkbox-group id="group4" disabled>
+          <plus-checkbox value="option1">Option 1</plus-checkbox>
+          <plus-checkbox value="option2" checked
+            >Option 2 (Checked)</plus-checkbox
+          >
+          <plus-checkbox value="option3">Option 3</plus-checkbox>
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group4-value">[]</span></pre>
         <p>
-          <strong>Testing CDN fallback:</strong> Icons not in local registry
-          will be fetched from FontAwesome CDN
+          Note: The value for a disabled group cannot be changed by user
+          interaction.
         </p>
-        <div class="icon-grid">
-          <div class="icon-example">
-            <plus-icon icon-name="thumbs-up" size="lg"></plus-icon>
-            <code>icon-name="thumbs-up"</code> (CDN)
-          </div>
-          <div class="icon-example">
-            <plus-icon icon-name="bell" size="lg"></plus-icon>
-            <code>icon-name="bell"</code> (CDN)
-          </div>
-          <div class="icon-example">
-            <plus-icon icon-name="nonexistent" size="lg"></plus-icon>
-            <code>icon-name="nonexistent"</code> (Error)
-          </div>
-        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h2>💡 Usage Examples</h2>
-      <div
-        style="
-          background: #f8fafc;
-          padding: 1rem;
-          border-radius: 6px;
-          font-family: monospace;
-        "
-      >
-        <div>&lt;!-- Basic usage --&gt;</div>
-        <div>&lt;plus-icon icon-name="star"&gt;&lt;/plus-icon&gt;</div>
-        <br />
-        <div>&lt;!-- With style variant --&gt;</div>
-        <div>
-          &lt;plus-icon icon-name="heart"
-          icon-style="regular"&gt;&lt;/plus-icon&gt;
-        </div>
-        <br />
-        <div>&lt;!-- With size --&gt;</div>
-        <div>
-          &lt;plus-icon icon-name="user" size="lg"&gt;&lt;/plus-icon&gt;
-        </div>
-        <br />
-        <div>&lt;!-- With accessibility label --&gt;</div>
-        <div>
-          &lt;plus-icon icon-name="home" label="Go to
-          homepage"&gt;&lt;/plus-icon&gt;
-        </div>
-        <br />
-        <div>&lt;!-- Custom CSS sizing --&gt;</div>
-        <div>
-          &lt;plus-icon icon-name="star" style="--icon-size: 32px; --icon-color:
-          gold;"&gt;&lt;/plus-icon&gt;
-        </div>
+      <div class="col">
+        <h3>Dynamically Disabled Group (Test for disabled state fix)</h3>
+        <plus-checkbox-group id="group5">
+          <plus-checkbox value="a">A</plus-checkbox>
+          <plus-checkbox value="b">B</plus-checkbox>
+          <plus-checkbox value="c" disabled
+            >C (Initially Disabled)</plus-checkbox
+          >
+        </plus-checkbox-group>
+        <pre>Selected: <span id="group5-value">[]</span></pre>
+        <plus-button id="toggle-group5-disabled"
+          >Toggle Group Disabled</plus-button
+        >
+        <p>
+          Click the button to toggle the `disabled` state of the group above.
+          Checkbox "C" should retain its own disabled state.
+        </p>
+      </div>
+
+      <div class="col">
+        <h3>Nested Groups (Test for event propagation fix)</h3>
+        <plus-checkbox-group id="parent-group">
+          <plus-checkbox value="parent1">Parent 1</plus-checkbox>
+          <plus-checkbox value="parent2">Parent 2</plus-checkbox>
+          <div
+            style="
+              padding: 1rem;
+              margin-top: 1rem;
+              border: 1px dashed #ccc;
+              border-radius: 4px;
+            "
+          >
+            <plus-checkbox-group id="child-group" vertical>
+              <h4 style="margin: 0 0 0.5rem">Child Group</h4>
+              <plus-checkbox value="child1">Child 1</plus-checkbox>
+              <plus-checkbox value="child2">Child 2</plus-checkbox>
+            </plus-checkbox-group>
+          </div>
+        </plus-checkbox-group>
+        <pre>Parent Group Selected: <span id="parent-group-value">[]</span></pre>
+        <pre>Child Group Selected: <span id="child-group-value">[]</span></pre>
+        <p>
+          When you check an item in the "Child Group", only its own value should
+          update, not the parent's.
+        </p>
       </div>
     </div>
 
     <script>
-      // Test dynamic icon loading
-      console.log('Icon Registry System loaded!');
+      // Helper to display group values
+      function setupGroupListener(groupId) {
+        const group = document.getElementById(groupId);
+        const valueSpan = document.getElementById(`${groupId}-value`);
 
-      // Check if all core icons loaded properly
-      setTimeout(() => {
-        const allIcons = document.querySelectorAll('plus-icon');
-        console.log(`Total icons on page: ${allIcons.length}`);
+        if (group && valueSpan) {
+          // Function to update the displayed value
+          const updateValue = () => {
+            valueSpan.textContent = JSON.stringify(group.value);
+          };
 
-        allIcons.forEach((icon) => {
-          const iconName = icon.getAttribute('icon-name');
-          if (icon.hasAttribute('aria-label')) {
-            console.log(`✅ Icon ${iconName} loaded successfully`);
-          }
+          // Initial value display
+          updateValue();
+
+          // Listen for changes
+          group.addEventListener('plus-change', (event) => {
+            console.log(
+              `plus-change event for [${groupId}]`,
+              event.detail.value
+            );
+            // The value on the element is already updated, so we can just re-read it
+            updateValue();
+          });
+        }
+      }
+
+      [
+        'group1',
+        'group2',
+        'group3',
+        'group4',
+        'group5',
+        'parent-group',
+        'child-group',
+      ].forEach(setupGroupListener);
+
+      // Setup for dynamic disable toggle
+      const group5 = document.getElementById('group5');
+      const toggleBtn = document.getElementById('toggle-group5-disabled');
+      if (group5 && toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          group5.disabled = !group5.disabled;
+          console.log(`Group 5 disabled state toggled to: ${group5.disabled}`);
         });
-      }, 1000);
+      }
     </script>
   </body>
 </html>
