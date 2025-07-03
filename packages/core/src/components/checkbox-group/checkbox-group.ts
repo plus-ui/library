@@ -35,6 +35,13 @@ export class PlusCheckboxGroup extends Tailwind {
   @property({ type: Boolean, reflect: true, converter: booleanConverter })
   disabled = false;
 
+  override updated(changedProperties: Map<string, unknown>) {
+    super.updated(changedProperties);
+    if (changedProperties.has('disabled') || changedProperties.has('size')) {
+      this.updateCheckboxes();
+    }
+  }
+
   private handleSlotChange() {
     this.updateCheckboxes();
   }
@@ -43,26 +50,27 @@ export class PlusCheckboxGroup extends Tailwind {
     if (!this.checkboxes) return;
     this.checkboxes.forEach((checkbox) => {
       checkbox.size = this.size;
-      checkbox.disabled = this.disabled;
+      checkbox.disabled = this.disabled || checkbox.disabled;
       checkbox.checked = this.value.includes(checkbox.value ?? '');
     });
   }
 
   private handleCheckboxChange = (event: CustomEvent) => {
-    if (event.target === this) {
+    const target = event.target as HTMLElement;
+
+    // We only want to handle clicks on direct plus-checkbox children
+    if (target.tagName.toLowerCase() !== 'plus-checkbox') {
       return;
     }
+    // Stop the event from bubbling up to the host, where the user might be listening.
+    event.stopPropagation();
 
-    const target = event.target as PlusCheckbox;
-    if (!this.checkboxes.includes(target)) {
-      return;
-    }
-
-    const targetValue = target.value ?? '';
+    const checkbox = target as PlusCheckbox;
+    const targetValue = checkbox.value ?? '';
 
     const oldValue = [...this.value];
 
-    if (target.checked) {
+    if (checkbox.checked) {
       if (!this.value.includes(targetValue)) {
         this.value = [...this.value, targetValue];
       }
@@ -76,22 +84,6 @@ export class PlusCheckboxGroup extends Tailwind {
     }
   };
 
-  override connectedCallback() {
-    super.connectedCallback();
-    this.addEventListener(
-      'plus-change',
-      this.handleCheckboxChange as EventListener
-    );
-  }
-
-  override disconnectedCallback() {
-    super.disconnectedCallback();
-    this.removeEventListener(
-      'plus-change',
-      this.handleCheckboxChange as EventListener
-    );
-  }
-
   override render() {
     const { base } = checkboxGroupStyle({ vertical: this.vertical });
 
@@ -101,6 +93,7 @@ export class PlusCheckboxGroup extends Tailwind {
         role="group"
         class=${base()}
         @slotchange=${this.handleSlotChange}
+        @plus-change=${this.handleCheckboxChange}
       >
         <slot></slot>
       </div>

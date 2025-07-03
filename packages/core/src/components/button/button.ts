@@ -46,9 +46,9 @@ export default class PlusButton extends Tailwind {
       :host {
         display: inline-block;
         height: fit-content;
-        width: fit-content;
       }
       :host([full-width]) {
+        display: block;
         width: 100%;
       }
       .plus-button {

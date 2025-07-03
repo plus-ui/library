@@ -36,15 +36,13 @@ export default class PlusSelect extends Tailwind {
     ...Tailwind.styles,
     css`
       :host {
-        display: block;
-        min-width: 256px;
-        width: fit-content;
-        height: fit-content;
+        display: inline-block;
+        width: 100%;
+        max-width: 256px;
+        position: relative;
       }
       :host([full-width]) {
-        width: 100%;
-        max-width: unset;
-        min-width: unset;
+        max-width: 100%;
       }
     `,
   ];
@@ -118,6 +116,18 @@ export default class PlusSelect extends Tailwind {
    */
   @property({ type: Boolean, converter: booleanConverter, reflect: true })
   clearable: boolean = false;
+
+  /**
+   * Makes the select full width.
+   * @default false
+   */
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: booleanConverter,
+    attribute: 'full-width',
+  })
+  fullWidth = false;
 
   /**
    * Tracks the visibility state of the select menu.
@@ -398,10 +408,14 @@ export default class PlusSelect extends Tailwind {
         role="combobox"
         part="select"
         suffix-icon=${this.isVisible ? 'chevron-up' : 'chevron-down'}
+        ?full-width=${this.fullWidth}
       ></plus-input>
       <div
         id=${this.selectId}
-        class=${selectStyle({ isOpen: this.isVisible })}
+        class=${selectStyle({
+          isOpen: this.isVisible,
+          fullWidth: this.fullWidth,
+        })}
         role="listbox"
         aria-label="Select options"
         ?hidden=${!this.isVisible}

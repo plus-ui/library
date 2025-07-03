@@ -3,6 +3,7 @@ import { property, state } from 'lit/decorators.js';
 import { booleanConverter } from '../../utils/boolean-converter';
 import { buttonGroupStyle } from './button-group.style';
 import Tailwind from '../base/tailwind-base';
+import type { PlusButton } from '../button/button';
 
 /**
  * Orientation type for button group
@@ -96,7 +97,7 @@ export default class PlusButtonGroup extends Tailwind {
   loading = false;
 
   @state()
-  private _buttons: HTMLElement[] = [];
+  private _buttons: PlusButton[] = [];
 
   static override styles = [
     ...Tailwind.styles,
@@ -125,30 +126,15 @@ export default class PlusButtonGroup extends Tailwind {
     this.buttons.forEach((button) => {
       if (this.override) {
         // Override button properties with group properties
-        button.setAttribute('size', this.size);
-        button.setAttribute('kind', this.kind);
-        button.setAttribute('status', this.status);
-
-        // Override disabled and loading states
-        if (this.disabled) {
-          button.setAttribute('disabled', '');
-        } else {
-          button.removeAttribute('disabled');
-        }
-
-        if (this.loading) {
-          button.setAttribute('loading', '');
-        } else {
-          button.removeAttribute('loading');
-        }
+        button.size = this.size;
+        button.kind = this.kind;
+        button.status = this.status;
+        button.disabled = this.disabled || button.disabled;
+        button.loading = this.loading || button.loading;
       }
 
       // Always set full-width attribute on buttons when orientation is vertical
-      if (isVertical) {
-        button.setAttribute('full-width', '');
-      } else {
-        button.removeAttribute('full-width');
-      }
+      button.fullWidth = isVertical;
     });
   }
 
@@ -220,7 +206,7 @@ export default class PlusButtonGroup extends Tailwind {
       .assignedElements()
       .filter(
         (element) => element.tagName.toLowerCase() === 'plus-button'
-      ) as HTMLElement[];
+      ) as PlusButton[];
     this.updateButtons();
   }
 
