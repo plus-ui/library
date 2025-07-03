@@ -408,7 +408,7 @@ export default class PlusSelect extends Tailwind {
         role="combobox"
         part="select"
         suffix-icon=${this.isVisible ? 'chevron-up' : 'chevron-down'}
-        full-width=${this.fullWidth}
+        ?full-width=${this.fullWidth}
       ></plus-input>
       <div
         id=${this.selectId}
