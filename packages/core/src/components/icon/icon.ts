@@ -1,7 +1,7 @@
 import { html, LitElement, css, nothing } from 'lit';
 import { property, state } from 'lit/decorators.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { getIcon, hasIcon, IconName, IconStyle } from './icon-registry';
+import { getIcon, IconName, IconStyle } from './icon-registry';
 
 /**
  * @tag plus-icon
@@ -151,12 +151,12 @@ export default class PlusIcon extends LitElement {
   @state()
   private hasError: boolean = false;
 
-  protected override async updated(changedProperties: Map<string, unknown>) {
+  protected override updated(changedProperties: Map<string, unknown>) {
     if (
       changedProperties.has('iconName') ||
       changedProperties.has('iconStyle')
     ) {
-      await this.loadIcon();
+      this.loadIcon();
     }
   }
 
@@ -167,43 +167,25 @@ export default class PlusIcon extends LitElement {
       return;
     }
 
-    // Check if icon is available locally first
-    if (hasIcon(this.iconName, this.iconStyle)) {
-      try {
-        this.isLoading = true;
-        this.hasError = false;
-        const iconSvg = await getIcon(this.iconName, this.iconStyle);
+    this.isLoading = true;
+    this.hasError = false;
+
+    try {
+      const iconSvg = await getIcon(this.iconName, this.iconStyle);
+      if (iconSvg) {
         this.svgContent = iconSvg;
-        this.isLoading = false;
-      } catch (error) {
-        console.warn(
-          `Failed to load icon: ${this.iconName} (${this.iconStyle})`,
-          error
-        );
+      } else {
         this.hasError = true;
-        this.isLoading = false;
       }
-    } else {
-      // Try CDN fallback
-      try {
-        this.isLoading = true;
-        this.hasError = false;
-        const iconSvg = await getIcon(this.iconName, this.iconStyle);
-        if (iconSvg) {
-          this.svgContent = iconSvg;
-        } else {
-          this.hasError = true;
-        }
-        this.isLoading = false;
-      } catch (error) {
-        console.warn(
-          `Failed to load icon from CDN: ${this.iconName} (${this.iconStyle})`,
-          error
-        );
-        this.hasError = true;
-        this.isLoading = false;
-      }
+    } catch (error) {
+      console.warn(
+        `Failed to load icon: ${this.iconName} (${this.iconStyle})`,
+        error
+      );
+      this.hasError = true;
     }
+
+    this.isLoading = false;
   }
 
   override render() {
