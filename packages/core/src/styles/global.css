@@ -12,6 +12,11 @@
 @theme {
   --font-sans: 'Inter', sans-serif;
   --animate-spin: spin 2s linear infinite;
+
+  --text-xxxs: 0.5rem;
+  --text-xxxs--line-height: calc(1 / 0.5);
+  --text-xxs: 0.625rem;
+  --text-xxs--line-height: calc(1 / 0.625);
 }
 
 @theme {

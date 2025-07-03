@@ -37,11 +37,11 @@ export const accordionStyle = tv({
     expand: {
       true: {
         panel: 'block',
-        icon: 'fa-solid fa-angle-up',
+        icon: 'text-base text-center',
       },
       false: {
         panel: 'hidden',
-        icon: 'fa-solid fa-angle-down',
+        icon: 'text-base text-center',
       },
     },
     isGrouped: {

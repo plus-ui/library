@@ -6,9 +6,6 @@ import { ratingStyle, labelStyle, captionStyle } from './rating.style';
 import Tailwind from '../base/tailwind-base';
 import { booleanConverter } from '../../utils/boolean-converter';
 
-// Import SVG icon component - Adjust path if necessary
-import '../svg-icon/svg-icon.js';
-
 /**
  * @tag plus-rating
  * @summary A rating component to display and optionally set a rating value.
@@ -259,7 +256,7 @@ export default class PlusRating extends Tailwind {
               >
                 <!-- Background Star -->
                 <span class="${styles.starIcon()} ${currentIconColorClass}">
-                  <plus-svg-icon iconName=${currentIconName}></plus-svg-icon>
+                  <plus-icon icon-name=${currentIconName}></plus-icon>
                 </span>
 
                 <!-- Foreground Partial Star -->
@@ -269,9 +266,7 @@ export default class PlusRating extends Tailwind {
                         class="${styles.starPartial()} ${styles.starIcon()} text-color-primary"
                         style=${styleMap({ width: partialWidth })}
                       >
-                        <plus-svg-icon
-                          iconName=${this.filledIconName}
-                        ></plus-svg-icon>
+                        <plus-icon icon-name=${this.filledIconName}></plus-icon>
                       </span>
                     `
                   : nothing}

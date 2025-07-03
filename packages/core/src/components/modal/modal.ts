@@ -228,7 +228,7 @@ export default class PlusModal extends Tailwind {
                   aria-label="Close modal"
                   @click=${() => this.hide()}
                 >
-                  <plus-svg-icon iconName="xmark"></plus-svg-icon>
+                  <plus-icon icon-name="xmark"></plus-icon>
                 </button>
               </slot>
             </div>

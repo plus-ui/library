@@ -205,7 +205,12 @@ export default class PlusAccordion extends Tailwind {
               <slot name="helper"></slot>
             </span>
           </div>
-          <i class=${icon()} part="icon" aria-hidden="true"></i>
+          <plus-icon
+            class=${icon()}
+            part="icon"
+            aria-hidden="true"
+            icon-name=${this.expand ? 'angle-up' : 'angle-down'}
+          ></plus-icon>
         </div>
         <div
           class=${panel()}

@@ -8,7 +8,7 @@ export const avatarStyle = tv({
   ],
   variants: {
     size: {
-      xs: 'size-4 text-xs',
+      xs: 'size-4 text-xxxs',
       sm: 'size-6 text-xs',
       md: 'size-9 text-sm',
       lg: 'size-10 text-base',

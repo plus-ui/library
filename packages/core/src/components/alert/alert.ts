@@ -232,11 +232,11 @@ export default class PlusAlert extends Tailwind {
       >
         <div class=${statusIcon()} part="status-icon">
           <slot name="prefix">
-            ${html`<plus-svg-icon
-              iconName=${this.statusIcon || statusIconMap[this.status]}
+            ${html`<plus-icon
+              icon-name=${this.statusIcon || statusIconMap[this.status]}
               part="status-icon"
             >
-            </plus-svg-icon>`}
+            </plus-icon>`}
           </slot>
         </div>
         <div class=${content()} part="content">
@@ -255,9 +255,9 @@ export default class PlusAlert extends Tailwind {
               @click=${this.handleDismiss}
               aria-label="Close alert"
             >
-              <plus-svg-icon
-                iconName=${this.dismissIcon || 'xmark'}
-              ></plus-svg-icon>
+              <plus-icon
+                icon-name=${this.dismissIcon || 'xmark'}
+              ></plus-icon>
             </slot>`
           : nothing}
       </div>

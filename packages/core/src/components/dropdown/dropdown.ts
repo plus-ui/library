@@ -337,10 +337,10 @@ export default class PlusDropdown extends Tailwind {
         part="button"
         ><slot>${this.text}</slot>
         <slot name="suffix">
-          <plus-svg-icon
-            iconName=${this.isVisible ? 'chevron-up' : 'chevron-down'}
+          <plus-icon
+            icon-name=${this.isVisible ? 'chevron-up' : 'chevron-down'}
             size="sm"
-          ></plus-svg-icon>
+          ></plus-icon>
         </slot>
       </plus-button>
       <div
