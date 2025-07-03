@@ -47,9 +47,26 @@ export class PlusCheckboxGroup extends Tailwind {
 
   private updateCheckboxes() {
     if (!this.checkboxes) return;
-    this.checkboxes.forEach((checkbox) => {
+    this.checkboxes.forEach((_checkbox) => {
+      // We only want to update checkboxes that are direct children of this group.
+      if (_checkbox.closest('plus-checkbox-group') !== this) {
+        return;
+      }
+      const checkbox = _checkbox as PlusCheckbox & {
+        _internalDisabled?: boolean;
+      };
       checkbox.size = this.size;
-      checkbox.disabled = this.disabled || checkbox.disabled;
+      if (this.disabled) {
+        if (checkbox._internalDisabled === undefined) {
+          checkbox._internalDisabled = checkbox.disabled;
+        }
+        checkbox.disabled = true;
+      } else {
+        if (checkbox._internalDisabled !== undefined) {
+          checkbox.disabled = checkbox._internalDisabled;
+          checkbox._internalDisabled = undefined;
+        }
+      }
       checkbox.checked = this.value.includes(checkbox.value ?? '');
     });
   }
@@ -61,6 +78,12 @@ export class PlusCheckboxGroup extends Tailwind {
     if (target.tagName.toLowerCase() !== 'plus-checkbox') {
       return;
     }
+
+    // IMPORTANT: Check if the event's target is a direct child of this group.
+    if (target.closest('plus-checkbox-group') !== this) {
+      return;
+    }
+
     // Stop the event from bubbling up to the host, where the user might be listening.
     event.stopPropagation();
 
