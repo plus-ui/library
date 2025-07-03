@@ -1,64 +1,77 @@
+import { html, LitElement, css, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
-import { html, LitElement, css } from 'lit';
-import { library, icon } from '@fortawesome/fontawesome-svg-core';
-import {
-  faUser,
-  faHeart,
-  faHome,
-  faXmark,
-} from '@fortawesome/free-solid-svg-icons';
-import type {
-  IconPrefix,
-  IconName,
-  IconLookup,
-} from '@fortawesome/fontawesome-common-types';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { getIcon, IconName } from '../svg-icon/icons';
 
-library.add(faUser, faHeart, faHome, faXmark);
-
+/**
+ * @tag plus-icon
+ * @since 0.0.0 
+ * @status stable
+ *
+ * Plus Icon component provides a unified SVG icon system with size and style variants.
+ * Supports consistent rendering across all components with performance optimization.
+ *
+ * @csspart base - The component's base wrapper
+ * @csspart svg - The SVG icon element
+ *
+ * @cssproperty --icon-size - Controls the size of the icon (defaults to 1em)
+ * @cssproperty --icon-color - Controls the color of the icon (defaults to currentColor)
+ */
 export default class PlusIcon extends LitElement {
   static override styles = css`
     :host {
       display: inline-block;
       height: fit-content;
       width: fit-content;
+      --icon-size: 1em;
+      --icon-color: currentColor;
     }
+    
+    :host([size="xs"]) {
+      --icon-size: 0.75rem;
+    }
+    
+    :host([size="sm"]) {
+      --icon-size: 0.875rem;
+    }
+    
+    :host([size="md"]) {
+      --icon-size: 1rem;
+    }
+    
+    :host([size="lg"]) {
+      --icon-size: 1.25rem;
+    }
+    
+    :host([size="xl"]) {
+      --icon-size: 1.5rem;
+    }
+    
     svg {
-      height: 1em;
-      width: 1em;
-      vertical-align: initial;
+      height: var(--icon-size);
+      width: var(--icon-size);
+      vertical-align: middle;
+      fill: var(--icon-color);
     }
   `;
 
-  constructor() {
-    super();
-  }
-
+  /**
+   * The name of the icon to display
+   */
   @property({ type: String })
   iconName?: IconName;
 
-  @property({ type: String })
-  override prefix: IconPrefix = 'fas';
-
-  private getIconHtml() {
-    if (!this.iconName) return '';
-
-    try {
-      const lookup: IconLookup = {
-        prefix: this.prefix,
-        iconName: this.iconName,
-      };
-
-      const result = icon(lookup);
-      return result ? unsafeHTML(result.html[0]) : '';
-    } catch (error) {
-      console.error('Icon not found:', error);
-      return '';
-    }
-  }
+  /**
+   * Size variant of the icon
+   * @default 'md'
+   */
+  @property({ type: String, reflect: true })
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
 
   override render() {
-    return html` ${this.getIconHtml()} `;
+    if (!this.iconName) return nothing;
+
+    return html`${unsafeHTML(getIcon(this.iconName))}`;
   }
 }
 
