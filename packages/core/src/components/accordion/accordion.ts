@@ -148,16 +148,15 @@ export default class PlusAccordion extends Tailwind {
   }
 
   override render() {
-    const { base, header, panel, helper, headerContainer } =
-      accordionStyle({
-        expand: this.expand,
-        isGrouped: this.isGrouped,
-        isLast: this.isLast,
-        isFirst: this.isFirst,
-        size: this.size,
-        disabled: this.disabled,
-        // hasHelper: this.hasHelperSlot,
-      });
+    const { base, header, panel, helper, headerContainer } = accordionStyle({
+      expand: this.expand,
+      isGrouped: this.isGrouped,
+      isLast: this.isLast,
+      isFirst: this.isFirst,
+      size: this.size,
+      disabled: this.disabled,
+      // hasHelper: this.hasHelperSlot,
+    });
 
     // Get the icon name based on expand state
     const iconName = this.expand ? 'angle-up' : 'angle-down';
@@ -188,7 +187,11 @@ export default class PlusAccordion extends Tailwind {
               <slot name="helper"></slot>
             </span>
           </div>
-          <plus-icon iconName=${iconName} part="icon" aria-hidden="true"></plus-icon>
+          <plus-icon
+            iconName=${iconName}
+            part="icon"
+            aria-hidden="true"
+          ></plus-icon>
         </div>
         <div
           class=${panel()}

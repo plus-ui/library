@@ -1,7 +1,7 @@
 /** @arg {import('plop').NodePlopAPI} plop */
 
 export default function (plop) {
-  plop.setHelper('dashToTitle', text => {
+  plop.setHelper('dashToTitle', (text) => {
     const titleCase = plop.getHelper('titleCase');
     return titleCase(text.replace(/-/g, ' '));
   });
@@ -12,7 +12,8 @@ export default function (plop) {
       {
         type: 'input',
         name: 'name',
-        message: 'Please enter your component name in kebab-case (e.g. button-group)',
+        message:
+          'Please enter your component name in kebab-case (e.g. button-group)',
         default: 'component',
       },
       {
@@ -32,7 +33,9 @@ export default function (plop) {
         // Must not end in a dash
         basename.endsWith('-')
       ) {
-        console.log('The name must only contain alphanumeric characters and dashes, start with a letter, and not end in a dash. Please try again.');
+        console.log(
+          'The name must only contain alphanumeric characters and dashes, start with a letter, and not end in a dash. Please try again.'
+        );
         return [];
       }
 
@@ -80,9 +83,9 @@ export default function (plop) {
         {
           type: 'append',
           path: 'src/components/index.ts',
-          template: 'export * from \'./{{kebabCase name}}\';',
+          template: "export * from './{{kebabCase name}}';",
           separator: '',
-        }
+        },
       ];
     },
   });

@@ -2,7 +2,7 @@
 title: Icons
 description: >-
   Embrace visual storytelling and clarity in your user interface with Plus UI's
-  Icon that powered by Font Awesome.
+  unified SVG icon system featuring performance optimization and consistent rendering.
 ---
 import GetHelp from '../../../components/get-help.mdx'
 import { EmbedContent } from '../../../component';
@@ -22,14 +22,80 @@ import howToUse from "../../../assets/foundation/icon/how-to-use.png";
 
 # Icons
 
-## Kind
+Plus UI provides a unified SVG icon system that delivers consistent performance and rendering across all components. Our icon system features a comprehensive library of optimized SVG icons with size variants and simplified API.
 
-Icon family has 3 different types which is Regular, Solid and Brand.
+## Usage
 
-{/* <figure><img src="../.gitbook/assets/icons feature.png" alt=""><figcaption><p>kinds of icon</p></figcaption></figure> */}
-<Image src={
-  kind
-} alt="kinds of icon" />
+### Basic Icon Usage
+
+```html
+<plus-icon iconName="user"></plus-icon>
+<plus-icon iconName="home"></plus-icon>
+<plus-icon iconName="heart"></plus-icon>
+```
+
+### Size Variants
+
+Icons support multiple size variants for different use cases:
+
+```html
+<plus-icon iconName="user" size="xs"></plus-icon>  <!-- 0.75rem -->
+<plus-icon iconName="user" size="sm"></plus-icon>  <!-- 0.875rem -->
+<plus-icon iconName="user" size="md"></plus-icon>  <!-- 1rem (default) -->
+<plus-icon iconName="user" size="lg"></plus-icon>  <!-- 1.25rem -->
+<plus-icon iconName="user" size="xl"></plus-icon>  <!-- 1.5rem -->
+```
+
+### Custom Styling
+
+Icons inherit color from their parent and can be styled with CSS:
+
+```html
+<plus-icon iconName="heart" style="color: red; --icon-size: 2rem;"></plus-icon>
+```
+
+## Available Icons
+
+The icon library includes commonly used icons organized by category:
+
+### User Interface
+- `user`, `home`, `heart`, `settings`, `menu`, `plus`, `minus`, `xmark`
+
+### Navigation  
+- `chevron-up`, `chevron-down`, `chevron-left`, `chevron-right`
+- `angle-up`, `angle-down`, `angle-left`, `angle-right`
+
+### Status & Feedback
+- `check`, `circle-check`, `circle-info`, `circle-question` 
+- `circle-exclamation`, `triangle-exclamation`
+
+### Form & Input
+- `eye`, `eye-slash`, `lock`, `envelope`
+
+### Rating & Actions
+- `solid-star`, `regular-star`, `heart-circle-plus`, `circle-plus`
+
+## Migration from FontAwesome
+
+The Plus UI icon system replaces FontAwesome with optimized SVG icons:
+
+### Before (FontAwesome)
+```html
+<plus-icon iconName="user" prefix="fas"></plus-icon>
+<i class="fa-solid fa-user"></i>
+```
+
+### After (SVG Icons)
+```html
+<plus-icon iconName="user"></plus-icon>
+```
+
+## Performance Benefits
+
+- **Smaller Bundle Size**: ~50KB reduction compared to FontAwesome
+- **Local-First**: No external dependencies or CDN requests  
+- **Optimized SVG**: Lightweight, scalable vector graphics
+- **Consistent Rendering**: Unified styling across all components
 
 ## Sizing Icons
 
@@ -55,44 +121,56 @@ If there is not enough space in the area to be used and the minimum version of t
   noContainer
 } alt="no container line height" />
 
-## How to Use Icons in Plus UI Library
+## CSS Custom Properties
 
-**Step 1:** Write icon to the assets and drag the result to the workspace.
+Customize icon appearance using CSS custom properties:
 
-<Image src={
-  figma
-} alt="using icons in figma" />
+```css
+plus-icon {
+  --icon-size: 1.5rem;      /* Custom size */
+  --icon-color: #3b82f6;    /* Custom color */
+}
+```
 
-**Step 2:** Visit Font Awesome web page and search for the Icon that you want to use.
+## Accessibility
 
-<Image src={
-  fontAwesome
-} alt="find your icon" />
+Icons automatically include proper accessibility features:
 
-<EmbedContent url="https://fontawesome.com/" />
+```html
+<!-- Decorative icons -->
+<plus-icon iconName="heart" aria-hidden="true"></plus-icon>
 
-**Step 3:** You can copy it by clicking on the Icon Name on the popup.
+<!-- Meaningful icons -->
+<plus-icon iconName="user" role="img" aria-label="User profile"></plus-icon>
+```
 
-<Image src={
-  copy
-} alt="copy icon name" />
+## Component Integration
 
-**Step 4:** Go back to Figma canvas and paste the icon name. All done!
+Icons work seamlessly across all Plus UI components:
 
-<Image src={
-  visit
-} alt="paste icon name" />
+```html
+<!-- Avatar with icon fallback -->
+<plus-avatar icon="user"></plus-avatar>
 
-## Powerful Integration with Font Awesome
+<!-- Button with prefix icon -->
+<plus-button>
+  <plus-icon iconName="plus" slot="prefix"></plus-icon>
+  Add Item
+</plus-button>
 
-Font Awesome enriches the visual language with a diverse set of iconic elements that elevate the Plus UI Design System, providing users with a comprehensive and integrated toolkit for crafting exceptional user interfaces.&#x20;
+<!-- Alert with status icon -->
+<plus-alert status="success">
+  <plus-icon iconName="check" slot="icon"></plus-icon>
+  Operation completed successfully
+</plus-alert>
+```
 
-- **Iconic Elements:** Font Awesome integration brings a plethora of iconic elements to the Plus UI Design System, enhancing visual appeal and providing a diverse range of symbols.&#x20;
-- **Scalable Icons:** Font Awesome's scalable vector icons seamlessly align with our components, ensuring clear representations in any context.&#x20;
-- **Unified Aesthetics:** The integration ensures a unified aesthetic language for a cohesive user experience.
+## Best Practices
 
-<Image src={
-  fontAwesome
-} alt="font awesome icons" />
+- Use **semantic icon names** that clearly indicate their purpose
+- Prefer **size variants** over custom CSS sizing for consistency
+- Include **aria-labels** for icons that convey meaning
+- Use **aria-hidden="true"** for purely decorative icons
+- Test icon visibility across different themes and color schemes
 
 <GetHelp />

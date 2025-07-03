@@ -5,7 +5,7 @@ import { getIcon, IconName } from '../svg-icon/icons';
 
 /**
  * @tag plus-icon
- * @since 0.0.0 
+ * @since 0.0.0
  * @status stable
  *
  * Plus Icon component provides a unified SVG icon system with size and style variants.
@@ -26,27 +26,27 @@ export default class PlusIcon extends LitElement {
       --icon-size: 1em;
       --icon-color: currentColor;
     }
-    
-    :host([size="xs"]) {
+
+    :host([size='xs']) {
       --icon-size: 0.75rem;
     }
-    
-    :host([size="sm"]) {
+
+    :host([size='sm']) {
       --icon-size: 0.875rem;
     }
-    
-    :host([size="md"]) {
+
+    :host([size='md']) {
       --icon-size: 1rem;
     }
-    
-    :host([size="lg"]) {
+
+    :host([size='lg']) {
       --icon-size: 1.25rem;
     }
-    
-    :host([size="xl"]) {
+
+    :host([size='xl']) {
       --icon-size: 1.5rem;
     }
-    
+
     svg {
       height: var(--icon-size);
       width: var(--icon-size);

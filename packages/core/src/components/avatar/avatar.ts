@@ -132,7 +132,9 @@ export default class PlusAvatar extends Tailwind {
       return html`<plus-icon iconName=${this.icon}></plus-icon>`;
     }
 
-    return html`<slot name="fallback"><plus-icon iconName=${this.icon}></plus-icon></slot>`;
+    return html`<slot name="fallback"
+      ><plus-icon iconName=${this.icon}></plus-icon
+    ></slot>`;
   }
 
   private renderContent() {

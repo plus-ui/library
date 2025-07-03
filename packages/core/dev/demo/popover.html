@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Component Test Page</title>
@@ -9,135 +8,135 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            padding: 2rem;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
 
-        .col {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            justify-content: center;
-            align-items: center;
-        }
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+      }
 
-        .btn {
-            padding: 8px 12px;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+      .btn {
+        padding: 8px 12px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
 
-        .btn:hover {
-            background-color: #0056b3;
-        }
+      .btn:hover {
+        background-color: #0056b3;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="container">
-        <h2>Popover Test Examples</h2>
+      <h2>Popover Test Examples</h2>
 
-        <!-- Click Trigger (Top) -->
-        <plus-popover trigger="click" orientation="top" status="warning">
-            <button class="btn">Click Popover (Top)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Possimus quam, numquam maiores doloribus sunt ab</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Click Trigger (Top) -->
+      <plus-popover trigger="click" orientation="top" status="warning">
+        <button class="btn">Click Popover (Top)</button>
+        <div slot="content">
+          <div class="col">
+            <span
+              >Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+              Possimus quam, numquam maiores doloribus sunt ab</span
+            >
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Click Trigger (Bottom) -->
-        <plus-popover trigger="click" orientation="bottom" status="success">
-            <button class="btn">Click Popover (Bottom)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>This is a popover appearing at the bottom.</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Click Trigger (Bottom) -->
+      <plus-popover trigger="click" orientation="bottom" status="success">
+        <button class="btn">Click Popover (Bottom)</button>
+        <div slot="content">
+          <div class="col">
+            <span>This is a popover appearing at the bottom.</span>
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Click Trigger (Left) -->
-        <plus-popover trigger="click" orientation="left" status="danger">
-            <button class="btn">Click Popover (Left)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Popover aligned to the left.</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Click Trigger (Left) -->
+      <plus-popover trigger="click" orientation="left" status="danger">
+        <button class="btn">Click Popover (Left)</button>
+        <div slot="content">
+          <div class="col">
+            <span>Popover aligned to the left.</span>
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Click Trigger (Right) -->
-        <plus-popover trigger="click" orientation="right" status="primary">
-            <button class="btn">Click Popover (Right)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Popover on the right side.</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Click Trigger (Right) -->
+      <plus-popover trigger="click" orientation="right" status="primary">
+        <button class="btn">Click Popover (Right)</button>
+        <div slot="content">
+          <div class="col">
+            <span>Popover on the right side.</span>
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Hover Trigger (Top) -->
-        <plus-popover trigger="hover" orientation="top" status="info">
-            <button class="btn">Hover Popover (Top)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Hover over this button to see the popover.</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Hover Trigger (Top) -->
+      <plus-popover trigger="hover" orientation="top" status="info">
+        <button class="btn">Hover Popover (Top)</button>
+        <div slot="content">
+          <div class="col">
+            <span>Hover over this button to see the popover.</span>
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Hover Trigger (Bottom) -->
-        <plus-popover trigger="hover" orientation="bottom" status="success">
-            <button class="btn">Hover Popover (Bottom)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Hover and popover appears at the bottom.</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Hover Trigger (Bottom) -->
+      <plus-popover trigger="hover" orientation="bottom" status="success">
+        <button class="btn">Hover Popover (Bottom)</button>
+        <div slot="content">
+          <div class="col">
+            <span>Hover and popover appears at the bottom.</span>
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Hover Trigger (Left) -->
-        <plus-popover trigger="hover" orientation="left" status="warning">
-            <button class="btn">Hover Popover (Left)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Left aligned hover popover.</span>
-                </div>
-            </div>
-        </plus-popover>
+      <!-- Hover Trigger (Left) -->
+      <plus-popover trigger="hover" orientation="left" status="warning">
+        <button class="btn">Hover Popover (Left)</button>
+        <div slot="content">
+          <div class="col">
+            <span>Left aligned hover popover.</span>
+          </div>
+        </div>
+      </plus-popover>
 
-        <!-- Hover Trigger (Right) -->
-        <plus-popover trigger="hover" orientation="right" status="danger">
-            <button class="btn">Hover Popover (Right)</button>
-            <div slot="content">
-                <div class="col">
-                    <span>Right aligned hover popover.</span>
-                </div>
-            </div>
-        </plus-popover>
-
+      <!-- Hover Trigger (Right) -->
+      <plus-popover trigger="hover" orientation="right" status="danger">
+        <button class="btn">Hover Popover (Right)</button>
+        <div slot="content">
+          <div class="col">
+            <span>Right aligned hover popover.</span>
+          </div>
+        </div>
+      </plus-popover>
     </div>
-
-</body>
-
+  </body>
 </html>

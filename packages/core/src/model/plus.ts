@@ -6,7 +6,7 @@ export const Sizes = {
   xl: 'xl',
 } as const;
 
-export type Size = typeof Sizes[keyof typeof Sizes];
+export type Size = (typeof Sizes)[keyof typeof Sizes];
 
 // Type-safe size check
 export const isValidSize = (size: string): size is Size => {
