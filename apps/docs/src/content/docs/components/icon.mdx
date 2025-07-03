@@ -1,0 +1,88 @@
+---
+title: Icon
+description: Displays SVG icons with style, size, and CDN fallback support.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { CodePreview } from '../../../component';
+
+# Icon
+
+The `Icon` component (`<plus-icon>`) provides a consistent and performant way to display SVG icons in Plus UI. It supports multiple style variants (solid, regular, light), size options, and automatic CDN fallback if an icon is not available locally.
+
+## Anatomy
+
+{/* Optionally add an anatomy image here */}
+
+## Usage
+
+### Basic Example
+
+<CodePreview autoGeneration={true}>
+  <plus-icon icon-name="star"></plus-icon>
+</CodePreview>
+
+### Style Variants
+
+Use the `icon-style` attribute to switch between solid, regular, and light icon styles:
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-icon icon-name="star" icon-style="solid"></plus-icon>
+  <plus-icon icon-name="star" icon-style="regular"></plus-icon>
+  <plus-icon icon-name="star" icon-style="light"></plus-icon>
+</CodePreview>
+
+### Size & Color
+
+Control the icon size using the `size` attribute or the `--icon-size` CSS custom property. Color can be set via CSS:
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-icon icon-name="heart" size="lg"></plus-icon>
+  <plus-icon icon-name="home" style="--icon-size: 48px; color: #e11d48"></plus-icon>
+</CodePreview>
+
+### CDN Fallback
+
+If the requested icon is not found in the local bundle, it will be automatically loaded from the FontAwesome CDN:
+
+<CodePreview autoGeneration={true}>
+  <plus-icon icon-name="nonexistent-icon"></plus-icon>
+</CodePreview>
+
+## API Reference
+
+| Name         | Type                              | Default   | Description                                 |
+|--------------|-----------------------------------|-----------|---------------------------------------------|
+| `icon-name`  | `string`                          | —         | Name of the icon to display                 |
+| `icon-style` | `'solid' \| 'regular' \| 'light'` | `'solid'` | Icon style variant                          |
+| `size`       | `'xs' \| 'sm' \| 'md' \| ...`    | `'md'`    | Size variant or custom CSS value            |
+
+### Slots
+
+| Name    | Description                |
+|---------|----------------------------|
+| default | (Not typically used)       |
+
+### CSS Custom Properties
+
+| Name           | Description                |
+|----------------|---------------------------|
+| `--icon-size`  | Sets the icon size        |
+| `--icon-color` | Sets the icon color       |
+
+## Accessibility (a11y)
+
+- Uses `role="img"` for screen readers
+- Add `aria-label` for descriptive icons
+- Use `aria-hidden="true"` for decorative icons
+
+## FAQ
+
+**Why is my icon not showing?**
+- If the icon name is incorrect or not available locally, it will attempt to load from the CDN. Double-check the icon name and style.
+
+**How do I use a custom SVG?**
+- For custom SVGs, use a slot or inline SVG directly in your markup.
