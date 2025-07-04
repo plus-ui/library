@@ -4,7 +4,6 @@ import { live } from 'lit/directives/live.js';
 import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { checkboxStyle } from './checkbox.style';
-import '../svg-icon/index.js'; // Changed import from icon to svg-icon
 
 /**
  * @tag plus-checkbox
@@ -171,7 +170,11 @@ export class PlusCheckbox extends Tailwind {
             role="checkbox"
             class="sr-only"
             name=${this.name ?? ''}
-            aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
+            aria-checked=${this.indeterminate
+              ? 'mixed'
+              : this.checked
+                ? 'true'
+                : 'false'}
             aria-disabled=${this.disabled ? 'true' : 'false'}
             aria-invalid=${this.error ? 'true' : 'false'}
             .value=${this.value}
@@ -184,11 +187,11 @@ export class PlusCheckbox extends Tailwind {
             @click=${(e: MouseEvent) => e.stopPropagation()}
           />
           <span part="checkbox" class=${checkbox()} aria-hidden="true">
-            <plus-svg-icon
+            <plus-icon
               part="icon"
               class=${icon()}
-              iconName=${this.indeterminate ? 'minus' : 'check'}
-            ></plus-svg-icon>
+              icon-name=${this.indeterminate ? 'minus' : 'check'}
+            ></plus-icon>
           </span>
         </span>
         <span part="label" class=${label()}>

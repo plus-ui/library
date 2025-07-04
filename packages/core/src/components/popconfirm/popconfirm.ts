@@ -450,10 +450,10 @@ export default class PlusPopconfirm extends Tailwind {
             <div class=${headerLeft()}>
               <slot name="icon">
                 ${this.statusIcon
-                  ? html`<plus-svg-icon
+                  ? html`<plus-icon
                       class="flex"
-                      iconName=${statusIconMap[this.status]}
-                    ></plus-svg-icon>`
+                      icon-name=${statusIconMap[this.status]}
+                    ></plus-icon>`
                   : nothing}
               </slot>
 
@@ -464,13 +464,13 @@ export default class PlusPopconfirm extends Tailwind {
 
             <div class=${headerRight()} part="close">
               <slot name="actions">
-                <plus-svg-icon
-                  iconName="xmark"
+                <plus-icon
+                  icon-name="xmark"
                   @click=${this.closePopconfirm}
                   role="button"
                   tabindex="0"
                   aria-label="Close popconfirm"
-                ></plus-svg-icon>
+                ></plus-icon>
               </slot>
             </div>
           </header>

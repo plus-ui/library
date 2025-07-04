@@ -129,6 +129,9 @@ export default class PlusButtonGroup extends Tailwind {
         button.size = this.size;
         button.kind = this.kind;
         button.status = this.status;
+        button.disabled = this.disabled;
+        button.loading = this.loading;
+      } else {
         button.disabled = this.disabled || button.disabled;
         button.loading = this.loading || button.loading;
       }

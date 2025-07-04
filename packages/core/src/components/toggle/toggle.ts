@@ -5,7 +5,6 @@ import Tailwind from '../base/tailwind-base';
 import { captionStyle } from '../caption/caption.style';
 import { labelStyle } from '../label/label.style';
 import { toggleStyle } from './toggle.style';
-import '../svg-icon/index.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import type { PropertyValues } from 'lit';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -84,7 +83,6 @@ export class PlusToggle extends Tailwind {
   toggleActiveIcon?: string;
   @property({ type: String, attribute: 'toggle-inactive-icon' })
   toggleInActiveIcon?: string;
-  @property({ type: Number, attribute: 'icon-size' }) iconSize?: number;
 
   @property({ type: Boolean, reflect: true, converter: booleanConverter })
   error = false;
@@ -328,13 +326,7 @@ export class PlusToggle extends Tailwind {
   }
 
   getToggleIcon() {
-    const {
-      checked,
-      toggleIcon,
-      toggleActiveIcon,
-      toggleInActiveIcon,
-      iconSize,
-    } = this;
+    const { checked, toggleIcon, toggleActiveIcon, toggleInActiveIcon } = this;
     const { icon: iconCls } = toggleStyle({ checked });
     let iconName = '';
     if (checked && toggleActiveIcon) {
@@ -348,8 +340,7 @@ export class PlusToggle extends Tailwind {
       ? html`<plus-icon
           part="icon"
           class=${iconCls()}
-          iconName=${iconName}
-          size=${ifDefined(iconSize)}
+          icon-name=${iconName}
         ></plus-icon>`
       : '';
   }

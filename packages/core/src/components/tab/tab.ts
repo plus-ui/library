@@ -89,13 +89,13 @@ export default class PlusTab extends Tailwind {
   orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
-   * Icon to display before the tab content
+   * Icon name to display before the tab content
    */
   @property({ type: String, attribute: 'prefix-icon' })
   prefixIcon?: string;
 
   /**
-   * Icon to display after the tab content
+   * Icon name to display after the tab content
    */
   @property({ type: String, attribute: 'suffix-icon' })
   suffixIcon?: string;
@@ -195,13 +195,13 @@ export default class PlusTab extends Tailwind {
       >
         ${prefixIcon
           ? html`<span class="tab-prefix-icon"
-              ><i class="${prefixIcon}"></i
+              ><plus-icon icon-name="${prefixIcon}"></plus-icon
             ></span>`
           : ''}
         <slot></slot>
         ${suffixIcon
           ? html`<span class="tab-suffix-icon"
-              ><i class="${suffixIcon}"></i
+              ><plus-icon icon-name="${suffixIcon}"></plus-icon
             ></span>`
           : ''}
         ${dismissible

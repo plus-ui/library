@@ -636,7 +636,7 @@ export default class PlusInput extends Tailwind {
             aria-label="Clear input"
             tabindex="0"
           >
-            <plus-svg-icon iconName="xmark"></plus-svg-icon>
+            <plus-icon icon-name="xmark"></plus-icon>
           </div>`
         : nothing;
 
@@ -649,9 +649,9 @@ export default class PlusInput extends Tailwind {
             aria-label=${passwordVisible ? 'Hide password' : 'Show password'}
             tabindex="0"
           >
-            <plus-svg-icon
-              iconName=${passwordVisible ? 'eye-slash' : 'eye'}
-            ></plus-svg-icon>
+            <plus-icon
+              icon-name=${passwordVisible ? 'eye-slash' : 'eye'}
+            ></plus-icon>
           </div>`
         : nothing;
 
@@ -665,7 +665,7 @@ export default class PlusInput extends Tailwind {
       <div class=${inputWrapper()} @click=${() => this.input.focus()}>
         ${prefixIcon
           ? html`<div class=${prefix()} aria-hidden="true">
-              <plus-svg-icon iconName=${prefixIcon}></plus-svg-icon>
+              <plus-icon icon-name=${prefixIcon}></plus-icon>
             </div>`
           : nothing}
         <slot
@@ -719,7 +719,7 @@ export default class PlusInput extends Tailwind {
         ></slot>
         ${suffixIcon
           ? html`<div class=${suffix()} aria-hidden="true">
-              <plus-svg-icon iconName=${suffixIcon}></plus-svg-icon>
+              <plus-icon icon-name=${suffixIcon}></plus-icon>
             </div>`
           : nothing}
       </div>

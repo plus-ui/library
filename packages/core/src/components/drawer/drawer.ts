@@ -186,7 +186,7 @@ export default class PlusDrawer extends Tailwind {
                   aria-label="Close drawer"
                   @click=${() => this.hide()}
                 >
-                  <plus-svg-icon iconName="xmark"></plus-svg-icon>
+                  <plus-icon icon-name="xmark"></plus-icon>
                 </button>
               </slot>
             </div>

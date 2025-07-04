@@ -170,7 +170,7 @@ export default class PlusChip extends Tailwind {
               part="icon"
               aria-label="Remove"
               @click=${this.onDismiss}
-              iconName="xmark"
+              icon-name="xmark"
             >
             </plus-icon>`
           : nothing}
