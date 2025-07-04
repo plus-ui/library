@@ -170,22 +170,22 @@ export default class PlusIcon extends LitElement {
     this.isLoading = true;
     this.hasError = false;
 
+    const { iconName, iconStyle } = this;
+
     try {
-      const iconSvg = await getIcon(this.iconName, this.iconStyle);
-      if (iconSvg) {
-        this.svgContent = iconSvg;
-      } else {
-        this.hasError = true;
+      const iconSvg = await getIcon(iconName, iconStyle);
+      if (iconName === this.iconName && iconStyle === this.iconStyle) {
+        this.svgContent = iconSvg || '';
+        this.hasError = !iconSvg;
+        this.isLoading = false;
       }
     } catch (error) {
-      console.warn(
-        `Failed to load icon: ${this.iconName} (${this.iconStyle})`,
-        error
-      );
-      this.hasError = true;
+      if (iconName === this.iconName && iconStyle === this.iconStyle) {
+        console.warn(`Failed to load icon: ${iconName} (${iconStyle})`, error);
+        this.hasError = true;
+        this.isLoading = false;
+      }
     }
-
-    this.isLoading = false;
   }
 
   override render() {
