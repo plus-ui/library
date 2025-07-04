@@ -1,5 +1,6 @@
-import { html } from 'lit';
+import { css, html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 
 import { isValidSize, Size, Sizes } from '../../model/plus';
@@ -23,6 +24,18 @@ import { styleMap } from 'lit/directives/style-map.js';
  * @cssproperty --bg-default - Controls the default background color
  */
 export default class PlusAvatar extends Tailwind {
+  static override styles = [
+    ...Tailwind.styles,
+    css`
+      :host {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: fit-content;
+        height: fit-content;
+      }
+    `,
+  ];
   /**
    * URL of the avatar image
    */
@@ -49,16 +62,17 @@ export default class PlusAvatar extends Tailwind {
   @property() size: Size | string = Sizes.md;
 
   /**
-   * Icon class to use when no image is available
-   * @default 'fa-solid fa-user'
+   * Icon name to use when no image is available
+   * @default 'user'
    */
-  @property() icon: string = 'fa-solid fa-user';
+  @property() icon: string = 'user';
 
   /**
    * Toggles inverted color scheme
    * @default false
    */
-  @property({ type: Boolean }) invert = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  invert = false;
 
   /**
    * Text to display as initials when no image is available
@@ -128,10 +142,12 @@ export default class PlusAvatar extends Tailwind {
     }
 
     if (this.fallbackStrategy === 'icon') {
-      return html`<i class=${this.icon}></i>`;
+      return html`<plus-icon icon-name=${this.icon}></plus-icon>`;
     }
 
-    return html`<slot name="fallback"><i class=${this.icon}></i></slot>`;
+    return html`<slot name="fallback"
+      ><plus-icon icon-name=${this.icon}></plus-icon
+    ></slot>`;
   }
 
   private renderContent() {

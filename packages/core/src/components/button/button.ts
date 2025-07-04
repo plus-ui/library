@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { baseButtonStyle } from './button.style';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -45,7 +46,10 @@ export default class PlusButton extends Tailwind {
       :host {
         display: inline-block;
         height: fit-content;
-        width: fit-content;
+      }
+      :host([full-width]) {
+        display: block;
+        width: 100%;
       }
       .plus-button {
         border-top-left-radius: var(--border-top-left-radius, 0.375rem);
@@ -97,7 +101,7 @@ export default class PlusButton extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   disabled = false;
 
@@ -108,14 +112,14 @@ export default class PlusButton extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   loading = false;
 
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
     attribute: 'full-width',
   })
   fullWidth = false;

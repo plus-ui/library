@@ -9,6 +9,7 @@ import {
   Placement,
   flip,
 } from '@floating-ui/dom';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popconfirmStyle } from './popconfirm.style';
 
@@ -166,32 +167,28 @@ export default class PlusPopconfirm extends Tailwind {
   /**
    * Determines whether a status icon should be displayed in the popconfirm.
    *
-   * - `true` (default) - An icon representing the status will be displayed.
-   * - `false` - No icon will be displayed.
-   *
    * @type {boolean}
    * @default true
    */
   @property({
     type: Boolean,
-    converter: (value) => value !== 'false',
+    converter: booleanConverter,
     attribute: 'status-icon',
+    reflect: true,
   })
   statusIcon = true;
 
   /**
    * Determines whether the arrow should be displayed.
    *
-   * - `true` (default) - Arrow will be displayed.
-   * - `false` - Arrow will be hidden.
-   *
    * @type {boolean}
    * @default true
    */
   @property({
     type: Boolean,
-    converter: (value) => value !== 'false',
+    converter: booleanConverter,
     attribute: 'show-arrow',
+    reflect: true,
   })
   showArrow = true;
 
@@ -453,10 +450,10 @@ export default class PlusPopconfirm extends Tailwind {
             <div class=${headerLeft()}>
               <slot name="icon">
                 ${this.statusIcon
-                  ? html`<plus-svg-icon
+                  ? html`<plus-icon
                       class="flex"
-                      iconName=${statusIconMap[this.status]}
-                    ></plus-svg-icon>`
+                      icon-name=${statusIconMap[this.status]}
+                    ></plus-icon>`
                   : nothing}
               </slot>
 
@@ -467,13 +464,13 @@ export default class PlusPopconfirm extends Tailwind {
 
             <div class=${headerRight()} part="close">
               <slot name="actions">
-                <plus-svg-icon
-                  iconName="xmark"
+                <plus-icon
+                  icon-name="xmark"
                   @click=${this.closePopconfirm}
                   role="button"
                   tabindex="0"
                   aria-label="Close popconfirm"
-                ></plus-svg-icon>
+                ></plus-icon>
               </slot>
             </div>
           </header>

@@ -4,9 +4,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ratingStyle, labelStyle, captionStyle } from './rating.style';
 import Tailwind from '../base/tailwind-base';
-
-// Import SVG icon component - Adjust path if necessary
-import '../svg-icon/svg-icon.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 /**
  * @tag plus-rating
@@ -30,8 +28,10 @@ export default class PlusRating extends Tailwind {
   @property({ type: Number, reflect: true }) value = 0;
   @property({ type: Number }) max = 5;
   @property({ type: Number }) precision = 1; // Steps: 1 for full stars, 0.5 for half, 0.1 etc.
-  @property({ type: Boolean }) readonly = false;
-  @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  readonly = false;
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  disabled = false;
   @property({ type: String }) size: 'sm' | 'md' | 'lg' = 'md';
   @property() name?: string; // For potential form integration later
 
@@ -47,7 +47,8 @@ export default class PlusRating extends Tailwind {
   /** The caption text displayed below the rating. */
   @property({ type: String }) caption?: string;
 
-  @property({ type: Boolean }) required = false; // Add required property if not already present
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  required = false; // Add required property if not already present
 
   // Internal state for hover effect
   @state() private hoverValue = 0;
@@ -255,7 +256,7 @@ export default class PlusRating extends Tailwind {
               >
                 <!-- Background Star -->
                 <span class="${styles.starIcon()} ${currentIconColorClass}">
-                  <plus-svg-icon iconName=${currentIconName}></plus-svg-icon>
+                  <plus-icon icon-name=${currentIconName}></plus-icon>
                 </span>
 
                 <!-- Foreground Partial Star -->
@@ -265,9 +266,7 @@ export default class PlusRating extends Tailwind {
                         class="${styles.starPartial()} ${styles.starIcon()} text-color-primary"
                         style=${styleMap({ width: partialWidth })}
                       >
-                        <plus-svg-icon
-                          iconName=${this.filledIconName}
-                        ></plus-svg-icon>
+                        <plus-icon icon-name=${this.filledIconName}></plus-icon>
                       </span>
                     `
                   : nothing}

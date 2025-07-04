@@ -1,7 +1,9 @@
 import { html, css } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { buttonGroupStyle } from './button-group.style';
 import Tailwind from '../base/tailwind-base';
+import type { PlusButton } from '../button/button';
 
 /**
  * Orientation type for button group
@@ -36,11 +38,12 @@ export default class PlusButtonGroup extends Tailwind {
    * Determines whether the button group's properties override the properties of its child buttons.
    * When true, all buttons in the group will have the same appearance.
    * When false, each button can have its own properties.
-   * @default true
+   * @default false
    */
   @property({
     type: Boolean,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
+    reflect: true,
   })
   override = false;
 
@@ -83,18 +86,18 @@ export default class PlusButtonGroup extends Tailwind {
    * Disables the button interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**
    * Shows loading spinner and disables interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   loading = false;
 
   @state()
-  private _buttons: HTMLElement[] = [];
+  private _buttons: PlusButton[] = [];
 
   static override styles = [
     ...Tailwind.styles,
@@ -123,30 +126,18 @@ export default class PlusButtonGroup extends Tailwind {
     this.buttons.forEach((button) => {
       if (this.override) {
         // Override button properties with group properties
-        button.setAttribute('size', this.size);
-        button.setAttribute('kind', this.kind);
-        button.setAttribute('status', this.status);
-
-        // Override disabled and loading states
-        if (this.disabled) {
-          button.setAttribute('disabled', '');
-        } else {
-          button.removeAttribute('disabled');
-        }
-
-        if (this.loading) {
-          button.setAttribute('loading', '');
-        } else {
-          button.removeAttribute('loading');
-        }
+        button.size = this.size;
+        button.kind = this.kind;
+        button.status = this.status;
+        button.disabled = this.disabled;
+        button.loading = this.loading;
+      } else {
+        button.disabled = this.disabled || button.disabled;
+        button.loading = this.loading || button.loading;
       }
 
       // Always set full-width attribute on buttons when orientation is vertical
-      if (isVertical) {
-        button.setAttribute('full-width', '');
-      } else {
-        button.removeAttribute('full-width');
-      }
+      button.fullWidth = isVertical;
     });
   }
 
@@ -218,7 +209,7 @@ export default class PlusButtonGroup extends Tailwind {
       .assignedElements()
       .filter(
         (element) => element.tagName.toLowerCase() === 'plus-button'
-      ) as HTMLElement[];
+      ) as PlusButton[];
     this.updateButtons();
   }
 

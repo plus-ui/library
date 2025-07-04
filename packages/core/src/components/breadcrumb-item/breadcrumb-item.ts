@@ -1,5 +1,6 @@
 import { property } from 'lit/decorators.js';
 import { html, nothing, TemplateResult } from 'lit';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { SlotController } from '../../controllers/slot-controller.js';
 import Tailwind from '../base/tailwind-base';
 import { breadcrumbItemStyle } from './breadcrumb-item.style';
@@ -39,7 +40,7 @@ export class PlusBreadcrumbItem extends Tailwind {
 
   // Internal properties managed by the parent breadcrumb
   /** @internal */
-  @property({ type: Boolean, attribute: false })
+  @property({ type: Boolean, attribute: false, converter: booleanConverter })
   isLastItemInternal = false;
 
   /** @internal */
@@ -62,7 +63,7 @@ export class PlusBreadcrumbItem extends Tailwind {
     const separatorContent =
       this.separatorInternal === 'slash'
         ? '/'
-        : html`<plus-svg-icon iconName=${iconName}></plus-svg-icon>`;
+        : html`<plus-icon icon-name=${iconName}></plus-icon>`;
 
     return html`<span part="separator" class=${separator()}
       >${separatorContent}</span
@@ -78,7 +79,7 @@ export class PlusBreadcrumbItem extends Tailwind {
         >${hasPrefixSlot
           ? html`<slot name="prefix"></slot>`
           : this.prefixIcon
-            ? html`<plus-svg-icon iconName=${this.prefixIcon}></plus-svg-icon>`
+            ? html`<plus-icon icon-name=${this.prefixIcon}></plus-icon>`
             : nothing}</span
       >
     `;
@@ -93,7 +94,7 @@ export class PlusBreadcrumbItem extends Tailwind {
         >${hasSuffixSlot
           ? html`<slot name="suffix"></slot>`
           : this.suffixIcon
-            ? html`<plus-svg-icon iconName=${this.suffixIcon}></plus-svg-icon>`
+            ? html`<plus-icon icon-name=${this.suffixIcon}></plus-icon>`
             : nothing}</span
       >
     `;

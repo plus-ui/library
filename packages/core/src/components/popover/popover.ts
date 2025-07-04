@@ -9,6 +9,7 @@ import {
   Placement,
   flip,
 } from '@floating-ui/dom';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { popoverStyle } from './popover.style';
 
@@ -161,7 +162,11 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: booleanConverter,
+    reflect: true,
+  })
   dismissable = true;
 
   /**
@@ -173,7 +178,12 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: booleanConverter,
+    attribute: 'status-icon',
+    reflect: true,
+  })
   statusIcon = true;
 
   /**
@@ -185,7 +195,12 @@ export default class PlusPopover extends Tailwind {
    * @type {boolean}
    * @default true
    */
-  @property({ type: Boolean, converter: (value) => value !== 'false' })
+  @property({
+    type: Boolean,
+    converter: booleanConverter,
+    attribute: 'show-arrow',
+    reflect: true,
+  })
   showArrow = true;
 
   /**
@@ -425,9 +440,9 @@ export default class PlusPopover extends Tailwind {
           <div class=${headerLeft()}>
             <slot name="icon">
               ${this.statusIcon
-                ? html`<plus-svg-icon
-                    iconName=${statusIconMap[this.status]}
-                  ></plus-svg-icon>`
+                ? html`<plus-icon
+                    icon-name=${statusIconMap[this.status]}
+                  ></plus-icon>`
                 : nothing}
             </slot>
             <div class="${title()}" part="title" id="popover-title">
@@ -438,13 +453,13 @@ export default class PlusPopover extends Tailwind {
           <div class=${headerRight()} part="close">
             <slot name="actions">
               ${this.dismissable &&
-              html`<plus-svg-icon
-                iconName="xmark"
+              html`<plus-icon
+                icon-name="xmark"
                 @click=${() => this.closePopover(true)}
                 role="button"
                 tabindex="0"
                 aria-label="Close popover"
-              ></plus-svg-icon>`}
+              ></plus-icon>`}
             </slot>
           </div>
         </header>

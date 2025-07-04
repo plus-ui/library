@@ -1,5 +1,6 @@
 import { css, html } from 'lit';
 import { property, queryAssignedNodes } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 
 /**
@@ -36,7 +37,7 @@ export default class PlusAccordionGroup extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
   })
   multi = false;
 

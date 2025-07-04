@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plus Icon Registry System Test</title>
+
+    <script type="module" src="../cdn/components/index.js"></script>
+    <style>
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+        background: #f8fafc;
+      }
+
+      h1 {
+        color: #1e293b;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 0.5rem;
+      }
+
+      h2 {
+        color: #334155;
+        margin: 2rem 0 1rem 0;
+        font-size: 1.25rem;
+      }
+
+      .demo-section {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .icon-example {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        background: #fafafa;
+      }
+
+      .icon-example code {
+        font-size: 0.875rem;
+        color: #475569;
+        background: #f1f5f9;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+      }
+
+      .size-demo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 6px;
+      }
+
+      .style-demo {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8fafc;
+        border-radius: 6px;
+      }
+
+      .color-demo {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .color-example {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        border-radius: 6px;
+      }
+
+      .red {
+        color: #dc2626;
+      }
+      .blue {
+        color: #2563eb;
+      }
+      .green {
+        color: #16a34a;
+      }
+      .purple {
+        color: #9333ea;
+      }
+      .orange {
+        color: #ea580c;
+      }
+
+      .fallback-demo {
+        padding: 1rem;
+        border: 2px dashed #cbd5e1;
+        border-radius: 6px;
+        margin: 1rem 0;
+        background: #f1f5f9;
+      }
+
+      .usage-info {
+        background: #dbeafe;
+        padding: 1rem;
+        border-radius: 6px;
+        border-left: 4px solid #3b82f6;
+        margin: 1rem 0;
+      }
+
+      .usage-info code {
+        background: rgba(59, 130, 246, 0.1);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-family: 'SF Mono', Monaco, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🎯 Plus Icon Registry System</h1>
+
+    <div class="usage-info">
+      <strong>New Features:</strong><br />
+      • <code>solid</code>, <code>regular</code>, <code>light</code> style
+      variants<br />
+      • Organized icon categories (UI, Navigation, Status, etc.)<br />
+      • CDN fallback system for missing icons<br />
+      • Better performance with local registry
+    </div>
+
+    <div class="demo-section">
+      <h2>📋 Core Icon Set (Always Available)</h2>
+      <div class="icon-grid">
+        <div class="icon-example">
+          <plus-icon icon-name="star" size="lg"></plus-icon>
+          <code>icon-name="star"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="heart" size="lg"></plus-icon>
+          <code>icon-name="heart"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="home" size="lg"></plus-icon>
+          <code>icon-name="home"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="user" size="lg"></plus-icon>
+          <code>icon-name="user"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="check" size="lg"></plus-icon>
+          <code>icon-name="check"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="xmark" size="lg"></plus-icon>
+          <code>icon-name="xmark"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="circle-check" size="lg"></plus-icon>
+          <code>icon-name="circle-check"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="circle-xmark" size="lg"></plus-icon>
+          <code>icon-name="circle-xmark"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="circle-info" size="lg"></plus-icon>
+          <code>icon-name="circle-info"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="circle-exclamation" size="lg"></plus-icon>
+          <code>icon-name="circle-exclamation"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="chevron-up" size="lg"></plus-icon>
+          <code>icon-name="chevron-up"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="chevron-down" size="lg"></plus-icon>
+          <code>icon-name="chevron-down"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="angle-up" size="lg"></plus-icon>
+          <code>icon-name="angle-up"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="angle-down" size="lg"></plus-icon>
+          <code>icon-name="angle-down"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="eye" size="lg"></plus-icon>
+          <code>icon-name="eye"</code>
+        </div>
+        <div class="icon-example">
+          <plus-icon icon-name="eye-slash" size="lg"></plus-icon>
+          <code>icon-name="eye-slash"</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🎨 Style Variants</h2>
+      <div class="style-demo">
+        <div style="text-align: center">
+          <plus-icon icon-name="star" icon-style="solid" size="xl"></plus-icon>
+          <br /><code>solid</code>
+        </div>
+        <div style="text-align: center">
+          <plus-icon
+            icon-name="star"
+            icon-style="regular"
+            size="xl"
+          ></plus-icon>
+          <br /><code>regular</code>
+        </div>
+        <div style="text-align: center">
+          <plus-icon icon-name="star" icon-style="light" size="xl"></plus-icon>
+          <br /><code>light</code>
+        </div>
+      </div>
+
+      <div class="style-demo">
+        <div style="text-align: center">
+          <plus-icon icon-name="heart" icon-style="solid" size="xl"></plus-icon>
+          <br /><code>solid</code>
+        </div>
+        <div style="text-align: center">
+          <plus-icon
+            icon-name="heart"
+            icon-style="regular"
+            size="xl"
+          ></plus-icon>
+          <br /><code>regular</code>
+        </div>
+        <div style="text-align: center">
+          <plus-icon icon-name="heart" icon-style="light" size="xl"></plus-icon>
+          <br /><code>light</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>📏 Size Variants</h2>
+      <div class="size-demo">
+        <plus-icon icon-name="star" size="xs"></plus-icon>
+        <code>xs</code>
+        <plus-icon icon-name="star" size="sm"></plus-icon>
+        <code>sm</code>
+        <plus-icon icon-name="star" size="md"></plus-icon>
+        <code>md</code>
+        <plus-icon icon-name="star" size="lg"></plus-icon>
+        <code>lg</code>
+        <plus-icon icon-name="star" size="xl"></plus-icon>
+        <code>xl</code>
+        <plus-icon icon-name="star" size="2xl"></plus-icon>
+        <code>2xl</code>
+        <plus-icon icon-name="star" size="3xl"></plus-icon>
+        <code>3xl</code>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🎨 Color Inheritance</h2>
+      <div class="color-demo">
+        <div class="color-example red">
+          <plus-icon icon-name="heart" size="xl"></plus-icon>
+          <code>red</code>
+        </div>
+        <div class="color-example blue">
+          <plus-icon icon-name="circle-info" size="xl"></plus-icon>
+          <code>blue</code>
+        </div>
+        <div class="color-example green">
+          <plus-icon icon-name="circle-check" size="xl"></plus-icon>
+          <code>green</code>
+        </div>
+        <div class="color-example purple">
+          <plus-icon icon-name="star" size="xl"></plus-icon>
+          <code>purple</code>
+        </div>
+        <div class="color-example orange">
+          <plus-icon icon-name="home" size="xl"></plus-icon>
+          <code>orange</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>🌐 CDN Fallback Test</h2>
+      <div class="fallback-demo">
+        <p>
+          <strong>Testing CDN fallback:</strong> Icons not in local registry
+          will be fetched from FontAwesome CDN
+        </p>
+        <div class="icon-grid">
+          <div class="icon-example">
+            <plus-icon icon-name="thumbs-up" size="lg"></plus-icon>
+            <code>icon-name="thumbs-up"</code> (CDN)
+          </div>
+          <div class="icon-example">
+            <plus-icon icon-name="bell" size="lg"></plus-icon>
+            <code>icon-name="bell"</code> (CDN)
+          </div>
+          <div class="icon-example">
+            <plus-icon icon-name="nonexistent" size="lg"></plus-icon>
+            <code>icon-name="nonexistent"</code> (Error)
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h2>💡 Usage Examples</h2>
+      <div
+        style="
+          background: #f8fafc;
+          padding: 1rem;
+          border-radius: 6px;
+          font-family: monospace;
+        "
+      >
+        <div>&lt;!-- Basic usage --&gt;</div>
+        <div>&lt;plus-icon icon-name="star"&gt;&lt;/plus-icon&gt;</div>
+        <br />
+        <div>&lt;!-- With style variant --&gt;</div>
+        <div>
+          &lt;plus-icon icon-name="heart"
+          icon-style="regular"&gt;&lt;/plus-icon&gt;
+        </div>
+        <br />
+        <div>&lt;!-- With size --&gt;</div>
+        <div>
+          &lt;plus-icon icon-name="user" size="lg"&gt;&lt;/plus-icon&gt;
+        </div>
+        <br />
+        <div>&lt;!-- With accessibility label --&gt;</div>
+        <div>
+          &lt;plus-icon icon-name="home" label="Go to
+          homepage"&gt;&lt;/plus-icon&gt;
+        </div>
+        <br />
+        <div>&lt;!-- Custom CSS sizing --&gt;</div>
+        <div>
+          &lt;plus-icon icon-name="star" style="--icon-size: 32px; --icon-color:
+          gold;"&gt;&lt;/plus-icon&gt;
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Test dynamic icon loading
+      console.log('Icon Registry System loaded!');
+
+      // Check if all core icons loaded properly
+      setTimeout(() => {
+        const allIcons = document.querySelectorAll('plus-icon');
+        console.log(`Total icons on page: ${allIcons.length}`);
+
+        allIcons.forEach((icon) => {
+          const iconName = icon.getAttribute('icon-name');
+          if (icon.hasAttribute('aria-label')) {
+            console.log(`✅ Icon ${iconName} loaded successfully`);
+          }
+        });
+      }, 1000);
+    </script>
+  </body>
+</html>

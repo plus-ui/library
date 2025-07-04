@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { Tailwind } from '../base/tailwind-base';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { segmentedPickerItemStyle } from './segmented-picker-item.style';
 
 /**
@@ -11,14 +12,11 @@ import { segmentedPickerItemStyle } from './segmented-picker-item.style';
  *
  * @csspart label - The label element.
  * @csspart input - The input element.
+ * @cssproperty --active-color - Color of the active indicator
  */
 export default class PlusSegmentedPickerItem extends Tailwind {
-  /**
-   * Whether the item is checked.
-   * @type {boolean}
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
+  /** The value associated with the item. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   checked = false;
 
   /**
@@ -29,12 +27,8 @@ export default class PlusSegmentedPickerItem extends Tailwind {
   @property({ type: String, reflect: true })
   status: 'default' | 'primary' = 'default';
 
-  /**
-   * Whether the item is disabled.
-   * @type {boolean}
-   * @default false
-   */
-  @property({ type: Boolean, reflect: true })
+  /** Disables the item, making it non-interactive. */
+  @property({ type: Boolean, reflect: true, converter: booleanConverter })
   disabled = false;
 
   /**

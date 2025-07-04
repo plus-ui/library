@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { property, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { modalStyle } from './modal.style';
 import Tailwind from '../base/tailwind-base';
 
@@ -47,7 +48,12 @@ export default class PlusModal extends Tailwind {
    * @default false
    * @attr is-open
    */
-  @property({ type: Boolean, reflect: true, attribute: 'is-open' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'is-open',
+    converter: booleanConverter,
+  })
   isOpen = false;
 
   /**
@@ -56,7 +62,12 @@ export default class PlusModal extends Tailwind {
    * @default false
    * @attr full-width
    */
-  @property({ type: Boolean, reflect: true, attribute: 'full-width' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'full-width',
+    converter: booleanConverter,
+  })
   fullWidth = false;
 
   /**
@@ -67,7 +78,7 @@ export default class PlusModal extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
     reflect: true,
     attribute: 'close-on-backdrop',
   })
@@ -81,7 +92,7 @@ export default class PlusModal extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
     reflect: true,
     attribute: 'close-on-esc',
   })
@@ -217,7 +228,7 @@ export default class PlusModal extends Tailwind {
                   aria-label="Close modal"
                   @click=${() => this.hide()}
                 >
-                  <plus-svg-icon iconName="xmark"></plus-svg-icon>
+                  <plus-icon icon-name="xmark"></plus-icon>
                 </button>
               </slot>
             </div>

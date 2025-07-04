@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import style from './alert.styles';
 import { alertStyle } from './alert.style';
@@ -72,7 +73,7 @@ export default class PlusAlert extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   invert = false;
 
@@ -84,7 +85,7 @@ export default class PlusAlert extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => (value == 'false' || false ? false : true),
+    converter: booleanConverter,
   })
   dismissible = true;
 
@@ -129,7 +130,12 @@ export default class PlusAlert extends Tailwind {
    * @default false
    * @type {boolean}
    */
-  @property({ type: Boolean, attribute: 'full-width' })
+  @property({
+    type: Boolean,
+    attribute: 'full-width',
+    converter: booleanConverter,
+    reflect: true,
+  })
   fullWidth = false;
 
   /**
@@ -137,7 +143,12 @@ export default class PlusAlert extends Tailwind {
    * @default false
    * @type {boolean}
    */
-  @property({ type: Boolean, reflect: true, attribute: 'hidden' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'hidden',
+    converter: booleanConverter,
+  })
   hiddenAlert = false;
 
   /**
@@ -221,11 +232,11 @@ export default class PlusAlert extends Tailwind {
       >
         <div class=${statusIcon()} part="status-icon">
           <slot name="prefix">
-            ${html`<plus-svg-icon
-              iconName=${this.statusIcon || statusIconMap[this.status]}
+            ${html`<plus-icon
+              icon-name=${this.statusIcon || statusIconMap[this.status]}
               part="status-icon"
             >
-            </plus-svg-icon>`}
+            </plus-icon>`}
           </slot>
         </div>
         <div class=${content()} part="content">
@@ -244,9 +255,9 @@ export default class PlusAlert extends Tailwind {
               @click=${this.handleDismiss}
               aria-label="Close alert"
             >
-              <plus-svg-icon
-                iconName=${this.dismissIcon || 'xmark'}
-              ></plus-svg-icon>
+              <plus-icon
+                icon-name=${this.dismissIcon || 'xmark'}
+              ></plus-icon>
             </slot>`
           : nothing}
       </div>

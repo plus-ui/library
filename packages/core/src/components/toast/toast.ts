@@ -3,9 +3,7 @@ import { property } from 'lit/decorators.js';
 import { toastStyle } from './toast.style.js';
 import Tailwind from '../base/tailwind-base.js';
 import { SlotController } from '../../controllers/slot-controller.js';
-
-// Import svg icon component definition
-import '../svg-icon/svg-icon.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 
 // Define types locally instead of importing
 type SizeType = 'sm' | 'md' | 'lg';
@@ -34,7 +32,7 @@ type StatusType = 'info' | 'success' | 'warning' | 'danger' | 'default';
  *
  * @event plus-close - Emitted when the toast is closed by the user via the close button.
  *
- * @dependency plus-svg-icon
+ * @dependency plus-icon
  * @dependency SlotController
  */
 export class PlusToast extends Tailwind {
@@ -63,7 +61,7 @@ export class PlusToast extends Tailwind {
   /** Determines if the dismiss button is shown. */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
     reflect: true,
   })
   dismiss = true;
@@ -71,7 +69,7 @@ export class PlusToast extends Tailwind {
   /** Shows the default status icon. */
   @property({
     type: Boolean,
-    converter: (value) => value != 'false',
+    converter: booleanConverter,
     attribute: 'status-icon',
     reflect: true,
   })
@@ -117,7 +115,7 @@ export class PlusToast extends Tailwind {
 
     if (iconName) {
       return html`<span part="icon" class=${iconClassFn()}
-        ><plus-svg-icon iconName=${iconName}></plus-svg-icon
+        ><plus-icon icon-name=${iconName}></plus-icon
       ></span>`;
     }
 
@@ -158,7 +156,7 @@ export class PlusToast extends Tailwind {
         @click=${this._handleCloseClick}
         aria-label="Close"
       >
-        <plus-svg-icon iconName="xmark"></plus-svg-icon>
+        <plus-icon icon-name="xmark"></plus-icon>
       </button>`;
     }
     return nothing;

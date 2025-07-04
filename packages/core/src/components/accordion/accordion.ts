@@ -1,6 +1,7 @@
 import { html, css } from 'lit';
 import { property } from 'lit/decorators.js';
 import { accordionStyle } from './accordion.style';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 
 /**
@@ -37,7 +38,7 @@ export default class PlusAccordion extends Tailwind {
    */
   @property({
     type: Boolean,
-    converter: (expand) => expand != 'false',
+    converter: booleanConverter,
     reflect: true,
   })
   expand = false;
@@ -48,7 +49,12 @@ export default class PlusAccordion extends Tailwind {
    * @default false
    * @attr is-grouped
    */
-  @property({ type: Boolean, reflect: true, attribute: 'is-grouped' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'is-grouped',
+    converter: booleanConverter,
+  })
   isGrouped = false;
 
   /**
@@ -57,7 +63,12 @@ export default class PlusAccordion extends Tailwind {
    * @default false
    * @attr is-last
    */
-  @property({ type: Boolean, reflect: true, attribute: 'is-last' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'is-last',
+    converter: booleanConverter,
+  })
   isLast = false;
 
   /**
@@ -66,7 +77,12 @@ export default class PlusAccordion extends Tailwind {
    * @default false
    * @attr is-first
    */
-  @property({ type: Boolean, reflect: true, attribute: 'is-first' })
+  @property({
+    type: Boolean,
+    reflect: true,
+    attribute: 'is-first',
+    converter: booleanConverter,
+  })
   isFirst = false;
 
   /**
@@ -84,7 +100,11 @@ export default class PlusAccordion extends Tailwind {
    * @default false
    * @attr disabled
    */
-  @property({ type: Boolean, reflect: true })
+  @property({
+    type: Boolean,
+    reflect: true,
+    converter: booleanConverter,
+  })
   disabled = false;
 
   // @state()
@@ -185,7 +205,12 @@ export default class PlusAccordion extends Tailwind {
               <slot name="helper"></slot>
             </span>
           </div>
-          <i class=${icon()} part="icon" aria-hidden="true"></i>
+          <plus-icon
+            class=${icon()}
+            part="icon"
+            aria-hidden="true"
+            icon-name=${this.expand ? 'angle-up' : 'angle-down'}
+          ></plus-icon>
         </div>
         <div
           class=${panel()}

@@ -1,4 +1,5 @@
 import { property } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
 import { html } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -42,7 +43,7 @@ export default class PlusDropDownItem extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => value === 'true',
+    converter: booleanConverter,
   })
   disabled: boolean = false;
 
@@ -54,7 +55,7 @@ export default class PlusDropDownItem extends Tailwind {
   @property({
     type: Boolean,
     reflect: true,
-    converter: (value) => value === 'true',
+    converter: booleanConverter,
   })
   selected: boolean = false;
 

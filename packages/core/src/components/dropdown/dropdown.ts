@@ -1,4 +1,5 @@
 import { property, queryAssignedElements, state } from 'lit/decorators.js';
+import { booleanConverter } from '../../utils/boolean-converter';
 import { Tailwind } from '../base/tailwind-base';
 import { html, PropertyValues } from 'lit';
 import {
@@ -81,7 +82,7 @@ export default class PlusDropdown extends Tailwind {
    * Disables the dropdown interaction
    * @default false
    */
-  @property({ type: Boolean })
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
   disabled = false;
 
   /**
@@ -336,10 +337,10 @@ export default class PlusDropdown extends Tailwind {
         part="button"
         ><slot>${this.text}</slot>
         <slot name="suffix">
-          <plus-svg-icon
-            iconName=${this.isVisible ? 'chevron-up' : 'chevron-down'}
+          <plus-icon
+            icon-name=${this.isVisible ? 'chevron-up' : 'chevron-down'}
             size="sm"
-          ></plus-svg-icon>
+          ></plus-icon>
         </slot>
       </plus-button>
       <div
