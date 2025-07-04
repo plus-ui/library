@@ -128,7 +128,7 @@ import CodePreview from './plus-ui/codepreview/CodePreview.astro';
 
 ```astro
 ---
-import { CodePreview, ComponentHeader } from '../component';
+import { CodePreview, ComponentHeader } from '../components';
 ---
 
 <ComponentHeader data={componentData} />
@@ -141,7 +141,7 @@ import { CodePreview, ComponentHeader } from '../component';
 
 ```astro
 ---
-import { ComponentHeader, CodePreview, InstallTabs } from '../component';
+import { ComponentHeader, CodePreview, InstallTabs } from '../components';
 ---
 
 <ComponentHeader data={componentData} />

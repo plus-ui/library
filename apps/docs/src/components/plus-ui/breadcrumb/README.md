@@ -160,6 +160,8 @@ interface BreadcrumbItem {
 ```css
 .text-color-default      /* Active/current page text */
 /* Active/current page text */
+/* Active/current page text */
+/* Active/current page text */
 .text-color-placeholder  /* Inactive breadcrumb links */
 .text-color-primary; /* Link hover state */
 ```
@@ -231,7 +233,7 @@ interface BreadcrumbItem {
 
 ```astro
 ---
-import Breadcrumb from '../component/plus-ui/breadcrumb/Breadcrumb.astro';
+import Breadcrumb from '../components/plus-ui/breadcrumb/Breadcrumb.astro';
 ---
 
 <main>

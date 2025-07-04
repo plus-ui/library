@@ -165,14 +165,16 @@ export default defineConfig({
         baseUrl: "https://github.com/plus-ui/library/edit/main/apps/docs/",
       },
       components: {
-        SiteTitle: "./src/component/starlight-overrides/SiteTitle.astro",
-        Header: "./src/component/starlight-overrides/Header.astro",
-        Head: "./src/component/starlight-overrides/Head.astro",
-        // PageFrame: "./src/component/starlight-overrides/PageFrame.astro",
-        // TwoColumnContent:"./src/component/starlight-overrides/TwoColumnContent.astro",
-        PageTitle: "./src/component/starlight-overrides/PageTitle.astro",
-        // ThemeSelect: "./src/component/starlight-overrides/ThemeSelect.astro",
-        SocialIcons: "./src/component/starlight-overrides/SocialIcons.astro",
+        SiteTitle: "./src/components/starlight-overrides/SiteTitle.astro",
+        Header: "./src/components/starlight-overrides/Header.astro",
+        Head: "./src/components/starlight-overrides/Head.astro",
+        // PageFrame: "./src/components/starlight-overrides/PageFrame.astro",
+        // TwoColumnContent:"./src/components/starlight-overrides/TwoColumnContent.astro",
+        PageTitle: "./src/components/starlight-overrides/PageTitle.astro",
+        // ThemeSelect: "./src/components/starlight-overrides/ThemeSelect.astro",
+        SocialIcons: "./src/components/starlight-overrides/SocialIcons.astro",
+        MarkdownContent:
+          "./src/components/starlight-overrides/MarkdownContent.astro",
       },
       expressiveCode: {
         // Replace the default themes with a custom set of bundled themes:
