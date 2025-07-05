@@ -34,6 +34,10 @@ export default defineConfig({
               link: "/getting-started/introduction/",
             },
             {
+              label: "Changelog",
+              link: "/getting-started/changelog/",
+            },
+            {
               label: "Component Overview",
               link: "/getting-started/component-overview/",
             },

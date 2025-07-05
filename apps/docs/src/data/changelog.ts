@@ -17,6 +17,45 @@ export interface ChangelogEntry {
 }
 
 const changelogData: ChangelogEntry[] = [
+  {
+    version: "1.0.1",
+    date: "2025-07-07",
+    component: "global",
+    type: "docs",
+    description:
+      "Major refactor of documentation site structure and components.",
+    details: [
+      "Updated component paths in `astro.config.mjs` to reflect the new directory structure.",
+      'Renamed "Overview" to "Introduction" in the getting started section for better clarity.',
+      "Introduced new documentation components like `Code`, `FrameworkCards`, and `CodePreview` while removing obsolete ones.",
+      "Enhanced installation guides and added new content for accessibility and theming.",
+      "Added new SVG logos for supported frameworks (Angular, React, Svelte, Vue, Vanilla).",
+    ],
+  },
+  {
+    version: "1.0.1",
+    date: "2025-07-06",
+    component: "global",
+    type: "docs",
+    description:
+      "Conducted a major overhaul of the Foundation documentation to ensure accuracy and clarity.",
+    details: [
+      "Removed all fabricated information and placeholder content from foundation pages (Border, Spacing, Typography, etc.).",
+      "Corrected the Icons documentation to accurately describe the `registerIcon` functionality and remove non-existent properties.",
+      'Updated pages for unimplemented features to include a brief description and an "under construction" notice instead of a generic "Coming Soon" message.',
+    ],
+  },
+  {
+    version: "1.0.1",
+    date: "2025-07-06",
+    component: "global",
+    type: "improvement",
+    description:
+      "Improved readability of key documentation pages by removing decorative icons.",
+    details: [
+      "Removed distracting emojis from headers on the Contribution, Component Overview, and Pricing pages to create a cleaner, more professional appearance.",
+    ],
+  },
   // v1.0.1
   {
     version: "1.0.1",
