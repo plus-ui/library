@@ -1,72 +1,12 @@
 ---
 title: Typography
-description: Explore typography to present your design and content the most clear and efficient way possible.
+description: Learn how to use and customize Plus UI's typographic system for clear and consistent text styling.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
-import GetHelp from '../../../components/get-help.mdx'
-import { EmbedContent } from '../../../component';
+Plus UI's typography is built upon Tailwind CSS's utility classes, ensuring readability and a consistent visual hierarchy. This page covers font sizes, weights, and families used throughout the design system.
 
-import { Image } from 'astro:assets';
+<Aside type="note">
+  This page is currently under construction. More detailed examples and customization options will be added soon.
+</Aside>
 
-import overview from "../../../assets/foundation/typograpgy/overview.png";
-import height from "../../../assets/foundation/typograpgy/height.png";
-import weight from "../../../assets/foundation/typograpgy/weight.png";
-import typography from "../../../assets/foundation/typograpgy/typography.png";
-import styleList from "../../../assets/foundation/typograpgy/style-list.png";
-import editStyles from "../../../assets/foundation/typograpgy/edit-styles.png";
-
-
-## Font Family
-
-Plus UI uses Inter as the default typeface. It’s 100% free to use in all kinds of projects — both personal and commercial.&#x20;
-
-Inter is an free, open-source sans-serif typeface designed by Swedish designer/programmer Rasmus Andersson. It was designed to work well on screens as a UI font and features a large x-height. The family is available in nine weights with matching italics, as well as a variable font version.
-
-<Image src={overview} alt="inter font family" />
-
-<EmbedContent url="https://fonts.google.com/specimen/Inter" title="Download Inter for free via Google Fonts" />
-
-<EmbedContent url="https://rsms.me/inter/" title="Download Inter's official release for free via Github" />
-
-<EmbedContent url="https://help.figma.com/hc/en-us/articles/360039956894-Access-local-fonts-on-your-computer" title="Access local fonts in Figma" />
-
-## Typography
-
-Plus UI's design system presents a meticulous approach to text styling through our Text Style Tokens. Our Font Size and Line Height tokens allow you to finely craft the appearance of text elements in your user interface.
-
-<Image src={typography} alt="Plus UI Typography" />
-
-### Font Size & Line Height
-
-Tailor the size and spacing of text elements to create a harmonious and polished typographic hierarchy.
-
-<Image src={height} alt="Font size and line height" />
-
-### Example
-
-<Image src={weight} alt="Font size and line height application" />
-
-### Font Weight
-
-Choose from a variety of weights to convey emphasis and establish a clear hierarchy within your design, leading to the flexibility and customization available for creating compelling typography in your application.
-
-<Image src={weight} alt="Font weights" />
-
-## Text Styles
-
-Plus UI's predefined text tokens offer a systematic approach to managing text properties, allowing you to maintain uniformity and streamline the styling of text elements throughout your user interface.&#x20;
-
-### How to Edit Text Styles
-
-All text styles are pre-defined, ready to use, created as local styles specific to your project. To use, edit text styles,
-
-1. In the "Local Styles" section of the right sidebar, click on the "+" icon
-2. Click one of the text styles under Local Styles and you will see each pre-defined text styles. You can edit each of them by clicking ‘Edit Styles’.
-
-<Image src={editStyles} alt="edit text styles in figma" />
-
-### Text Style List
-
-<Image src={styleList} alt="Text style list" />
-
-<GetHelp />

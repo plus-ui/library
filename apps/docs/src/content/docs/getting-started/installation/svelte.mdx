@@ -1,0 +1,112 @@
+---
+title: Svelte
+description: How to install and use Plus UI in your Svelte applications.
+---
+import { Aside } from '@astrojs/starlight/components';
+import { Code } from '../../../../components';
+
+This guide will walk you through setting up Plus UI in a Svelte project. Thanks to Svelte's excellent support for Web Components, integration is straightforward.
+
+## 1. Installation
+
+First, install the core Plus UI package, which contains all the components.
+
+<Code>
+```bash
+npm install @plusui/core
+```
+</Code>
+
+## 2. Setup
+
+Import the component registration script in your main Svelte component's `<script>` block (e.g., `+page.svelte` or `App.svelte`).
+
+<Code>
+```svelte
+<script>
+  // Register all Plus UI components
+  import '@plusui/core/cdn/components/index.js';
+</script>
+```
+</Code>
+
+## 3. Component Usage
+
+You can now use Plus UI components directly in your Svelte markup.
+
+### Using Props
+
+Component properties (props) are set using standard HTML attributes.
+
+<Code>
+```html
+<plus-button variant="filled" size="large">
+  Large Filled Button
+</plus-button>
+```
+</Code>
+
+### Handling Events
+
+Custom events are handled using Svelte's `on:` directive. The event names are in `kebab-case`.
+
+<Code>
+```svelte
+<script>
+  import '@plusui/core/cdn/components/index.js';
+
+  const handleClick = () => {
+    alert('Button clicked!');
+  };
+</script>
+
+<plus-button on:plus-click={handleClick}>
+  Click Me
+</plus-button>
+```
+</Code>
+
+## Complete Example
+
+Here is a complete example of a simple Svelte component that uses Plus UI.
+
+<Code>
+```svelte
+<script>
+  import '@plusui/core/cdn/components/index.js';
+  
+  const handlePrimaryClick = () => {
+    alert('Primary Plus UI button was clicked!');
+  };
+
+  const handleSecondaryClick = () => {
+    alert('Secondary Plus UI button was clicked!');
+  };
+</script>
+
+<main>
+  <h1>Welcome to Plus UI with Svelte!</h1>
+
+  <!-- Example with props -->
+  <plus-button variant="primary" size="small" on:plus-click={handlePrimaryClick}>
+    Primary Button
+  </plus-button>
+
+  <!-- Another example -->
+  <plus-button variant="secondary" on:plus-click={handleSecondaryClick}>
+    Secondary Button
+  </plus-button>
+</main>
+
+<style>
+  main {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+</style>
+```
+</Code>
+

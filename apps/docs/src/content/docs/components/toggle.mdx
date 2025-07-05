@@ -1,0 +1,404 @@
+---
+title: Toggle
+description: A switch component that allows users to toggle between on/off states with smooth animations.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../components';
+
+The Toggle component provides a switch interface that allows users to toggle between on and off states. It supports various sizes, animations, and customization options with full form integration.
+
+## Usage
+
+### Basic Example
+
+A simple toggle switch.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle>Enable notifications</plus-toggle>
+</CodePreview>
+
+### With Label
+
+Use the `label` prop to add a label above the toggle.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle label="Settings">Dark mode</plus-toggle>
+</CodePreview>
+
+### Size
+
+Control the toggle's size using the `size` prop.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-size="sm,md,lg">Toggle size</plus-toggle>
+</CodePreview>
+
+### Checked State
+
+Set the initial state using the `checked` prop.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-checked="false,true">Toggle state</plus-toggle>
+</CodePreview>
+
+### Text Position
+
+Control the text position using the `text-position` prop.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-text-position="left,right">Toggle text position</plus-toggle>
+</CodePreview>
+
+### Animation Types
+
+Choose from different animation styles.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-animation="default,bounce,smooth">Animation style</plus-toggle>
+</CodePreview>
+
+### With Icons
+
+Add icons to the toggle using icon props.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle toggle-icon="sun" toggle-active-icon="moon" toggle-inactive-icon="sun">
+    Theme toggle
+  </plus-toggle>
+</CodePreview>
+
+### States
+
+Toggle supports various states including disabled, readonly, and error.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-disabled="false,true">Disabled state</plus-toggle>
+</CodePreview>
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-readonly="false,true">Readonly state</plus-toggle>
+</CodePreview>
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle data-variant-error="false,true" error-message="This field is required">Error state</plus-toggle>
+</CodePreview>
+
+### With Caption
+
+Add descriptive text below the toggle.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle caption="This will enable push notifications on your device">
+    Enable notifications
+  </plus-toggle>
+</CodePreview>
+
+### Full Width
+
+Make the toggle take the full width of its container.
+
+<CodePreview autoGeneration={true}>
+  <plus-toggle full-width>Full width toggle</plus-toggle>
+</CodePreview>
+
+### Form Integration
+
+The toggle works seamlessly with forms and supports validation.
+
+<CodePreview 
+  autoGeneration={false}
+  showConsole
+  customScript={`
+    setTimeout(() => {
+      const form = document.getElementById('toggle-form');
+      const toggle = document.getElementById('terms-toggle');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        console.log('Form data:', Object.fromEntries(formData));
+        console.log('Toggle checked:', toggle.checked);
+      });
+      
+      toggle.addEventListener('plus-change', () => {
+        console.log('Toggle state changed:', toggle.checked);
+      });
+    }, 100);
+  `}
+>
+  <form id="toggle-form">
+    <plus-toggle 
+      id="terms-toggle"
+      name="terms" 
+      value="accepted" 
+      required 
+      error-message="You must accept the terms"
+    >
+      I accept the terms and conditions
+    </plus-toggle>
+    <br /><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusToggle } from '@plusui/react';
+    import { useState } from 'react';
+
+    export default () => {
+      const [accepted, setAccepted] = useState(false);
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Terms accepted:', accepted);
+      };
+
+      return (
+        <form onSubmit={handleSubmit}>
+          <PlusToggle 
+            name="terms" 
+            value="accepted" 
+            required 
+            checked={accepted}
+            onPlusChange={(e) => setAccepted(e.target.checked)}
+            errorMessage="You must accept the terms"
+          >
+            I accept the terms and conditions
+          </PlusToggle>
+          <br /><br />
+          <button type="submit">Submit</button>
+        </form>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-toggle-form',
+      template: `
+        <form (ngSubmit)="handleSubmit()">
+          <plus-toggle 
+            name="terms" 
+            value="accepted" 
+            required 
+            [checked]="accepted"
+            (plus-change)="onToggleChange($event)"
+            error-message="You must accept the terms"
+          >
+            I accept the terms and conditions
+          </plus-toggle>
+          <br /><br />
+          <button type="submit">Submit</button>
+        </form>
+      `
+    })
+    export class ToggleFormComponent {
+      accepted = false;
+
+      onToggleChange(event: CustomEvent) {
+        this.accepted = event.target.checked;
+      }
+
+      handleSubmit() {
+        console.log('Terms accepted:', this.accepted);
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <form @submit.prevent="handleSubmit">
+        <plus-toggle 
+          name="terms" 
+          value="accepted" 
+          required 
+          :checked="accepted"
+          @plus-change="onToggleChange"
+          error-message="You must accept the terms"
+        >
+          I accept the terms and conditions
+        </plus-toggle>
+        <br /><br />
+        <button type="submit">Submit</button>
+      </form>
+    </template>
+
+    <script setup>
+    import { ref } from 'vue';
+
+    const accepted = ref(false);
+
+    const onToggleChange = (event) => {
+      accepted.value = event.target.checked;
+    };
+
+    const handleSubmit = () => {
+      console.log('Terms accepted:', accepted.value);
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      let accepted = false;
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Terms accepted:', accepted);
+      };
+
+      const onToggleChange = (e) => {
+        accepted = e.target.checked;
+      };
+    </script>
+
+    <form on:submit={handleSubmit}>
+      <plus-toggle 
+        name="terms" 
+        value="accepted" 
+        required 
+        checked={accepted}
+        on:plus-change={onToggleChange}
+        error-message="You must accept the terms"
+      >
+        I accept the terms and conditions
+      </plus-toggle>
+      <br /><br />
+      <button type="submit">Submit</button>
+    </form>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <form id="toggle-form-html">
+      <plus-toggle 
+        name="terms" 
+        value="accepted" 
+        required 
+        error-message="You must accept the terms"
+      >
+        I accept the terms and conditions
+      </plus-toggle>
+      <br /><br />
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      document.getElementById('toggle-form-html').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        console.log('Form data:', Object.fromEntries(formData));
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+## Accessibility (a11y)
+
+*   **Screen Reader:**
+    *   Uses `role="switch"` to identify the toggle as a switch control.
+    *   `aria-checked` indicates the current state (true/false).
+    *   `aria-disabled` indicates if the toggle is disabled.
+    *   `aria-invalid` indicates validation state.
+    *   `aria-labelledby` and `aria-describedby` provide proper labeling.
+*   **Keyboard Navigation:**
+    *   **Space**: Toggles the switch state.
+    *   **Enter**: Toggles the switch state.
+    *   **Tab**: Moves focus to/from the toggle.
+*   **Required Developer Actions:**
+    *   Provide meaningful labels or text content.
+    *   Use caption for additional context when needed.
+    *   Ensure sufficient color contrast for custom styling.
+
+## API Reference
+
+### Properties
+
+| Name                | Type                                    | Default     | Description                                                    | Required |
+|---------------------|-----------------------------------------|-------------|----------------------------------------------------------------|----------|
+| `name`              | `string`                                | `''`        | Name attribute for form submission.                            | No       |
+| `value`             | `string`                                | `'on'`      | Value submitted when toggle is checked.                        | No       |
+| `checked`           | `boolean`                               | `false`     | Whether the toggle is checked.                                 | No       |
+| `size`              | `'sm' \| 'md' \| 'lg'`                  | `'md'`      | Size of the toggle.                                            | No       |
+| `label`             | `string`                                | `undefined` | Label text displayed above the toggle.                        | No       |
+| `caption`           | `string`                                | `undefined` | Caption text displayed below the toggle.                      | No       |
+| `text`              | `string`                                | `undefined` | Text content (can also be provided via slot).                 | No       |
+| `textPosition`      | `'left' \| 'right'`                     | `'right'`   | Position of the text relative to the switch.                  | No       |
+| `toggleIcon`        | `string`                                | `undefined` | Icon displayed in the toggle dot.                             | No       |
+| `toggleActiveIcon`  | `string`                                | `undefined` | Icon displayed when toggle is active.                         | No       |
+| `toggleInactiveIcon`| `string`                                | `undefined` | Icon displayed when toggle is inactive.                       | No       |
+| `error`             | `boolean`                               | `false`     | Whether the toggle is in error state.                         | No       |
+| `errorMessage`      | `string`                                | `''`        | Error message displayed when in error state.                  | No       |
+| `disabled`          | `boolean`                               | `false`     | Whether the toggle is disabled.                                | No       |
+| `readonly`          | `boolean`                               | `false`     | Whether the toggle is readonly.                                | No       |
+| `required`          | `boolean`                               | `false`     | Whether the toggle is required for form validation.           | No       |
+| `fullWidth`         | `boolean`                               | `false`     | Whether the toggle takes full width of its container.         | No       |
+| `animation`         | `'default' \| 'bounce' \| 'smooth'`     | `'default'` | Animation style for the toggle transition.                    | No       |
+| `customAriaLabel`   | `string`                                | `undefined` | Custom aria-label for accessibility.                          | No       |
+
+### Events
+
+| Name           | Payload Type        | Description                                    |
+|----------------|---------------------|------------------------------------------------|
+| `plus-change`  | `CustomEvent<void>` | Fired when the toggle state changes.          |
+| `plus-input`   | `CustomEvent<void>` | Fired when the toggle state changes (input).  |
+| `plus-focus`   | `CustomEvent<void>` | Fired when the toggle gains focus.            |
+| `plus-blur`    | `CustomEvent<void>` | Fired when the toggle loses focus.            |
+| `plus-invalid` | `CustomEvent<{message: string}>` | Fired when validation fails.     |
+
+### Methods
+
+| Name                 | Parameters              | Description                                    |
+|----------------------|-------------------------|------------------------------------------------|
+| `checkValidity()`    | None                    | Returns true if the toggle is valid.          |
+| `reportValidity()`   | None                    | Reports validity and shows validation UI.     |
+| `setCustomValidity()`| `message: string`       | Sets a custom validation message.             |
+| `focus()`            | `options?: FocusOptions`| Focuses the toggle.                           |
+| `blur()`             | None                    | Removes focus from the toggle.                |
+| `click()`            | None                    | Programmatically clicks the toggle.          |
+
+### Slots
+
+| Name              | Description                                        |
+|-------------------|----------------------------------------------------|
+| `default` (unnamed) | The text content of the toggle.                   |
+
+### CSS Shadow Parts
+
+| Part      | Description                           |
+|-----------|---------------------------------------|
+| `base`    | The main container element.           |
+| `label`   | The label element.                    |
+| `control` | The control element containing switch and text. |
+| `switch`  | The switch element.                   |
+| `dot`     | The dot element inside the switch.    |
+| `text`    | The text element.                     |
+| `icon`    | The icon element in the dot.          |
+| `caption` | The caption element.                  |
+
+### CSS Custom Properties
+
+| Name                    | Description                        |
+|-------------------------|------------------------------------|
+| `--text-color`          | Controls the text color.           |
+| `--border-color`        | Controls the border color.         |
+| `--switch-bg`           | Controls the switch background.    |
+| `--switch-bg-hover`     | Controls the hover background.     |
+| `--switch-bg-active`    | Controls the active background.    |
+| `--dot-bg`              | Controls the dot background.       |
+| `--dot-text`            | Controls the dot text/icon color.  |

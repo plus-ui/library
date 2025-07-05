@@ -1,98 +1,67 @@
 ---
 title: Icons
-description: >-
-  Embrace visual storytelling and clarity in your user interface with Plus UI's
-  Icon that powered by Font Awesome.
+description: Learn how to use Plus UI's extensive icon library, powered by Font Awesome, and how to register your own custom icons.
 ---
-import GetHelp from '../../../components/get-help.mdx'
-import { EmbedContent } from '../../../component';
+import { Code } from '@astrojs/starlight/components';
 
-import { Image } from 'astro:assets';
+Plus UI integrates with Font Awesome to provide a comprehensive and versatile icon set. Our `plus-icon` component makes it easy to incorporate these icons into your application, and the icon registry allows for adding your own custom SVGs.
 
-import kind from "../../../assets/foundation/icon/kind.png";
-import size from "../../../assets/foundation/icon/size.png";
-import noContainer from "../../../assets/foundation/icon/no-container.png";
-import height from "../../../assets/foundation/icon/height.png";
-import visit from "../../../assets/foundation/icon/visit.png";
-import copy from "../../../assets/foundation/icon/copy.png";
-import figma from "../../../assets/foundation/icon/figma.png";
-import fontAwesome from "../../../assets/foundation/icon/font-awesome.avif";
-import howToUse from "../../../assets/foundation/icon/how-to-use.png";
+## Using the `plus-icon` Component
 
+To display an icon, use the `<plus-icon>` tag with the `icon-name` attribute set to the desired icon.
 
-# Icons
+<Code code={`<!-- Displays a solid star icon -->
+<plus-icon icon-name="star"></plus-icon>
 
-## Kind
+<!-- Displays a regular heart icon -->
+<plus-icon icon-name="heart" icon-style="regular"></plus-icon>
 
-Icon family has 3 different types which is Regular, Solid and Brand.
+<!-- Displays a user icon with a larger size -->
+<plus-icon icon-name="user" size="xl"></plus-icon>
 
-{/* <figure><img src="../.gitbook/assets/icons feature.png" alt=""><figcaption><p>kinds of icon</p></figcaption></figure> */}
-<Image src={
-  kind
-} alt="kinds of icon" />
+<!-- Styling the icon color -->
+<plus-icon icon-name="check" style="color: var(--plus-color-success-default);"></plus-icon>
+`} />
 
-## Sizing Icons
+### Key Properties
 
-Tailor the size of your icons to fit harmoniously within your layout, ensuring a cohesive and aesthetically pleasing visual hierarchy. The versatility and customization options available for crafting the ideal iconography in your application.
+-   **`icon-name`**: The name of the Font Awesome icon (e.g., `check`, `user`, `arrow-right`).
+-   **`icon-style`**: The style of the icon. Can be `solid` (default), `regular`, or `light`.
+-   **`size`**: Sets the size of the icon. Accepts `xs`, `sm`, `md` (default), `lg`, `xl`, `2xl`, and `3xl`.
+-   **`label`**: An optional accessibility label. If not provided, it's inferred from the icon name.
 
-<Image src={
-  size
-} alt="sizing icons" />
+Color can be set by styling the component with the standard CSS `color` property or the `--icon-color` custom property.
 
-### Line Height of Icon Containers
+## Finding Icons
 
-If the icon is to be used next to the text, the icon variation with line height can be used to keep the bottom line height aligned.
+Plus UI includes a vast selection of icons from Font Awesome. To find an icon:
 
-<Image src={
-  height
-} alt="line height of icon containers" />
+1.  Visit the [**Font Awesome Gallery**](https://fontawesome.com/gallery).
+2.  Search for the icon you need (make sure to check for its availability in the "Free" sets).
+3.  Use the icon's name in the `icon-name` attribute of the `plus-icon` component.
 
-### No Container Line Height
+For example, if you find an icon named "house", you would use it like this: `<plus-icon icon-name="house"></plus-icon>`.
 
-If there is not enough space in the area to be used and the minimum version of the icon will be used, the version without line height can be used.
+## Custom Icons
 
-<Image src={
-  noContainer
-} alt="no container line height" />
+You can register your own SVG icons for use with the `plus-icon` component. This is useful for including brand logos or custom graphics that aren't in the Font Awesome library.
 
-## How to Use Icons in Plus UI Library
+The `registerIcon` function allows you to add an SVG string to the icon registry under a specific name and style.
 
-**Step 1:** Write icon to the assets and drag the result to the workspace.
+### Usage
 
-<Image src={
-  figma
-} alt="using icons in figma" />
+It's best to register custom icons once when your application starts up.
 
-**Step 2:** Visit Font Awesome web page and search for the Icon that you want to use.
+<Code lang="js" code={`import { registerIcon } from '@plusui/core/components/icon';
 
-<Image src={
-  fontAwesome
-} alt="find your icon" />
+// Your custom SVG content as a string
+const customLogoSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="..."/></svg>';
 
-<EmbedContent url="https://fontawesome.com/" />
+// Register the icon
+registerIcon('my-logo', 'solid', customLogoSvg);
+`} />
 
-**Step 3:** You can copy it by clicking on the Icon Name on the popup.
+Once registered, you can use it just like any other icon:
 
-<Image src={
-  copy
-} alt="copy icon name" />
+<Code code={`<plus-icon icon-name="my-logo" icon-style="solid"></plus-icon>`} />
 
-**Step 4:** Go back to Figma canvas and paste the icon name. All done!
-
-<Image src={
-  visit
-} alt="paste icon name" />
-
-## Powerful Integration with Font Awesome
-
-Font Awesome enriches the visual language with a diverse set of iconic elements that elevate the Plus UI Design System, providing users with a comprehensive and integrated toolkit for crafting exceptional user interfaces.&#x20;
-
-- **Iconic Elements:** Font Awesome integration brings a plethora of iconic elements to the Plus UI Design System, enhancing visual appeal and providing a diverse range of symbols.&#x20;
-- **Scalable Icons:** Font Awesome's scalable vector icons seamlessly align with our components, ensuring clear representations in any context.&#x20;
-- **Unified Aesthetics:** The integration ensures a unified aesthetic language for a cohesive user experience.
-
-<Image src={
-  fontAwesome
-} alt="font awesome icons" />
-
-<GetHelp />

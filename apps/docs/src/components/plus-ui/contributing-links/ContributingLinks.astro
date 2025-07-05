@@ -1,0 +1,45 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+
+const links = [
+  { href: "https://www.figma.com/@plusui", icon: "figma", text: "Figma" },
+  { href: "https://github.com/plus-ui", icon: "github", text: "GitHub" },
+  { href: "https://discord.gg/QhXfSnze", icon: "discord", text: "Discord" },
+  {
+    href: "https://twitter.com/PlusUI_Official",
+    icon: "twitter",
+    text: "Twitter",
+  },
+  {
+    href: "https://opencollective.com/plus-ui",
+    icon: "openCollective",
+    text: "Open Collective",
+  },
+];
+---
+
+<div class="mt-16 pt-6 border-t border-color-default">
+  <h3 class="text-lg font-semibold mt-0 text-color-default">
+    Join the Community
+  </h3>
+  <p class="mb-6 max-w-prose text-color-caption">
+    Plus UI is built by the community. Join us on our platforms to contribute,
+    get help, and stay up to date.
+  </p>
+  <div class="flex flex-wrap gap-6">
+    {
+      links.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 no-underline transition-colors ease-in-out text-color-caption hover:text-color-default"
+        >
+          <Icon name={link.icon as any} size="1.25em" />
+          <span class="text-base font-medium">{link.text}</span>
+        </a>
+      ))
+    }
+  </div>
+</div>
+

@@ -10,57 +10,81 @@ export interface ChangelogEntry {
     | "deps"
     | "release"
     | "breaking"
-    | "improvement";
+    | "improvement"
+    | "performance";
   description: string;
   details?: string[];
 }
 
 const changelogData: ChangelogEntry[] = [
   {
-    version: "1.0.0",
-    date: "2025-01-01",
+    version: "1.0.1",
+    date: "2025-07-07",
     component: "global",
-    type: "breaking",
+    type: "docs",
     description:
-      'Changed boolean attribute handling: `attr="false"` now correctly evaluates to `false`.',
+      "Major refactor of documentation site structure and components.",
     details: [
-      'Previously, the presence of a boolean attribute (e.g., `<plus-button disabled="false">`) was treated as `true`. Now, the string `"false"` correctly evaluates to `false`.',
-      "This change makes component behavior more predictable and aligned with web standards.",
-      "This is a breaking change for any implementation that relied on the old behavior.",
-      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+      "Updated component paths in `astro.config.mjs` to reflect the new directory structure.",
+      'Renamed "Overview" to "Introduction" in the getting started section for better clarity.',
+      "Introduced new documentation components like `Code`, `FrameworkCards`, and `CodePreview` while removing obsolete ones.",
+      "Enhanced installation guides and added new content for accessibility and theming.",
+      "Added new SVG logos for supported frameworks (Angular, React, Svelte, Vue, Vanilla).",
     ],
   },
   {
-    version: "1.0.0",
-    date: "2025-01-01",
+    version: "1.0.1",
+    date: "2025-07-06",
     component: "global",
-    type: "refactor",
-    description: "Standardized boolean property reflection to attributes.",
+    type: "docs",
+    description:
+      "Conducted a major overhaul of the Foundation documentation to ensure accuracy and clarity.",
     details: [
-      "Applied `reflect: true` to all state-affecting boolean properties across multiple components.",
-      "Ensures component state (e.g., `disabled`, `checked`, `readonly`) is mirrored to a DOM attribute.",
-      "Improves styleability with CSS and component interoperability.",
-      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+      "Removed all fabricated information and placeholder content from foundation pages (Border, Spacing, Typography, etc.).",
+      "Corrected the Icons documentation to accurately describe the `registerIcon` functionality and remove non-existent properties.",
+      'Updated pages for unimplemented features to include a brief description and an "under construction" notice instead of a generic "Coming Soon" message.',
     ],
   },
   {
-    version: "1.0.0",
-    date: "2025-01-01",
+    version: "1.0.1",
+    date: "2025-07-06",
     component: "global",
-    type: "refactor",
+    type: "improvement",
     description:
-      "Standardized boolean property handling via `booleanConverter` utility.",
+      "Improved readability of key documentation pages by removing decorative icons.",
     details: [
-      "Refactored all components with boolean properties to use a single, consistent converter.",
-      "Eliminated 4 different patterns for boolean conversion, improving maintainability.",
-      "Ensures correct behavior for both property binding and HTML attributes (e.g., `<plus-button disabled>`).",
-      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+      "Removed distracting emojis from headers on the Contribution, Component Overview, and Pricing pages to create a cleaner, more professional appearance.",
     ],
   },
+  // v1.0.1
+  {
+    version: "1.0.1",
+    date: "2025-07-05",
+    component: "global",
+    type: "improvement",
+    description:
+      "Simplified the documentation overview page for a more user-friendly and focused getting-started experience.",
+    details: [
+      "Removed lengthy sections to reduce cognitive load.",
+      "Introduced 'Core Features' and 'Where to Start?' sections to provide clear guidance for new users.",
+      "Re-added the hero image to create a better visual balance.",
+    ],
+  },
+  {
+    version: "1.0.1",
+    date: "2025-07-05",
+    component: "global",
+    type: "docs",
+    description: "Improved getting started documentation.",
+    details: [
+      "Updated the overview page to be more concise and beginner-friendly.",
+    ],
+  },
+
   // 🚀 INITIAL RELEASE - v1.0.0
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-07-01",
     component: "global",
     type: "release",
     description: "🎉 Plus UI Library Initial Release",
@@ -74,10 +98,153 @@ const changelogData: ChangelogEntry[] = [
       "MIT License for commercial use",
     ],
   },
-  // FORM COMPONENTS
+
+  // EPIC #73 - Icon System Unification
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-28",
+    component: "global",
+    type: "breaking",
+    description: "Unified the icon system and removed FontAwesome dependency.",
+    details: [
+      "Replaced FontAwesome with a custom, in-house SVG icon system to improve performance and reduce bundle size.",
+      "This is a breaking change for any implementation that relied on FontAwesome classes or the `<plus-icon>` component's previous API.",
+      "See the new Icon documentation for migration details.",
+      'This change is part of the "Icon System Unification" EPIC (#73).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-28",
+    component: "global",
+    type: "performance",
+    description: "Reduced icon system bundle size by ~82% (~450KB).",
+    details: [
+      "Eliminating the FontAwesome dependency significantly cut down on the library's footprint.",
+      'This change is part of the "Icon System Unification" EPIC (#73).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-28",
+    component: "icon",
+    type: "feature",
+    description:
+      "Introduced a new, unified SVG icon system with expanded features.",
+    details: [
+      "Added a local registry for 32+ core icons with CDN fallback.",
+      "Implemented `solid`, `regular`, and `light` style variants.",
+      "Added `sm`, `md`, `lg`, and `xl` size variants.",
+      'This change is part of the "Icon System Unification" EPIC (#73).',
+    ],
+  },
+
+  // EPIC #72 - Form System Critical Fixes
+  {
+    version: "1.0.0",
+    date: "2025-06-26",
+    component: "button",
+    type: "fix",
+    description: "Fixed the `full-width` prop not working correctly.",
+    details: [
+      "Adjusted host element CSS (`display: inline-block`) that was preventing the component from expanding to full width.",
+      'This change is part of the "Form System Critical Fixes" EPIC (#72).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-26",
+    component: "input",
+    type: "fix",
+    description:
+      "Corrected the icon mapping for the password visibility toggle.",
+    details: [
+      "The `eye` and `eye-slash` icons were reversed and now show the correct state.",
+      'This change is part of the "Form System Critical Fixes" EPIC (#72).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-26",
+    component: "select",
+    type: "fix",
+    description: "Resolved dropdown positioning and z-index issues.",
+    details: [
+      "Fixed issues where the select dropdown would be overlapped by other elements or misaligned.",
+      'This change is part of the "Form System Critical Fixes" EPIC (#72).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-26",
+    component: "checkbox-group",
+    type: "fix",
+    description:
+      "Ensured the `disabled` state correctly propagates to all child checkboxes.",
+    details: [
+      "When a checkbox group was disabled, child checkboxes were not inheriting the state. This is now fixed.",
+      'This change is part of the "Form System Critical Fixes" EPIC (#72).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-26",
+    component: "button-group",
+    type: "fix",
+    description: "Fixed broken property override logic for child buttons.",
+    details: [
+      "Properties set on the button group now correctly apply to the child buttons.",
+      'This change is part of the "Form System Critical Fixes" EPIC (#72).',
+    ],
+  },
+
+  // EPIC #71 - Boolean Props Standardization
+  {
+    version: "1.0.0",
+    date: "2025-06-24",
+    component: "global",
+    type: "breaking",
+    description:
+      'Changed boolean attribute handling: `attr="false"` now correctly evaluates to `false`.',
+    details: [
+      'Previously, the presence of a boolean attribute (e.g., `<plus-button disabled="false">`) was treated as `true`. Now, the string `"false"` correctly evaluates to `false`.',
+      "This change makes component behavior more predictable and aligned with web standards.",
+      "This is a breaking change for any implementation that relied on the old behavior.",
+      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-24",
+    component: "global",
+    type: "refactor",
+    description: "Standardized boolean property reflection to attributes.",
+    details: [
+      "Applied `reflect: true` to all state-affecting boolean properties across multiple components.",
+      "Ensures component state (e.g., `disabled`, `checked`, `readonly`) is mirrored to a DOM attribute.",
+      "Improves styleability with CSS and component interoperability.",
+      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+    ],
+  },
+  {
+    version: "1.0.0",
+    date: "2025-06-24",
+    component: "global",
+    type: "refactor",
+    description:
+      "Standardized boolean property handling via `booleanConverter` utility.",
+    details: [
+      "Refactored all components with boolean properties to use a single, consistent converter.",
+      "Eliminated 4 different patterns for boolean conversion, improving maintainability.",
+      "Ensures correct behavior for both property binding and HTML attributes (e.g., `<plus-button disabled>`).",
+      'This change is part of the "Boolean Props Standardization" EPIC (#71).',
+    ],
+  },
+
+  // INITIAL FEATURES
+  {
+    version: "1.0.0",
+    date: "2025-06-20",
     component: "button",
     type: "feature",
     description: "Added Button component with multiple variants",
@@ -92,7 +259,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "input",
     type: "feature",
     description: "Added Input component with validation support",
@@ -107,7 +274,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "textarea",
     type: "feature",
     description: "Added Textarea component for multi-line input",
@@ -121,7 +288,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "checkbox",
     type: "feature",
     description: "Added Checkbox component with group support",
@@ -135,7 +302,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "checkbox-group",
     type: "feature",
     description: "Added Checkbox Group for multiple selections",
@@ -149,7 +316,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "radio",
     type: "feature",
     description: "Added Radio component for single selection",
@@ -162,7 +329,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "radio-group",
     type: "feature",
     description: "Added Radio Group for single selection groups",
@@ -175,7 +342,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "select",
     type: "feature",
     description: "Added Select component with dropdown",
@@ -189,7 +356,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "toggle",
     type: "feature",
     description: "Added Toggle component for boolean states",
@@ -200,10 +367,9 @@ const changelogData: ChangelogEntry[] = [
       "Accessibility support",
     ],
   },
-  // NAVIGATION COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "tab",
     type: "feature",
     description: "Added Tab component for navigation",
@@ -217,7 +383,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "tab-group",
     type: "feature",
     description: "Added Tab Group for tab management",
@@ -230,7 +396,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "breadcrumb",
     type: "feature",
     description: "Added Breadcrumb component for navigation",
@@ -243,7 +409,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "accordion",
     type: "feature",
     description: "Added Accordion component for collapsible content",
@@ -254,10 +420,9 @@ const changelogData: ChangelogEntry[] = [
       "Accessibility with ARIA attributes",
     ],
   },
-  // FEEDBACK COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "alert",
     type: "feature",
     description: "Added Alert component for user feedback",
@@ -270,7 +435,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "toast",
     type: "feature",
     description: "Added Toast component for notifications",
@@ -284,7 +449,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "tooltip",
     type: "feature",
     description: "Added Tooltip component for contextual help",
@@ -297,7 +462,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "popover",
     type: "feature",
     description: "Added Popover component for rich content",
@@ -308,10 +473,9 @@ const changelogData: ChangelogEntry[] = [
       "Accessibility support",
     ],
   },
-  // DISPLAY COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "avatar",
     type: "feature",
     description: "Added Avatar component for user representation",
@@ -324,7 +488,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "badge",
     type: "feature",
     description: "Added Badge component for status indicators",
@@ -337,7 +501,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "chip",
     type: "feature",
     description: "Added Chip component for tags and labels",
@@ -350,7 +514,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "rating",
     type: "feature",
     description: "Added Rating component for star ratings",
@@ -362,10 +526,9 @@ const changelogData: ChangelogEntry[] = [
       "Accessibility with ARIA attributes",
     ],
   },
-  // OVERLAY COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "modal",
     type: "feature",
     description: "Added Modal component for dialogs",
@@ -379,7 +542,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "drawer",
     type: "feature",
     description: "Added Drawer component for side panels",
@@ -393,7 +556,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "dropdown",
     type: "feature",
     description: "Added Dropdown component for menus",
@@ -404,10 +567,9 @@ const changelogData: ChangelogEntry[] = [
       "Accessibility support",
     ],
   },
-  // UTILITY COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "divider",
     type: "feature",
     description: "Added Divider component for content separation",
@@ -420,7 +582,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "link",
     type: "feature",
     description: "Added Link component for navigation",
@@ -433,7 +595,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "text",
     type: "feature",
     description: "Added Text component for typography",
@@ -444,10 +606,9 @@ const changelogData: ChangelogEntry[] = [
       "Semantic HTML elements",
     ],
   },
-  // SPECIALIZED COMPONENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "segmented-picker",
     type: "feature",
     description: "Added Segmented Picker for option selection",
@@ -460,7 +621,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-20",
     component: "popconfirm",
     type: "feature",
     description: "Added Popconfirm for confirmation dialogs",
@@ -471,10 +632,11 @@ const changelogData: ChangelogEntry[] = [
       "Accessibility support",
     ],
   },
+
   // TECHNICAL IMPROVEMENTS
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-18",
     component: "global",
     type: "improvement",
     description: "Design system foundation",
@@ -488,7 +650,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-18",
     component: "global",
     type: "improvement",
     description: "Accessibility features",
@@ -502,7 +664,7 @@ const changelogData: ChangelogEntry[] = [
   },
   {
     version: "1.0.0",
-    date: "2025-01-01",
+    date: "2025-06-18",
     component: "global",
     type: "improvement",
     description: "Performance optimizations",

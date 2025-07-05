@@ -1,73 +1,12 @@
 ---
 title: Border
-description: Refine the structure and delineate elements by using Plus UI's Border feature. Explore various border styles that allow you to define boundaries and enhance the overall visual appeal of your design.
+description: Learn how to use and customize borders and corner radiuses in Plus UI.
 ---
+import { Aside } from '@astrojs/starlight/components';
 
-import GetHelp from '../../../components/get-help.mdx'
-import { EmbedContent } from '../../../component';
+Plus UI leverages the power and flexibility of Tailwind CSS for handling borders, including `border-width` and `border-radius`. This approach ensures consistency and provides a robust set of utilities for styling components.
 
-import { Image } from 'astro:assets';
+<Aside type="note">
+  This page is currently under construction. More detailed examples and best practices will be added soon.
+</Aside>
 
-{/* astro/assets/foundation/border/application.png
-astro/assets/foundation/border/change.png
-astro/assets/foundation/border/example.png
-astro/assets/foundation/border/how-to-2.png
-astro/assets/foundation/border/how-to.avif
-astro/assets/foundation/border/tokens.png
-astro/assets/foundation/border/width-tokens.png */}
-import change from "../../../assets/foundation/border/change.png";
-import application from "../../../assets/foundation/border/application.png";
-import example from "../../../assets/foundation/border/example.png";
-import howTo from "../../../assets/foundation/border/how-to.avif";
-import howTo2 from "../../../assets/foundation/border/how-to-2.png";
-import tokens from "../../../assets/foundation/border/tokens.png";
-import widthTokens from "../../../assets/foundation/border/width-tokens.png";
-
-
-
-## Border Radius
-
-Add a touch of sophistication to your components with Plus UI's Border Radius options. Customize the curvature of corners to create a modern and sleek aesthetic, ensuring a harmonious look and feel across your application.
-
-## How to Change Border Radius
-
-Click on the shape whose corners you want to radius. You can select the value you need from the defined radius tokens by clicking on the Variable icon on the right panel.
-
-<Image src={change} alt="border radius change" />
-
-#### Example
-
-<Image src={example} alt="border radius application" />
-
-## Border Width
-
-Fine-tune the visual weight of your design elements with Plus UI's Border Width options. Tailor the thickness of borders to achieve the desired emphasis and separation, contributing to a polished and well-defined user interface. Dive into our documentation to explore the flexibility and customization available for creating visually compelling layouts.
-
-## How to Add Border Width
-
-Click on the shape that you want to add width around it. First, add a style from the stroke section on the right panel and choose a color for the border. Then, right-click on the defined border width field and select the desired value by clicking "apply variable".
-
-<Image src={howTo} alt="add border width" />
-
-<Image src={howTo2} alt="border width application" />
-
-#### Example
-
-<Image src={application} alt="border width application" />
-
-## Border Tokens
-
-Plus UI's predefined border radius tokens offer a range of radii, ensuring uniformity and ease of customization across your user interface. Dive into our documentation to explore the variety of border radius options and effortlessly achieve a cohesive and polished design aesthetic.
-
-### Border Radius Tokens
-
-{/* <figure><img src="../.gitbook/assets/border radius token table.png" alt=""><figcaption><p>border radius token table</p></figcaption></figure> */}
-<Image src={tokens} alt="border radius token table" />
-
-### Border Width Tokens
-
-{/* <figure><img src="../.gitbook/assets/border width token table.png" alt=""><figcaption><p>border radius token table</p></figcaption></figure> */}
-
-<Image src={widthTokens} alt="border width token table" />
-
-<GetHelp />

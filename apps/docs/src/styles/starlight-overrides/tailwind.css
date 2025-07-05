@@ -59,3 +59,60 @@
     }
   }
 }
+
+/* Custom styles for the installation overview page grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+  list-style: none;
+  padding: 0;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background-color: var(--sl-color-surface);
+  border: 1px solid var(--sl-color-hairline);
+  border-radius: var(--sl-radius-lg);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+.tile:hover {
+  transform: translateY(-2px);
+  background-color: var(--sl-color-accent-low);
+  border-color: var(--sl-color-accent);
+  box-shadow: var(--sl-shadow-sm);
+}
+.tile img {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--sl-color-accent);
+}
+.tile strong {
+  font-weight: 600;
+  font-size: var(--sl-text-lg);
+  color: var(--sl-color-text);
+  transition: color 0.2s ease-in-out;
+}
+.tile:hover strong {
+  color: var(--sl-color-accent-high);
+}
+.tile span {
+  color: var(--sl-color-text-accent);
+  text-align: center;
+  font-size: var(--sl-text-sm);
+  line-height: 1.5;
+}
+.tile .starlight__icon {
+  color: var(--sl-color-accent);
+  margin-bottom: 0.5rem;
+}
+
+.not-content a {
+  text-decoration: none;
+}

@@ -1,0 +1,130 @@
+---
+title: Vue
+description: How to install and use Plus UI in your Vue applications.
+---
+import { Aside } from '@astrojs/starlight/components';
+import { Code } from '../../../../components';
+
+This guide will walk you through setting up Plus UI in a Vue project. Since Plus UI is built with standard Web Components, it integrates smoothly with Vue.
+
+## 1. Installation
+
+You only need to install the core Plus UI package, which contains all the components.
+
+<Code>
+```bash
+npm install @plusui/core
+```
+</Code>
+
+## 2. Vite Configuration
+
+To ensure Vue correctly interprets our custom elements (which start with `plus-`), you need to tell Vue to treat them as such. You can do this in your `vite.config.js` file.
+
+<Code>
+```javascript
+// vite.config.js
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          // All tags starting with 'plus-' are treated as custom elements
+          isCustomElement: (tag) => tag.startsWith('plus-')
+        }
+      }
+    })
+  ]
+});
+```
+</Code>
+<Aside>
+To learn more, please check the official Vue documentation on [using Web Components](https://vuejs.org/guide/extras/web-components).
+</Aside>
+
+## 3. Component Setup
+
+Import the component registration script in your main entry file, typically `src/main.js`.
+
+<Code>
+```javascript
+// src/main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+
+// Register all Plus UI components
+import '@plusui/core/cdn/components/index.js';
+
+createApp(App).mount('#app')
+```
+</Code>
+
+## 4. Component Usage
+
+You can now use Plus UI components directly in your Vue templates.
+
+### Using Props
+
+Component properties (props) are set using standard HTML attributes. Note that attribute names should be in `kebab-case`.
+
+<Code>
+```vue
+<plus-button variant="filled" size="large">
+  Large Filled Button
+</plus-button>
+```
+</Code>
+
+### Handling Events
+
+Custom events are dispatched in `kebab-case` and can be listened to with Vue's `@` syntax. For example, the `plus-click` event.
+
+<Code>
+```vue
+<script setup>
+const handleClick = () => {
+  alert('Button clicked!');
+};
+</script>
+
+<template>
+  <plus-button @plus-click="handleClick">
+    Click Me
+  </plus-button>
+</template>
+```
+</Code>
+
+## Complete Example
+
+Here is a complete example of a simple `App.vue` component that uses Plus UI.
+
+<Code>
+```vue
+<script setup>
+const handleClick = () => {
+  alert('Plus UI button was clicked!');
+};
+</script>
+
+<template>
+  <div class="app">
+    <h1>Welcome to Plus UI with Vue!</h1>
+    
+    <!-- Example with props -->
+    <plus-button variant="secondary" size="small">
+      Secondary Button
+    </plus-button>
+    
+    <!-- Example with an event handler -->
+    <plus-button variant="filled" @plus-click="handleClick">
+      Click to Trigger Event
+    </plus-button>
+  </div>
+</template>
+```
+</Code>
+
