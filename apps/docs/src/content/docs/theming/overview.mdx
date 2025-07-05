@@ -1,0 +1,118 @@
+---
+title: Theming Overview
+description: Learn how to customize Plus UI to match your brand and style.
+---
+
+import { Code } from '../../../components';
+
+Plus UI is designed to be deeply customizable, allowing you to tailor the look and feel to your specific needs. Our theming system is built on CSS Custom Properties (Variables), providing a flexible and powerful way to make changes.
+
+Customization can be approached in layers, from broad global changes to fine-grained component-specific tweaks.
+
+## Level 1: Global Brand Colors
+
+The easiest way to apply your brand is by overriding the global color palette. These variables, defined in `packages/core/src/styles/theme/brand.css`, map semantic color names (like `primary`, `success`, `danger`) to a specific color palette (e.g., `indigo`, `green`, `red`).
+
+To change the primary color from Indigo to Blue, you would update the `--plus-color-primary-*` variables in your global stylesheet:
+
+<Code>
+```css
+/* In your global CSS file */
+:root {
+  /* Change the Primary color palette from Indigo to Blue */
+  --plus-color-primary-100: var(--color-blue-100);
+  --plus-color-primary-200: var(--color-blue-200);
+  --plus-color-primary-300: var(--color-blue-300);
+  --plus-color-primary-700: var(--color-blue-700);
+  --plus-color-primary-800: var(--color-blue-800);
+  --plus-color-primary-900: var(--color-blue-900);
+}
+```
+</Code>
+
+The core brand palettes you can override are:
+- `--plus-color-neutral-*`
+- `--plus-color-primary-*`
+- `--plus-color-info-*`
+- `--plus-color-success-*`
+- `--plus-color-warning-*`
+- `--plus-color-danger-*`
+
+## Level 2: Semantic Theme Tokens
+
+Components don't use brand colors directly. Instead, they use **semantic tokens** defined in `light.css` and `dark.css`. These tokens describe the *purpose* of a color, not its value (e.g., `--plus-color-background-surface`, `--plus-color-text-primary`).
+
+This abstraction allows you to make more specific changes. For example, if you want to change only the link color without altering the entire primary palette, you can override its specific token:
+
+<Code>
+```css
+/* In your global CSS file */
+:root {
+  --plus-color-text-link: #ff00ff; /* Make links magenta */
+}
+```
+</Code>
+
+## Level 3: Dark Mode
+
+Plus UI supports dark mode out-of-the-box. To enable it, simply import the `dark.css` file. The dark theme is applied automatically when the `data-theme="dark"` attribute is present on the `<html>` tag.
+
+<Code>
+```js
+// Example of how to toggle dark mode
+document.documentElement.setAttribute('data-theme', 'dark'); // Enable
+document.documentElement.removeAttribute('data-theme'); // Disable
+```
+</Code>
+
+## Level 4: Component-Specific Properties
+
+For the most granular control, many components expose their own CSS custom properties. These are simple, component-scoped variables that act as a proxy for the more complex theme tokens. They are perfect for one-off style adjustments.
+
+For example, the `plus-button` component uses the following properties:
+
+- `--text-color`
+- `--border-color`
+- `--bg-default`
+- `--bg-hovered`
+- `--bg-pressed`
+- `--bg-focused`
+
+You can use them to style a specific button instance differently:
+
+<Code>
+```css
+.my-custom-button {
+  --text-color: white;
+  --bg-default: black;
+  --bg-hovered: #333;
+}
+```
+</Code>
+
+<Code>
+```html
+<plus-button class="my-custom-button">Custom Button</plus-button>
+```
+</Code>
+
+## Level 5: Advanced Customization
+
+### Fonts and Border Radius
+
+You can change the global font family and border radii by overriding the following variables:
+
+<Code>
+```css
+:root {
+  --font-sans: 'Roboto', sans-serif;
+  --plus-border-radius-default: 8px;
+  --plus-border-radius-modal: 12px;
+  --plus-border-radius-full: 9999px;
+}
+```
+</Code>
+
+### Tailwind CSS Overrides
+
+Since Plus UI uses Tailwind CSS internally, you can leverage Tailwind's `theme.extend` in your own `tailwind.config.js` for the deepest level of customization. This allows you to modify the entire design system, including spacing, breakpoints, and more. This is an advanced method and should be used with care. 

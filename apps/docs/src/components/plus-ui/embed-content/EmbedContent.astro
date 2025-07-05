@@ -24,7 +24,7 @@ interface Props {
   lazy?: boolean;
 }
 
-const { url, title: providedTitle, lazy = true } = Astro.props;
+const { url, title: providedTitle, lazy = false } = Astro.props;
 
 /**
  * Fetches the page title from a given URL by parsing the HTML title tag

@@ -1,5 +1,6 @@
 ---
-title: Overview
+title: Design System Overview
+description: Discover how Plus UI bridges the gap between design and development with a unified system for Figma and code.
 ---
 import { EmbedContent } from '../../../components';
 import { Aside } from '@astrojs/starlight/components';
@@ -7,7 +8,7 @@ import { Image } from 'astro:assets';
 
 import figma from "../../../assets/design-system/figma.png";
 
-Plus UI is a comprehensive Design System and UI Library that can be used with all popular frameworks and design tools together. We offer the full functionality of components that are carefully designed to meet modern design standards.
+Plus UI is a comprehensive Design System and UI Library built to create a seamless workflow between designers and developers. Our system is built on a foundation of design tokens that are shared between our Figma library and our web components.
 
 The components within Plus UI are initially envisioned and crafted in Figma, utilizing cutting-edge features such as variants, auto-layout, grids, responsive layouts, and more.
 
@@ -18,28 +19,47 @@ Plus UI Design System is organized in a single figma folder which includes found
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
 
-{/* {% hint style="success" %}
-### <mark style="color:green;">Design 20X Faster</mark>
-
-Plus UI Design System: A Figma toolkit with dynamic tokens, integrated with Tailwind CSS and Font Awesome for rapid project design. This multi-framework UI library developed by experts ensures swift delivery and seamless designer-developer collaboration. It offers pre-built, customizable blocks for efficient, consistent design work. Elevate your workflow with Plus UI – the synergy of speed and precision\
-
-{% endhint %} */}
 <Aside type="tip" title="Design 20X Faster">
-  <p>Plus UI Design System: A Figma toolkit with dynamic tokens, integrated with Tailwind CSS and Font Awesome for rapid project design. This multi-framework UI library developed by experts ensures swift delivery and seamless designer-developer collaboration. It offers pre-built, customizable blocks for efficient, consistent design work. Elevate your workflow with Plus UI – the synergy of speed and precision</p>
+  <p>Our Figma toolkit, with its dynamic tokens and integration with Tailwind CSS, ensures swift delivery and seamless designer-developer collaboration. Use our pre-built, customizable components to elevate your workflow.</p>
 </Aside>
 
-## Setting up Plus UI Design System on Figma
+## For Designers: Figma Setup
 
-Our Figma libraries and tools include our foundational styles, design tokens, components, and other helpers.
+Our Figma library contains all the foundational styles, components, and design tokens needed to design your application.
 
-* Install[ <mark>Plus UI's figma libraries.</mark>](https://www.figma.com/file/DTyYhNZUybgIJD4fj2LAP7/Components?type=design\&mode=design\&t=mtwxSLwNwrVjVmV7-0)​
-* Access public design system Figma resources in the [<mark>Plus UI Figma Community.</mark>](https://www.figma.com/@plusui)​\
+### Step 1: Get the Library
+First, get a copy of the Plus UI Design System from the Figma Community.
 
+<a href="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" target="_blank" rel="noopener noreferrer">
+  **Get Plus UI Design System on Figma Community →**
+</a>
 
-Variables sync your style with system-wide design choices, enabling features like dark mode to scale seamlessly across Plus UI. [<mark>Learn more about design tokens and its application on Plus UI.</mark>](https://app.gitbook.com/o/T2GcRz0cl2B1md6dbMMv/s/Lk2QIacFuzhR7mxHZI6U/~/changes/108/design-tokens/~/overview)​\
+### Step 2: Publish as a Team Library
+To use the system across your team, open the file and publish it as a library. You can do this from the "Assets" panel by clicking the library icon and choosing "Publish".
 
+### Step 3: Enable in Your Project
+Once published, open your project file, go to the "Assets" panel, click the library icon, and toggle on the "Plus UI" library. All components and styles will now be available in your project.
 
-To learn more about how to set up Plus UI Design System on Figma please <mark>click here.</mark>
+## For Developers: Connecting Design to Code
+
+The same design tokens used in Figma are available in code as **CSS Custom Properties (variables)**. This ensures that what you see in the design mockups is what you get in the browser.
+
+### The Token Bridge
+
+- **Colors:** A color style named `primary.500` in Figma corresponds to a CSS variable like `--plus-color-primary-500`.
+- **Spacing:** A spacing token of `16px` in Figma is available as `--plus-spacing-4` (`1rem`) in CSS.
+- **Typography:** Font styles like "Heading/XL" in Figma map to Tailwind utility classes like `.text-xl` and `.font-bold`, which use our typography tokens.
+
+### How It Works
+Our system uses **semantic tokens** to apply these foundational values. For example, a `plus-button` with a `status="primary"` uses the `--plus-color-background-primary-default` variable. This variable, in turn, points to a brand color like `--plus-color-primary-700`.
+
+This two-layer system allows for flexibility. You can:
+1.  **Change the brand palette** (e.g., make all primary colors blue instead of indigo) for a global theme change.
+2.  **Change a semantic token** (e.g., make primary buttons use a lighter shade) for a more specific change.
+
+For a deep dive into the available tokens and how to customize them, see the **[Theming Overview](/theming/overview/)**.
+
+This unified system ensures that designers and developers are speaking the same language, leading to faster development cycles and a more consistent end product.
 
 ## Styles & Variables
 
@@ -55,12 +75,3 @@ Thank you for exploring our design system! It's the result of nearly a year of d
 <Image src={figma} alt="Plus UI Design System on Figma" />
 
 <EmbedContent url="https://www.figma.com/community/file/1310670219738074447/plus-ui-design-system" title="Plus UI Design System on Figma" />
-
-## Get help
-
-If you're new to Figma, the platform may initially seem overwhelming, but exploring the interface can be a fun and rewarding experience. Before you can use the Keep Design System in Figma, it's essential to learn the basic tools and functionalities of the platform.
-
-### Community Links
-- **Discord Community** - [Join our Discord](https://discord.com/invite/Y5a78GGX)
-- **Figma Community** - [Follow us on Figma](https://www.figma.com/@PLUSUI)
-- **Twitter** - [Follow us on Twitter](https://twitter.com/PlusUI_Official)

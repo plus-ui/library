@@ -1,37 +1,58 @@
 ---
 title: Breakpoints
-description: Elevate your design with Plus UI's Breakpoints, optimizing responsiveness and ensuring a seamless user experience across a spectrum of devices by intelligently adapting layouts and styles at different
+description: Learn about the responsive breakpoints used in Plus UI for creating adaptive layouts.
 ---
-import GetHelp from '../../../components/get-help.mdx'
+import { Aside } from '@astrojs/starlight/components';
 
-Breakpoints in design systems are strategic points or ranges in screen width, crucial for achieving responsive and adaptive layouts that ensure a consistent and optimal user experience across diverse devices and screen sizes. They enable intelligent adjustments to styling and structure, promoting a seamless transition between different breakpoints and enhancing the overall usability of a design.
+Plus UI uses a standard set of breakpoints, aligned with Tailwind CSS defaults, to ensure that layouts are responsive and adapt gracefully across a wide range of devices. These breakpoints are the foundation of our responsive design system.
 
-### Small
+<Aside type="note">
+  This page is currently under construction. More detailed examples and best practices for responsive design will be added soon.
+</Aside>
 
-640 px
+## Breakpoint Values
 
-### Medium
+Our components are designed to work seamlessly with the following screen width breakpoints:
 
-768 px
+| Name | Value | Tailwind Class | Description |
+|---|---|---|---|
+| sm | 640px | `sm` | For small devices like mobile phones (landscape). |
+| md | 768px | `md` | For medium devices like tablets. |
+| lg | 1024px | `lg` | For large devices like small laptops. |
+| xl | 1280px | `xl` | For extra-large devices like standard desktops. |
+| 2xl| 1536px| `2xl`| For very large screens. |
 
-### Large
+## Usage in Your Project
 
-1024 px
+Because Plus UI components are built with responsive design in mind, they will automatically adapt to these breakpoints. When building your application layout with Tailwind CSS, you can use these standard breakpoint prefixes to create responsive designs.
 
-### XLarge
+```html
+<!-- This div will have a left margin of 4 on small screens and up, 
+     and a left margin of 8 on large screens and up. -->
+<div class="ml-4 lg:ml-8">
+  <plus-button>My Responsive Button</plus-button>
+</div>
+```
 
-1280 px
+## Customizing Breakpoints
 
-### 2XLarge
+If your project requires different breakpoints, you can customize them in your `tailwind.config.js` file. This is an advanced use case and may affect how some Plus UI components render.
 
-1536 px
+```javascript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    screens: {
+      'sm': '600px',
+      'md': '900px',
+      'lg': '1200px',
+      'xl': '1800px',
+    },
+    extend: {},
+  },
+  plugins: [],
+}
+```
 
-## How to Use Breakpoints
+By standardizing breakpoints, we ensure a consistent and predictable responsive experience.
 
-Create frames in your Figma project. To use the predefined frames from the Plus UI Design System, please click Width and select ‘Apply Variable’. You can select any pre-defined size to resize your frame.
-
-## Breakpoint Tokens
-
-Plus UI's predefined breakpoint tokens offer a systematic approach to responsive design, allowing you to fine-tune your layout based on specific breakpoints. Dive into our documentation to explore how breakpoint tokens provide flexibility and consistency for crafting seamless user interfaces.
-
-<GetHelp />

@@ -1,0 +1,103 @@
+---
+title: React
+description: How to install and use Plus UI in your React applications.
+---
+import { Aside } from '@astrojs/starlight/components';
+import { Code } from '../../../../components';
+
+This guide will walk you through setting up Plus UI in a React project and demonstrate how to use our components, including handling properties and events.
+
+## 1. Installation
+
+First, install the necessary Plus UI packages. `@plusui/core` contains all the web components, and `@plusui/react` provides React-specific wrappers for a seamless integration.
+
+<Code>
+```bash 
+npm install @plusui/core @plusui/react
+```
+</Code>
+
+## 2. Component Usage
+
+Now you can start using Plus UI components in your React application.
+
+### Importing a Component
+
+Import any component you need from the `@plusui/react` package. Let's use the `Button` component as an example.
+
+<Code>
+```jsx
+import { PlusButton } from '@plusui/react';
+```
+</Code>
+
+### Using Props
+
+You can customize components by passing `props`. These props correspond to the component's attributes. For example, you can change the `variant` and `size` of the `PlusButton`.
+
+<Code>
+```jsx
+<PlusButton variant="filled" size="large">
+  Large Filled Button
+</PlusButton>
+```
+</Code>
+
+### Handling Events
+
+Plus UI components emit custom events. In React, these are converted to `on[EventName]` props. For the `plus-click` event, you would use the `onPlusClick` prop.
+
+<Code>
+```jsx
+const handleClick = () => {
+  alert('Button clicked!');
+};
+
+<PlusButton onPlusClick={handleClick}>
+  Click Me
+</PlusButton>
+```
+</Code>
+
+## 3. Complete Example
+
+Here is a complete example of a simple React `App` component that uses Plus UI.
+
+<Code>
+```jsx
+// src/App.js
+import React from 'react';
+import { PlusButton } from '@plusui/react';
+
+function App() {
+  const handleClick = () => {
+    alert('Plus UI button was clicked!');
+  };
+
+  return (
+    <div className="App">
+      <h1>Welcome to Plus UI with React!</h1>
+      
+      {/* Example with props */}
+      <PlusButton variant="secondary" size="small">
+        Secondary Button
+      </PlusButton>
+      
+      {/* Example with an event handler */}
+      <PlusButton variant="filled" onPlusClick={handleClick}>
+        Click to Trigger Event
+      </PlusButton>
+    </div>
+  );
+}
+
+export default App;
+```
+</Code>
+
+<Aside>
+  <strong>Using with Next.js?</strong>
+  <br />
+  When using Plus UI components in the Next.js App Router, you'll need to add the `'use client'` directive at the top of your component files. This is because our components are interactive client-side components.
+</Aside>
+

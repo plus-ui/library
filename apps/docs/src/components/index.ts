@@ -9,13 +9,6 @@
  */
 
 // @ts-ignore
-import Card from "./Card.astro";
-
-// MDX Components
-// @ts-ignore
-import GetHelp from "./get-help.mdx";
-
-// @ts-ignore
 import CodePreview from "./plus-ui/code-preview/CodePreview.astro";
 // @ts-ignore
 import ComponentHeader from "./plus-ui/component-header/ComponentHeader.astro";
@@ -29,6 +22,10 @@ import EmbedContent from "./plus-ui/embed-content/EmbedContent.astro";
 import InstallTabs from "./plus-ui/install-tabs/InstallTabs.mdx";
 // @ts-ignore
 import ContributingLinks from "./plus-ui/contributing-links/ContributingLinks.astro";
+// @ts-ignore
+import FrameworkCards from "./plus-ui/framework-cards/FrameworkCards.astro";
+// @ts-ignore
+import Code from "./plus-ui/code/Code.astro";
 
 // Starlight Override Components
 // @ts-ignore
@@ -43,8 +40,6 @@ import PageTitle from "./starlight-overrides/PageTitle.astro";
 import SocialIcons from "./starlight-overrides/SocialIcons.astro";
 
 export {
-  Card,
-  GetHelp,
   CodePreview,
   ComponentHeader,
   Changelog,
@@ -52,11 +47,13 @@ export {
   EmbedContent,
   InstallTabs,
   ContributingLinks,
+  FrameworkCards,
   SiteTitle,
   Header,
   Head,
   PageTitle,
   SocialIcons,
+  Code,
 };
 
 // Re-export types if needed

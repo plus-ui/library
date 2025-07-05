@@ -1,0 +1,266 @@
+---
+title: Toast
+description: Displays short, temporary messages to provide feedback or notifications to users.
+isComponent: true
+since: 1.0.0
+updated: 2025-07-01
+version: 1.0.0
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { CodePreview, EmbedContent } from '../../../components';
+
+The Toast component displays brief, temporary messages that provide feedback or notifications to users. It supports different status types, customizable content, and automatic or manual dismissal.
+
+## Usage
+
+### Basic Example
+
+A simple toast with a message.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast>This is a basic toast message</plus-toast>
+</CodePreview>
+
+### Status Types
+
+Use the `status` prop to indicate the type of message with appropriate colors and icons.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast data-variant-status="default,info,success,warning,danger">Status message</plus-toast>
+</CodePreview>
+
+### Size
+
+Control the toast's dimensions using the `size` prop.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast data-variant-size="sm,md,lg">Toast message</plus-toast>
+</CodePreview>
+
+### Kind (Visual Style)
+
+The `kind` prop controls the visual appearance of the toast.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast data-variant-kind="default,outlined,dashed" status="info">Toast with different styles</plus-toast>
+</CodePreview>
+
+### With Header
+
+Use the `header` prop or slot to add a title to your toast.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast header="Success!" status="success">Your changes have been saved successfully.</plus-toast>
+</CodePreview>
+
+### Custom Icon
+
+Override the default status icon using the `icon` prop or the `icon` slot.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast status="info" icon="star">Message with custom icon</plus-toast>
+</CodePreview>
+
+### Dismissible
+
+Control whether the toast can be dismissed using the `dismiss` prop.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast data-variant-dismiss="true,false" status="warning">This toast can be dismissed</plus-toast>
+</CodePreview>
+
+### Without Status Icon
+
+Hide the default status icon by setting `status-icon` to false.
+
+<CodePreview autoGeneration={true}>
+  <plus-toast status="success" status-icon="false">Toast without status icon</plus-toast>
+</CodePreview>
+
+### Handling Dismissal
+
+Listen for the `plus-close` event to handle toast dismissal.
+
+<CodePreview 
+  autoGeneration={false} 
+  customScript={`
+    setTimeout(() => {
+      const toast = document.getElementById('dismissible-toast');
+      if (toast) {
+        toast.addEventListener('plus-close', () => {
+          console.log('Toast was dismissed!');
+          toast.style.display = 'none';
+        });
+      }
+    }, 100);
+  `}
+  showConsole
+>
+  <plus-toast id="dismissible-toast" status="info" dismiss>
+    <div slot="header">Notification</div>
+    Click the X button to dismiss this toast.
+  </plus-toast>
+
+  <Fragment slot="react">
+    ```tsx
+    import { PlusToast } from '@plusui/react';
+
+    export default () => {
+      const handleClose = () => {
+        console.log('Toast was dismissed!');
+        // Handle toast dismissal (e.g., remove from state)
+      };
+
+      return (
+        <PlusToast status="info" dismiss onPlusClose={handleClose}>
+          <div slot="header">Notification</div>
+          Click the X button to dismiss this toast.
+        </PlusToast>
+      );
+    };
+    ```
+  </Fragment>
+
+  <Fragment slot="angular">
+    ```ts
+    import { Component } from '@angular/core';
+
+    @Component({
+      selector: 'app-toast-example',
+      template: `
+        <plus-toast status="info" dismiss (plus-close)="handleClose()">
+          <div slot="header">Notification</div>
+          Click the X button to dismiss this toast.
+        </plus-toast>
+      `
+    })
+    export class ToastExampleComponent {
+      handleClose() {
+        console.log('Toast was dismissed!');
+        // Handle toast dismissal
+      }
+    }
+    ```
+  </Fragment>
+
+  <Fragment slot="vue">
+    ```vue
+    <template>
+      <plus-toast status="info" dismiss @plus-close="handleClose">
+        <div slot="header">Notification</div>
+        Click the X button to dismiss this toast.
+      </plus-toast>
+    </template>
+
+    <script setup>
+    const handleClose = () => {
+      console.log('Toast was dismissed!');
+      // Handle toast dismissal
+    };
+    </script>
+    ```
+  </Fragment>
+
+  <Fragment slot="svelte">
+    ```svelte
+    <script>
+      import { onMount } from 'svelte';
+      
+      let toastRef;
+
+      onMount(() => {
+        if (toastRef) {
+          toastRef.addEventListener('plus-close', () => {
+            console.log('Toast was dismissed!');
+            // Handle toast dismissal
+          });
+        }
+      });
+    </script>
+
+    <plus-toast bind:this={toastRef} status="info" dismiss>
+      <div slot="header">Notification</div>
+      Click the X button to dismiss this toast.
+    </plus-toast>
+    ```
+  </Fragment>
+
+  <Fragment slot="html">
+    ```html
+    <plus-toast id="dismissible-toast-html" status="info" dismiss>
+      <div slot="header">Notification</div>
+      Click the X button to dismiss this toast.
+    </plus-toast>
+
+    <script>
+      document.getElementById('dismissible-toast-html').addEventListener('plus-close', () => {
+        console.log('Toast was dismissed!');
+        // Handle toast dismissal
+      });
+    </script>
+    ```
+  </Fragment>
+</CodePreview>
+
+## Accessibility (a11y)
+
+*   **Screen Reader:**
+    *   Uses `role="status"` to announce content changes to screen readers.
+    *   `aria-live` is set to `"assertive"` for danger/warning toasts and `"polite"` for others.
+    *   `aria-atomic="true"` ensures the entire toast content is announced when it appears.
+    *   The close button has `aria-label="Close"` for screen reader users.
+*   **Required Developer Actions:**
+    *   Provide meaningful content in the message and header slots.
+    *   Consider the urgency of the message when choosing status types.
+    *   Ensure sufficient color contrast for custom styling.
+
+## API Reference
+
+### Properties
+
+| Name          | Type                                                              | Default     | Description                                                    | Required |
+|---------------|-------------------------------------------------------------------|-------------|----------------------------------------------------------------|----------|
+| `size`        | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Size of the toast.                                             | No       |
+| `kind`        | `'default' \| 'outlined' \| 'dashed'`                             | `'default'` | Visual style of the toast.                                     | No       |
+| `status`      | `'info' \| 'success' \| 'warning' \| 'danger' \| 'default'`      | `'default'` | Status variant controlling color and default icon.            | No       |
+| `dismiss`     | `boolean`                                                         | `true`      | Whether to show the dismiss button.                           | No       |
+| `statusIcon`  | `boolean`                                                         | `true`      | Whether to show the default status icon.                      | No       |
+| `header`      | `string`                                                          | `undefined` | Header text content (can also be provided via slot).          | No       |
+| `icon`        | `string`                                                          | `undefined` | Custom icon name to override the default status icon.         | No       |
+| `message`     | `string`                                                          | `undefined` | Message text content (can also be provided via slot).         | No       |
+
+### Events
+
+| Name         | Payload Type        | Description                        |
+|--------------|---------------------|------------------------------------|
+| `plus-close` | `CustomEvent<void>` | Fired when the toast is dismissed. |
+
+### Slots
+
+| Name              | Description                                        |
+|-------------------|----------------------------------------------------|
+| `default` (unnamed) | The main message content of the toast.            |
+| `header`          | Optional header content for the toast.            |
+| `icon`            | Custom icon content to replace the status icon.   |
+
+### CSS Shadow Parts
+
+| Part           | Description                           |
+|----------------|---------------------------------------|
+| `base`         | The main container element.           |
+| `container`    | The main container for content.       |
+| `icon`         | The status icon container.            |
+| `content`      | The container for header and message. |
+| `header`       | The header text element.              |
+| `message`      | The message text element.             |
+| `close-button` | The close button container.           |
+
+### CSS Custom Properties
+
+| Name                    | Description                        |
+|-------------------------|------------------------------------|
+| `--toast-border-radius` | Controls the border radius.        |
+| `--toast-padding`       | Controls the padding.              |
+| `--icon-size`           | Controls the status icon size.     |
+| `--close-button-size`   | Controls the close button size.    |

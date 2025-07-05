@@ -1,0 +1,80 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import vanillaLogo from "../../../assets/logos/vanilla.svg";
+import reactLogo from "../../../assets/logos/react.svg";
+import vueLogo from "../../../assets/logos/vue.svg";
+import angularLogo from "../../../assets/logos/angular.svg";
+import svelteLogo from "../../../assets/logos/svelte.svg";
+
+interface Card {
+  href: string;
+  logo: ImageMetadata;
+  alt: string;
+  title: string;
+  description: string;
+}
+
+const cards: Card[] = [
+  {
+    href: "/library/getting-started/installation/vanilla/",
+    logo: vanillaLogo,
+    alt: "Vanilla JS Logo",
+    title: "Vanilla JS (CDN)",
+    description: "The simplest way to start, with no build step required.",
+  },
+  {
+    href: "/library/getting-started/installation/react/",
+    logo: reactLogo,
+    alt: "React Logo",
+    title: "React",
+    description: "Use our custom wrappers for a seamless React experience.",
+  },
+  {
+    href: "/library/getting-started/installation/vue/",
+    logo: vueLogo,
+    alt: "Vue Logo",
+    title: "Vue",
+    description: "Integrates smoothly with Vue's custom element handling.",
+  },
+  {
+    href: "/library/getting-started/installation/angular/",
+    logo: angularLogo,
+    alt: "Angular Logo",
+    title: "Angular",
+    description: "Works great with Angular and the `CUSTOM_ELEMENTS_SCHEMA`.",
+  },
+  {
+    href: "/library/getting-started/installation/svelte/",
+    logo: svelteLogo,
+    alt: "Svelte Logo",
+    title: "Svelte",
+    description: "Leverage Svelte's excellent support for web components.",
+  },
+];
+---
+
+<div class="not-prose grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  {
+    cards.map((card) => (
+      <a
+        href={card.href}
+        class="group flex flex-col items-center justify-center gap-3 rounded border border-color-default bg-color-surface p-6 no-underline transition-all duration-200 ease-in-out hover:-translate-y-0.5 hover:shadow-md"
+      >
+        <Image
+          src={card.logo}
+          alt={card.alt}
+          width={40}
+          height={40}
+          class="h-10 w-10 text-color-primary"
+        />
+        <strong class="text-lg font-semibold text-color-default transition-colors duration-200 ease-in-out">
+          {card.title}
+        </strong>
+        <span class="text-center text-sm leading-normal text-color-caption">
+          {card.description}
+        </span>
+      </a>
+    ))
+  }
+</div>

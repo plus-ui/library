@@ -1,0 +1,73 @@
+---
+title: Color
+description: Plus UI's color system is built on a foundation of carefully selected color palettes and semantic tokens, ensuring brand consistency, accessibility, and easy theming.
+---
+
+Our color system is designed to be flexible and developer-friendly. It uses a multi-layered approach with CSS Custom Properties (variables) that allows for everything from broad brand color changes to fine-grained component-level tweaks.
+
+## Color Palette
+
+The foundation of our system is a set of color palettes defined in `packages/core/src/styles/theme/brand.css`. These palettes provide a range of shades for each core color, from 100 (lightest) to 900 (darkest).
+
+The primary palettes are:
+- `neutral` (Gray)
+- `primary` (Indigo)
+- `success` (Green)
+- `warning` (Yellow)
+- `danger` (Red)
+- `info` (Blue)
+
+These are defined as CSS variables that you can override to match your brand.
+
+```css
+:root {
+  /* Example: Changing the primary color from Indigo to Blue */
+  --plus-color-primary-100: var(--color-blue-100);
+  --plus-color-primary-200: var(--color-blue-200);
+  /* ...and so on for other shades */
+  --plus-color-primary-900: var(--color-blue-900);
+}
+```
+
+## Semantic Color Tokens
+
+Components do not use the color palette variables directly. Instead, they reference **semantic tokens**. These tokens describe the *purpose* of the color, not the color itself. This abstraction is key to enabling features like dark mode.
+
+Semantic tokens are defined for both light (`light.css`) and dark (`dark.css`) themes.
+
+### Key Token Categories
+
+#### 1. Background Colors
+These tokens are used for component backgrounds, surfaces, and interactive states.
+- `--plus-color-background-surface`: The main background for the page.
+- `--plus-color-background-default-default`: Default background for components like buttons.
+- `--plus-color-background-default-hovered`: Hover state.
+- `--plus-color-background-default-pressed`: Pressed state.
+- `--plus-color-background-primary-default`: Primary action background.
+- `--plus-color-background-disabled-default`: Disabled state background.
+
+#### 2. Text Colors
+Tokens for all text elements, ensuring readability and hierarchy.
+- `--plus-color-text-default`: Default text color.
+- `--plus-color-text-primary`: Text for primary elements.
+- `--plus-color-text-caption`: Lighter text for captions and secondary info.
+- `--plus-color-text-placeholder`: Placeholder text in inputs.
+- `--plus-color-text-disabled`: Text on disabled elements.
+- `--plus-color-text-link`: Color for hyperlinks.
+
+#### 3. Border Colors
+Tokens used for component borders and dividers.
+- `--plus-color-border-default`: Standard border color.
+- `--plus-color-border-primary`: Border for primary elements.
+- `--plus-color-border-ring`: Used for focus rings to ensure visibility.
+- `--plus-color-border-disabled`: Border on disabled elements.
+
+By overriding these semantic tokens, you can achieve highly specific theme customizations without altering the entire brand palette.
+
+```css
+/* Example: Customizing link color and focus ring */
+:root {
+  --plus-color-text-link: deeppink;
+  --plus-color-border-ring: orange;
+}
+``` 

@@ -1,0 +1,128 @@
+---
+title: Angular
+description: How to install and use Plus UI in your Angular applications.
+---
+import { Aside } from '@astrojs/starlight/components';
+import { Code } from '../../../../components';
+
+This guide will walk you through setting up Plus UI in an Angular project. As Plus UI components are standard Web Components, they can be easily integrated into Angular.
+
+## 1. Installation
+
+First, install the core Plus UI package, which contains all the components.
+
+<Code>
+```bash
+npm install @plusui/core
+```
+</Code>
+
+## 2. Module & Component Setup
+
+To use custom elements in Angular, you need to add `CUSTOM_ELEMENTS_SCHEMA` to your application module (e.g., `app.module.ts`). You should also import the Plus UI component registration script here.
+
+<Code>
+```typescript
+// src/app/app.module.ts
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+
+// Register all Plus UI components
+import '@plusui/core/cdn/components/index.js';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] // Add this to support custom elements
+})
+export class AppModule { }
+```
+</Code>
+
+## 3. Component Usage
+
+You can now use Plus UI components directly in your Angular component templates.
+
+### Using Props
+
+Component properties are bound using Angular's attribute binding syntax `[property]`. For string values, remember to enclose them in single quotes.
+
+<Code>
+```html
+<plus-button [variant]="'filled'" [size]="'large'">
+  Large Filled Button
+</plus-button>
+```
+</Code>
+
+### Handling Events
+
+Custom events are handled using Angular's event binding syntax `(event)`.
+
+<Code>
+```typescript
+// In your component.ts
+handleClick() {
+  alert('Button clicked!');
+}
+```
+</Code>
+
+<Code>
+```html
+<!-- In your component.html -->
+<plus-button (plus-click)="handleClick()">
+  Click Me
+</plus-button>
+```
+</Code>
+
+## Complete Example
+
+Here is a complete example of a simple `AppComponent`.
+
+**`src/app/app.component.html`**
+<Code>
+```html
+<h1>Welcome to Plus UI with Angular!</h1>
+
+<!-- Example with props -->
+<plus-button [variant]="'primary'" [size]="'small'" (plus-click)="handlePrimaryClick()">
+  Primary Button
+</plus-button>
+
+<!-- Another example -->
+<plus-button [variant]="'secondary'" (plus-click)="handleSecondaryClick()">
+  Secondary Button
+</plus-button>
+```
+</Code>
+
+**`src/app/app.component.ts`**
+<Code>
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html'
+})
+export class AppComponent {
+  handlePrimaryClick() {
+    alert('Primary Plus UI button was clicked!');
+  }
+
+  handleSecondaryClick() {
+    alert('Secondary Plus UI button was clicked!');
+  }
+}
+```
+</Code>
+

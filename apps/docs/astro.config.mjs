@@ -30,56 +30,43 @@ export default defineConfig({
           label: "Getting Started",
           items: [
             {
-              label: "Overview",
-              slug: "getting-started/overview",
+              label: "Introduction",
+              link: "/getting-started/introduction/",
             },
             {
-              label: "Component List & Plans",
-              slug: "getting-started/component-list-and-plans",
+              label: "Component Overview",
+              link: "/getting-started/component-overview/",
             },
             {
-              label: "Support",
-              slug: "getting-started/support",
-              // badge: { text: "New", variant: "success" },
-            },
-            { label: "Contributing", slug: "getting-started/contributing" },
-            { label: "FAQs", slug: "getting-started/faq" },
-          ],
-        },
-        {
-          label: "UI Library",
-          collapsed: false,
-          items: [
-            {
-              label: "Overview",
-              slug: "ui-library/overview",
-            },
-            {
-              label: "Changelog",
-              slug: "ui-library/changelog",
+              label: "Pricing Plans",
+              link: "/getting-started/pricing-plans/",
             },
             {
               label: "Installation",
               items: [
                 {
                   label: "Overview",
-                  slug: "ui-library/installation/overview",
+                  link: "/getting-started/installation/overview/",
+                },
+                {
+                  label: "Vanilla JS (CDN)",
+                  link: "/getting-started/installation/vanilla/",
                 },
                 {
                   label: "React",
-                  slug: "ui-library/installation/react",
+                  link: "/getting-started/installation/react/",
                 },
                 {
                   label: "Vue",
-                  slug: "ui-library/installation/vue",
+                  link: "/getting-started/installation/vue/",
                 },
                 {
                   label: "Angular",
-                  slug: "ui-library/installation/angular",
+                  link: "/getting-started/installation/angular/",
                 },
                 {
                   label: "Svelte",
-                  slug: "ui-library/installation/svelte",
+                  link: "/getting-started/installation/svelte/",
                 },
               ],
             },
@@ -87,77 +74,27 @@ export default defineConfig({
         },
         {
           label: "Design System",
-          collapsed: false,
-          items: [
-            {
-              label: "Overview",
-              slug: "design-system/overview",
-            },
-            {
-              label: "Setting Up on Figma",
-              slug: "design-system/setting-up-on-figma",
-            },
-            {
-              label: "Styles and Variables",
-              slug: "design-system/styles-and-variables",
-            },
-          ],
-        },
-        {
-          label: "Components",
-          collapsed: false,
-          autogenerate: { directory: "components" },
+          autogenerate: { directory: "design-system" },
         },
         {
           label: "Foundation",
-          collapsed: false,
-          // autogenerate: { directory: 'foundation' },
-
-          items: [
-            {
-              label: "Overview",
-              slug: "foundation/overview",
-            },
-            {
-              label: "Color",
-              // slug: 'foundation/color',
-              items: [
-                {
-                  label: "Color Palette",
-                  slug: "foundation/color/color-palette",
-                },
-                {
-                  label: "Color Variables",
-                  slug: "foundation/color/color-variables",
-                },
-
-                {
-                  label: "Color Token List",
-                  slug: "foundation/color/color-token-list",
-                },
-              ],
-            },
-            {
-              label: "Typography",
-              slug: "foundation/typography",
-            },
-            {
-              label: "Icons",
-              slug: "foundation/icons",
-            },
-            {
-              label: "Border",
-              slug: "foundation/border",
-            },
-            {
-              label: "Spacing",
-              slug: "foundation/spacing",
-            },
-            {
-              label: "Opacity",
-              slug: "foundation/opacity",
-            },
-          ],
+          autogenerate: { directory: "foundation" },
+        },
+        {
+          label: "Components",
+          autogenerate: { directory: "components" },
+        },
+        {
+          label: "Theming",
+          autogenerate: { directory: "theming" },
+        },
+        {
+          label: "Accessibility",
+          autogenerate: { directory: "accessibility" },
+        },
+        {
+          label: "Contributing",
+          autogenerate: { directory: "contributing" },
         },
       ],
       lastUpdated: true,

@@ -1,0 +1,110 @@
+---
+title: Vanilla JS (CDN)
+description: How to use Plus UI directly in any HTML page with a CDN.
+---
+import { Aside } from '@astrojs/starlight/components';
+import { Code } from '../../../../components';
+
+You can use Plus UI in any project without a build step or framework, simply by including our files from a CDN.
+
+## 1. Add JavaScript
+
+Add the component script using a `<script type="module">` tag, typically at the end of your `<body>`. We recommend using [jsDelivr](https://www.jsdelivr.com/) as a CDN.
+
+<Code>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plus UI with Vanilla JS</title>
+</head>
+<body>
+  
+  <!-- Your components go here -->
+  <plus-button>Click Me</plus-button>
+
+  <!-- Include the Plus UI component script -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@plusui/core/cdn/components/index.js"></script>
+
+</body>
+</html>
+```
+</Code>
+
+## 2. Component Usage
+
+You can now use any Plus UI component by adding its HTML tag to your page.
+
+### Using Attributes (Props)
+
+Component properties are set using standard HTML attributes.
+
+<Code>
+```html
+<plus-button variant="filled" size="large">
+  Large Filled Button
+</plus-button>
+```
+</Code>
+
+### Handling Events
+
+You can listen for events using standard JavaScript `addEventListener`.
+
+<Code>
+```html
+<plus-button id="my-button">Click Me</plus-button>
+
+<script>
+  const button = document.getElementById('my-button');
+  button.addEventListener('plus-click', () => {
+    alert('Button was clicked!');
+  });
+</script>
+```
+</Code>
+
+## Complete Example
+
+Here is a complete `index.html` file that you can use as a starting point.
+
+<Code>
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plus UI - Vanilla JS Example</title>
+  <style>
+    body { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Plus UI!</h1>
+
+  <plus-button variant="secondary" id="secondary-button">
+    Secondary Button
+  </plus-button>
+
+  <plus-button variant="filled" id="filled-button">
+    Filled Button
+  </plus-button>
+
+  <script type="module">
+    import 'https://cdn.jsdelivr.net/npm/@plusui/core/cdn/components/index.js';
+
+    document.getElementById('secondary-button').addEventListener('plus-click', () => {
+      alert('Secondary button clicked!');
+    });
+
+    document.getElementById('filled-button').addEventListener('plus-click', () => {
+      alert('Filled button clicked!');
+    });
+  </script>
+</body>
+</html>
+```
+</Code>
