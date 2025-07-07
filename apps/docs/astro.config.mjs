@@ -30,46 +30,47 @@ export default defineConfig({
           items: [
             {
               label: "Introduction",
-              link: "/getting-started/introduction/",
+              link: "/",
             },
             {
               label: "Changelog",
-              link: "/getting-started/changelog/",
+              link: "/changelog/",
             },
             {
               label: "Component Overview",
-              link: "/getting-started/component-overview/",
+              link: "/component-overview/",
             },
             {
               label: "Pricing Plans",
-              link: "/getting-started/pricing-plans/",
+              link: "/pricing-plans/",
             },
             {
               label: "Installation",
+              collapsed: true,
               items: [
                 {
                   label: "Overview",
-                  link: "/getting-started/installation/overview/",
+                  link: "/installation/overview/",
                 },
                 {
                   label: "Vanilla JS (CDN)",
-                  link: "/getting-started/installation/vanilla/",
+                  link: "/installation/vanilla/",
                 },
                 {
                   label: "React",
-                  link: "/getting-started/installation/react/",
+                  link: "/installation/react/",
                 },
                 {
                   label: "Vue",
-                  link: "/getting-started/installation/vue/",
+                  link: "/installation/vue/",
                 },
                 {
                   label: "Angular",
-                  link: "/getting-started/installation/angular/",
+                  link: "/installation/angular/",
                 },
                 {
                   label: "Svelte",
-                  link: "/getting-started/installation/svelte/",
+                  link: "/installation/svelte/",
                 },
               ],
             },
@@ -77,10 +78,12 @@ export default defineConfig({
         },
         {
           label: "Design System",
+          collapsed: true,
           autogenerate: { directory: "design-system" },
         },
         {
           label: "Foundation",
+          collapsed: true,
           autogenerate: { directory: "foundation" },
         },
         {
@@ -89,14 +92,17 @@ export default defineConfig({
         },
         {
           label: "Theming",
+          collapsed: true,
           autogenerate: { directory: "theming" },
         },
         {
           label: "Accessibility",
+          collapsed: true,
           autogenerate: { directory: "accessibility" },
         },
         {
           label: "Contributing",
+          collapsed: true,
           autogenerate: { directory: "contributing" },
         },
       ],

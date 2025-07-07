@@ -95,12 +95,12 @@ interface BreadcrumbItem {
 
 ### Example Transformations
 
-| URL Path                        | Generated Breadcrumbs                 |
-| ------------------------------- | ------------------------------------- |
-| `/`                             | Docs                                  |
-| `/components`                   | Docs › Components                     |
-| `/components/button`            | Docs › Components › Button            |
-| `/getting-started/installation` | Docs › Getting Started › Installation |
+| URL Path             | Generated Breadcrumbs                 |
+| -------------------- | ------------------------------------- |
+| `/`                  | Docs                                  |
+| `/components`        | Docs › Components                     |
+| `/components/button` | Docs › Components › Button            |
+| `/installation`      | Docs › Getting Started › Installation |
 
 ## Accessibility Features
 
@@ -162,6 +162,10 @@ interface BreadcrumbItem {
 /* Active/current page text */
 /* Active/current page text */
 /* Active/current page text */
+/* Active/current page text */
+/* Active/current page text */
+/* Active/current page text */
+/* Active/current page text */
 .text-color-placeholder  /* Inactive breadcrumb links */
 .text-color-primary; /* Link hover state */
 ```
@@ -178,12 +182,12 @@ interface BreadcrumbItem {
 ### Path Segment Handling
 
 ```typescript
-// Input: "/components/getting-started/quick-setup"
+// Input: "/components/quick-setup"
 // Processing:
 // 1. Split: ["", "components", "getting-started", "quick-setup"]
 // 2. Filter: ["components", "getting-started", "quick-setup"]
 // 3. Format: ["Components", "Getting Started", "Quick Setup"]
-// 4. Build paths: ["/components", "/components/getting-started", "/components/getting-started/quick-setup"]
+// 4. Build paths: ["/components", "/components/getting-started", "/components/quick-setup"]
 ```
 
 ### Edge Cases
@@ -391,7 +395,7 @@ const testCases = [
   { path: "/", expected: ["Docs"] },
   { path: "/components", expected: ["Docs", "Components"] },
   {
-    path: "/getting-started/installation",
+    path: "/installation",
     expected: ["Docs", "Getting Started", "Installation"],
   },
 ];

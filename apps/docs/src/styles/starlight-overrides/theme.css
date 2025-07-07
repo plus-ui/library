@@ -36,6 +36,11 @@
   body {
     background-color: var(--background-color-color-surface);
   }
+
+  html:not([data-has-toc]) .sl-container {
+    max-width: 100%;
+  }
+
   /* 1400px üzerindeki ekranlarda özel layout */
   @media (min-width: 1400px) {
     /* Ana sayfa container'ını ortala */
