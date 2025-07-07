@@ -35,7 +35,7 @@
     "@eslint/markdown": "^6.2.1",
     "@floating-ui/dom": "^1.6.13",
     "@rollup/plugin-multi-entry": "^6.0.1",
-    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
     "@tailwindcss/postcss": "^4.0.0-beta.8",
