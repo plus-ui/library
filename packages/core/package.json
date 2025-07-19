@@ -71,7 +71,7 @@
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-summary": "^3.0.0",
-    "tailwind-variants": "^0.3.0",
+    "tailwind-variants": "^1.0.0",
     "tailwindcss": "^4.0.0-beta.8",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.18.2"
