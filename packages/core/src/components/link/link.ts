@@ -65,7 +65,7 @@ export default class PlusLink extends Tailwind {
    * @default ''
    */
   @property({ type: String })
-  href = '';
+  href?: string;
 
   /**
    * Specifies where to display the linked URL
@@ -73,7 +73,7 @@ export default class PlusLink extends Tailwind {
    * @default ''
    */
   @property({ type: String })
-  target = '';
+  target?: string;
 
   /**
    * Specifies the relationship between the current document and the linked document
@@ -81,7 +81,7 @@ export default class PlusLink extends Tailwind {
    * @default ''
    */
   @property({ type: String })
-  rel = '';
+  rel?: string;
 
   /**
    * Sets the link to download the target URL instead of navigating
@@ -89,7 +89,7 @@ export default class PlusLink extends Tailwind {
    * @default ''
    */
   @property({ type: String })
-  download = '';
+  download?: string;
 
   /**
    * When true, displays loading state and disables interaction
@@ -156,12 +156,12 @@ export default class PlusLink extends Tailwind {
           readonly: this.readonly,
           notAllowed: this.disabled || this.readonly,
         })}
-        ?href="${this.href}"
-        ?target="${target}"
-        ?rel="${rel}"
-        ?download="${this.download}"
-        ?aria-disabled="${this.disabled}"
-        ?aria-readonly="${this.readonly}"
+        href=${this.href ?? ''}
+        ?target=${target}
+        ?rel=${rel}
+        ?download=${this.download}
+        aria-disabled=${this.disabled}
+        aria-readonly=${this.readonly}
         tabindex="${this.disabled ? '-1' : '0'}"
         part="base"
         @click="${this.handleClick}"
