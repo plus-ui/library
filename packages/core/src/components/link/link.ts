@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { css, html } from 'lit';
 import Tailwind from '../base/tailwind-base';
 import { property } from 'lit/decorators.js';
 import { linkStyle } from './link.style';
@@ -18,6 +18,15 @@ import { booleanConverter } from '../../utils/boolean-converter';
  * @csspart base - The component's base wrapper
  */
 export default class PlusLink extends Tailwind {
+  static override styles = [
+    ...Tailwind.styles,
+    css`
+      :host {
+        display: inline-block;
+      }
+    `,
+  ];
+
   /**
    * Controls the size of the link
    * - sm: Small size with smaller text and spacing
@@ -147,12 +156,12 @@ export default class PlusLink extends Tailwind {
           readonly: this.readonly,
           notAllowed: this.disabled || this.readonly,
         })}
-        href="${this.href}"
-        target="${target}"
-        rel="${rel}"
-        download="${this.download}"
-        aria-disabled="${this.disabled}"
-        aria-readonly="${this.readonly}"
+        ?href="${this.href}"
+        ?target="${target}"
+        ?rel="${rel}"
+        ?download="${this.download}"
+        ?aria-disabled="${this.disabled}"
+        ?aria-readonly="${this.readonly}"
         tabindex="${this.disabled ? '-1' : '0'}"
         part="base"
         @click="${this.handleClick}"
