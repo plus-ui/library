@@ -1,6 +1,6 @@
 {
   "name": "@plusui/library",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Plus UI Core is a great library that offers many features that you can use in any framework without any problems.",
   "main": "index.js",
   "type": "module",
@@ -26,20 +26,22 @@
   "license": "MIT",
   "dependencies": {
     "lit": "^3.2.1",
-    "tslib": "^2.8.1"
+    "tslib": "^2.8.1",
+    "@fontsource-variable/inter": "^5.2.6",
+    "tailwindcss": "^4.0.0-beta.8",
+    "@floating-ui/dom": "^1.6.13",
+    "tailwind-variants": "^0.3.0",
+    "@tailwindcss/postcss": "^4.0.0-beta.8"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.3",
     "@eslint/js": "^9.17.0",
     "@eslint/json": "^0.9.0",
     "@eslint/markdown": "^6.2.1",
-    "@floating-ui/dom": "^1.6.13",
-    "@fontsource-variable/inter": "^5.2.6",
     "@rollup/plugin-multi-entry": "^6.0.1",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^12.1.1",
-    "@tailwindcss/postcss": "^4.0.0-beta.8",
     "@types/mocha": "^10.0.2",
     "@web/dev-server-esbuild": "^1.0.2",
     "cem-plugin-custom-jsdoc-tags": "^1.1.2",
@@ -72,8 +74,6 @@
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-summary": "^3.0.0",
-    "tailwind-variants": "^0.3.0",
-    "tailwindcss": "^4.0.0-beta.8",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.18.2"
   },
