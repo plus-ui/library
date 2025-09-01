@@ -38,6 +38,11 @@ import { styleMap } from 'lit/directives/style-map.js';
  * <plus-button href="https://github.com" external kind="outlined">
  *   GitHub
  * </plus-button>
+ *
+ * <!-- Submit button in a form -->
+ * <plus-button type="submit" kind="filled" status="primary">
+ *   Submit Form
+ * </plus-button>
  * ```
  */
 const textColorMap = {
@@ -174,6 +179,14 @@ export default class PlusButton extends Tailwind {
   @property({ type: Boolean, converter: booleanConverter, reflect: true })
   external = false;
 
+  /**
+   * Specifies the button type for form interactions
+   * Only applies when rendering as a button (no href)
+   * @default 'button'
+   */
+  @property({ type: String })
+  type: 'button' | 'submit' | 'reset' = 'button';
+
   private handleClick(e: Event) {
     if (this.disabled || this.loading) {
       e.preventDefault();
@@ -308,6 +321,7 @@ export default class PlusButton extends Tailwind {
       <button
         class=${base()}
         part="button"
+        type=${this.type}
         ?disabled=${isDisabled}
         aria-label="Button"
         role="button"

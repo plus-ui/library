@@ -176,6 +176,22 @@ Use the `download` prop to create download links.
   </plus-button>
 </CodePreview>
 
+### Form Integration
+
+Use the `type` prop to specify button behavior in forms.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button type="submit" kind="filled" status="primary">
+    Submit
+  </plus-button>
+  <plus-button type="reset" kind="outlined" status="warning">
+    Reset
+  </plus-button>
+  <plus-button type="button" kind="text">
+    Cancel
+  </plus-button>
+</CodePreview>
+
 ### Handling Clicks
 
 Listen for the `plus-click` event to trigger actions when the button is clicked.
@@ -328,6 +344,7 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
 | `rel`       | `string`                                                                 | `undefined` | Relationship between current and linked document.        | No       |
 | `download`  | `string`                                                                 | `undefined` | Sets link to download instead of navigate.               | No       |
 | `external`  | `boolean`                                                                | `false`     | Automatically sets secure attributes for external links. | No       |
+| `type`      | `'button' \| 'submit' \| 'reset'`                                        | `'button'`  | Button type for form interactions (button only).         | No       |
 
 ### Events
 
