@@ -1,4 +1,4 @@
-import { html, css } from 'lit';
+import { html, css, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { booleanConverter } from '../../utils/boolean-converter';
 import Tailwind from '../base/tailwind-base';
@@ -7,7 +7,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * @tag plus-button
- * @summary Button component that provides a clickable element with various styles and states.
+ * @summary Polymorphic button component that can render as either a button or anchor link.
  *
  * @slot - The default slot for button content
  * @slot prefix - Content to be placed before the button content
@@ -24,8 +24,24 @@ import { styleMap } from 'lit/directives/style-map.js';
  *
  * @example
  * ```html
+ * <!-- As a button -->
  * <plus-button kind="filled" status="primary" size="md">
  *   Click me
+ * </plus-button>
+ *
+ * <!-- As a link -->
+ * <plus-button href="/dashboard" kind="filled" status="primary">
+ *   Go to Dashboard
+ * </plus-button>
+ *
+ * <!-- External link -->
+ * <plus-button href="https://github.com" external kind="outlined">
+ *   GitHub
+ * </plus-button>
+ *
+ * <!-- Submit button in a form -->
+ * <plus-button type="submit" kind="filled" status="primary">
+ *   Submit Form
  * </plus-button>
  * ```
  */
@@ -124,7 +140,58 @@ export default class PlusButton extends Tailwind {
   })
   fullWidth = false;
 
-  private handleClick() {
+  /**
+   * When provided, renders as an anchor link instead of a button
+   * @default undefined
+   */
+  @property({ type: String })
+  href?: string;
+
+  /**
+   * Specifies where to display the linked URL
+   * Common values: _blank, _self, _parent, _top
+   * @default undefined
+   */
+  @property({ type: String })
+  target?: string;
+
+  /**
+   * Specifies the relationship between the current document and the linked document
+   * Common values: nofollow, noopener, noreferrer
+   * @default undefined
+   */
+  @property({ type: String })
+  rel?: string;
+
+  /**
+   * Sets the link to download the target URL instead of navigating
+   * Optional value specifies the suggested filename
+   * @default undefined
+   */
+  @property({ type: String })
+  download?: string;
+
+  /**
+   * When true, link opens in new tab with secure attributes
+   * Automatically sets target="_blank" and rel="noopener noreferrer"
+   * @default false
+   */
+  @property({ type: Boolean, converter: booleanConverter, reflect: true })
+  external = false;
+
+  /**
+   * Specifies the button type for form interactions
+   * Only applies when rendering as a button (no href)
+   * @default 'button'
+   */
+  @property({ type: String })
+  type: 'button' | 'submit' | 'reset' = 'button';
+
+  private handleClick(e: Event) {
+    if (this.disabled || this.loading) {
+      e.preventDefault();
+      return;
+    }
     this.emit('plus-click');
   }
 
@@ -159,7 +226,7 @@ export default class PlusButton extends Tailwind {
       '--i-border-color': 'transparent',
     };
 
-    const styles = {
+    const stylesMap = {
       filled: filledStyles,
       outlined: commonStyles,
       dashed: commonStyles,
@@ -204,29 +271,63 @@ export default class PlusButton extends Tailwind {
       </svg>
     </div>`;
 
+    // Link props for anchor element
+    const target = this.external ? '_blank' : this.target;
+    const rel = this.external ? 'noopener noreferrer' : this.rel;
+
+    const isLink = this.href !== undefined;
+    const isDisabled = this.disabled || this.loading;
+
+    const finalStyles = { ...dynamicStyles, ...stylesMap[this.kind] };
+
+    const content = html`
+      <slot name="prefix"></slot>
+      <slot></slot>
+      <slot name="suffix"></slot>
+      ${this.loading ? LoadingTemplate : ''}
+    `;
+
+    if (isLink) {
+      return html`
+        <a
+          class=${base()}
+          part="button"
+          href=${this.href}
+          target=${target || nothing}
+          rel=${rel || nothing}
+          download=${this.download || nothing}
+          aria-disabled=${isDisabled ? 'true' : nothing}
+          tabindex=${isDisabled ? '-1' : nothing}
+          style=${styleMap(finalStyles)}
+          @click=${this.handleClick}
+          @focus=${this.handleFocus}
+          @blur=${this.handleBlur}
+        >
+          ${content}
+        </a>
+      `;
+    }
+
     return html`
       <button
         class=${base()}
         part="button"
-        ?disabled=${this.disabled || this.loading}
-        style=${styleMap({ ...dynamicStyles, ...styles[this.kind] })}
+        type=${this.type}
+        ?disabled=${isDisabled}
+        style=${styleMap(finalStyles)}
         @click=${this.handleClick}
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}
-        aria-label="Button"
-        role="button"
-        tabindex="0"
         @keydown=${(e: KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
-            this.handleClick();
+            if (!isDisabled) {
+              this.handleClick(e);
+            }
             e.preventDefault();
           }
         }}
       >
-        <slot name="prefix"></slot>
-        <slot></slot>
-        <slot name="suffix"></slot>
-        ${this.loading ? LoadingTemplate : ''}
+        ${content}
       </button>
     `;
   }
