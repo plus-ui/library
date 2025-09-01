@@ -296,6 +296,7 @@ export default class PlusButton extends Tailwind {
           target=${target || nothing}
           rel=${rel || nothing}
           download=${this.download || nothing}
+          aria-disabled=${isDisabled ? 'true' : nothing}
           tabindex=${isDisabled ? '-1' : nothing}
           style=${styleMap(finalStyles)}
           @click=${this.handleClick}
@@ -317,6 +318,14 @@ export default class PlusButton extends Tailwind {
         @click=${this.handleClick}
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}
+        @keydown=${(e: KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            if (!isDisabled) {
+              this.handleClick(e);
+            }
+            e.preventDefault();
+          }
+        }}
       >
         ${content}
       </button>
