@@ -6,14 +6,19 @@ since: 1.0.0
 updated: 2025-07-01
 version: 1.0.0
 ---
-import { Image } from 'astro:assets';
-import { CodePreview, CodePreviewBasic, EmbedContent } from '../../../components';
 
-import anatomy from '../../../assets/components/button/anatomy.png';
-import layoutSpacing from '../../../assets/components/button/layout-spacing.png';
-import lightDarkMode from '../../../assets/components/button/light-dark-mode.png';
+import { Image } from "astro:assets";
+import {
+  CodePreview,
+  CodePreviewBasic,
+  EmbedContent,
+} from "../../../components";
 
-The Button component enables users to perform actions and make choices with a single tap. It's a fundamental interactive element used throughout applications.
+import anatomy from "../../../assets/components/button/anatomy.png";
+import layoutSpacing from "../../../assets/components/button/layout-spacing.png";
+import lightDarkMode from "../../../assets/components/button/light-dark-mode.png";
+
+The Button component enables users to perform actions and make choices with a single tap. It's a fundamental interactive element that can render as either a `<button>` for actions or an `<a>` for navigation when an `href` is provided.
 
 ## Anatomy
 
@@ -25,17 +30,19 @@ The Button component enables users to perform actions and make choices with a si
 
 A standard button using default settings.
 
-<CodePreview 
+<CodePreview
   autoGeneration={true}
-  horizontal 
+  horizontal
   showPlayground
   controls="kind,size,status"
   controlValues={{
     size: ["sm", "md", "lg"],
-    status: ["default", "primary", "success"]
+    status: ["default", "primary", "success"],
   }}
 >
-  <plus-button kind="filled" size="md" status="default">Button</plus-button>
+  <plus-button kind="filled" size="md" status="default">
+    Button
+  </plus-button>
 </CodePreview>
 
 ### Kind
@@ -43,7 +50,9 @@ A standard button using default settings.
 The `kind` prop defines the button's visual style.
 
 <CodePreview autoGeneration={true} horizontal>
-  <plus-button data-variant-kind="filled,outlined,dashed,text">Button</plus-button>
+  <plus-button data-variant-kind="filled,outlined,dashed,text">
+    Button
+  </plus-button>
 </CodePreview>
 
 ### Status
@@ -51,7 +60,9 @@ The `kind` prop defines the button's visual style.
 The `status` prop sets the button's color scheme to convey semantic meaning.
 
 <CodePreview autoGeneration={true} horizontal>
-  <plus-button data-variant-status="default,primary,success,warning,danger,info">Button</plus-button>
+  <plus-button data-variant-status="default,primary,success,warning,danger,info">
+    Button
+  </plus-button>
 </CodePreview>
 
 ### Size
@@ -68,8 +79,12 @@ Set the `disabled` attribute or prop to prevent user interaction.
 
 <CodePreview autoGeneration={true} horizontal>
   <plus-button disabled>Disabled Filled</plus-button>
-  <plus-button kind="outlined" disabled>Disabled Outlined</plus-button>
-  <plus-button kind="text" disabled>Disabled Text</plus-button>
+  <plus-button kind="outlined" disabled>
+    Disabled Outlined
+  </plus-button>
+  <plus-button kind="text" disabled>
+    Disabled Text
+  </plus-button>
 </CodePreview>
 
 ### Loading State
@@ -78,8 +93,12 @@ Set the `loading` attribute or prop to indicate an ongoing background process. T
 
 <CodePreview autoGeneration={true} horizontal>
   <plus-button loading>Loading Filled</plus-button>
-  <plus-button kind="outlined" loading>Loading Outlined</plus-button>
-  <plus-button kind="text" loading>Loading Text</plus-button>
+  <plus-button kind="outlined" loading>
+    Loading Outlined
+  </plus-button>
+  <plus-button kind="text" loading>
+    Loading Text
+  </plus-button>
 </CodePreview>
 
 ### Full Width
@@ -110,6 +129,50 @@ Use the `prefix` and `suffix` slots to add icons or other elements alongside the
   </plus-button>
   <plus-button aria-label="Search">
     <i class="fa-solid fa-search"></i>
+  </plus-button>
+</CodePreview>
+
+### As Links
+
+When an `href` is provided, the button renders as an anchor element while maintaining button styling.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button href="/dashboard" kind="filled" status="primary">
+    Dashboard
+  </plus-button>
+  <plus-button href="/profile" kind="outlined">
+    Profile
+  </plus-button>
+  <plus-button href="https://github.com" external kind="text">
+    GitHub
+  </plus-button>
+</CodePreview>
+
+### External Links
+
+Use the `external` prop for external links that should open in a new tab with secure attributes.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button href="https://github.com" external kind="filled">
+    GitHub
+  </plus-button>
+  <plus-button href="https://google.com" external kind="outlined">
+    Google
+  </plus-button>
+</CodePreview>
+
+### Download Links
+
+Use the `download` prop to create download links.
+
+<CodePreview autoGeneration={true} horizontal>
+  <plus-button href="/files/document.pdf" download kind="filled">
+    <i class="fa-solid fa-download" slot="prefix"></i>
+    Download PDF
+  </plus-button>
+  <plus-button href="/files/image.jpg" download="my-image.jpg" kind="outlined">
+    <i class="fa-solid fa-image" slot="prefix"></i>
+    Download Image
   </plus-button>
 </CodePreview>
 
@@ -147,6 +210,7 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
       );
     };
     ```
+
   </Fragment>
 
   <Fragment slot="angular">
@@ -165,6 +229,7 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
       }
     }
     ```
+
   </Fragment>
 
   <Fragment slot="vue">
@@ -183,6 +248,7 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
     };
     </script>
     ```
+
   </Fragment>
 
   <Fragment slot="svelte">
@@ -195,6 +261,7 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
 
     <plus-button on:plus-click={handleClick}>Click Me</plus-button>
     ```
+
   </Fragment>
 
   <Fragment slot="html">
@@ -208,9 +275,9 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
       });
     </script>
     ```
+
   </Fragment>
 </CodePreview>
-
 
 ## Visual Sections
 
@@ -224,17 +291,21 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
 
 ## Accessibility (a11y)
 
-*   **Keyboard Behavior:**
-    *   Buttons are focusable via the `Tab` key.
-    *   Buttons can be activated using `Enter` or `Space` keys when focused.
-*   **Screen Reader:**
-    *   The component uses the native `<button>` element, which has an implicit `role="button"`.
-    *   The text content provided within the button (default slot) serves as the accessible name.
-    *   If the button contains only an icon, provide a descriptive `aria-label` attribute on the `plus-button` element itself.
-*   **Required Developer Actions:**
-    *   Ensure button text clearly indicates the action that will occur upon activation.
-    *   For icon-only buttons, **always** provide an `aria-label` attribute to describe the button's purpose (e.g., `<plus-button aria-label="Settings"><i class="fas fa-cog"></i></plus-button>`).
-    *   Ensure sufficient color contrast between the button's text/icon and its background, especially when customizing colors with CSS properties.
+- **Keyboard Behavior:**
+  - Buttons and links are focusable via the `Tab` key.
+  - Can be activated using `Enter` or `Space` keys when focused.
+  - Links support `Enter` key activation, buttons support both `Enter` and `Space`.
+- **Screen Reader:**
+  - When no `href` is provided, uses the native `<button>` element with implicit `role="button"`.
+  - When `href` is provided, uses the native `<a>` element with appropriate link semantics.
+  - The text content provided within the component serves as the accessible name.
+  - For icon-only buttons/links, provide a descriptive `aria-label` attribute.
+- **Required Developer Actions:**
+  - Use `href` for navigation, omit it for actions.
+  - Ensure button/link text clearly indicates the action or destination.
+  - For icon-only components, **always** provide an `aria-label` attribute (e.g., `<plus-button href="/settings" aria-label="Settings"><i class="fas fa-cog"></i></plus-button>`).
+  - Ensure sufficient color contrast between the text/icon and background.
+  - Use `external` prop for external links to automatically add secure attributes.
 
 ## Design System
 
@@ -244,45 +315,50 @@ Listen for the `plus-click` event to trigger actions when the button is clicked.
 
 ### Properties
 
-| Name      | Type                                                              | Default     | Description                                     | Required |
-|-----------|-------------------------------------------------------------------|-------------|-------------------------------------------------|----------|
-| `kind`    | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                      | `'filled'`  | Visual style of the button.                     | No       |
-| `status`  | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Status/color variant of the button.             | No       |
-| `size`    | `'sm' \| 'md' \| 'lg'`                                            | `'md'`      | Size of the button.                             | No       |
-| `disabled`| `boolean`                                                         | `false`     | Disables button interaction.                    | No       |
-| `loading` | `boolean`                                                         | `false`     | Shows loading spinner and disables interaction. | No       |
-| `fullWidth` | `boolean`                                                       | `false`     | Makes the button span the full width.           | No       |
+| Name        | Type                                                                     | Default     | Description                                              | Required |
+| ----------- | ------------------------------------------------------------------------ | ----------- | -------------------------------------------------------- | -------- |
+| `kind`      | `'filled' \| 'outlined' \| 'dashed' \| 'text'`                           | `'filled'`  | Visual style of the button.                              | No       |
+| `status`    | `'default' \| 'primary' \| 'success' \| 'warning' \| 'danger' \| 'info'` | `'default'` | Status/color variant of the button.                      | No       |
+| `size`      | `'sm' \| 'md' \| 'lg'`                                                   | `'md'`      | Size of the button.                                      | No       |
+| `disabled`  | `boolean`                                                                | `false`     | Disables button interaction.                             | No       |
+| `loading`   | `boolean`                                                                | `false`     | Shows loading spinner and disables interaction.          | No       |
+| `fullWidth` | `boolean`                                                                | `false`     | Makes the button span the full width.                    | No       |
+| `href`      | `string`                                                                 | `undefined` | When provided, renders as anchor link instead of button. | No       |
+| `target`    | `string`                                                                 | `undefined` | Specifies where to display the linked URL.               | No       |
+| `rel`       | `string`                                                                 | `undefined` | Relationship between current and linked document.        | No       |
+| `download`  | `string`                                                                 | `undefined` | Sets link to download instead of navigate.               | No       |
+| `external`  | `boolean`                                                                | `false`     | Automatically sets secure attributes for external links. | No       |
 
 ### Events
 
-| Name         | Payload Type        | Description                            |
-|--------------|---------------------|----------------------------------------|
-| `plus-click` | `CustomEvent<void>` | Fired when the button is clicked.      |
-| `plus-focus` | `CustomEvent<void>` | Fired when the button receives focus.  |
-| `plus-blur`  | `CustomEvent<void>` | Fired when the button loses focus.     |
+| Name         | Payload Type        | Description                           |
+| ------------ | ------------------- | ------------------------------------- |
+| `plus-click` | `CustomEvent<void>` | Fired when the button is clicked.     |
+| `plus-focus` | `CustomEvent<void>` | Fired when the button receives focus. |
+| `plus-blur`  | `CustomEvent<void>` | Fired when the button loses focus.    |
 
 ### Slots
 
-| Name              | Description                                      |
-|-------------------|--------------------------------------------------|
-| `default` (unnamed) | The main content of the button (text, etc.). |
-| `prefix`          | Content placed before the default slot content.  |
-| `suffix`          | Content placed after the default slot content.   |
+| Name                | Description                                     |
+| ------------------- | ----------------------------------------------- |
+| `default` (unnamed) | The main content of the button (text, etc.).    |
+| `prefix`            | Content placed before the default slot content. |
+| `suffix`            | Content placed after the default slot content.  |
 
 ### CSS Custom Properties
 
-| Name           | Description                          |
-|----------------|--------------------------------------|
-| `--text-color` | Controls the text color.             |
-| `--border-color` | Controls the border color.           |
-| `--bg-default` | Controls the default background color. |
-| `--bg-hovered` | Controls the background on hover.    |
-| `--bg-pressed` | Controls the background when pressed. |
-| `--bg-focused` | Controls the background when focused. |
-| `--bg-loading` | Controls the background when loading. |
+| Name             | Description                            |
+| ---------------- | -------------------------------------- |
+| `--text-color`   | Controls the text color.               |
+| `--border-color` | Controls the border color.             |
+| `--bg-default`   | Controls the default background color. |
+| `--bg-hovered`   | Controls the background on hover.      |
+| `--bg-pressed`   | Controls the background when pressed.  |
+| `--bg-focused`   | Controls the background when focused.  |
+| `--bg-loading`   | Controls the background when loading.  |
 
 ### CSS Shadow Parts
 
 | Part     | Description                |
-|----------|----------------------------|
+| -------- | -------------------------- |
 | `button` | The main button container. |
