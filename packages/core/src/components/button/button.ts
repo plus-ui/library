@@ -296,21 +296,12 @@ export default class PlusButton extends Tailwind {
           target=${target || nothing}
           rel=${rel || nothing}
           download=${this.download || nothing}
-          aria-disabled=${isDisabled}
-          tabindex="${isDisabled ? '-1' : '0'}"
-          role="button"
+          ?aria-disabled=${isDisabled || nothing}
+          ?tabindex=${isDisabled ? '-1' : nothing}
           style=${styleMap(finalStyles)}
           @click=${this.handleClick}
           @focus=${this.handleFocus}
           @blur=${this.handleBlur}
-          @keydown=${(e: KeyboardEvent) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              if (!isDisabled) {
-                this.handleClick(e);
-              }
-              e.preventDefault();
-            }
-          }}
         >
           ${content}
         </a>
@@ -323,21 +314,10 @@ export default class PlusButton extends Tailwind {
         part="button"
         type=${this.type}
         ?disabled=${isDisabled}
-        aria-label="Button"
-        role="button"
-        tabindex="0"
         style=${styleMap(finalStyles)}
         @click=${this.handleClick}
         @focus=${this.handleFocus}
         @blur=${this.handleBlur}
-        @keydown=${(e: KeyboardEvent) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            if (!isDisabled) {
-              this.handleClick(e);
-            }
-            e.preventDefault();
-          }
-        }}
       >
         ${content}
       </button>
