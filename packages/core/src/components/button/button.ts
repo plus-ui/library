@@ -292,12 +292,11 @@ export default class PlusButton extends Tailwind {
         <a
           class=${base()}
           part="button"
-          href=${this.href}
+          ${!isDisabled ? html`href="${this.href}"` : nothing}
           target=${target || nothing}
           rel=${rel || nothing}
           download=${this.download || nothing}
-          ?aria-disabled=${isDisabled || nothing}
-          ?tabindex=${isDisabled ? '-1' : nothing}
+          tabindex=${isDisabled ? '-1' : nothing}
           style=${styleMap(finalStyles)}
           @click=${this.handleClick}
           @focus=${this.handleFocus}
