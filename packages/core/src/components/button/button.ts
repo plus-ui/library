@@ -292,7 +292,7 @@ export default class PlusButton extends Tailwind {
         <a
           class=${base()}
           part="button"
-          ${!isDisabled ? html`href="${this.href}"` : nothing}
+          href=${this.href}
           target=${target || nothing}
           rel=${rel || nothing}
           download=${this.download || nothing}
