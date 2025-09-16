@@ -173,5 +173,91 @@
         Link Test Deneme
       </plus-link>
     </div>
+
+    <!-- Polymorphic Button Tests -->
+    <div class="grid">
+      <h2>Polymorphic Button Tests</h2>
+
+      <h3>As Buttons (no href)</h3>
+      <plus-button kind="filled" status="primary">Normal Button</plus-button>
+      <plus-button kind="outlined" status="success"
+        >Outlined Button</plus-button
+      >
+      <plus-button kind="dashed" status="warning">Dashed Button</plus-button>
+      <plus-button kind="text" status="danger">Text Button</plus-button>
+
+      <h3>As Links (with href)</h3>
+      <plus-button href="/dashboard" kind="filled" status="primary"
+        >Dashboard Link</plus-button
+      >
+      <plus-button href="/profile" kind="outlined" status="success"
+        >Profile Link</plus-button
+      >
+      <plus-button href="/settings" kind="dashed" status="warning"
+        >Settings Link</plus-button
+      >
+      <plus-button href="/help" kind="text" status="danger"
+        >Help Link</plus-button
+      >
+
+      <h3>External Links</h3>
+      <plus-button
+        href="https://github.com"
+        external
+        kind="filled"
+        status="primary"
+        >GitHub</plus-button
+      >
+      <plus-button
+        href="https://google.com"
+        external
+        kind="outlined"
+        status="default"
+        >Google</plus-button
+      >
+
+      <h3>States with Links</h3>
+      <plus-button href="/normal" kind="filled" status="primary"
+        >Normal Link</plus-button
+      >
+      <plus-button href="/disabled" kind="filled" status="primary" disabled
+        >Disabled Link</plus-button
+      >
+      <plus-button href="/loading" kind="filled" status="primary" loading
+        >Loading Link</plus-button
+      >
+
+      <h3>Sizes</h3>
+      <plus-button href="/small" kind="filled" status="primary" size="sm"
+        >Small Link</plus-button
+      >
+      <plus-button href="/medium" kind="filled" status="primary" size="md"
+        >Medium Link</plus-button
+      >
+      <plus-button href="/large" kind="filled" status="primary" size="lg"
+        >Large Link</plus-button
+      >
+
+      <h3>With Icons</h3>
+      <plus-button href="/prefix" kind="filled" status="primary">
+        <span slot="prefix">🔗</span>
+        With Prefix
+      </plus-button>
+      <plus-button href="/suffix" kind="filled" status="primary">
+        With Suffix
+        <span slot="suffix">→</span>
+      </plus-button>
+
+      <h3>Form Buttons (with type)</h3>
+      <plus-button type="submit" kind="filled" status="primary">
+        Submit Form
+      </plus-button>
+      <plus-button type="reset" kind="outlined" status="warning">
+        Reset Form
+      </plus-button>
+      <plus-button type="button" kind="text" status="default">
+        Cancel
+      </plus-button>
+    </div>
   </body>
 </html>

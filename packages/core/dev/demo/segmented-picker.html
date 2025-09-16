@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Segmented Picker Component Test Page</title>
+    <script type="module" src="../cdn/components/index.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+    <style>
+      body {
+        padding: 2rem;
+        font-family: 'Inter', sans-serif;
+        background: #f8fafc;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .demo-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .demo-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+      }
+
+      .demo-subtitle {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: #374151;
+        margin: 1.5rem 0 1rem 0;
+      }
+
+      .demo-description {
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      .example-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .example-column {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .example-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+        background: #f9fafb;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+      }
+
+      .example-label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      .console-output {
+        background: #1f2937;
+        color: #f9fafb;
+        padding: 1rem;
+        border-radius: 8px;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.875rem;
+        margin-top: 1rem;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-right: 0.5rem;
+      }
+
+      .status-success {
+        background-color: #10b981;
+      }
+      .status-warning {
+        background-color: #f59e0b;
+      }
+      .status-danger {
+        background-color: #ef4444;
+      }
+      .status-info {
+        background-color: #3b82f6;
+      }
+
+      .icon-demo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .code-snippet {
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 1rem;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.875rem;
+        color: #475569;
+        margin-top: 1rem;
+        overflow-x: auto;
+      }
+
+      .form-example {
+        background: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        margin-top: 1rem;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-label {
+        display: block;
+        font-weight: 500;
+        color: #374151;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-result {
+        background: #ecfdf5;
+        border: 1px solid #10b981;
+        border-radius: 6px;
+        padding: 1rem;
+        margin-top: 1rem;
+        font-family: 'SF Mono', Monaco, monospace;
+        font-size: 0.875rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Segmented Picker Component Examples</h1>
+      <p class="demo-description">
+        Comprehensive examples demonstrating the segmented picker component with
+        various configurations, states, and interactive features.
+      </p>
+
+      <!-- Basic Examples -->
+      <div class="demo-section">
+        <h2 class="demo-title">Basic Examples</h2>
+
+        <div class="example-item">
+          <div class="example-label">Simple Segmented Picker</div>
+          <plus-segmented-picker status="primary" shape="circle">
+            <plus-segmented-picker-item value="list" checked>
+              <i class="fa-solid fa-list"></i> List
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="grid">
+              <i class="fa-solid fa-grip"></i> Grid
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="map">
+              <i class="fa-solid fa-map"></i> Map
+            </plus-segmented-picker-item>
+          </plus-segmented-picker>
+        </div>
+
+        <div class="example-item">
+          <div class="example-label">Text Only Segmented Picker</div>
+          <plus-segmented-picker status="default" shape="square">
+            <plus-segmented-picker-item value="option1" checked
+              >Option 1</plus-segmented-picker-item
+            >
+            <plus-segmented-picker-item value="option2"
+              >Option 2</plus-segmented-picker-item
+            >
+            <plus-segmented-picker-item value="option3"
+              >Option 3</plus-segmented-picker-item
+            >
+          </plus-segmented-picker>
+        </div>
+      </div>
+
+      <!-- Size Variants -->
+      <div class="demo-section">
+        <h2 class="demo-title">Size Variants</h2>
+        <p class="demo-description">
+          Different sizes for various use cases and screen densities.
+        </p>
+
+        <div class="example-column">
+          <div class="example-item">
+            <div class="example-label">Small (sm)</div>
+            <plus-segmented-picker size="sm" status="primary">
+              <plus-segmented-picker-item value="a" checked
+                >Small A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Small B</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="c"
+                >Small C</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+
+          <div class="example-item">
+            <div class="example-label">Medium (md) - Default</div>
+            <plus-segmented-picker size="md" status="primary">
+              <plus-segmented-picker-item value="a" checked
+                >Medium A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Medium B</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="c"
+                >Medium C</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+
+          <div class="example-item">
+            <div class="example-label">Large (lg)</div>
+            <plus-segmented-picker size="lg" status="primary">
+              <plus-segmented-picker-item value="a" checked
+                >Large A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Large B</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="c"
+                >Large C</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shape Variants -->
+      <div class="demo-section">
+        <h2 class="demo-title">Shape Variants</h2>
+        <p class="demo-description">
+          Different border radius options for visual variety.
+        </p>
+
+        <div class="example-row">
+          <div class="example-item">
+            <div class="example-label">Square Shape</div>
+            <plus-segmented-picker shape="square" status="primary">
+              <plus-segmented-picker-item value="a" checked
+                >Square A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Square B</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+
+          <div class="example-item">
+            <div class="example-label">Circle Shape</div>
+            <plus-segmented-picker shape="circle" status="primary">
+              <plus-segmented-picker-item value="a" checked
+                >Circle A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Circle B</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Variants -->
+      <div class="demo-section">
+        <h2 class="demo-title">Status Variants</h2>
+        <p class="demo-description">
+          Different color schemes for various contexts and themes.
+        </p>
+
+        <div class="example-row">
+          <div class="example-item">
+            <div class="example-label">Default Status</div>
+            <plus-segmented-picker status="default" shape="circle">
+              <plus-segmented-picker-item value="a" checked
+                >Default A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Default B</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+
+          <div class="example-item">
+            <div class="example-label">Primary Status</div>
+            <plus-segmented-picker status="primary" shape="circle">
+              <plus-segmented-picker-item value="a" checked
+                >Primary A</plus-segmented-picker-item
+              >
+              <plus-segmented-picker-item value="b"
+                >Primary B</plus-segmented-picker-item
+              >
+            </plus-segmented-picker>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disabled States -->
+      <div class="demo-section">
+        <h2 class="demo-title">Disabled States</h2>
+        <p class="demo-description">
+          Examples of disabled items and their interaction behavior.
+        </p>
+
+        <div class="example-item">
+          <div class="example-label">With Disabled Items</div>
+          <plus-segmented-picker status="primary">
+            <plus-segmented-picker-item value="a" checked
+              >Enabled A</plus-segmented-picker-item
+            >
+            <plus-segmented-picker-item value="b" disabled
+              >Disabled B</plus-segmented-picker-item
+            >
+            <plus-segmented-picker-item value="c"
+              >Enabled C</plus-segmented-picker-item
+            >
+          </plus-segmented-picker>
+        </div>
+      </div>
+
+      <!-- Event Handling -->
+      <div class="demo-section">
+        <h2 class="demo-title">Event Handling</h2>
+        <p class="demo-description">
+          Interactive examples demonstrating event handling and state
+          management.
+        </p>
+
+        <div class="example-item">
+          <div class="example-label">
+            Interactive Segmented Picker with Console Output
+          </div>
+          <plus-segmented-picker status="primary" id="interactive-picker">
+            <plus-segmented-picker-item value="option1" checked
+              >Option 1</plus-segmented-picker-item
+            >
+            <plus-segmented-picker-item value="option2"
+              >Option 2</plus-segmented-picker-item
+            >
+            <plus-segmented-picker-item value="option3"
+              >Option 3</plus-segmented-picker-item
+            >
+          </plus-segmented-picker>
+          <div class="console-output" id="console-output">
+            <div>Console output will appear here...</div>
+          </div>
+        </div>
+
+        <div class="form-example">
+          <h3 class="demo-subtitle">Form Integration Example</h3>
+          <form id="segmented-form">
+            <div class="form-group">
+              <label class="form-label">View Mode</label>
+              <plus-segmented-picker
+                name="viewMode"
+                status="primary"
+                shape="circle"
+              >
+                <plus-segmented-picker-item value="list" checked>
+                  <i class="fa-solid fa-list"></i> List
+                </plus-segmented-picker-item>
+                <plus-segmented-picker-item value="grid">
+                  <i class="fa-solid fa-grip"></i> Grid
+                </plus-segmented-picker-item>
+                <plus-segmented-picker-item value="map">
+                  <i class="fa-solid fa-map"></i> Map
+                </plus-segmented-picker-item>
+              </plus-segmented-picker>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Theme Preference</label>
+              <plus-segmented-picker
+                name="theme"
+                status="default"
+                shape="square"
+              >
+                <plus-segmented-picker-item value="light" checked
+                  >Light</plus-segmented-picker-item
+                >
+                <plus-segmented-picker-item value="dark"
+                  >Dark</plus-segmented-picker-item
+                >
+                <plus-segmented-picker-item value="auto"
+                  >Auto</plus-segmented-picker-item
+                >
+              </plus-segmented-picker>
+            </div>
+
+            <button
+              type="submit"
+              style="
+                padding: 0.5rem 1rem;
+                background: #3b82f6;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+              "
+            >
+              Submit Form
+            </button>
+          </form>
+
+          <div class="form-result" id="form-result" style="display: none">
+            Form data will appear here...
+          </div>
+        </div>
+      </div>
+
+      <!-- Icon Examples -->
+      <div class="demo-section">
+        <h2 class="demo-title">Icon Examples</h2>
+        <p class="demo-description">
+          Segmented pickers with various icon combinations and layouts.
+        </p>
+
+        <div class="example-column">
+          <div class="example-item">
+            <div class="example-label">Navigation Icons</div>
+            <plus-segmented-picker status="primary" shape="circle">
+              <plus-segmented-picker-item value="home" checked>
+                <i class="fa-solid fa-home"></i> Home
+              </plus-segmented-picker-item>
+              <plus-segmented-picker-item value="search">
+                <i class="fa-solid fa-search"></i> Search
+              </plus-segmented-picker-item>
+              <plus-segmented-picker-item value="profile">
+                <i class="fa-solid fa-user"></i> Profile
+              </plus-segmented-picker-item>
+            </plus-segmented-picker>
+          </div>
+
+          <div class="example-item">
+            <div class="example-label">Status Icons</div>
+            <plus-segmented-picker status="default" shape="square">
+              <plus-segmented-picker-item value="online" checked>
+                <span class="status-indicator status-success"></span> Online
+              </plus-segmented-picker-item>
+              <plus-segmented-picker-item value="away">
+                <span class="status-indicator status-warning"></span> Away
+              </plus-segmented-picker-item>
+              <plus-segmented-picker-item value="offline">
+                <span class="status-indicator status-danger"></span> Offline
+              </plus-segmented-picker-item>
+            </plus-segmented-picker>
+          </div>
+
+          <div class="example-item">
+            <div class="example-label">Icons Only</div>
+            <plus-segmented-picker status="primary" shape="circle">
+              <plus-segmented-picker-item value="play" checked>
+                <i class="fa-solid fa-play"></i>
+              </plus-segmented-picker-item>
+              <plus-segmented-picker-item value="pause">
+                <i class="fa-solid fa-pause"></i>
+              </plus-segmented-picker-item>
+              <plus-segmented-picker-item value="stop">
+                <i class="fa-solid fa-stop"></i>
+              </plus-segmented-picker-item>
+            </plus-segmented-picker>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Examples -->
+      <div class="demo-section">
+        <h2 class="demo-title">Advanced Examples</h2>
+        <p class="demo-description">
+          Complex use cases and creative implementations.
+        </p>
+
+        <div class="example-item">
+          <div class="example-label">Language Selector</div>
+          <plus-segmented-picker status="primary" shape="circle">
+            <plus-segmented-picker-item value="en" checked>
+              🇺🇸 English
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="tr">
+              🇹🇷 Türkçe
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="es">
+              🇪🇸 Español
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="fr">
+              🇫🇷 Français
+            </plus-segmented-picker-item>
+          </plus-segmented-picker>
+        </div>
+
+        <div class="example-item">
+          <div class="example-label">Data Density Selector</div>
+          <plus-segmented-picker status="default" shape="square">
+            <plus-segmented-picker-item value="compact" checked>
+              <i class="fa-solid fa-compress"></i> Compact
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="comfortable">
+              <i class="fa-solid fa-expand"></i> Comfortable
+            </plus-segmented-picker-item>
+            <plus-segmented-picker-item value="spacious">
+              <i class="fa-solid fa-arrows-alt"></i> Spacious
+            </plus-segmented-picker-item>
+          </plus-segmented-picker>
+        </div>
+      </div>
+
+      <!-- Code Examples -->
+      <div class="demo-section">
+        <h2 class="demo-title">Code Examples</h2>
+        <p class="demo-description">
+          HTML and JavaScript code snippets for implementation.
+        </p>
+
+        <div class="code-snippet">
+          &lt;!-- Basic Segmented Picker --&gt; &lt;plus-segmented-picker
+          status="primary" shape="circle"&gt; &lt;plus-segmented-picker-item
+          value="list" checked&gt; &lt;i class="fa-solid fa-list"&gt;&lt;/i&gt;
+          List &lt;/plus-segmented-picker-item&gt;
+          &lt;plus-segmented-picker-item value="grid"&gt; &lt;i class="fa-solid
+          fa-grip"&gt;&lt;/i&gt; Grid &lt;/plus-segmented-picker-item&gt;
+          &lt;plus-segmented-picker-item value="map"&gt; &lt;i class="fa-solid
+          fa-map"&gt;&lt;/i&gt; Map &lt;/plus-segmented-picker-item&gt;
+          &lt;/plus-segmented-picker&gt;
+        </div>
+
+        <div class="code-snippet">
+          // JavaScript Event Handling const picker =
+          document.querySelector('plus-segmented-picker');
+          picker.addEventListener('plus-segmented-picker-item-changed', (event)
+          => { console.log('Selected value:', event.detail.value); // Handle
+          selection change });
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Event handling for interactive examples
+      document.addEventListener('DOMContentLoaded', () => {
+        const interactivePicker = document.getElementById('interactive-picker');
+        const consoleOutput = document.getElementById('console-output');
+        const form = document.getElementById('segmented-form');
+        const formResult = document.getElementById('form-result');
+
+        // Console output for interactive picker
+        if (interactivePicker && consoleOutput) {
+          interactivePicker.addEventListener(
+            'plus-segmented-picker-item-changed',
+            (event) => {
+              const timestamp = new Date().toLocaleTimeString();
+              const logEntry = document.createElement('div');
+              logEntry.innerHTML = `[${timestamp}] <span style="color: #10b981;">Selection changed to:</span> ${event.detail.value}`;
+              consoleOutput.appendChild(logEntry);
+              consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            }
+          );
+        }
+
+        // Form submission handling
+        if (form && formResult) {
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+            const data = {};
+
+            // Get segmented picker values
+            const pickers = form.querySelectorAll('plus-segmented-picker');
+            pickers.forEach((picker) => {
+              const name = picker.getAttribute('name');
+              if (name) {
+                const selectedItem = picker.querySelector(
+                  'plus-segmented-picker-item[checked]'
+                );
+                if (selectedItem) {
+                  data[name] = selectedItem.getAttribute('value');
+                }
+              }
+            });
+
+            formResult.style.display = 'block';
+            formResult.innerHTML = `
+              <strong>Form Data:</strong><br>
+              <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+          });
+        }
+
+        // Add event listeners to all segmented pickers for general logging
+        const allPickers = document.querySelectorAll('plus-segmented-picker');
+        allPickers.forEach((picker) => {
+          picker.addEventListener(
+            'plus-segmented-picker-item-changed',
+            (event) => {
+              console.log('Segmented picker changed:', {
+                value: event.detail.value,
+                element: event.target,
+              });
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
