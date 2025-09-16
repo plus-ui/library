@@ -1,6 +1,6 @@
 {
   "name": "@plusui/library",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Plus UI Core is a great library that offers many features that you can use in any framework without any problems.",
   "main": "index.js",
   "type": "module",
