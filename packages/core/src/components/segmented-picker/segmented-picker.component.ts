@@ -47,6 +47,38 @@ export default class PlusSegmentedPicker extends Tailwind {
   size: 'sm' | 'md' | 'lg' = 'md';
 
   private readonly groupName = `group-${Math.random().toString(36).substring(2, 11)}`;
+  private isFirstRender = true;
+
+  override firstUpdated(changedProperties: Map<string, unknown>) {
+    super.firstUpdated(changedProperties);
+    // Ensure overlay is positioned correctly after the component is fully rendered
+    setTimeout(() => {
+      const selectedItem = this.slots?.find(
+        (child) => child.checked && !child.disabled
+      );
+      if (selectedItem) {
+        this.updateOverlay(selectedItem);
+      }
+    }, 0);
+  }
+
+  override updated(changedProperties: Map<string, unknown>) {
+    super.updated(changedProperties);
+
+    if (this.isFirstRender && this.slots && this.slots.length > 0) {
+      this.isFirstRender = false;
+      // Initialize overlay position immediately after first render
+      const selectedItem = this.slots.find(
+        (child) => child.checked && !child.disabled
+      );
+      if (selectedItem) {
+        // Use requestAnimationFrame to ensure DOM is fully rendered
+        requestAnimationFrame(() => {
+          this.updateOverlay(selectedItem);
+        });
+      }
+    }
+  }
 
   private handleSlotChange() {
     if (this.slots && this.slots.length > 0) {
@@ -87,11 +119,15 @@ export default class PlusSegmentedPicker extends Tailwind {
       });
     });
 
+    // Update overlay position after slot changes
     const selectedItem = this.slots.find(
       (child) => child.checked && !child.disabled
     );
     if (selectedItem) {
-      this.updateOverlay(selectedItem);
+      // Use requestAnimationFrame to ensure elements are properly sized
+      requestAnimationFrame(() => {
+        this.updateOverlay(selectedItem);
+      });
     }
   }
 
@@ -99,12 +135,44 @@ export default class PlusSegmentedPicker extends Tailwind {
     const overlay = this.shadowRoot?.querySelector(
       '.selection-overlay'
     ) as HTMLElement;
-    const parentRect = this.getBoundingClientRect();
-    const itemRect = selectedItem.getBoundingClientRect();
 
-    overlay.style.width = `${itemRect.width}px`;
-    overlay.style.height = `${itemRect.height}px`;
-    overlay.style.transform = `translateX(${itemRect.left - parentRect.left - 2}px)`;
+    if (!overlay) return;
+
+    // Wait for the next frame to ensure all elements are properly rendered and sized
+    requestAnimationFrame(() => {
+      const parentRect = this.getBoundingClientRect();
+      const itemRect = selectedItem.getBoundingClientRect();
+
+      // If either element has no size, wait and try again
+      if (parentRect.width === 0 || itemRect.width === 0) {
+        setTimeout(() => this.updateOverlay(selectedItem), 10);
+        return;
+      }
+
+      // Calculate offset relative to the parent's content area (including padding)
+      const parentStyle = getComputedStyle(this);
+      const parentPaddingLeft = parseFloat(parentStyle.paddingLeft) || 4; // Default to 4px (p-1 class)
+      const offsetX = itemRect.left - parentRect.left - parentPaddingLeft;
+
+      // Set initial position without transition for first render
+      const isInitialRender = !overlay.style.transform;
+
+      if (isInitialRender) {
+        overlay.style.transition = 'none';
+      }
+
+      overlay.style.width = `${itemRect.width}px`;
+      overlay.style.height = `${itemRect.height}px`;
+      overlay.style.transform = `translateX(${offsetX}px)`;
+      overlay.style.opacity = '1';
+
+      // Re-enable transition after initial positioning
+      if (isInitialRender) {
+        requestAnimationFrame(() => {
+          overlay.style.transition = '';
+        });
+      }
+    });
   }
 
   override render() {
