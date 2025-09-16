@@ -1,12 +1,12 @@
 import { tv } from 'tailwind-variants';
 
 export const segmentedPickerItemStyle = tv({
-  base: 'plus-ui-element p-2 min-w-9 flex flex-row gap-2 items-center cursor-pointer justify-center font-medium relative text-sm text-color-default select-none',
+  base: 'plus-ui-element min-w-9 flex flex-row gap-2 items-center cursor-pointer justify-center font-medium relative text-sm text-color-default select-none',
   variants: {
     size: {
-      sm: 'h-7 text-sm',
-      md: 'h-9 text-base',
-      lg: 'h-11 text-lg',
+      sm: 'text-sm py-1 px-3',
+      md: 'text-base py-1.5 px-3',
+      lg: 'text-lg py-1.5 px-4',
     },
     status: {
       default: '',

@@ -2,7 +2,7 @@ import { tv } from 'tailwind-variants';
 
 export const segmentedPickerStyle = tv({
   slots: {
-    host: 'plus-ui-element flex items-center p-1 gap-0.5 h-fit w-fit relative bg-color-disabled',
+    host: 'plus-ui-element flex items-center p-1 gap-0.5 h-fit w-fit relative bg-color-default-default',
     animationOverlay:
       'selection-overlay absolute transition-all duration-200 ease-out opacity-0 w-0 h-0',
   },
