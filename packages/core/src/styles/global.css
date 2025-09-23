@@ -5,6 +5,10 @@
 
 @import '@fontsource-variable/inter/index.css';
 
+@import './theme/brand.css';
+@import './theme/light.css';
+@import './theme/dark.css';
+
 @theme {
   --font-sans:
     'Inter Variable', 'Inter', ui-sans-serif, system-ui, sans-serif,
