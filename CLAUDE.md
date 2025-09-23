@@ -132,6 +132,18 @@ The library automatically generates framework-specific integrations via Custom E
 - ARIA patterns implemented following established web standards
 - Keyboard navigation support for interactive components
 
+## MCP Server Integration
+The library includes an MCP (Model Context Protocol) server for intelligent component discovery:
+- **Location**: `apps/mcp-server/` - Standalone MCP server for Plus UI
+- **Purpose**: Provides AI assistants with component knowledge and code generation
+- **Commands**:
+  - `pnpm mcp:install` - Install MCP server dependencies
+  - `pnpm mcp:build` - Build MCP server
+  - `pnpm mcp:start` - Start MCP server
+  - `pnpm mcp:docker` - Run MCP server in Docker
+- **Features**: Component discovery, code generation, usage validation, framework-specific examples
+- **Integration**: Can be connected to Claude Code and other MCP-compatible AI tools
+
 ## Version Management
 - Semantic versioning for all releases
 - Published as `@plusui/library` on npm

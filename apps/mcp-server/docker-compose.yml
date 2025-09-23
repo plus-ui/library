@@ -1,0 +1,26 @@
+services:
+  plusui-mcp-server:
+    build: .
+    container_name: plusui-mcp
+    ports:
+      - "8555:8555"
+    volumes:
+      # Mount Plus UI library for real-time component metadata
+      - ../../packages/core:/library/packages/core:ro
+    environment:
+      - NODE_ENV=production
+      - LIBRARY_PATH=/library
+      - SERVER_MODE=http
+      - PORT=8555
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8555/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - plusui-network
+
+networks:
+  plusui-network:
+    driver: bridge

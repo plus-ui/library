@@ -11,6 +11,10 @@
     "core:clean": "pnpm --filter core clean",
     "docs:dev": "pnpm --filter apps-docs dev",
     "docs:build": "pnpm --filter apps-docs build",
+    "mcp:install": "cd apps/mcp-server && npm install",
+    "mcp:build": "cd apps/mcp-server && npm run build",
+    "mcp:start": "cd apps/mcp-server && npm start",
+    "mcp:docker": "cd apps/mcp-server && docker-compose up --build",
     "install:all": "pnpm install"
   },
   "devDependencies": {
