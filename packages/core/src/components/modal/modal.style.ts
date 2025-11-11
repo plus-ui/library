@@ -2,102 +2,127 @@ import { tv } from 'tailwind-variants';
 
 export const modalStyle = tv({
   slots: {
-    base: ['plus-modal font-sans antialiased'],
-    modalOverlay: [
-      'modal-overlay fixed inset-0 z-40',
-      'bg-color-overlay/50',
-      'transition-opacity duration-300 ease-in-out',
+    dialog: [
+      'plus-modal fixed inset-0 m-0 p-0 w-full max-w-full h-full max-h-full',
+      'border-none bg-transparent',
+      'backdrop:bg-color-overlay/50',
+      'backdrop:transition-opacity backdrop:duration-300',
     ],
-    modalClass: [
-      'modal fixed z-50 inset-0 overflow-y-auto',
-      'flex items-center justify-center',
-      'transition-all duration-300 ease-in-out',
-      'w-full mx-auto h-fit mt-10',
+    container: [
+      'fixed inset-0 flex items-start justify-center p-4',
+      'overflow-y-auto overscroll-contain',
     ],
-    modalContainer: [
-      'modal-container relative w-full',
-      'bg-color-surface',
-      'shadow-elevation-lg',
-      'text-color-default',
-      'flex flex-col',
-      'rounded-lg max-h-[90vh] mx-4',
+    modal: [
+      'relative bg-color-surface text-color-default',
+      'rounded-lg shadow-elevation-lg',
       'transform transition-all duration-300 ease-in-out',
+      'flex flex-col',
     ],
-    modalHeader: [
-      'modal-header flex justify-between items-center',
+    header: [
+      'flex justify-between items-start',
       'py-3 px-4',
-      'bg-color-base',
+      'bg-color-base text-color-default',
       'font-semibold text-lg',
       'rounded-t-lg',
       'border-b border-color-default',
     ],
-    modalBody: [
-      'modal-body flex-1 p-4',
+    headerContent: [
+      'flex-1 min-w-0 flex items-center gap-2',
+    ],
+    body: [
+      'flex-1 p-4',
       'overflow-y-auto',
     ],
-    modalFooter: [
-      'modal-footer flex justify-end items-center',
+    footer: [
+      'flex justify-end items-center',
       'py-3 px-4 gap-2',
       'rounded-b-lg',
       'bg-color-surface',
       'border-t border-color-default',
     ],
-    modalCloseButtonClass: [
-      'modal-close-button absolute top-2 right-2 p-2',
+    closeButton: [
+      'absolute top-2 right-2 p-2',
       'text-color-default',
       'cursor-pointer',
       'hover:text-color-primary',
       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-color-primary',
       'transition-colors duration-200 ease-in-out',
       'rounded-full hover:bg-color-default/10',
+      'bg-transparent border-none',
     ],
   },
   variants: {
     size: {
       sm: {
-        modalClass: 'max-w-sm',
+        modal: 'max-w-sm',
       },
       md: {
-        modalClass: 'max-w-md',
+        modal: 'max-w-md',
       },
       lg: {
-        modalClass: 'max-w-lg',
+        modal: 'max-w-lg',
       },
       xl: {
-        modalClass: 'max-w-xl',
+        modal: 'max-w-xl',
       },
       '2xl': {
-        modalClass: 'max-w-2xl',
+        modal: 'max-w-2xl',
       },
       full: {
-        modalClass: 'max-w-[calc(100%-2rem)]',
+        modal: 'max-w-[calc(100%-2rem)]',
       },
     },
-    isOpen: {
+    open: {
       true: {
-        modalClass:
-          'opacity-100 pointer-events-auto',
-        modalOverlay:
-          'opacity-100 pointer-events-auto',
-        modalContainer: 'scale-100 opacity-100',
+        modal: 'opacity-100 translate-y-0 scale-100',
       },
       false: {
-        modalClass:
-          'opacity-0 pointer-events-none',
-        modalOverlay:
-          'opacity-0 pointer-events-none',
-        modalContainer: 'scale-95 opacity-0',
+        modal: 'opacity-0 -translate-y-4 scale-95',
+      },
+    },
+    placement: {
+      center: {
+        container: 'items-center',
+      },
+      top: {
+        container: 'items-start pt-20',
       },
     },
     fullWidth: {
       true: {
-        modalClass: 'max-w-[calc(100%-2rem)]',
+        modal: 'max-w-[calc(100%-2rem)] w-full',
+      },
+    },
+    fullScreen: {
+      true: {
+        modal: 'rounded-none w-screen h-screen max-w-none max-h-none',
+        container: 'p-0',
+      },
+    },
+    shake: {
+      true: {
+        modal: 'animate-shake',
+      },
+    },
+    noHeader: {
+      true: {
+        header: 'hidden',
+      },
+    },
+    noFooter: {
+      true: {
+        footer: 'hidden',
       },
     },
   },
   defaultVariants: {
     size: 'md',
-    isOpen: false,
+    open: false,
+    placement: 'center',
     fullWidth: false,
+    fullScreen: false,
+    shake: false,
+    noHeader: false,
+    noFooter: false,
   },
 });
