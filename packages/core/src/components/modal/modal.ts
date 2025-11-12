@@ -361,25 +361,27 @@ export default class PlusModal extends Tailwind {
   }
 
   private handleClick(e: MouseEvent) {
-    // Stop propagation to prevent backdrop click
-    e.stopPropagation();
-
     // Use composedPath to work with shadow DOM and slots
     const path = e.composedPath() as HTMLElement[];
     const dismissElement = path.find(el => el.hasAttribute?.('data-dismiss'));
     const closeModalElement = path.find(el => el.hasAttribute?.('data-close-modal'));
 
     if (dismissElement) {
-      this.hide();
+      // Stop propagation only when dismissing the modal
+      e.stopPropagation();
       e.preventDefault();
+      this.hide();
     } else if (closeModalElement) {
       const modalId = closeModalElement.getAttribute('data-close-modal');
       // If modalId matches this modal's id, close it
       if (!modalId || modalId === this.id) {
-        this.hide();
+        // Stop propagation only when closing the modal
+        e.stopPropagation();
         e.preventDefault();
+        this.hide();
       }
     }
+    // Don't stop propagation for normal clicks - let them bubble to child elements
   }
 
   private shakeModal() {
