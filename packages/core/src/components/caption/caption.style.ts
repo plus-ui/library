@@ -8,9 +8,9 @@ export const captionStyle = tv({
       false: '',
     },
     size: {
-      sm: 'text-xs',
-      md: 'text-sm',
-      lg: 'text-base',
+      sm: 'text-xs h-4',
+      md: 'text-sm h-5',
+      lg: 'text-base h-6',
     },
     disabled: {
       true: {

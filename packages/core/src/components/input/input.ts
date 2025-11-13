@@ -621,11 +621,14 @@ export default class PlusInput extends Tailwind {
       const textToShow =
         error && validationMessage ? validationMessage : caption;
 
-      return textToShow
-        ? html`<div class=${captionStyle({ error, size })} id="help-text">
-            ${textToShow}
-          </div>`
-        : nothing;
+      // return textToShow
+      //   ? html`<div class=${captionStyle({ error, size })} id="help-text">
+      //       ${textToShow}
+      //     </div>`
+      //   : nothing;
+      return html`<div class=${captionStyle({ error, size })} id="help-text">
+        ${textToShow}
+      </div>`;
     };
     const ClearTemplate = () =>
       clearable && value
