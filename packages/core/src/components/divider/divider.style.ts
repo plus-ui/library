@@ -9,7 +9,7 @@ export const baseDividerStyle = tv({
       'flex items-center justify-center',
     ],
     line: 'plus-divider-line',
-    slotArea: '',
+    slotArea: 'text-sm text-color-caption',
   },
   variants: {
     orientation: {
