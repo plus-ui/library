@@ -24,24 +24,21 @@ export const modalStyle = tv({
       'bg-color-base text-color-default',
       'font-semibold text-lg',
       'rounded-t-lg',
-      'border-b border-color-default',
+      'border-b border-color-disabled',
     ],
     headerContent: [
       'flex-1 min-w-0 flex items-center gap-2',
     ],
-    body: [
-      'flex-1 p-4',
-      'overflow-y-auto',
-    ],
+    body: ['flex-1 p-4', 'overflow-y-auto'],
     footer: [
       'flex justify-end items-center',
       'py-3 px-4 gap-2',
       'rounded-b-lg',
       'bg-color-surface',
-      'border-t border-color-default',
+      'border-t border-color-disabled',
     ],
     closeButton: [
-      'absolute top-2 right-2 p-2',
+      'absolute top-1.5 right-2 p-2',
       'text-color-default',
       'cursor-pointer',
       'hover:text-color-primary',
@@ -49,6 +46,8 @@ export const modalStyle = tv({
       'transition-colors duration-200 ease-in-out',
       'rounded-full hover:bg-color-default/10',
       'bg-transparent border-none',
+      'flex items-center justify-center',
+      'w-10 h-10',
     ],
   },
   variants: {
@@ -74,10 +73,12 @@ export const modalStyle = tv({
     },
     open: {
       true: {
-        modal: 'opacity-100 translate-y-0 scale-100',
+        modal:
+          'opacity-100 translate-y-0 scale-100',
       },
       false: {
-        modal: 'opacity-0 -translate-y-4 scale-95',
+        modal:
+          'opacity-0 -translate-y-4 scale-95',
       },
     },
     placement: {
@@ -95,7 +96,8 @@ export const modalStyle = tv({
     },
     fullScreen: {
       true: {
-        modal: 'rounded-none w-screen h-screen max-w-none max-h-none',
+        modal:
+          'rounded-none w-screen h-screen max-w-none max-h-none',
         container: 'p-0',
       },
     },
