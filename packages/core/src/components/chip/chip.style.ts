@@ -12,9 +12,9 @@ export const chipStyle = tv({
   },
   variants: {
     size: {
-      sm: 'small py-0.5 px-1.5 text-xs gap-1',
-      md: 'medium py-1 px-2 text-sm gap-1.5',
-      lg: 'large py-1.5 px-2.5 text-base gap-2',
+      sm: 'small py-0.5 px-1 text-xs gap-1',
+      md: 'medium py-1 px-1.5 text-sm gap-1.5',
+      lg: 'large py-1.5 px-2 text-base gap-2',
     },
     kind: {
       filled: 'filled',
