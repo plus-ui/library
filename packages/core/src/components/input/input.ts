@@ -626,6 +626,10 @@ export default class PlusInput extends Tailwind {
       //       ${textToShow}
       //     </div>`
       //   : nothing;
+      if (!textToShow) {
+        return nothing;
+      }
+
       return html`<div class=${captionStyle({ error, size })} id="help-text">
         ${textToShow}
       </div>`;
