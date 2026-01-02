@@ -1,0 +1,71 @@
+# Dependencies
+node_modules
+**/node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+dist
+**/dist
+build
+**/build
+.next
+out
+.nuxt
+.cache
+.turbo
+.vercel
+.netlify
+
+# Core package outputs
+packages/core/cdn
+packages/core/public
+packages/core/react
+packages/core/types
+
+# Documentation outputs
+apps/docs/.astro
+apps/docs/dist
+
+# Testing
+coverage
+*.lcov
+.nyc_output
+
+# Development
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Misc
+*.md
+!README.md
+.github
+.husky
+.changeset
+docs
+examples
+scripts
+
+# Test files
+**/*.test.ts
+**/*.test.js
+**/*.spec.ts
+**/*.spec.js
+__tests__
