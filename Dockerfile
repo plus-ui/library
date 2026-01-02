@@ -31,8 +31,8 @@ COPY --from=deps /app/packages/core/node_modules ./packages/core/node_modules
 COPY package.json pnpm-workspace.yaml ./
 COPY packages/core ./packages/core
 
-# Build core library
-RUN pnpm --filter core build
+# Build core library (using package name from package.json)
+RUN pnpm --filter @plusui/library build
 
 # Stage 3: Build documentation
 FROM node:22-alpine AS docs-builder
