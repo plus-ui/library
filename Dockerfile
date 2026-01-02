@@ -1,14 +1,14 @@
-# Multi-stage Dockerfile for Plus UI Documentation
+# Dockerfile for Plus UI Documentation
 # Optimized for Dokploy deployment
 
-# Stage 1: Dependencies
-FROM node:22-alpine AS deps
+# Stage 1: Build
+FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Install pnpm
 RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
 
-# Copy package files
+# Copy all workspace files
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY packages/core/package.json ./packages/core/
 COPY apps/docs/package.json ./apps/docs/
@@ -16,58 +16,25 @@ COPY apps/docs/package.json ./apps/docs/
 # Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Stage 2: Build core library
-FROM node:22-alpine AS core-builder
-WORKDIR /app
-
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
-
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/core/node_modules ./packages/core/node_modules
-
-# Copy core package source
-COPY package.json pnpm-workspace.yaml ./
+# Copy all source files
 COPY packages/core ./packages/core
-
-# Build core library (using package name from package.json)
-RUN pnpm --filter @plusui/library build
-
-# Stage 3: Build documentation
-FROM node:22-alpine AS docs-builder
-WORKDIR /app
-
-# Install pnpm
-RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
-
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/apps/docs/node_modules ./apps/docs/node_modules
-
-# Copy built core library
-COPY --from=core-builder /app/packages/core/dist ./packages/core/dist
-COPY --from=core-builder /app/packages/core/package.json ./packages/core/package.json
-
-# Copy docs source
-COPY package.json pnpm-workspace.yaml ./
 COPY apps/docs ./apps/docs
+
+# Build core library first (required by docs)
+RUN pnpm --filter @plusui/library build
 
 # Build documentation
 RUN pnpm --filter apps-docs build
 
-# Stage 4: Production
+# Stage 2: Production
 FROM node:22-alpine AS runner
 WORKDIR /app
 
-# Install pnpm (needed for running the app)
-RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
-
 # Copy built documentation
-COPY --from=docs-builder /app/apps/docs/dist ./dist
+COPY --from=builder /app/apps/docs/dist ./dist
 
-# Install a simple static server
-RUN pnpm add -g serve
+# Install a simple static server using npm
+RUN npm install -g serve
 
 # Expose port
 EXPOSE 4000
