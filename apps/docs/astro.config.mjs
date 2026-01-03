@@ -5,6 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://docs.plusui.com',
   integrations: [
     starlight({
       title: "Plus UI",
