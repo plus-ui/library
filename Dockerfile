@@ -25,6 +25,9 @@ WORKDIR /app
 # Copy built docs
 COPY --from=builder /app/apps/docs/dist ./dist
 
+# Copy node_modules for font files (fontsource fonts are referenced from node_modules)
+COPY --from=builder /app/node_modules ./node_modules
+
 # Install serve globally
 RUN npm install -g serve
 
@@ -33,4 +36,4 @@ ENV PORT=4000
 EXPOSE 4000
 
 # Serve static files
-CMD ["serve", "-s", "dist", "-l", "4000"]
+CMD ["serve", "-s", ".", "-l", "4000"]
