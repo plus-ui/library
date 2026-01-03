@@ -33,8 +33,8 @@ importers:
         specifier: ^6.7.2
         version: 6.7.2
       '@plusui/library':
-        specifier: workspace:*
-        version: link:../../packages/core
+        specifier: 0.1.23
+        version: 0.1.23
       '@tailwindcss/vite':
         specifier: ^4.0.7
         version: 4.1.8(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(yaml@2.8.0))
@@ -764,6 +764,10 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@plusui/library@0.1.23':
+    resolution: {integrity: sha512-PDoys15fe/OnDyjngIdgLedrPMS7kuzVum1hdiuz5ZRDxocLepWB/6BKQ8t+mQOVW8aMwpkClULzwNLbjhgeSg==}
+    engines: {node: '>=20.9.0', npm: '>=9.0.0'}
 
   '@prettier/sync@0.5.5':
     resolution: {integrity: sha512-6BMtNr7aQhyNcGzmumkL0tgr1YQGfm9d7ZdmRpWqWuqpc9vZBind4xMe5NMiRECOhjuSiWHfBWLBnXkpeE90bw==}
@@ -5366,6 +5370,16 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@plusui/library@0.1.23':
+    dependencies:
+      '@floating-ui/dom': 1.7.0
+      '@fontsource-variable/inter': 5.2.6
+      '@tailwindcss/postcss': 4.1.8
+      lit: 3.3.0
+      tailwind-variants: 0.3.1(tailwindcss@4.1.8)
+      tailwindcss: 4.1.8
+      tslib: 2.8.1
 
   '@prettier/sync@0.5.5(prettier@3.5.3)':
     dependencies:
