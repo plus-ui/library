@@ -25,9 +25,6 @@ WORKDIR /app
 # Copy built docs
 COPY --from=builder /app/apps/docs/dist ./dist
 
-# Copy node_modules for font files (fontsource fonts are referenced from node_modules)
-COPY --from=builder /app/node_modules ./dist/node_modules
-
 # Install serve globally
 RUN npm install -g serve
 
